@@ -1,5 +1,6 @@
 (ns semtag-web.views.main
-  (:require [semtag-web.views.common :as common])
+  (:require [semtag-web.views.common :as common]
+            [noir.cljs.core :as cljs])
   (:use [noir.core :only [defpage]]
         [hiccup.core]
         [hiccup.page]
@@ -31,4 +32,6 @@
           [:tr
            [:td "http://www.theonion.com/"]
            [:td "for realz"]
-           [:td "funny"]]]]]]]))
+           [:td "funny"]]]]]]
+       (cljs/include-scripts :with-jquery)
+     ]))
