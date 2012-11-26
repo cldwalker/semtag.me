@@ -1,8 +1,10 @@
 (ns semtag-web.server
   (:require [noir.server :as server]
+            hiccup.bootstrap.middleware
             [noir.cljs.core :as cljs]))
 
 (server/load-views-ns 'semtag-web.views)
+(server/add-middleware hiccup.bootstrap.middleware/wrap-bootstrap-resources)
 (def cljs-options {:advanced {:externs ["externs/jquery.js"]}})
 
 (defn -main [& m]
