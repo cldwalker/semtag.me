@@ -35,3 +35,7 @@
            [:td "funny"]]]]]]
        (cljs/include-scripts :with-jquery)
      ]))
+
+(defpage "/url_search" []
+    (prn-str [{:name "http://news.ycombinator.com" :desc "time sink" :tags "dumb"}
+              {:name "google.com" :desc "useful" :tags "search"}]))

@@ -18,13 +18,27 @@
 
 (def $button ($ :#url_search_button))
 
-(defpartial up-and-running []
-  [:p.alert "CLJS is compiled and active... Time to build something!"])
+(defpartial generate-rows [data]
+  [:tbody
+    (map
+      #(vec
+         [:tr
+           [:td (:name %)]
+           [:td (:desc %)]
+           [:td (:tags %)]])
+      data) ])
 
 (defn button-handler []
   (let [query (jayq.core/val ($ :#url_search_text))
         parent (jayq.core/parent $button)]
     (-> (jayq.core/find parent :h2)
-      (jayq.core/inner (str "Search results for '" query "'")))))
+      (jayq.core/inner (str "Search results for '" query "'"))) 
+    (jayq.core/ajax
+      "/url_search"
+      {:dataType "edn"
+       :error (fn [_ _ err] (js/alert (pr-str err)))
+       :success (fn [data]
+                  (.replaceWith (jayq.core/find parent "table tbody")
+                    (generate-rows data)))})))
 
 (bind $button "click" button-handler)
