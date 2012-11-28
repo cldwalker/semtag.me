@@ -36,7 +36,7 @@
    (jayq.core/ajax
       "http://localhost:3000/url_search"
       {:dataType "edn"
-       :error (fn [_ _ err] (js/alert (pr-str err)))
+       :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
        :success  (fn [data]
                    (.replaceWith (jayq.core/find parent "table tbody")
                      (generate-rows data)))
