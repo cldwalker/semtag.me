@@ -35,21 +35,11 @@
       (jayq.core/inner (str "Search results for '" query "'"))) 
    (jayq.core/ajax
       "http://localhost:3000/url_search"
-      {:contentType  "application/json; charset=UTF-8"
-       :type "GET"
-       ;:crossdomain true
-       :error (fn [_ _ err] (js/alert (pr-str err)))
-       :success  (fn [data] (js/alert (str "data: " data)))})
-
-    #_(jayq.core/ajax
-      "http://localhost:3000/url_search"
       {:dataType "edn"
        :error (fn [_ _ err] (js/alert (pr-str err)))
-       :beforeSend (fn [xhr]
-                     (prn "setting headerzzzz")
-                     (.setRequestHeader xhr "Access-Control-Allow-Origin" "http://localhost:3000"))
-       :success (fn [data]
-                  (.replaceWith (jayq.core/find parent "table tbody")
-                    (generate-rows data)))})))
+       :success  (fn [data]
+                   (.replaceWith (jayq.core/find parent "table tbody")
+                     (generate-rows data)))
+       })))
 
 (bind $button "click" button-handler)
