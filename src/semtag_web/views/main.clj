@@ -25,14 +25,11 @@
         [:table#search_table {:class "table table-bordered table-striped"}
          [:thead
           [:tr
+           [:th "Namespace"]
            [:th "Url"]
            [:th "Description"] 
            [:th "Tags"]]]
-         [:tbody
-          [:tr
-           [:td "http://www.theonion.com/"]
-           [:td "for realz"]
-           [:td "funny"]]]]]]
+         [:tbody]]]]
        (cljs/include-scripts :with-jquery)
      ]))
 
