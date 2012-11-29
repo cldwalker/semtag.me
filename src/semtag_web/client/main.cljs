@@ -17,6 +17,18 @@
 ;;************************************************
 
 (def $button ($ :#url_search_button))
+(def $text-field ($ :#url_search_text))
+
+(def enter-key 13)
+
+(defn- key-pressed 
+  "If keypressed = keycode then call func"
+  [key-code func event]
+    (when  (=  (.-keyCode event) key-code)
+      (func)))
+
+(defn return-key-pressed [f]
+  (partial key-pressed enter-key f))
 
 (defn- shorten-to [s max-length]
   (let [s-length (count s)]
@@ -35,8 +47,8 @@
            [:td (:tags %)]])
       data) ])
 
-(defn button-handler []
-  (let [query (jayq.core/val ($ :#url_search_text))
+(defn mls-search []
+  (let [query (jayq.core/val $text-field)
         parent (jayq.core/parent $button)]
     (-> (jayq.core/find parent :h2)
       (jayq.core/inner (str "Search results for '" query "'"))) 
@@ -49,4 +61,5 @@
                      (generate-rows data)))
        })))
 
-(bind $button "click" button-handler)
+(bind $button "click" mls-search)
+(bind $text-field :keypress (return-key-pressed mls-search))
