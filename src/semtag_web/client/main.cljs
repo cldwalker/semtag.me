@@ -18,13 +18,19 @@
 
 (def $button ($ :#url_search_button))
 
+(defn- shorten-to [s max-length]
+  (let [s-length (count s)]
+    (if (> s-length max-length)
+      (str (.substring s 0 (- max-length 3)) "...")
+      s)))
+
 (defpartial generate-rows [data]
   [:tbody
     (map
       #(vec
          [:tr
            [:td (:namespace %)]
-           [:td [:a {:href (:url %)} (:url %)]]
+           [:td [:a {:href (:url %)} (shorten-to (:url %) 40)]]
            [:td (:desc %)]
            [:td (:tags %)]])
       data) ])
