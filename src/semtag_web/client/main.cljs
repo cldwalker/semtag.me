@@ -47,6 +47,12 @@
            [:td (:tags %)]])
       data) ])
 
+(defn- update-table [parent data]
+  (-> ( jayq.core/find parent "table caption")
+    (jayq.core/inner (str "Total: " (count data))))
+  (.replaceWith (jayq.core/find parent "table tbody")
+    (generate-rows data)))
+
 (defn mls-search []
   (let [query (jayq.core/val $text-field)
         parent (jayq.core/parent $button)]
@@ -56,9 +62,7 @@
       (str "http://localhost:3000/mls?query=" query)
       {:dataType "edn"
        :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
-       :success  (fn [data]
-                   (.replaceWith (jayq.core/find parent "table tbody")
-                     (generate-rows data)))
+       :success (partial update-table parent)
        })))
 
 (bind $button "click" mls-search)
