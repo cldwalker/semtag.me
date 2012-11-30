@@ -12,7 +12,7 @@
     [:body
       [:div#main
        [:div.top_box
-        [:input {:type "text" :id "url_search_text"}]
+        [:input {:type "text" :autofocus "autofocus" :id "url_search_text"}]
         [:button {:class "btn-primary" :id "url_search_button"} "Search"]
         [:h2 "No search results yet"]
         [:table#search_table {:class "table table-bordered table-striped"}
