@@ -1,6 +1,6 @@
 (ns semtag-web.server
   (:require [compojure.handler :as handler]
-            [compojure.core :refer :all]
+            [compojure.core :refer [defroutes GET ANY]]
             [clojure.string :as string]
             [semtag-web.views.main :as views]
             [ring.middleware.stacktrace :refer [wrap-stacktrace]]

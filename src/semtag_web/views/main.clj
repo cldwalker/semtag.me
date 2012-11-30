@@ -1,6 +1,5 @@
 (ns semtag-web.views.main
-  (:require [hiccup.core :refer :all]
-            [hiccup.page :refer [html5 include-js include-css]]
+  (:require [hiccup.page :refer [html5 include-js include-css]]
             [hiccup.bootstrap.page :refer [include-bootstrap]]))
 
 (defn mls []
