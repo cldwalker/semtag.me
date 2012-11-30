@@ -1,7 +1,5 @@
 (ns semtag-web.client.main
-  (:require ;[noir.cljs.client.watcher :as watcher]
-            ;[clojure.browser.repl :as repl]
-            [crate.core :as crate])
+  (:require [crate.core :as crate])
   (:use [jayq.core :only [$ append bind] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
@@ -9,7 +7,6 @@
 ;; Dev stuff
 ;;************************************************
 
-#_(watcher/init)
 ;;(repl/connect "http://localhost:9000/repl")
 
 ;;************************************************

@@ -1,21 +1,14 @@
 (ns semtag-web.views.main
-  (:require [semtag-web.views.common :as common]
-            [noir.cljs.core :as cljs])
-  (:use [noir.core :only [defpage]]
-        [hiccup.core]
-        [hiccup.page]
-        [hiccup.bootstrap.page]))
+  (:require [hiccup.core :refer :all]
+            [hiccup.page :refer [html5 include-js include-css]]
+            [hiccup.bootstrap.page :refer [include-bootstrap]]))
 
-(defpage "/" []
-         (common/layout
-           [:div#content]))
-
-(defpage "/urls" []
+(defn mls []
   (html5
     [:head
       [:title "Semtag Web"]
-      (include-bootstrap)
-      (include-css "/css/application.css")]
+      (include-css "/css/application.css")
+     ]
     [:body
       [:div#main
        [:div.top_box
@@ -31,9 +24,6 @@
            [:th "Description"] 
            [:th "Tags"]]]
          [:tbody]]]]
-       (cljs/include-scripts :with-jquery)
-     ]))
-
-(defpage "/url_search" []
-    (prn-str [{:name "http://news.ycombinator.com" :desc "time sink" :tags "dumb"}
-              {:name "google.com" :desc "useful" :tags "search"}]))
+      (include-js "/js/jquery-1.8.3.min.js")
+      (include-bootstrap)
+      (include-js "/cljs/bootstrap.js")]))

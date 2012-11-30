@@ -1,15 +1,33 @@
 (ns semtag-web.server
-  (:require [noir.server :as server]
-            hiccup.bootstrap.middleware
-            [noir.cljs.core :as cljs]))
+  (:require [compojure.handler :as handler]
+            [compojure.core :refer :all]
+            [clojure.string :as string]
+            [semtag-web.views.main :as views]
+            [ring.middleware.stacktrace :refer [wrap-stacktrace]]
+            [hiccup.bootstrap.middleware :refer [wrap-bootstrap-resources]]
+            [compojure.route :as route]))
 
-(server/load-views-ns 'semtag-web.views)
-(server/add-middleware hiccup.bootstrap.middleware/wrap-bootstrap-resources)
-(def cljs-options {:advanced {:externs ["externs/jquery.js"]}})
+(defroutes app-routes
+  (GET "/" [] (views/mls))
+  (GET "/status" [query] "HEEEEYY")
+  (route/resources "/")
+  (route/not-found "Not Found"))
 
-(defn -main [& m]
-  (let [mode (keyword (or (first m) :dev))
-        port (Integer. (get (System/getenv) "PORT" "8090"))]
-    (cljs/start mode cljs-options)
-    (server/start port {:mode mode
-                        :ns 'semtag-web})))
+(defn wrap-request-logging [app]
+  (fn [{:keys [request-method uri query-params] :as req}]
+    (let [resp (app req)]
+      (println
+        (format
+          "[%s] %s %s %s %s"
+          (.format (java.text.SimpleDateFormat. "EEE, d MMM yyyy HH:mm:ss Z") (java.util.Date.))
+          (string/upper-case (name request-method))
+          uri
+          (:status resp)
+          query-params))
+    resp)))
+
+(def app
+  (handler/site (-> app-routes
+                  wrap-bootstrap-resources
+                  wrap-stacktrace
+                  wrap-request-logging)))
