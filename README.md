@@ -1,9 +1,9 @@
 ## Description
 
-This is a clojurescript frontend to a separate semantic-tagging Datomic app.
-Data is transmitted and received as
-[edn/clojure](https://github.com/edn-format/edn) thanks to
-[CORS](http://www.w3.org/TR/cors/) requests.
+This is a clojurescript frontend client to a separate semantic-tagging Datomic app. Data is
+transmitted and received between client and server as
+[edn/clojure](https://github.com/edn-format/edn) thanks to [CORS](http://www.w3.org/TR/cors/)
+requests.
 
 ## Usage
 
