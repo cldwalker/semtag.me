@@ -25,4 +25,4 @@
          [:tbody]]]]
       (include-js "/js/jquery-1.8.3.min.js")
       (include-bootstrap)
-      (include-js "/cljs/bootstrap.js")]))
+      (include-js "/cljs/main.js")]))
