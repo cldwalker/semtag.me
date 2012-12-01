@@ -39,7 +39,8 @@
   (-> ( jayq.core/find parent "table caption")
     (jayq.core/inner (str "Total: " (count data))))
   (.replaceWith (jayq.core/find parent "table tbody")
-    (generate-rows data)))
+    (generate-rows data))
+  (jayq.core/show (jayq.core/find parent "table")))
 
 (defn mls-search []
   (let [query (jayq.core/val $text-field)]

@@ -14,7 +14,7 @@
         [:form.form-search {:onsubmit "return false;"}
           [:input {:type "text" :class "search-query" :autofocus "autofocus" :id "url_search_text"}] 
           [:button {:class "btn-primary" :id "url_search_button"} "Search"]] 
-        [:h2 "No search results yet"]
+        [:h2 ""]
         [:table#search_table {:class "table table-bordered table-striped"}
          [:caption ""]
          [:thead
