@@ -1,8 +1,16 @@
-div#main {
+#main {
   width: 720px;
   margin: auto;
 }
 
 .top_box {
   margin-top: 50px;
+}
+
+#search_box table {
+  background-color: white;
+}
+
+#url_search_button {
+  margin-left: 14px
 }

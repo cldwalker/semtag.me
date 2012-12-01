@@ -3,18 +3,9 @@
   (:use [jayq.core :only [$ append bind] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
-;;************************************************
-;; Dev stuff
-;;************************************************
-
-;;(repl/connect "http://localhost:9000/repl")
-
-;;************************************************
-;; Code
-;;************************************************
-
 (def $button ($ :#url_search_button))
 (def $text-field ($ :#url_search_text))
+(def $search-box ($ :#search_box))
 
 (def enter-key 13)
 
@@ -51,15 +42,14 @@
     (generate-rows data)))
 
 (defn mls-search []
-  (let [query (jayq.core/val $text-field)
-        parent (jayq.core/parent $button)]
-    (-> (jayq.core/find parent :h2)
+  (let [query (jayq.core/val $text-field)]
+    (-> (jayq.core/find $search-box :h2)
       (jayq.core/inner (str "Search results for '" query "'"))) 
-   (jayq.core/ajax
+    (jayq.core/ajax
       (str "http://localhost:3000/api/mls?query=" query)
       {:dataType "edn"
        :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
-       :success (partial update-table parent)
+       :success (partial update-table $search-box)
        })))
 
 (bind $button "click" mls-search)

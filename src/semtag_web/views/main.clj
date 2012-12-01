@@ -5,14 +5,15 @@
 (defn mls []
   (html5
     [:head
-      [:title "Semtag Web"]
+      [:title "Semtag"]
       (include-css "/css/application.css")
      ]
     [:body
       [:div#main
-       [:div.top_box
-        [:input {:type "text" :autofocus "autofocus" :id "url_search_text"}]
-        [:button {:class "btn-primary" :id "url_search_button"} "Search"]
+       [:div.top_box.hero-unit {:id "search_box"}
+        [:form.form-search {:onsubmit "return false;"}
+          [:input {:type "text" :class "search-query" :autofocus "autofocus" :id "url_search_text"}] 
+          [:button {:class "btn-primary" :id "url_search_button"} "Search"]] 
         [:h2 "No search results yet"]
         [:table#search_table {:class "table table-bordered table-striped"}
          [:caption ""]
