@@ -56,7 +56,7 @@
     (-> (jayq.core/find parent :h2)
       (jayq.core/inner (str "Search results for '" query "'"))) 
    (jayq.core/ajax
-      (str "http://localhost:3000/mls?query=" query)
+      (str "http://localhost:3000/api/mls?query=" query)
       {:dataType "edn"
        :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
        :success (partial update-table parent)
