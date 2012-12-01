@@ -1,18 +1,20 @@
-# semtag-web
+## Description
 
-A website written with Noir and ClojureScript.
+A clojurescript frontend to a separate semantic-tagging Datomic app. Data flows
+between the two using [edn/clojure](https://github.com/edn-format/edn) thanks to
+[CORS](http://www.w3.org/TR/cors/) requests
 
 ## Usage
 
-```bash
-lein deps
-lein run
+```sh
+$ lein cljsbuild auto
+# In another tab
+$ lein ring server
 ```
 
-## License
-
-Copyright (C) 2012 FIXME
-
-Distributed under the Eclipse Public License, the same as Clojure.
-
-
+## TODO
+* More functionality!
+* Automate compilation of html
+  * need relative paths for js/css includes
+  * Need to consider bootstrap
+* Try deploying compiled html+css
