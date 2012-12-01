@@ -1,6 +1,6 @@
 (defproject semtag-web "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
-  :url "http://exampl.com/FIXME"
+  :description "cljs app that communicates via clojure data using CORS requests"
+  :url "http://github.com/cldwalker/semtag-web"
   :ring  {:handler semtag-web.server/app}
   :plugins  [[lein-ring "0.7.5"] [lein-cljsbuild "0.2.9"]]
   :dependencies [[org.clojure/clojure "1.4.0"]
