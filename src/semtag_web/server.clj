@@ -16,6 +16,7 @@
 
 (defroutes app-routes
   (GET "/" [] (views/mls))
+  (GET "/tag/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
   (GET "/status" [query] "HEY")
   (route/resources "/")
