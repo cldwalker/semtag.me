@@ -3,10 +3,6 @@
   (:use [jayq.core :only [$ append bind] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
-(def $button ($ :#url_search_button))
-(def $text-field ($ :#url_search_text))
-(def $search-box ($ :#search_box))
-
 (def enter-key 13)
 
 (defn- key-pressed 
@@ -42,16 +38,31 @@
     (generate-rows data))
   (jayq.core/show (jayq.core/find parent "table")))
 
-(defn mls-search []
-  (let [query (jayq.core/val $text-field)]
-    (-> (jayq.core/find $search-box :h2)
-      (jayq.core/inner (str "Search results for '" query "'"))) 
-    (jayq.core/ajax
-      (str "http://localhost:3000/api/mls?query=" query)
-      {:dataType "edn"
-       :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
-       :success (partial update-table $search-box)
-       })))
+(defn backend-request [path f]
+  (jayq.core/ajax
+    (str "http://localhost:3000/api" path)
+    {:dataType "edn"
+     :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
+     :success f
+     }))
 
-(bind $button "click" mls-search)
-(bind $text-field :keypress (return-key-pressed mls-search))
+(defn mls-search [search-box text-field]
+  (let [query (jayq.core/val text-field)]
+    (-> (jayq.core/find search-box :h2)
+      (jayq.core/inner (str "Search results for '" query "'"))) 
+    (backend-request (str "/mls?query=" query) (partial update-table search-box))))
+
+(defn ^:export tag-show []
+  (let [$tag-box ($ :#tag_box)
+        uri (.toString window.location ())
+        tag (re-find #"[^\/]+$" uri)]
+    (backend-request (str "/tag?tag=" tag)
+      (fn [data] (jayq.core/inner $tag-box (pr-str data))))))
+
+(defn ^:export home []
+  (let [$button ($ :#url_search_button)
+        $text-field ($ :#url_search_text)
+        $search-box ($ :#search_box)
+        mls-search-box (partial mls-search $search-box $text-field)]
+  (bind $button "click" mls-search-box)
+  (bind $text-field :keypress (return-key-pressed mls-search-box))))

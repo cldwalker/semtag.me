@@ -2,7 +2,7 @@
   (:require [hiccup.page :refer [html5 include-js include-css]]
             [hiccup.bootstrap.page :refer [include-bootstrap]]))
 
-(defn main-layout [body]
+(defn main-layout [body & {:as options}]
   (html5
     [:head
       [:title "Semtag"]
@@ -12,14 +12,16 @@
      [:div#main body] 
       (include-js "/js/jquery-1.8.3.min.js")
       (include-bootstrap)
-      (include-js "/cljs/main.js")]))
+      (include-js "/cljs/main.js")
+     (when-let [js-fn (:js-fn options)] 
+      [:script {:type "text/javascript"} (str "semtag_web.client.main." js-fn "();")]) 
+     ]
+    ))
 
 (defn tag-show [tag]
   (main-layout
-      [ :div#tag_box.top_box.hero-unit
-       (str "Tag:" tag) 
-       ]
-    ))
+    [:div#tag_box.top_box.hero-unit]
+    :js-fn "tag_show"))
 
 (defn mls []
   (main-layout
@@ -36,4 +38,5 @@
          [:th "Url"]
          [:th "Description"] 
          [:th "Tags"]]]
-       [:tbody]]]))
+       [:tbody]]]
+    :js-fn "home"))
