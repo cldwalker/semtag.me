@@ -1,5 +1,6 @@
 (ns semtag-web.client.main
-  (:require [crate.core :as crate])
+  (:require [crate.core :as crate]
+            [clojure.string :as string])
   (:use [jayq.core :only [$ append bind] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
@@ -28,7 +29,10 @@
            [:td (:namespace %)]
            [:td [:a {:href (:url %)} (shorten-to (:url %) 40)]]
            [:td (:desc %)]
-           [:td (:tags %)]])
+           [:td
+            (map
+              (fn [tag] (vec [:a {:style "display: block" :href (str "/tag/" tag)} tag]))
+              (string/split (:tags %) #";"))]])
       data) ])
 
 (defn- update-table [parent data]
