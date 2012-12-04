@@ -57,7 +57,7 @@
                             :caption (str "Total: " (count data)))))
 
 (defn backend-request [path f]
-  (jayq.core/ajax
+  (jq/ajax
     (str "http://localhost:3000/api" path)
     {:dataType "edn"
      :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
@@ -65,8 +65,8 @@
      }))
 
 (defn mls-search [search-box text-field]
-  (let [query (jayq.core/val text-field)]
-    (-> (jayq.core/find search-box :h2)
+  (let [query (jq/val text-field)]
+    (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
     (backend-request (str "/mls?query=" query) (partial update-table search-box))))
 
@@ -83,5 +83,5 @@
         mls-search-box (partial mls-search ($ :#search_box) $text-field)]
   (bind $button "click" mls-search-box)
   (backend-request "/tags"
-    #(jayq.core/append $text-field (generate-datalist %)))
+    #(jq/after $text-field (generate-datalist %)))
   (bind $text-field :keypress (return-key-pressed mls-search-box))))
