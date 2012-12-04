@@ -1,7 +1,7 @@
 (ns semtag-web.client.main
   (:require [crate.core :as crate]
-            [clojure.string :as string])
-  (:use [jayq.core :only [$ append bind] :as jq])
+            [clojure.string :as string]
+            [jayq.core :refer [$ append bind inner] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
 (def enter-key 13)
@@ -37,9 +37,12 @@
                 (string/split (:tags %) #";")))]])
       data) ])
 
+(defpartial generate-datalist [tags]
+  [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
+
 (defn- update-table [parent data]
   (-> ( jayq.core/find parent "table caption")
-    (jayq.core/inner (str "Total: " (count data))))
+    (inner (str "Total: " (count data))))
   (.replaceWith (jayq.core/find parent "table tbody")
     (generate-rows data))
   (jayq.core/show (jayq.core/find parent "table")))
@@ -55,7 +58,7 @@
 (defn mls-search [search-box text-field]
   (let [query (jayq.core/val text-field)]
     (-> (jayq.core/find search-box :h2)
-      (jayq.core/inner (str "Search results for '" query "'"))) 
+      (inner (str "Search results for '" query "'"))) 
     (backend-request (str "/mls?query=" query) (partial update-table search-box))))
 
 (defn ^:export tag-show []
@@ -63,12 +66,13 @@
         uri (.toString window.location ())
         tag (re-find #"[^\/]+$" uri)]
     (backend-request (str "/tag?tag=" tag)
-      (fn [data] (jayq.core/inner $tag-box (pr-str data))))))
+      (fn [data] (inner $tag-box (pr-str data))))))
 
 (defn ^:export home []
   (let [$button ($ :#url_search_button)
         $text-field ($ :#url_search_text)
-        $search-box ($ :#search_box)
-        mls-search-box (partial mls-search $search-box $text-field)]
+        mls-search-box (partial mls-search ($ :#search_box) $text-field)]
   (bind $button "click" mls-search-box)
+  (backend-request "/tags"
+    #(jayq.core/append $text-field (generate-datalist %)))
   (bind $text-field :keypress (return-key-pressed mls-search-box))))

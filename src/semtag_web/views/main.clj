@@ -27,8 +27,10 @@
   (main-layout
      [:div#search_box.top_box.hero-unit
       [:form.form-search {:onsubmit "return false;"}
-        [:input {:type "text" :class "search-query" :autofocus "autofocus" :id "url_search_text"}] 
-        [:button {:class "btn-primary" :id "url_search_button"} "Search"]] 
+        [:input#url_search_text.search-query {:type "text" :autofocus "autofocus"
+                                              :list "tags" :autocomplete "on"}]
+        [:button {:class "btn-primary" :id "url_search_button"} "Search"]
+       ]
       [:h2 ""]
       [:table#search_table {:class "table table-bordered table-striped"}
        [:caption ""]

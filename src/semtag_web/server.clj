@@ -12,7 +12,9 @@
 (defroutes demo-api-routes
   (GET "/mls" []
        (prn-str [{:namespace "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags "dunno"}
-                 {:namespace "search_engine" :url "http://google.com" :desc "kinda useful" :tags "search"}]))) 
+                 {:namespace "search_engine" :url "http://google.com" :desc "kinda useful" :tags "search"}]))
+  (GET "/tags" []
+       (prn-str ["one" "two" "three"])))
 
 (defroutes app-routes
   (GET "/" [] (views/mls))
