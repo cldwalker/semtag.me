@@ -1,7 +1,7 @@
 (ns semtag-web.client.main
   (:require [crate.core :as crate]
             [clojure.string :as string]
-            [jayq.core :refer [$ append bind inner] :as jq])
+            [jayq.core :refer [$ bind inner] :as jq])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
 (def enter-key 13)
@@ -20,6 +20,15 @@
     (if (> s-length max-length)
       (str (.substring s 0 (- max-length 3)) "...")
       s)))
+
+(defpartial generate-table [table-id data & {:as options}]
+  [:table{:id table-id :class "table table-bordered table-striped"}
+    [:caption (:caption options)]
+    [:thead
+     [:tr
+      (map #(vec [:th %]) (:fields options))
+      ]]
+     (generate-rows data)])
 
 (defpartial generate-rows [data]
   [:tbody
@@ -41,11 +50,11 @@
   [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
 
 (defn- update-table [parent data]
-  (-> ( jayq.core/find parent "table caption")
-    (inner (str "Total: " (count data))))
-  (.replaceWith (jayq.core/find parent "table tbody")
-    (generate-rows data))
-  (jayq.core/show (jayq.core/find parent "table")))
+  (jq/remove ($ :#search_table))
+  (jq/after (jq/find parent :h2)
+            (generate-table "search_table" data
+                            :fields ["Namespace" "Url" "Description" "Tags"]
+                            :caption (str "Total: " (count data)))))
 
 (defn backend-request [path f]
   (jayq.core/ajax

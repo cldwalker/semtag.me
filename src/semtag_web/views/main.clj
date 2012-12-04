@@ -32,13 +32,5 @@
         [:button {:class "btn-primary" :id "url_search_button"} "Search"]
        ]
       [:h2 ""]
-      [:table#search_table {:class "table table-bordered table-striped"}
-       [:caption ""]
-       [:thead
-        [:tr
-         [:th "Namespace"]
-         [:th "Url"]
-         [:th "Description"] 
-         [:th "Tags"]]]
-       [:tbody]]]
+      ]
     :js-fn "home"))
