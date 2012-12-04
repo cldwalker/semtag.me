@@ -30,9 +30,11 @@
            [:td [:a {:href (:url %)} (shorten-to (:url %) 40)]]
            [:td (:desc %)]
            [:td
-            (map
-              (fn [tag] (vec [:a {:style "display: block" :href (str "/tag/" tag)} tag]))
-              (string/split (:tags %) #";"))]])
+            (interpose
+              ", "
+              (map
+                (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
+                (string/split (:tags %) #";")))]])
       data) ])
 
 (defn- update-table [parent data]
