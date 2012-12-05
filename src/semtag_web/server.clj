@@ -23,9 +23,10 @@
 (defroutes app-routes
   (GET "/" [] (views/mls))
   (GET "/model" [] (views/model-list))
+  (GET "/status" [query] "HEY")
+  (GET "/:model" [model] (views/model-show model))
   (GET "/tag/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
-  (GET "/status" [query] "HEY")
   (route/resources "/")
   (route/not-found "Not Found"))
 

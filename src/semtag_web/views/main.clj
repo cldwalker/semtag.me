@@ -28,6 +28,11 @@
     [:div#model_box.top_box.hero-unit]
     :js-fn "model_list"))
 
+(defn model-show [model]
+  (main-layout
+    [:div#model_show_box.top_box.hero-unit]
+    :js-fn "model_show"))
+
 (defn mls []
   (main-layout
      [:div#search_box.top_box.hero-unit

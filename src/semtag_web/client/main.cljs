@@ -36,17 +36,30 @@
       ]]
      (generate-rows data options)]))
 
-(defpartial tag-search-row [row &fields]
+(defn td-url [url]
+  [:td [:a {:href url} (shorten-to url 40)]])
+
+(defn td-tags [tags]
+  [:td
+  (interpose
+    ", "
+    (map
+      (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
+      (string/split tags #";")))])
+
+(defpartial tag-search-row [row & fields]
   [:tr
-   [:td (:namespace row)]
-   [:td [:a {:href (:url row)} (shorten-to (:url row) 40)]]
+   [:td [:a {:href (str "/" (:namespace row))} (:namespace row)]]
+   (td-url (:url row))
    [:td (:desc row)]
-   [:td
-    (interpose
-      ", "
-      (map
-        (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
-        (string/split (:tags row) #";")))]])
+   (td-tags (:tags row))])
+
+(defpartial model-row [row & fields]
+  [:tr
+   [:td (:name row)]
+   (td-url (:url row))
+   [:td (:desc row)]
+   (td-tags (:tags row))])
 
 (defpartial default-row [row fields]
   [:tr
@@ -84,10 +97,12 @@
       (inner (str "Search results for '" query "'"))) 
     (backend-request (str "/mls?query=" query) (partial create-search-table search-box))))
 
+(defn- match-from-current-uri [regex]
+  (re-find regex (.toString window.location ())))
+
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
-        uri (.toString window.location ())
-        tag (re-find #"[^\/]+$" uri)]
+        tag (match-from-current-uri #"[^\/]+$")]
     (backend-request (str "/tag?tag=" tag)
       (fn [data] (inner $tag-box (pr-str data))))))
 
@@ -99,6 +114,15 @@
   (backend-request "/tags"
     #(jq/after $text-field (generate-datalist %)))
   (bind $text-field :keypress (return-key-pressed mls-search-box))))
+
+(defn ^:export model-show []
+  (let [model (match-from-current-uri #"[^\/]+$")]
+    (backend-request (str "/model?model=" model)
+      #(inner ($ :#model_show_box)
+              (generate-table "model_show_table" %
+                              :row-partial model-row
+                              :caption (str "Total: " (count %))
+                              :fields [:name :url :desc :tags])))))
 
 (defn ^:export model-list []
   (backend-request "/models"
