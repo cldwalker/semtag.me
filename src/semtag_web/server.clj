@@ -14,10 +14,15 @@
        (prn-str [{:namespace "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags "dunno"}
                  {:namespace "search_engine" :url "http://google.com" :desc "kinda useful" :tags "search"}]))
   (GET "/tags" []
-       (prn-str ["one" "two" "three"])))
+       (prn-str ["one" "two" "three"]))
+  (GET "/models" []
+       (prn-str [{:url-percent 0.375, :name-percent 0.75, :count 8, :name :company}
+                 {:url-percent 1.0, :name-percent 0.0, :count 2, :name :shop}]))
+           )
 
 (defroutes app-routes
   (GET "/" [] (views/mls))
+  (GET "/model" [] (views/model-list))
   (GET "/tag/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
   (GET "/status" [query] "HEY")

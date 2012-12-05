@@ -21,39 +21,53 @@
       (str (.substring s 0 (- max-length 3)) "...")
       s)))
 
-(defpartial generate-table [table-id data & {:as options}]
+(defn- field-to-header [field]
+  (-> field name (string/replace "-" " ") string/capitalize))
+
+(defpartial generate-table [table-id data & {:keys [fields] :as options}]
+  (let [headers (or
+                  (:headers options)
+                  (map field-to-header fields))]
   [:table{:id table-id :class "table table-bordered table-striped"}
     [:caption (:caption options)]
     [:thead
      [:tr
-      (map #(vec [:th %]) (:fields options))
+      (map #(vec [:th %]) headers)
       ]]
-     (generate-rows data)])
+     (generate-rows data options)]))
 
-(defpartial generate-rows [data]
+(defpartial tag-search-row [row &fields]
+  [:tr
+   [:td (:namespace row)]
+   [:td [:a {:href (:url row)} (shorten-to (:url row) 40)]]
+   [:td (:desc row)]
+   [:td
+    (interpose
+      ", "
+      (map
+        (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
+        (string/split (:tags row) #";")))]])
+
+(defpartial default-row [row fields]
+  [:tr
+    (map #(vec [:td (% row)]) fields)
+   ])
+
+(defpartial generate-rows [data {:keys [fields row-partial] :or {row-partial default-row}}]
   [:tbody
     (map
-      #(vec
-         [:tr
-           [:td (:namespace %)]
-           [:td [:a {:href (:url %)} (shorten-to (:url %) 40)]]
-           [:td (:desc %)]
-           [:td
-            (interpose
-              ", "
-              (map
-                (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
-                (string/split (:tags %) #";")))]])
-      data) ])
+      #(row-partial % fields)
+      data)])
 
 (defpartial generate-datalist [tags]
   [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
 
-(defn- update-table [parent data]
+(defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
             (generate-table "search_table" data
-                            :fields ["Namespace" "Url" "Description" "Tags"]
+                            :fields [:namespace :url :desc :tags]
+                            :row-partial tag-search-row
                             :caption (str "Total: " (count data)))))
 
 (defn backend-request [path f]
@@ -68,7 +82,7 @@
   (let [query (jq/val text-field)]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
-    (backend-request (str "/mls?query=" query) (partial update-table search-box))))
+    (backend-request (str "/mls?query=" query) (partial create-search-table search-box))))
 
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
@@ -85,3 +99,9 @@
   (backend-request "/tags"
     #(jq/after $text-field (generate-datalist %)))
   (bind $text-field :keypress (return-key-pressed mls-search-box))))
+
+(defn ^:export model-list []
+  (backend-request "/models"
+    #(inner ($ :#model_box)
+            (generate-table "model_table" %
+                            :fields [:name :count :name-percent :url-percent]))))

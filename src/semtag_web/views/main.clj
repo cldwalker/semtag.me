@@ -23,6 +23,11 @@
     [:div#tag_box.top_box.hero-unit]
     :js-fn "tag_show"))
 
+(defn model-list []
+  (main-layout
+    [:div#model_box.top_box.hero-unit]
+    :js-fn "model_list"))
+
 (defn mls []
   (main-layout
      [:div#search_box.top_box.hero-unit
