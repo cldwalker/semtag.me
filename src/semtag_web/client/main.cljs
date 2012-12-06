@@ -14,16 +14,30 @@
 (defn- return-key-pressed [f]
   (partial key-pressed enter-key f))
 
-(defn- match-from-current-uri [regex]
-  (re-find regex (.toString window.location ())))
+(defn- current-uri []
+  (.toString window.location ()))
 
-(defn backend-request [path f]
+(defn- match-from-current-uri [regex]
+  (re-find regex (current-uri)))
+
+(defn- error-msg [path err]
+  (format "Request '%s' failed with: %s" path (pr-str err)))
+
+(defn- console-error [path _ _ err]
+  (.log js/console (error-msg path err)))
+
+(defn- alert-error [path _ _ err]
+  (jq/prepend ($ :#main) (view/alert (error-msg path err))))
+
+(defn backend-request
+  ([path f] (backend-request path f alert-error))
+  ([path f alert-fn] 
   (jq/ajax
     (str "http://localhost:3000/api" path)
     {:dataType "edn"
-     :error (fn [_ _ err] (js/alert (str "Request failed with: " (pr-str err))))
+     :error #(alert-fn path %&)
      :success f
-     }))
+     })))
 
 ;;; js update fns
 (defn- create-search-table [parent data]
@@ -53,7 +67,8 @@
         mls-search-box (partial mls-search ($ :#search_box) $text-field)]
   (bind $button "click" mls-search-box)
   (backend-request "/tags"
-    #(jq/after $text-field (view/generate-datalist %)))
+    #(jq/after $text-field (view/generate-datalist %))
+    console-error)
   (bind $text-field :keypress (return-key-pressed mls-search-box))))
 
 (defn ^:export model-show []

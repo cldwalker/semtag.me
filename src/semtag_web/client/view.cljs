@@ -77,3 +77,7 @@
 (defpartial generate-datalist [tags]
   [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
 
+(defpartial alert [msg]
+  [:div.alert.alert-error
+   [:button.close {:type "button" :data-dismiss "alert"} "x"]
+   msg])

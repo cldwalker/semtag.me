@@ -9,7 +9,7 @@
       (include-css "/css/application.css")
      ]
     [:body
-     [:div#main body] 
+     [:div#main body]
       (include-js "/js/jquery-1.8.3.min.js")
       (include-bootstrap)
       (include-js "/cljs/main.js")

@@ -3,6 +3,10 @@
   margin: auto;
 }
 
+#main .alert {
+  margin-top: 20px;
+}
+
 .top_box {
   margin-top: 50px;
 }
