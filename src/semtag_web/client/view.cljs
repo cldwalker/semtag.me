@@ -63,6 +63,16 @@
    [:td (:desc row)]
    (td-tags (:tags row))])
 
+(defpartial tag-row [row & fields]
+  (let [attr (:attribute row)]
+    [:tr
+     [:td attr]
+     (case attr
+       :url (td-url (:value row))
+       :tags (td-tags (string/join ";" (:value row)))
+       [:td (str (:value row))])
+     ]))
+
 (defpartial default-row [row fields]
   [:tr
     (map #(vec [:td (% row)]) fields)

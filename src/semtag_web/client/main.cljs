@@ -59,7 +59,14 @@
   (let [$tag-box ($ :#tag_box)
         tag (match-from-current-uri #"[^\/]+$")]
     (backend-request (str "/tag?tag=" tag)
-      (fn [data] (inner $tag-box (pr-str data))))))
+      (fn [data]
+        (if (string? data)
+          (jq/prepend ($ :#main) (view/alert data))
+          (inner $tag-box
+                 (generate-table "tag_show_table" data
+                                 :row-partial view/tag-row
+                                 :fields [:attribute :value]))
+          )))))
 
 (defn ^:export home []
   (let [$button ($ :#url_search_button)
