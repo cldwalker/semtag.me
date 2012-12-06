@@ -40,6 +40,7 @@
       (inner (str "Search results for '" query "'"))) 
     (backend-request (str "/mls?query=" query) (partial create-search-table search-box))))
 
+;;; on-load js fns for specific pages
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
         tag (match-from-current-uri #"[^\/]+$")]
@@ -68,4 +69,5 @@
   (backend-request "/models"
     #(inner ($ :#model_box)
             (generate-table "model_table" %
+                            :row-partial view/models-row
                             :fields [:name :count :name-percent :url-percent]))))
