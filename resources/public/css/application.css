@@ -15,6 +15,11 @@
   background-color: white;
 }
 
+table caption {
+  font-weight: bold;
+  font-size: 18px
+}
+
 #url_search_button {
   margin-left: 14px
 }
