@@ -25,10 +25,7 @@
   [:td.ellipsis {:title desc} (shorten-to desc 70)])
 
 (defn- td-tags [tags]
-  [:td
-  (interpose
-    ", "
-    (map link-tag (string/split tags #";")))])
+  [:td (interpose ", " (map link-tag tags))])
 
 (defn- td-model [model]
    [:td [:a {:href (str "/" model)} model]]) 
