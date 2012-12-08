@@ -83,7 +83,7 @@
      (case attr
        :namespace (td-model (:value row))
        :url (td-url (:value row))
-       :tags (td-tags (string/join ";" (:value row)))
+       :tags (td-tags (:value row))
        [:td (str (:value row))])
      ]))
 
