@@ -19,7 +19,10 @@
 
 ;;; td formatters
 (defn- td-url [url]
-  [:td [:a {:href url} (shorten-to url 40)]])
+  [:td [:a {:href url} (shorten-to url 30)]])
+
+(defn- td-desc [desc]
+  [:td {:title desc} (shorten-to desc 30)]) 
 
 (defn- td-tags [tags]
   [:td
@@ -58,7 +61,7 @@
   [:tr
    (td-model (:namespace row))
    (td-url (:url row))
-   [:td (:desc row)]
+   (td-desc (:desc row))
    (td-tags (:tags row))])
 
 (defpartial models-row [row & fields]
@@ -73,7 +76,7 @@
   [:tr
    [:td (if (seq (:name row)) (link-tag (:name row)) (:name row))]
    (td-url (:url row))
-   [:td (:desc row)]
+   (td-desc (:desc row))
    (td-tags (:tags row))])
 
 (defpartial tag-row [row & fields]
