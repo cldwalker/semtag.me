@@ -29,6 +29,17 @@
    [:td [:a {:href (str "/" model)} model]]) 
 
 ;;; partials
+(defpartial default-row [row fields]
+  [:tr
+    (map #(vec [:td (% row)]) fields)
+   ])
+
+(defpartial generate-rows [data {:keys [fields row-partial] :or {row-partial default-row}}]
+  [:tbody
+    (map
+      #(row-partial % fields)
+      data)])
+
 (defpartial generate-table [table-id data & {:keys [fields] :as options}]
   (let [headers (or
                   (:headers options)
@@ -68,21 +79,11 @@
     [:tr
      [:td attr]
      (case attr
+       :namespace (td-model (:value row))
        :url (td-url (:value row))
        :tags (td-tags (string/join ";" (:value row)))
        [:td (str (:value row))])
      ]))
-
-(defpartial default-row [row fields]
-  [:tr
-    (map #(vec [:td (% row)]) fields)
-   ])
-
-(defpartial generate-rows [data {:keys [fields row-partial] :or {row-partial default-row}}]
-  [:tbody
-    (map
-      #(row-partial % fields)
-      data)])
 
 (defpartial generate-datalist [tags]
   [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
