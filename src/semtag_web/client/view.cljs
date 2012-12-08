@@ -13,6 +13,10 @@
       (str (.substring s 0 (- max-length 3)) "...")
       s)))
 
+;;; link fns
+(defn- link-tag [tag]
+  [:a {:href (str "/tag/" tag)} tag])
+
 ;;; td formatters
 (defn- td-url [url]
   [:td [:a {:href url} (shorten-to url 40)]])
@@ -21,9 +25,7 @@
   [:td
   (interpose
     ", "
-    (map
-      (fn [tag] (vec [:a {:href (str "/tag/" tag)} tag]))
-      (string/split tags #";")))])
+    (map link-tag (string/split tags #";")))])
 
 (defn- td-model [model]
    [:td [:a {:href (str "/" model)} model]]) 
@@ -69,7 +71,7 @@
 
 (defpartial model-row [row & fields]
   [:tr
-   [:td (:name row)]
+   [:td (if (seq (:name row)) (link-tag (:name row)) (:name row))]
    (td-url (:url row))
    [:td (:desc row)]
    (td-tags (:tags row))])
