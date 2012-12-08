@@ -19,10 +19,10 @@
 
 ;;; td formatters
 (defn- td-url [url]
-  [:td [:a {:href url} (shorten-to url 30)]])
+  [:td [:a {:href url} (shorten-to url 40)]])
 
 (defn- td-desc [desc]
-  [:td {:title desc} (shorten-to desc 30)]) 
+  [:td.ellipsis {:title desc} (shorten-to desc 70)])
 
 (defn- td-tags [tags]
   [:td

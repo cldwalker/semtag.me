@@ -1,6 +1,5 @@
 #main {
-  width: 720px;
-  margin: auto;
+  margin-left: 100px;
 }
 
 #main .alert {
@@ -9,6 +8,7 @@
 
 .top_box {
   margin-top: 50px;
+  display: inline-block;
 }
 
 #search_box table {
@@ -17,4 +17,11 @@
 
 #url_search_button {
   margin-left: 14px
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
 }
