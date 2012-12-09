@@ -40,13 +40,21 @@
      })))
 
 ;;; js update fns
+(defn- add-sort-to [parent-div]
+  (.tablesorter (jq/find parent-div :table)))
+
+(defn- create-sort-table [& args]
+  (apply inner args)
+  (add-sort-to (first args)))
+
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
             (generate-table "search_table" data
                             :fields [:namespace :url :desc :tags]
                             :row-partial view/tag-search-row
-                            :caption (str "Total: " (count data)))))
+                            :caption (str "Total: " (count data))))
+  (add-sort-to parent))
 
 (defn mls-search
   [search-box text-field & [callback]]
@@ -64,7 +72,7 @@
       (fn [data]
         (if (string? data)
           (jq/prepend ($ :#main) (view/alert data))
-          (inner $tag-box
+          (create-sort-table $tag-box
                  (generate-table "tag_show_table" data
                                  :row-partial view/tag-row
                                  :fields [:attribute :value]))
@@ -91,7 +99,7 @@
 (defn ^:export model-show []
   (let [model (match-from-current-uri #"[^\/]+$")]
     (backend-request (str "/model?model=" model)
-      #(inner ($ :#model_show_box)
+      #(create-sort-table ($ :#model_show_box)
               (generate-table "model_show_table" %
                               :row-partial view/model-row
                               :caption (str "Total: " (count %))
@@ -99,7 +107,7 @@
 
 (defn ^:export model-list []
   (backend-request "/models"
-    #(inner ($ :#model_box)
+    #(create-sort-table ($ :#model_box)
             (generate-table "model_table" %
                             :row-partial view/models-row
                             :fields [:name :count :name-percent :url-percent]))))

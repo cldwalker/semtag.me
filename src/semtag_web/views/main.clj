@@ -11,6 +11,7 @@
     [:body
      [:div#main body]
       (include-js "/js/jquery-1.8.3.min.js")
+      (include-js "/js/jquery.tablesorter.min.js")
       (include-bootstrap)
       (include-js "/cljs/main.js")
      (when-let [js-fn (:js-fn options)] 
