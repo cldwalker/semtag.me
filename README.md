@@ -29,6 +29,11 @@ $ PORT=8000 lein ring server
 ## Contributing
 [See here](http://tagaholic.me/contributing.html)
 
+## Limitations
+This app uses html5 apis for autocomplete, pushState and misc new tags and tag attributes. This is
+intentional and not meant to be backwards-compatible with older browsers. To see what html5 apis
+your browser has implemented, [look here](https://html5test.com/).
+
 ## TODO
 * More functionality!
 * Automate compilation of html
