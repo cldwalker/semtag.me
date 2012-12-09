@@ -52,7 +52,8 @@
   (let [query (jq/val text-field)]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
-    (backend-request (str "/mls?query=" query) (partial create-search-table search-box))))
+    (backend-request (str "/mls?query=" query) (partial create-search-table search-box))
+    (.pushState window.history "" "" (str "/?query=" query))))
 
 ;;; on-load js fns for specific pages
 (defn ^:export tag-show []
@@ -71,12 +72,19 @@
 (defn ^:export home []
   (let [$button ($ :#url_search_button)
         $text-field ($ :#url_search_text)
-        mls-search-box (partial mls-search ($ :#search_box) $text-field)]
-  (bind $button "click" mls-search-box)
-  (backend-request "/tags"
-    #(jq/after $text-field (view/generate-datalist %))
-    console-error)
-  (bind $text-field :keypress (return-key-pressed mls-search-box))))
+        mls-search-box (partial mls-search ($ :#search_box) $text-field)
+        query-param (re-find #"[\?&]?query=([^&]+)" (.-search window.location))]
+
+    (bind $button "click" mls-search-box)
+    (backend-request "/tags"
+      #(jq/after $text-field (view/generate-datalist %))
+      console-error)
+    (bind $text-field :keypress (return-key-pressed mls-search-box))
+
+    (when-let [query (when (seq query-param) (second query-param))]
+      (jq/val $text-field query)
+      (mls-search-box)
+      (.log js/console query))))
 
 (defn ^:export model-show []
   (let [model (match-from-current-uri #"[^\/]+$")]
