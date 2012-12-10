@@ -113,9 +113,9 @@
                               :caption (str "Total: " (count %))
                               :fields [:name :url :desc :tags])))))
 
-(defn ^:export model-list []
+(defn ^:export model-stats []
   (backend-request "/models"
-    #(create-sort-table ($ :#model_box)
-            (generate-table "model_table" %
-                            :row-partial view/models-row
+    #(create-sort-table ($ :#model_stats_box)
+            (generate-table "model_stats_table" %
+                            :row-partial view/model-stats-row
                             :fields [:name :count :name-percent :url-percent]))))

@@ -29,10 +29,10 @@
     [:div#tag_stats_box.top_box.hero-unit]
     :js-fn "tag_stats"))
 
-(defn model-list []
+(defn model-stats []
   (main-layout
-    [:div#model_box.top_box.hero-unit]
-    :js-fn "model_list"))
+    [:div#model_stats_box.top_box.hero-unit]
+    :js-fn "model_stats"))
 
 (defn model-show [model]
   (main-layout

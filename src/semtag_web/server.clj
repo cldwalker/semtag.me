@@ -22,7 +22,7 @@
 
 (defroutes app-routes
   (GET "/" [] (views/mls))
-  (GET "/model" [] (views/model-list))
+  (GET "/model-stats" [] (views/model-stats))
   (GET "/tag-stats" [] (views/tag-stats))
   (GET "/status" [query] "HEY")
   (GET "/:model" [model] (views/model-show model))

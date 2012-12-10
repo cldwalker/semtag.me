@@ -67,7 +67,7 @@
    [:td (:count row)]
    [:td (:desc row)]])
 
-(defpartial models-row [row & fields]
+(defpartial model-stats-row [row & fields]
   [:tr
    (td-model (name (:name row)))
    [:td (:count row)]
