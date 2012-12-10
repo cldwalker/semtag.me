@@ -78,6 +78,14 @@
                                  :fields [:attribute :value]))
           )))))
 
+(defn ^:export tag-stats []
+  (backend-request (str "/tag-stats")
+    #(create-sort-table ($ :#tag_stats_box)
+            (generate-table "tag_stats_table" %
+                            :row-partial view/tag-stats-row
+                            :caption (str "Total: " (count %))
+                            :fields [:tag :count :desc]))))
+
 (defn ^:export home []
   (let [$button ($ :#url_search_button)
         $text-field ($ :#url_search_text)

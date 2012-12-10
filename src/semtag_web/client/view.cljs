@@ -61,6 +61,12 @@
    (td-desc (:desc row))
    (td-tags (:tags row))])
 
+(defpartial tag-stats-row [row & fields]
+  [:tr
+   [:td (let [[nsp tag] (string/split (:tag row) #"=")] (link-tag tag))]
+   [:td (:count row)]
+   [:td (:desc row)]])
+
 (defpartial models-row [row & fields]
   [:tr
    (td-model (name (:name row)))

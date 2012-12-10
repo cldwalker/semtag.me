@@ -23,6 +23,7 @@
 (defroutes app-routes
   (GET "/" [] (views/mls))
   (GET "/model" [] (views/model-list))
+  (GET "/tag-stats" [] (views/tag-stats))
   (GET "/status" [query] "HEY")
   (GET "/:model" [model] (views/model-show model))
   (GET "/tag/:tag" [tag] (views/tag-show tag))

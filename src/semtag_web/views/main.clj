@@ -24,6 +24,11 @@
     [:div#tag_box.top_box.hero-unit]
     :js-fn "tag_show"))
 
+(defn tag-stats []
+  (main-layout
+    [:div#tag_stats_box.top_box.hero-unit]
+    :js-fn "tag_stats"))
+
 (defn model-list []
   (main-layout
     [:div#model_box.top_box.hero-unit]
