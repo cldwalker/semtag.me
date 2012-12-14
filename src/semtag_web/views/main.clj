@@ -47,6 +47,8 @@
                                               :list "tags" :autocomplete "on"}]
         [:button {:class "btn-primary" :id "url_search_button"} "Search"]
        ]
+      [:button#add_url_button.btn-large.btn-success "Add Url"]
+      [:textarea#add_url_text]
       [:h2 ""]
       ]
     :js-fn "home"))

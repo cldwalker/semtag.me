@@ -39,6 +39,9 @@
      :success f
      })))
 
+(defn log [msg]
+  (.log js/console msg))
+
 ;;; js update fns
 (defn- add-sort-to [parent-div]
   (.tablesorter (jq/find parent-div :table)))
@@ -63,6 +66,20 @@
       (inner (str "Search results for '" query "'"))) 
     (backend-request (str "/mls?query=" query) (partial create-search-table search-box))
     (when callback (callback query))))
+
+(defn create-url [$text $button]
+  (backend-request (str "/add?input=" (jq/val $text))
+    (fn [data]
+      (jq/text $button "Add Url")
+      (jq/val $text "")
+      (jq/hide $text))))
+
+(defn add-url [$text $button]
+  (if (jq/is $text ":visible")
+    (create-url $text $button)
+    (do
+      (jq/text $button "Create Url")
+      (jq/show $text))))
 
 ;;; on-load js fns for specific pages
 (defn ^:export tag-show []
@@ -89,16 +106,22 @@
 (defn ^:export home []
   (let [$button ($ :#url_search_button)
         $text-field ($ :#url_search_text)
+        $add-button ($ :#add_url_button)
+        $add-text ($ :#add_url_text)
+        create-url (partial add-url $add-text $add-button)
         search-and-update-page (partial mls-search ($ :#search_box) $text-field)
         search-and-update-page-and-url (partial search-and-update-page
                                                 #(.pushState window.history "" "" (str "/?query=" %))) 
         query-param (re-find #"[\?&]?query=([^&]+)" (.-search window.location))]
 
     (bind $button "click" search-and-update-page-and-url)
+    (bind $add-button "click" create-url)
+    (bind $add-text :keypress (return-key-pressed create-url))
+    (bind $text-field :keypress (return-key-pressed search-and-update-page-and-url))
+
     (backend-request "/tags"
       #(jq/after $text-field (view/generate-datalist %))
       console-error)
-    (bind $text-field :keypress (return-key-pressed search-and-update-page-and-url))
 
     (when-let [query (when (seq query-param) (second query-param))]
       (jq/val $text-field query)

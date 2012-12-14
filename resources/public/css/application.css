@@ -21,7 +21,17 @@ table caption {
 }
 
 #url_search_button {
-  margin-left: 14px
+  margin-left: 14px;
+}
+
+#add_url_button {
+  margin-bottom: 10px;
+  display: block;
+}
+
+#add_url_text {
+  display: none;
+  width: 280px;
 }
 
 .ellipsis {
