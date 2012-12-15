@@ -90,7 +90,9 @@
         (if (string? data)
           (jq/prepend ($ :#main) (view/alert data))
           (create-sort-table $tag-box
-                 (generate-table "tag_show_table" data
+                 (generate-table "tag_show_table"
+                                 data
+                                 :caption (view/link-tagged tag)
                                  :row-partial view/tag-row
                                  :fields [:attribute :value]))
           )))))

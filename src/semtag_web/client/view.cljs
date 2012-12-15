@@ -17,6 +17,9 @@
 (defn- link-tag [tag]
   [:a {:href (str "/tag/" tag)} tag])
 
+(defn- link-tagged [tag]
+  [:a {:href (str "/?query=" tag)} (str "Tagged with " tag)])
+
 ;;; td formatters
 (defn- td-url [url]
   [:td [:a {:href url} (shorten-to url 40)]])
@@ -90,6 +93,7 @@
        :namespace (td-model (:value row))
        :url (td-url (:value row))
        :tags (td-tags (:value row))
+       :tagged [:td (link-tagged (:value row))] 
        [:td (str (:value row))])
      ]))
 
