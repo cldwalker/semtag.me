@@ -2,6 +2,17 @@
   (:require [hiccup.page :refer [html5 include-js include-css]]
             [hiccup.bootstrap.page :refer [include-bootstrap]]))
 
+(defn- navbar []
+  [:div.navbar.navbar-fixed-top
+   [:div.navbar-inner
+    [:div.container-fluid
+      [:a.brand {:href "/"} "Home"] 
+      [:div.nav-collapse
+        [:ul.nav
+         [:li [:a {:href "/model-stats"} "Model Stats"]]
+         [:li [:a {:href "/tag-stats"} "Tag Stats"]]
+         ]]]]])
+
 (defn main-layout [body & {:as options}]
   (html5
     [:head
@@ -9,6 +20,7 @@
       (include-css "/css/application.css")
      ]
     [:body
+     (navbar)
      [:div#main body]
       (include-js "/js/jquery-1.8.3.min.js")
       (include-js "/js/jquery.tablesorter.min.js")
