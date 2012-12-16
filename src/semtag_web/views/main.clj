@@ -18,13 +18,13 @@
     [:head
       [:title "Semtag"]
       (include-css "/css/application.css")
+      (include-js "/js/jquery-1.8.3.min.js")
+      (include-js "/js/jquery.tablesorter.min.js")
+      (include-bootstrap)
      ]
     [:body
      (navbar)
      [:div#main body]
-      (include-js "/js/jquery-1.8.3.min.js")
-      (include-js "/js/jquery.tablesorter.min.js")
-      (include-bootstrap)
       (include-js "/cljs/main.js")
      (when-let [js-fn (:js-fn options)] 
       [:script {:type "text/javascript"} (str "semtag_web.client.main." js-fn "();")]) 
