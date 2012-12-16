@@ -1,5 +1,5 @@
 (ns semtag-web.client.main
-  (:require [semtag-web.client.view :refer [generate-table] :as view]
+  (:require [semtag-web.client.view :refer [generate-table path-to] :as view]
             [jayq.core :refer [$ bind inner] :as jq]))
 
 ;;; util fns
@@ -64,11 +64,11 @@
   (let [query (jq/val text-field)]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
-    (backend-request (str "/mls?query=" query) (partial create-search-table search-box))
+    (backend-request (path-to "/mls?query=" query) (partial create-search-table search-box))
     (when callback (callback query))))
 
 (defn create-url [$text $button]
-  (backend-request (str "/add?input=" (jq/val $text))
+  (backend-request (path-to "/add?input=" (jq/val $text))
     (fn [data]
       (jq/text $button "Add Url")
       (jq/val $text "")
@@ -85,7 +85,7 @@
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
         tag (match-from-current-uri #"[^\/]+$")]
-    (backend-request (str "/tag?tag=" tag)
+    (backend-request (path-to "/tag?tag=" tag)
       (fn [data]
         (if (string? data)
           (jq/prepend ($ :#main) (view/alert data))
@@ -98,7 +98,7 @@
           )))))
 
 (defn ^:export tag-stats []
-  (backend-request (str "/tag-stats")
+  (backend-request (path-to "/tag-stats")
     #(create-sort-table ($ :#tag_stats_box)
             (generate-table "tag_stats_table" %
                             :row-partial view/tag-stats-row
@@ -113,7 +113,7 @@
         create-url (partial add-url $add-text $add-button)
         search-and-update-page (partial mls-search ($ :#search_box) $text-field)
         search-and-update-page-and-url (partial search-and-update-page
-                                                #(.pushState window.history "" "" (str "/?query=" %))) 
+                                                #(.pushState window.history "" "" (path-to "/?query=" %))) 
         query-param (re-find #"[\?&]?query=([^&]+)" (.-search window.location))]
 
     (bind $button "click" search-and-update-page-and-url)
@@ -121,7 +121,7 @@
     (bind $add-text :keypress (return-key-pressed create-url))
     (bind $text-field :keypress (return-key-pressed search-and-update-page-and-url))
 
-    (backend-request "/tags"
+    (backend-request (path-to "/tags")
       #(jq/after $text-field (view/generate-datalist %))
       console-error)
 
@@ -131,7 +131,7 @@
 
 (defn ^:export model-show []
   (let [model (match-from-current-uri #"[^\/]+$")]
-    (backend-request (str "/model?model=" model)
+    (backend-request (path-to "/model?model=" model)
       #(create-sort-table ($ :#model_show_box)
               (generate-table "model_show_table" %
                               :row-partial view/model-row
@@ -139,7 +139,7 @@
                               :fields [:name :url :desc :tags])))))
 
 (defn ^:export model-stats []
-  (backend-request "/models"
+  (backend-request (path-to "/models")
     #(create-sort-table ($ :#model_stats_box)
             (generate-table "model_stats_table" %
                             :row-partial view/model-stats-row

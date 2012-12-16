@@ -13,12 +13,17 @@
       (str (.substring s 0 (- max-length 3)) "...")
       s)))
 
+(defn path-to
+  "Concats string currently. Should construct paths based on routes and properly encode queries."
+  [& args]
+  (apply str args))
+
 ;;; link fns
 (defn- link-tag [tag]
-  [:a {:href (str "/tag/" tag)} tag])
+  [:a {:href (path-to "/tag/" tag)} tag])
 
 (defn- link-tagged [tag]
-  [:a {:href (str "/?query=" tag)} (str "Tagged with " tag)])
+  [:a {:href (path-to "/?query=" tag)} (str "Tagged with " tag)])
 
 ;;; td formatters
 (defn- td-url [url]
@@ -31,7 +36,7 @@
   [:td (interpose ", " (map link-tag tags))])
 
 (defn- td-model [model]
-   [:td [:a {:href (str "/" model)} model]]) 
+   [:td [:a {:href (path-to "/" model)} model]]) 
 
 ;;; partials
 (defpartial default-row [row fields]
