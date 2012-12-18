@@ -30,7 +30,7 @@
   [:td [:a {:href url} (shorten-to url 40)]])
 
 (defn- td-desc [desc]
-  [:td.ellipsis {:title desc} (shorten-to desc 70)])
+  [:td.ellipsis {:title desc :contentEditable "true"} (shorten-to desc 70)])
 
 (defn- td-tags [tags]
   [:td (interpose ", " (map link-tag tags))])
@@ -63,7 +63,7 @@
      (generate-rows data options)]))
 
 (defpartial tag-search-row [row & fields]
-  [:tr
+  [:tr {:data-id (:id row)}
    (td-model (:namespace row))
    (td-url (:url row))
    (td-desc (:desc row))

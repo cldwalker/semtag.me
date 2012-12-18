@@ -8,8 +8,8 @@
 (defn- key-pressed 
   "If keypressed = keycode then call func"
   [key-code func event]
-    (when  (=  (.-keyCode event) key-code)
-      (func)))
+    (when (= (.-keyCode event) key-code)
+      (func event)))
 
 (defn- return-key-pressed [f]
   (partial key-pressed enter-key f))
@@ -57,10 +57,34 @@
                             :fields [:namespace :url :desc :tags]
                             :row-partial view/tag-search-row
                             :caption (str "Total: " (count data))))
+  (bind
+    ($ "tr td[contentEditable=true]")
+    :keypress
+    (return-key-pressed
+      (fn [event]
+        (.preventDefault event)
+        (let [$elem ($ (.-target event))
+              id (.data (jq/parent $elem "tr") "id")
+              field "desc"
+              value (jq/text $elem)]
+          (.blur $elem)
+          (backend-request (path-to "/edit?id=" id "&" field "=" value)
+            (fn [data]
+              (log data)))
+          ))))
+
+  (bind
+    ($ "tr td[contentEditable=true]")
+    "click"
+    (fn [event]
+      (let [$elem ($ (.-target event))]
+        (jq/remove-class $elem "ellipsis")
+        (inner $elem (jq/attr $elem "title"))
+        )))
   (add-sort-to parent))
 
 (defn mls-search
-  [search-box text-field button & [callback]]
+  [search-box text-field button & [callback event]]
   (let [query (jq/val text-field)]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
@@ -76,7 +100,7 @@
       (jq/val $text "")
       (jq/hide $text))))
 
-(defn add-url [$text $button]
+(defn add-url [$text $button event]
   (if (jq/is $text ":visible")
     (create-url $text $button)
     (do
