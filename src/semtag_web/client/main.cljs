@@ -84,12 +84,11 @@
   (add-sort-to parent))
 
 (defn mls-search
-  [search-box text-field button & [callback event]]
+  [search-box text-field & [callback event]]
   (let [query (jq/val text-field)]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
-    ;; focus off input
-    (.focus button)
+    (.blur text-field)
     (backend-request (path-to "/mls?query=" query) (partial create-search-table search-box))
     (when callback (callback query))))
 
@@ -137,7 +136,7 @@
         $add-button ($ :#add_url_button)
         $add-text ($ :#add_url_text)
         create-url (partial add-url $add-text $add-button)
-        search-and-update-page (partial mls-search ($ :#search_box) $text-field $button)
+        search-and-update-page (partial mls-search ($ :#search_box) $text-field)
         search-and-update-page-and-url (partial search-and-update-page
                                                 #(.pushState window.history "" "" (path-to "/?query=" %))) 
         query-param (re-find #"[\?&]?query=([^&]+)" (.-search window.location))]
