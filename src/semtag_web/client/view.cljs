@@ -27,10 +27,10 @@
 
 ;;; td formatters
 (defn- td-url [url]
-  [:td [:a {:href url} (shorten-to url 40)]])
+  [:td.url {:data-field "url" :title url} [:a {:href url} (shorten-to url 40)]])
 
 (defn- td-desc [desc]
-  [:td.ellipsis {:title desc :contentEditable "true"} (shorten-to desc 70)])
+  [:td.ellipsis {:title desc :contentEditable "true" :data-field "desc"} (shorten-to desc 70)])
 
 (defn- td-tags [tags]
   [:td (interpose ", " (map link-tag tags))])

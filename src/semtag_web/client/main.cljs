@@ -50,6 +50,33 @@
   (apply inner args)
   (add-sort-to (first args)))
 
+(defn- edit-off [event]
+  (let [$elem ($ (.-target event))]
+    (.attr $elem "contentEditable" false)))
+
+(defn- edit-on [event]
+  (let [$elem ($ (.-target event))] 
+    (log $elem)
+    ;; because this propagates down to <a> click
+    (when (= "td" (.-localName (first $elem)))
+      (.attr $elem "contentEditable" true))))
+
+(defn- saves-edit [event]
+  (.preventDefault event)
+  (let [$elem ($ (.-target event))
+        id (.data (jq/parent $elem "tr") "id")
+        field (.data $elem "field")
+        value (jq/text $elem)]
+    (.blur $elem)
+    (backend-request (path-to "/edit?id=" id "&" field "=" value)
+      (fn [data]
+        (log data)))))
+
+(defn- expand-editable-text [event]
+  (let [$elem ($ (.-target event))]
+    (jq/remove-class $elem "ellipsis")
+    (inner $elem (jq/attr $elem "title")))) 
+
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
@@ -57,30 +84,26 @@
                             :fields [:namespace :url :desc :tags]
                             :row-partial view/tag-search-row
                             :caption (str "Total: " (count data))))
+
+  (bind ($ :td.url) "click" (fn [e] (expand-editable-text e) (edit-on e))) 
+  (.blur ($ :td.url) edit-off)
+  (.hover ($ :td.url) (fn [e]) edit-off) 
+
+  (bind
+    ($ :td.url)
+    :keypress
+    (return-key-pressed saves-edit))
+
   (bind
     ($ "tr td[contentEditable=true]")
     :keypress
-    (return-key-pressed
-      (fn [event]
-        (.preventDefault event)
-        (let [$elem ($ (.-target event))
-              id (.data (jq/parent $elem "tr") "id")
-              field "desc"
-              value (jq/text $elem)]
-          (.blur $elem)
-          (backend-request (path-to "/edit?id=" id "&" field "=" value)
-            (fn [data]
-              (log data)))
-          ))))
+    (return-key-pressed saves-edit))
 
   (bind
     ($ "tr td[contentEditable=true]")
     "click"
-    (fn [event]
-      (let [$elem ($ (.-target event))]
-        (jq/remove-class $elem "ellipsis")
-        (inner $elem (jq/attr $elem "title"))
-        )))
+    expand-editable-text)
+
   (add-sort-to parent))
 
 (defn mls-search
