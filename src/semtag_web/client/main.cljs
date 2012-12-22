@@ -85,24 +85,14 @@
                             :row-partial view/tag-search-row
                             :caption (str "Total: " (count data))))
 
-  (bind ($ :td.url) "click" (fn [e] (expand-editable-text e) (edit-on e))) 
-  (.blur ($ :td.url) edit-off)
-  (.hover ($ :td.url) (fn [e]) edit-off) 
+  (bind ($ :td.editable) "click" (juxt expand-editable-text edit-on))
+  (.blur ($ :td.editable) edit-off)
+  (.hover ($ :td.editable) (fn [e]) edit-off)
 
   (bind
-    ($ :td.url)
+    ($ :td.editable)
     :keypress
     (return-key-pressed saves-edit))
-
-  (bind
-    ($ "tr td[contentEditable=true]")
-    :keypress
-    (return-key-pressed saves-edit))
-
-  (bind
-    ($ "tr td[contentEditable=true]")
-    "click"
-    expand-editable-text)
 
   (add-sort-to parent))
 
