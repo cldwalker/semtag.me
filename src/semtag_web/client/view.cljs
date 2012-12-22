@@ -29,8 +29,10 @@
 (defn- td-url [url]
   [:td.editable {:data-field "url" :title url} [:a {:href url} (shorten-to url 40)]])
 
-(defn- td-desc [desc]
-  [:td.ellipsis.editable {:title desc :data-field "desc"} (shorten-to desc 70)])
+(defn- td-desc
+  ([desc] (td-desc desc 70))
+  ([desc max-length]
+  [:td.ellipsis.editable {:title desc :data-field "desc"} (shorten-to desc max-length)]))
 
 (defn- td-tags [tags]
   [:td (interpose ", " (map link-tag tags))])
@@ -92,13 +94,14 @@
 
 (defpartial tag-row [row & fields]
   (let [attr (:attribute row)]
-    [:tr
+    [:tr {:data-id (:id row)}
      [:td attr]
      (case attr
        :namespace (td-model (:value row))
        :url (td-url (:value row))
        :tags (td-tags (:value row))
-       :tagged [:td (link-tagged (:value row))] 
+       :tagged [:td (link-tagged (:value row))]
+       :desc (td-desc (:value row) 1000)
        [:td (str (:value row))])
      ]))
 

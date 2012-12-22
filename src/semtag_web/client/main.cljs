@@ -77,6 +77,13 @@
     (jq/remove-class $elem "ellipsis")
     (inner $elem (jq/attr $elem "title")))) 
 
+(defn- make-table-editable []
+  (let [editable-cells ($ :td.editable)]
+    (bind editable-cells "click" (juxt expand-editable-text edit-on)) 
+    (.blur editable-cells edit-off) 
+    (.hover editable-cells (fn [e]) edit-off) 
+    (bind editable-cells :keypress (return-key-pressed saves-edit))))
+
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
@@ -85,15 +92,7 @@
                             :row-partial view/tag-search-row
                             :caption (str "Total: " (count data))))
 
-  (bind ($ :td.editable) "click" (juxt expand-editable-text edit-on))
-  (.blur ($ :td.editable) edit-off)
-  (.hover ($ :td.editable) (fn [e]) edit-off)
-
-  (bind
-    ($ :td.editable)
-    :keypress
-    (return-key-pressed saves-edit))
-
+  (make-table-editable)
   (add-sort-to parent))
 
 (defn mls-search
@@ -127,12 +126,14 @@
       (fn [data]
         (if (string? data)
           (jq/prepend ($ :#main) (view/alert data))
-          (create-sort-table $tag-box
-                 (generate-table "tag_show_table"
-                                 data
-                                 :caption (view/link-tagged tag)
-                                 :row-partial view/tag-row
-                                 :fields [:attribute :value]))
+          (do
+            (create-sort-table $tag-box
+                   (generate-table "tag_show_table"
+                                   data
+                                   :caption (view/link-tagged tag)
+                                   :row-partial view/tag-row
+                                   :fields [:attribute :value])) 
+            (make-table-editable))
           )))))
 
 (defn ^:export tag-stats []
