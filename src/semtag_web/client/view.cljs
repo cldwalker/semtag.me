@@ -30,7 +30,7 @@
   [:td.editable {:data-field "url" :title url} [:a {:href url} (shorten-to url 40)]])
 
 (defn- td-name [s]
-  [:td.editable {:data-field "name" :title s} s])
+  [:td.editable {:data-field "name" :title s} (if (seq s) (link-tag s) s)])
 
 (defn- td-desc
   ([desc] (td-desc desc 70))
@@ -89,8 +89,8 @@
    ])
 
 (defpartial model-row [row & fields]
-  [:tr
-   [:td (if (seq (:name row)) (link-tag (:name row)) (:name row))]
+  [:tr {:data-id (:id row)}
+   (td-name (:name row))
    (td-url (:url row))
    (td-desc (:desc row))
    (td-tags (:tags row))])
