@@ -29,6 +29,9 @@
 (defn- td-url [url]
   [:td.editable {:data-field "url" :title url} [:a {:href url} (shorten-to url 40)]])
 
+(defn- td-name [s]
+  [:td.editable {:data-field "name" :title s} s])
+
 (defn- td-desc
   ([desc] (td-desc desc 70))
   ([desc max-length]
@@ -99,6 +102,7 @@
      (case attr
        :namespace (td-model (:value row))
        :url (td-url (:value row))
+       :name (td-name (:value row))
        :tags (td-tags (:value row))
        :tagged [:td (link-tagged (:value row))]
        :desc (td-desc (:value row) 1000)
