@@ -13,6 +13,11 @@
       (str (.substring s 0 (- max-length 3)) "...")
       s)))
 
+(defn- abbreviate-url [url]
+  (-> url
+    (string/replace-first #"^https?://(www\.)?" "")
+    (string/replace-first #"/$" "")))
+
 (defn path-to
   "Concats string currently. Should construct paths based on routes and properly encode queries."
   [& args]
@@ -27,7 +32,8 @@
 
 ;;; td formatters
 (defn- td-url [url]
-  [:td.editable {:data-field "url" :title url} [:a {:href url} (shorten-to url 40)]])
+  [:td.editable {:data-field "url" :title url}
+    [:a {:href url} (shorten-to (if url (abbreviate-url url) url) 40)]])
 
 (defn- td-name [s]
   [:td.editable {:data-field "name" :title s} (if (seq s) (link-tag s) s)])
