@@ -44,7 +44,8 @@
   [:td.ellipsis.editable {:title desc :data-field "desc"} (shorten-to desc max-length)]))
 
 (defn- td-tags [tags]
-  [:td (interpose ", " (map link-tag tags))])
+  [:td.editable {:title (string/join ", " tags) :data-field "tags"}
+    (interpose ", " (map link-tag tags))])
 
 (defn- td-model [model]
    [:td [:a {:href (path-to "/" model)} model]]) 
