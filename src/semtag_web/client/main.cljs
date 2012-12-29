@@ -39,7 +39,10 @@
 (defn- expand-editable-text [event]
   (let [$elem ($ (.-target event))]
     (jq/remove-class $elem "ellipsis")
-    (inner $elem (jq/attr $elem "title")))) 
+    ;; quick and dirty way - cleaner way would be to track editing state
+    ;; this check ensures we don't clobber that the user has come back to finish edit
+    (when (re-find #"\.\.\.$" (jq/text $elem))
+      (inner $elem (jq/attr $elem "title"))))) 
 
 (defn- make-table-editable []
   (let [editable-cells ($ :td.editable)]
