@@ -25,6 +25,14 @@
   (apply inner args)
   (add-sort-to (first args)))
 
+(defn- mark-in-progress [event]
+  (let [$elem ($ (.-target event))]
+    (jq/add-class $elem "edit-in-progress")))
+
+(defn- mark-completed [event]
+  (let [$elem ($ (.-target event))]
+    (jq/add-class $elem "edit-completed")))
+
 (defn- saves-edit [event]
   (.preventDefault event)
   (let [$elem ($ (.-target event))
@@ -34,7 +42,9 @@
     (.blur $elem)
     (backend-request (path-to "/edit?id=" id "&" field "=" value)
       (fn [data]
-        (log data)))))
+        (log "Received from server:")
+        (log-clj data)
+        (mark-completed event)))))
 
 (defn- expand-editable-text [event]
   (let [$elem ($ (.-target event))]
@@ -42,13 +52,13 @@
     ;; quick and dirty way - cleaner way would be to track editing state
     ;; this check ensures we don't clobber that the user has come back to finish edit
     (when (re-find #"\.\.\.$" (jq/text $elem))
-      (inner $elem (jq/attr $elem "title"))))) 
+      (inner $elem (jq/attr $elem "title")))))
 
 (defn- make-table-editable []
   (let [editable-cells ($ :td.editable)]
     (.attr editable-cells "contentEditable" true)
     (.attr (jq/find editable-cells "a") "contentEditable" false)
-    (bind editable-cells "click" expand-editable-text)
+    (bind editable-cells "click" (juxt expand-editable-text mark-in-progress))
     (bind editable-cells :keypress (return-key-pressed saves-edit))))
 
 (defn- create-search-table [parent data]

@@ -40,3 +40,11 @@ table caption {
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
 }
+
+.table-striped tbody tr td.edit-in-progress {
+  background-color: yellow;
+}
+
+.table-striped tbody tr td.edit-completed {
+  background-color: green;
+}
