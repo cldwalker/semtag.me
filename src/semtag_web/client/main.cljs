@@ -64,7 +64,7 @@
 (defn- saves-edit [event]
   (.preventDefault event)
   (let [$elem ($ (.-target event))
-        id (.data (jq/parent $elem "tr") "id")
+        id (.data (jq/parent $elem) "id")
         field (.data $elem "field")
         value (jq/text $elem)]
     (.blur $elem)
@@ -175,7 +175,7 @@
         (create-sort-table ($ :#model_show_box)
               (generate-table "model_show_table" data
                               :row-partial view/model-row
-                              :caption (str "Total: " (count %))
+                              :caption (str "Total: " (count data))
                               :fields [:name :url :desc :tags]))
         (make-table-editable)))))
 
