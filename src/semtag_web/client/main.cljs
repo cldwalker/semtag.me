@@ -25,13 +25,11 @@
   (apply inner args)
   (add-sort-to (first args)))
 
-(defn- mark-in-progress [event]
+(defn- set-edit-state [klass event]
   (let [$elem ($ (.-target event))]
-    (jq/add-class $elem "edit-in-progress")))
-
-(defn- mark-completed [event]
-  (let [$elem ($ (.-target event))]
-    (jq/add-class $elem "edit-completed")))
+    (doseq [c (->> (jq/attr $elem :class) (re-seq #"\S+") (filter #(re-find #"^edit-" %)))]
+      (jq/remove-class $elem c))
+    (jq/add-class $elem klass)))
 
 (defn- saves-edit [event]
   (.preventDefault event)
@@ -45,9 +43,9 @@
       (fn [data]
         (log "Received from server:")
         (log-clj data)
-        (mark-completed event))
+        (set-edit-state "edit-completed" event))
       (fn [& args]
-        (jq/add-class $elem "edit-failed")
+        (set-edit-state "edit-failed" event)
         (apply alert-error args)
         ))))
 
@@ -63,7 +61,7 @@
   (let [editable-cells ($ :td.editable)]
     (.attr editable-cells "contentEditable" true)
     (.attr (jq/find editable-cells "a") "contentEditable" false)
-    (bind editable-cells "click" (juxt expand-editable-text mark-in-progress))
+    (bind editable-cells "click" (juxt expand-editable-text (partial set-edit-state "edit-in-progress")))
     (bind editable-cells :keypress (return-key-pressed saves-edit))))
 
 (defn- create-search-table [parent data]
