@@ -1,33 +1,11 @@
 (ns semtag-web.client.main
   (:require [semtag-web.client.view :refer [generate-table path-to] :as view]
+            [semtag-web.client.util :refer [log log-clj return-key-pressed] :as util]
             [jayq.core :refer [$ bind inner] :as jq]))
 
-;;; util fns
-(def enter-key 13)
-
-(defn- key-pressed 
-  "If keypressed = keycode then call func"
-  [key-code func event]
-    (when (= (.-keyCode event) key-code)
-      (func event)))
-
-(defn- return-key-pressed [f]
-  (partial key-pressed enter-key f))
-
-(defn- current-uri []
-  (.toString window.location ()))
-
-(defn- match-from-current-uri [regex]
-  (re-find regex (current-uri)))
-
-(defn- error-msg [path err]
-  (format "Request '%s' failed with: %s" path (pr-str err)))
-
-(defn- console-error [path _ _ err]
-  (.log js/console (error-msg path err)))
-
+;; possible util fns
 (defn- alert-error [path _ _ err]
-  (jq/prepend ($ :#main) (view/alert (error-msg path err))))
+  (jq/prepend ($ :#main) (view/alert (util/error-msg path err))))
 
 (defn backend-request
   ([path f] (backend-request path f alert-error))
@@ -38,9 +16,6 @@
      :error #(alert-fn path %&)
      :success f
      })))
-
-(defn log [msg]
-  (.log js/console msg))
 
 ;;; js update fns
 (defn- add-sort-to [parent-div]
@@ -110,7 +85,7 @@
 ;;; on-load js fns for specific pages
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
-        tag (match-from-current-uri #"[^\/]+$")]
+        tag (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/tag?tag=" tag)
       (fn [data]
         (if (string? data)
@@ -151,14 +126,14 @@
 
     (backend-request (path-to "/tags")
       #(jq/after $text-field (view/generate-datalist %))
-      console-error)
+      util/console-error)
 
     (when-let [query (when (seq query-param) (second query-param))]
       (jq/val $text-field query)
       (search-and-update-page))))
 
 (defn ^:export model-show []
-  (let [model (match-from-current-uri #"[^\/]+$")]
+  (let [model (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/model?model=" model)
       (fn [data]
         (create-sort-table ($ :#model_show_box)
