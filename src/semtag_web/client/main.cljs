@@ -50,17 +50,6 @@
   (apply inner args)
   (add-sort-to (first args)))
 
-(defn- edit-off [event]
-  (let [$elem ($ (.-target event))]
-    (.attr $elem "contentEditable" false)))
-
-(defn- edit-on [event]
-  (let [$elem ($ (.-target event))] 
-    (log $elem)
-    ;; because this propagates down to <a> click
-    (when (= "td" (.-localName (first $elem)))
-      (.attr $elem "contentEditable" true))))
-
 (defn- saves-edit [event]
   (.preventDefault event)
   (let [$elem ($ (.-target event))
@@ -79,9 +68,9 @@
 
 (defn- make-table-editable []
   (let [editable-cells ($ :td.editable)]
-    (bind editable-cells "click" (juxt expand-editable-text edit-on)) 
-    (.blur editable-cells edit-off) 
-    (.hover editable-cells (fn [e]) edit-off) 
+    (.attr editable-cells "contentEditable" true)
+    (.attr (jq/find editable-cells "a") "contentEditable" false)
+    (bind editable-cells "click" expand-editable-text)
     (bind editable-cells :keypress (return-key-pressed saves-edit))))
 
 (defn- create-search-table [parent data]
