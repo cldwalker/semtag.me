@@ -48,3 +48,7 @@ table caption {
 .table-striped tbody tr td.edit-completed {
   background-color: green;
 }
+
+.table-striped tbody tr td.edit-failed {
+  background-color: red;
+}

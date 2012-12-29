@@ -40,11 +40,16 @@
         field (.data $elem "field")
         value (jq/text $elem)]
     (.blur $elem)
-    (backend-request (path-to "/edit?id=" id "&" field "=" value)
+    (backend-request
+      (path-to "/edit?id=" id "&" field "=" value)
       (fn [data]
         (log "Received from server:")
         (log-clj data)
-        (mark-completed event)))))
+        (mark-completed event))
+      (fn [& args]
+        (jq/add-class $elem "edit-failed")
+        (apply alert-error args)
+        ))))
 
 (defn- expand-editable-text [event]
   (let [$elem ($ (.-target event))]
