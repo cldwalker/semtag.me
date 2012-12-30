@@ -77,6 +77,7 @@
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
    (td-model (:namespace row))
+   (td-name (:name row))
    (td-url (:url row))
    (td-desc (:desc row))
    (td-tags (:tags row))])
