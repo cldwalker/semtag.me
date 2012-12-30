@@ -4,12 +4,17 @@
             [jayq.core :refer [$ bind inner] :as jq]))
 
 ;; possible util fns
+(defn- alert
+  ([msg] (alert msg :error))
+  ([msg alert-type]
+    (jq/prepend ($ :#main) (view/alert msg (str "alert-" (name alert-type))))))
+
 (defn- alert-error [path _ _ err]
-  (jq/prepend ($ :#main) (view/alert (util/error-msg path err))))
+  (alert (util/error-msg path err)))
 
 (defn backend-request
   ([path f] (backend-request path f alert-error))
-  ([path f alert-fn] 
+  ([path f alert-fn]
   (jq/ajax
     (str "http://localhost:3000/api" path)
     {:dataType "edn"
@@ -87,6 +92,7 @@
 (defn create-url [$text $button]
   (backend-request (path-to "/add?input=" (jq/val $text))
     (fn [data]
+      (alert (format "Added '%s'" (jq/val $text)) :info)
       (jq/text $button "Add Url")
       (jq/val $text "")
       (jq/hide $text))))
@@ -105,7 +111,7 @@
     (backend-request (path-to "/tag?tag=" tag)
       (fn [data]
         (if (string? data)
-          (jq/prepend ($ :#main) (view/alert data))
+          (alert data)
           (do
             (create-sort-table $tag-box
                    (generate-table "tag_show_table"
