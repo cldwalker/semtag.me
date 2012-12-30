@@ -9,8 +9,9 @@
   ([msg alert-type]
     (jq/prepend ($ :#main) (view/alert msg (str "alert-" (name alert-type))))))
 
-(defn- alert-error [path _ _ err]
-  (alert (util/error-msg path err)))
+(defn- alert-error [path a b err]
+  (let [msg (or (.-responseText a) err)]
+    (alert (util/error-msg path msg))))
 
 (defn backend-request
   ([path f] (backend-request path f alert-error))
@@ -18,7 +19,7 @@
   (jq/ajax
     (str "http://localhost:3000/api" path)
     {:dataType "edn"
-     :error #(alert-fn path %&)
+     :error #(apply alert-fn path %&)
      :success f
      })))
 
