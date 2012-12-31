@@ -1,6 +1,7 @@
 (ns semtag-web.client.main
   (:require [semtag-web.client.view :refer [generate-table path-to] :as view]
             [semtag-web.client.util :refer [log log-clj return-key-pressed] :as util]
+            clojure.string
             [jayq.core :refer [$ bind inner] :as jq]))
 
 ;; possible util fns
@@ -174,7 +175,8 @@
   (home)
   (.click ($ :#add_url_button))
   (if-let [input (util/param-value "input")]
-    (do
+    ; remove hack when not using cmd service that overrides ':'
+    (let [input (-> (clojure.string/replace input #"\.\." ":"))]
       (.text ($ :#add_url_text) (.decodeURI js/window input))
       (.click ($ :#add_url_button)))
     (alert "No input given.")))
