@@ -155,8 +155,7 @@
         create-url (partial add-url $add-text $add-button)
         search-and-update-page (partial mls-search ($ :#search_box) $text-field)
         search-and-update-page-and-url (partial search-and-update-page
-                                                #(.pushState window.history "" "" (path-to "/?query=" %))) 
-        query-param (re-find #"[\?&]?query=([^&]+)" (.-search window.location))]
+                                                #(.pushState window.history "" "" (path-to "/?query=" %)))]
 
     (bind $button "click" search-and-update-page-and-url)
     (bind $add-button "click" create-url)
@@ -167,7 +166,7 @@
       #(jq/after $text-field (view/generate-datalist %))
       :alert-fn console-error)
 
-    (when-let [query (when (seq query-param) (second query-param))]
+    (when-let [query (util/param-value "query")]
       (jq/val $text-field query)
       (search-and-update-page))))
 
