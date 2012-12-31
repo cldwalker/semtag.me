@@ -4,6 +4,12 @@
             [jayq.core :refer [$ bind inner] :as jq]))
 
 ;; possible util fns
+(defn- error-msg [path err]
+  (format "Request '%s' failed with: %s" path (pr-str err)))
+
+(defn- console-error [path _ _ err]
+  (.log js/console (error-msg path err)))
+
 (defn- alert
   ([msg] (alert msg :error))
   ([msg alert-type]
@@ -11,7 +17,7 @@
 
 (defn- alert-error [path a b err]
   (let [msg (or (.-responseText a) err)]
-    (alert (util/error-msg path msg))))
+    (alert (error-msg path msg))))
 
 (defn backend-request
   ([path f] (backend-request path f alert-error))
@@ -149,7 +155,7 @@
 
     (backend-request (path-to "/tags")
       #(jq/after $text-field (view/generate-datalist %))
-      util/console-error)
+      console-error)
 
     (when-let [query (when (seq query-param) (second query-param))]
       (jq/val $text-field query)

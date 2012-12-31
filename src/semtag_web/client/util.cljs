@@ -1,4 +1,5 @@
-(ns semtag-web.client.util)
+(ns semtag-web.client.util
+  "General cljs utilities")
 
 (def enter-key 13)
 
@@ -8,22 +9,22 @@
     (when (= (.-keyCode event) key-code)
       (func event)))
 
-(defn return-key-pressed [f]
+(defn return-key-pressed
+  "Creates a fn to be bound to a keypress event given a fn to execute"
+  [f]
   (partial key-pressed enter-key f))
 
-(defn- current-uri []
+(defn current-uri
+  "The current uri using window.location"
+  []
   (.toString window.location ()))
 
 (defn match-from-current-uri [regex]
   (re-find regex (current-uri)))
 
-(defn error-msg [path err]
-  (format "Request '%s' failed with: %s" path (pr-str err)))
-
-(defn console-error [path _ _ err]
-  (.log js/console (error-msg path err)))
-
-(defn log [msg]
+(defn log
+  "Log to the console"
+  [msg]
   (.log js/console msg))
 
 ;; from good ol ibdknox/fetch
@@ -40,5 +41,7 @@
     (coll? x) (apply array (map clj->js x))
     :else x))
 
-(defn log-clj [msg]
+(defn log-clj
+  "Log a clj data structure as a js one"
+  [msg]
   (log (clj->js msg)))
