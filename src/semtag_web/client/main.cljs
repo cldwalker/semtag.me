@@ -170,6 +170,15 @@
       (jq/val $text-field query)
       (search-and-update-page))))
 
+(defn ^:export entity-add []
+  (home)
+  (.click ($ :#add_url_button))
+  (if-let [input (util/param-value "input")]
+    (do
+      (.text ($ :#add_url_text) (.decodeURI js/window input))
+      (.click ($ :#add_url_button)))
+    (alert "No input given.")))
+
 (defn ^:export model-show []
   (let [model (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/model")

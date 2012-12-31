@@ -51,7 +51,9 @@
     [:div#model_show_box.top_box.hero-unit]
     :js-fn "model_show"))
 
-(defn mls []
+(defn home
+  ([] (home "home"))
+  ([js-fn]
   (main-layout
      [:div#search_box.top_box.hero-unit
       [:form.form-search {:onsubmit "return false;"}
@@ -63,4 +65,4 @@
       [:textarea#add_url_text]
       [:h2 ""]
       ]
-    :js-fn "home"))
+    :js-fn js-fn)))

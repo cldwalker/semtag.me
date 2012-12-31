@@ -45,3 +45,10 @@
   "Log a clj data structure as a js one"
   [msg]
   (log (clj->js msg)))
+
+(defn param-value
+  "Scrapes param value from window.location.search"
+  [param]
+  (when-let [match (re-find
+                     (re-pattern (format "[?&]?%s=([^&]+)" param))
+                     (.-search window.location))] (second match)))
