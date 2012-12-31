@@ -20,14 +20,18 @@
     (alert (error-msg path msg))))
 
 (defn backend-request
-  ([path f] (backend-request path f alert-error))
-  ([path f alert-fn]
+  "Given a path and success fn makes a request using $.ajax. Additional arguments are
+  interpreted as options to $.ajax. Also accepts a :alert-fn option to create a
+  specialized error fn."
+  [path f & {:keys [type alert-fn] :or {type "GET" alert-fn alert-error} :as options}]
   (jq/ajax
     (str "http://localhost:3000/api" path)
-    {:dataType "edn"
-     :error #(apply alert-fn path %&)
-     :success f
-     })))
+    (merge
+      {:dataType "edn"
+       :error #(apply alert-fn path %&)
+       :type type
+       :success f
+       } options)))
 
 ;;; js update fns
 (defn- add-sort-to [parent-div]
@@ -51,12 +55,14 @@
         value (jq/text $elem)]
     (.blur $elem)
     (backend-request
-      (path-to "/edit?id=" id "&" field "=" value)
+      (path-to "/edit")
       (fn [data]
         (log "Received from server:")
         (log-clj data)
         (set-edit-state "edit-completed" event))
-      (fn [& args]
+      :type "POST"
+      :data {:id id field value}
+      :alert-fn (fn [& args]
         (set-edit-state "edit-failed" event)
         (apply alert-error args)
         ))))
@@ -93,16 +99,18 @@
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
     (.blur text-field)
-    (backend-request (path-to "/mls?query=" query) (partial create-search-table search-box))
+    (backend-request (path-to "/mls") (partial create-search-table search-box) :data {:query query})
     (when callback (callback query))))
 
 (defn create-url [$text $button]
-  (backend-request (path-to "/add?input=" (jq/val $text))
+  (backend-request (path-to "/add")
     (fn [data]
       (alert (format "Added '%s'" (jq/val $text)) :info)
       (jq/text $button "Add Url")
       (jq/val $text "")
-      (jq/hide $text))))
+      (jq/hide $text))
+    :type "POST"
+    :data {:input (jq/val $text)}))
 
 (defn add-url [$text $button event]
   (if (jq/is $text ":visible")
@@ -115,7 +123,7 @@
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
         tag (util/match-from-current-uri #"[^\/]+$")]
-    (backend-request (path-to "/tag?tag=" tag)
+    (backend-request (path-to "/tag")
       (fn [data]
         (if (string? data)
           (alert data)
@@ -127,7 +135,8 @@
                                    :row-partial view/tag-row
                                    :fields [:attribute :value])) 
             (make-table-editable))
-          )))))
+          ))
+       :data {:tag tag})))
 
 (defn ^:export tag-stats []
   (backend-request (path-to "/tag-stats")
@@ -155,7 +164,7 @@
 
     (backend-request (path-to "/tags")
       #(jq/after $text-field (view/generate-datalist %))
-      console-error)
+      :alert-fn console-error)
 
     (when-let [query (when (seq query-param) (second query-param))]
       (jq/val $text-field query)
@@ -163,14 +172,15 @@
 
 (defn ^:export model-show []
   (let [model (util/match-from-current-uri #"[^\/]+$")]
-    (backend-request (path-to "/model?model=" model)
+    (backend-request (path-to "/model")
       (fn [data]
         (create-sort-table ($ :#model_show_box)
               (generate-table "model_show_table" data
                               :row-partial view/model-row
                               :caption (str "Total: " (count data))
                               :fields [:name :url :desc :tags]))
-        (make-table-editable)))))
+        (make-table-editable))
+      :data {:model model})))
 
 (defn ^:export model-stats []
   (backend-request (path-to "/models")
