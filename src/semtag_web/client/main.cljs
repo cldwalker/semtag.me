@@ -182,7 +182,7 @@
 
 (defn ^:export model-show []
   (let [model (util/match-from-current-uri #"[^\/]+$")]
-    (backend-request (path-to "/model")
+    (backend-request (path-to "/type")
       (fn [data]
         (create-sort-table ($ :#model_show_box)
               (generate-table "model_show_table" data
@@ -190,10 +190,10 @@
                               :caption (str "Total: " (count data))
                               :fields [:name :url :desc :tags]))
         (make-table-editable))
-      :data {:model model})))
+      :data {:name model})))
 
 (defn ^:export model-stats []
-  (backend-request (path-to "/models")
+  (backend-request (path-to "/types")
     #(create-sort-table ($ :#model_stats_box)
             (generate-table "model_stats_table" %
                             :row-partial view/model-stats-row
