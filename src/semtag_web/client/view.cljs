@@ -47,8 +47,9 @@
   [:td.editable {:title (string/join ", " tags) :data-field "tags"}
     (interpose ", " (map link-tag tags))])
 
-(defn- td-model [model]
-   [:td [:a {:href (path-to "/" model)} model]]) 
+(defn- td-type [type]
+   [:td.editable {:title type :data-field "type"}
+     [:a {:href (path-to "/" type)} type]])
 
 ;;; partials
 (defpartial default-row [row fields]
@@ -76,7 +77,7 @@
 
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
-   (td-model (:type row))
+   (td-type (:type row))
    (td-name (:name row))
    (td-url (:url row))
    (td-desc (:desc row))
@@ -90,7 +91,7 @@
 
 (defpartial model-stats-row [row & fields]
   [:tr
-   (td-model (name (:name row)))
+   (td-type (name (:name row)))
    [:td (:count row)]
    [:td (:name-percent row)]
    [:td (:url-percent row)]
@@ -108,7 +109,7 @@
     [:tr {:data-id (:id row)}
      [:td attr]
      (case attr
-       :type (td-model (:value row))
+       :type (td-type (:value row))
        :url (td-url (:value row))
        :name (td-name (:value row))
        :tags (td-tags (:value row))
