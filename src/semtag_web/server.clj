@@ -11,8 +11,8 @@
 ; can still be demoed without relying on it.
 (defroutes demo-api-routes
   (GET "/mls" []
-       (prn-str [{:namespace "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags ["dunno"]}
-                 {:namespace "search_engine" :url "http://google.com" :desc "kinda useful" :tags ["search"]}]))
+       (prn-str [{:type "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags ["dunno"]}
+                 {:type "search_engine" :url "http://google.com" :desc "kinda useful" :tags ["search"]}]))
   (GET "/tags" []
        (prn-str ["one" "two" "three"]))
   (GET "/models" []

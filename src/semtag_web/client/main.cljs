@@ -87,7 +87,7 @@
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
             (generate-table "search_table" data
-                            :fields [:namespace :name :url :desc :tags]
+                            :fields [:type :name :url :desc :tags]
                             :row-partial view/tag-search-row
                             :caption (str "Total: " (count data))))
 

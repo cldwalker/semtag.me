@@ -76,7 +76,7 @@
 
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
-   (td-model (:namespace row))
+   (td-model (:type row))
    (td-name (:name row))
    (td-url (:url row))
    (td-desc (:desc row))
@@ -108,7 +108,7 @@
     [:tr {:data-id (:id row)}
      [:td attr]
      (case attr
-       :namespace (td-model (:value row))
+       :type (td-model (:value row))
        :url (td-url (:value row))
        :name (td-name (:value row))
        :tags (td-tags (:value row))
