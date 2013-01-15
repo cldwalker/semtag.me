@@ -19,6 +19,7 @@
       [:title "Semtag"]
       (include-js "/js/jquery-1.8.3.min.js")
       (include-js "/js/jquery.tablesorter.min.js")
+      (include-js "/js/jquery.timeago.js")
       (include-bootstrap)
       (include-css "/css/application.css")
      ]

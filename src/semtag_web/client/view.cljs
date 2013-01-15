@@ -51,6 +51,9 @@
    [:td.editable {:title type :data-field "type"}
      [:a {:href (path-to "/" type)} type]])
 
+(defn- td-timestamp [datetime]
+  [:td.timestamp {:title (if datetime (.toISOString datetime) "")} (str datetime)])
+
 ;;; partials
 (defpartial default-row [row fields]
   [:tr
@@ -115,6 +118,8 @@
        :tags (td-tags (:value row))
        :tagged [:td (link-tagged (:value row))]
        :desc (td-desc (:value row) 1000)
+       :created-at (td-timestamp (:value row))
+       :updated-at (td-timestamp (:value row))
        [:td (str (:value row))])
      ]))
 

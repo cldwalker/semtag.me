@@ -135,6 +135,7 @@
                                    :caption (view/link-tagged tag)
                                    :row-partial view/tag-row
                                    :fields [:attribute :value])) 
+            (.timeago ($ :td.timestamp))
             (make-table-editable))
           ))
        :data {:tag tag})))
