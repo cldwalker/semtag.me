@@ -175,8 +175,9 @@
   (home)
   (.click ($ :#add_url_button))
   (if-let [input (util/param-value "input")]
-    ; remove hack when not using cmd service that overrides ':'
-    (let [input (-> (clojure.string/replace input #"\.\." ":"))]
+    ; TODO: remove hacks when not using cmd service that overrides ':' and ';'
+    (let [input (-> (clojure.string/replace input #"\.\." ":"))
+          input (-> (clojure.string/replace input #",," ";"))]
       (.text ($ :#add_url_text) (.decodeURI js/window input))
       (.click ($ :#add_url_button)))
     (alert "No input given.")))
