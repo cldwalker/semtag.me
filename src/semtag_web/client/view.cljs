@@ -24,8 +24,11 @@
   (apply str args))
 
 ;;; link fns
-(defn- link-tag [tag]
-  [:a {:href (path-to "/tag/" tag)} tag])
+(defn- link-tag
+  ([tag] (link-tag tag tag))
+  ([tag text] (link-tag tag text {}))
+  ([tag text attr]
+    [:a (merge {:href (path-to "/tag/" tag)} attr) text]))
 
 (defn- link-tagged [tag]
   [:a {:href (path-to "/?query=" tag)} (str "Tagged with " tag)])
@@ -35,8 +38,12 @@
   [:td.editable {:data-field "url" :title url}
     [:a {:href url} (shorten-to (if url (abbreviate-url url) url) 40)]])
 
-(defn- td-name [s]
-  [:td.editable {:data-field "name" :title s} (if (seq s) (link-tag s) s)])
+(defn- td-name
+  ([s] (td-name s nil))
+  ([s id]
+    [:td.editable {:data-field "name" :title s}
+     (if (seq s) (link-tag s)
+       (if id (link-tag id "nil" {:class "noname" :title "This thing has no name. Feel free to give it one."}) s))]))
 
 (defn- td-desc
   ([desc] (td-desc desc 70))
@@ -81,7 +88,7 @@
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
    (td-type (:type row))
-   (td-name (:name row))
+   (td-name (:name row) (:id row))
    (td-url (:url row))
    (td-desc (:desc row))
    (td-tags (:tags row))])
@@ -102,7 +109,7 @@
 
 (defpartial model-row [row & fields]
   [:tr {:data-id (:id row)}
-   (td-name (:name row))
+   (td-name (:name row) (:id row))
    (td-url (:url row))
    (td-desc (:desc row))
    (td-tags (:tags row))])

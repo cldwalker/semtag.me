@@ -52,3 +52,7 @@ table caption {
 .table-striped tbody tr td.edit-failed {
   background-color: red;
 }
+
+a.noname {
+  color: grey;
+}

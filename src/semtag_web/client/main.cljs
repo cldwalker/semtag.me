@@ -132,7 +132,7 @@
             (create-sort-table $tag-box
                    (generate-table "tag_show_table"
                                    data
-                                   :caption (view/link-tagged tag)
+                                   :caption (if (re-find #"^[0-9]+$" tag) "" (view/link-tagged tag)) 
                                    :row-partial view/tag-row
                                    :fields [:attribute :value])) 
             (.timeago ($ :td.timestamp))
