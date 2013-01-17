@@ -24,11 +24,11 @@
   (apply str args))
 
 ;;; link fns
-(defn- link-tag
-  ([tag] (link-tag tag tag))
-  ([tag text] (link-tag tag text {}))
-  ([tag text attr]
-    [:a (merge {:href (path-to "/tag/" tag)} attr) text]))
+(defn- link-thing
+  ([unique-id] (link-thing unique-id unique-id))
+  ([unique-id text] (link-thing unique-id text {}))
+  ([unique-id text attr]
+    [:a (merge {:href (path-to "/thing/" unique-id)} attr) text]))
 
 (defn- link-tagged [tag]
   [:a {:href (path-to "/?query=" tag)} (str "Tagged with " tag)])
@@ -42,8 +42,8 @@
   ([s] (td-name s nil))
   ([s id]
     [:td.editable {:data-field "name" :title s}
-     (if (seq s) (link-tag s)
-       (if id (link-tag id "nil" {:class "noname" :title "This thing has no name. Feel free to give it one."}) s))]))
+     (if (seq s) (link-thing s)
+       (if id (link-thing id "nil" {:class "noname" :title "This thing has no name. Feel free to give it one."}) s))]))
 
 (defn- td-desc
   ([desc] (td-desc desc 70))
@@ -52,7 +52,7 @@
 
 (defn- td-tags [tags]
   [:td.editable {:title (string/join ", " tags) :data-field "tags"}
-    (interpose ", " (map link-tag tags))])
+    (interpose ", " (map link-thing tags))])
 
 (defn- td-type [type]
    [:td.editable {:title type :data-field "type"}
@@ -95,7 +95,7 @@
 
 (defpartial tag-stats-row [row & fields]
   [:tr
-   [:td (let [[nsp tag] (string/split (:tag row) #"=")] (link-tag tag))]
+   [:td (let [[nsp tag] (string/split (:tag row) #"=")] (link-thing tag))]
    [:td (:count row)]
    [:td (:desc row)]])
 

@@ -124,7 +124,7 @@
 (defn ^:export tag-show []
   (let [$tag-box ($ :#tag_box)
         tag (util/match-from-current-uri #"[^\/]+$")]
-    (backend-request (path-to "/tag")
+    (backend-request (path-to "/thing")
       (fn [data]
         (if (string? data)
           (alert data)
@@ -138,7 +138,7 @@
             (.timeago ($ :td.timestamp))
             (make-table-editable))
           ))
-       :data {:tag tag})))
+       :data {:id tag})))
 
 (defn ^:export tag-stats []
   (backend-request (path-to "/tag-stats")

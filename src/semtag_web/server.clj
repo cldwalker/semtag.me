@@ -27,7 +27,7 @@
   (GET "/status" [query] "HEY")
   (GET "/add" [] (views/home "entity_add"))
   (GET "/:model" [model] (views/model-show model))
-  (GET "/tag/:tag" [tag] (views/tag-show tag))
+  (GET "/thing/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
   (route/resources "/")
   (route/not-found "Not Found"))
