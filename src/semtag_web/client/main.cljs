@@ -197,6 +197,7 @@
 (defn ^:export model-stats []
   (backend-request (path-to "/types")
     #(create-sort-table ($ :#model_stats_box)
-            (generate-table "model_stats_table" %
+            (generate-table "model_stats_table" (:results %) 
+                            :caption (format "%s things, %s tags" (get-in % [:counts :thing]) (get-in % [:counts :tags]))
                             :row-partial view/model-stats-row
                             :fields [:name :count :name-percent :url-percent]))))
