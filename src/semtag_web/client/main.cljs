@@ -172,14 +172,14 @@
       #(jq/after $text-field (view/generate-datalist %))
       :alert-fn console-error)
 
+    (when-let [search-type (util/param-value "search_type")]
+          (jq/attr
+            ($ (str "input[value=" search-type "]")) 
+            :checked 
+            true))
     (when-let [query (util/param-value "query")]
       (jq/val $text-field query)
-      (search-and-update-page))
-    (when-let [search-type (util/param-value "search_type")]
-      (jq/attr
-        ($ (str "input[value=" search-type "]")) 
-        :checked 
-        true))))
+      (search-and-update-page))))
 
 (defn ^:export entity-add []
   (home)
