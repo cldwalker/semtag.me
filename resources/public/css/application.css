@@ -56,3 +56,7 @@ table caption {
 a.noname {
   color: grey;
 }
+
+#search_box label.radio {
+  display: block;
+}

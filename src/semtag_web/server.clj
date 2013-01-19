@@ -10,12 +10,12 @@
 ; Mocks api routes that should exist for the separate backend so that the app
 ; can still be demoed without relying on it.
 (defroutes demo-api-routes
-  (GET "/mls" []
+  (GET "/search" []
        (prn-str [{:type "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags ["dunno"]}
                  {:type "search_engine" :url "http://google.com" :desc "kinda useful" :tags ["search"]}]))
   (GET "/tags" []
        (prn-str ["one" "two" "three"]))
-  (GET "/models" []
+  (GET "/types" []
        (prn-str [{:url-percent 0.375, :name-percent 0.75, :count 8, :name :company}
                  {:url-percent 1.0, :name-percent 0.0, :count 2, :name :shop}]))
            )

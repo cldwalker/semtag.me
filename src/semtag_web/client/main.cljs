@@ -94,14 +94,18 @@
   (make-table-editable)
   (add-sort-to parent))
 
-(defn mls-search
+(defn home-search
   [search-box text-field & [callback event]]
-  (let [query (jq/val text-field)]
+  (let [query (jq/val text-field)
+        search-type (jq/val ($ "input[name=search_type]:checked"))]
     (-> (jq/find search-box :h2)
       (inner (str "Search results for '" query "'"))) 
     (.blur text-field)
-    (backend-request (path-to "/mls") (partial create-search-table search-box) :data {:query query})
-    (when callback (callback query))))
+    (backend-request
+      (path-to "/search")
+      (partial create-search-table search-box)
+      :data {:query query :search_type search-type})
+    (when callback (callback query search-type))))
 
 (defn create-url [$text $button]
   (backend-request (path-to "/add")
@@ -154,9 +158,10 @@
         $add-button ($ :#add_url_button)
         $add-text ($ :#add_url_text)
         create-url (partial add-url $add-text $add-button)
-        search-and-update-page (partial mls-search ($ :#search_box) $text-field)
+        search-and-update-page (partial home-search ($ :#search_box) $text-field)
         search-and-update-page-and-url (partial search-and-update-page
-                                                #(.pushState window.history "" "" (path-to "/?query=" %)))]
+                                                #(.pushState window.history "" ""
+                                                             (path-to "/?query=" %1 "&search_type=" %2)))]
 
     (bind $button "click" search-and-update-page-and-url)
     (bind $add-button "click" create-url)
@@ -169,7 +174,12 @@
 
     (when-let [query (util/param-value "query")]
       (jq/val $text-field query)
-      (search-and-update-page))))
+      (search-and-update-page))
+    (when-let [search-type (util/param-value "search_type")]
+      (jq/attr
+        ($ (str "input[value=" search-type "]")) 
+        :checked 
+        true))))
 
 (defn ^:export entity-add []
   (home)

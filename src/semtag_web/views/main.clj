@@ -58,6 +58,10 @@
   (main-layout
      [:div#search_box.top_box.hero-unit
       [:form.form-search {:onsubmit "return false;"}
+        [:label.radio
+          [:input {:type "radio" :name "search_type" :value "tagged" :checked true} "Tagged with"]] 
+        [:label.radio
+          [:input {:type "radio" :name "search_type" :value "all"} "Containing regex"]] 
         [:input#url_search_text.search-query {:type "text" :autofocus "autofocus"
                                               :list "tags" :autocomplete "on"}]
         [:button {:class "btn-primary" :id "url_search_button"} "Search"]
