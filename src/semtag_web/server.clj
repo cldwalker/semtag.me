@@ -22,11 +22,11 @@
 
 (defroutes app-routes
   (GET "/" [] (views/home))
-  (GET "/model-stats" [] (views/model-stats))
+  (GET "/type-stats" [] (views/type-stats))
   (GET "/tag-stats" [] (views/tag-stats))
   (GET "/status" [query] "HEY")
   (GET "/add" [] (views/home "entity_add"))
-  (GET "/:model" [model] (views/model-show model))
+  (GET "/:type" [type] (views/type-show type))
   (GET "/thing/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
   (route/resources "/")

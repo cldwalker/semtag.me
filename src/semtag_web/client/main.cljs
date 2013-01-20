@@ -192,22 +192,22 @@
       (.click ($ :#add_url_button)))
     (alert "No input given.")))
 
-(defn ^:export model-show []
-  (let [model (util/match-from-current-uri #"[^\/]+$")]
+(defn ^:export type-show []
+  (let [type (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/type")
       (fn [data]
-        (create-sort-table ($ :#model_show_box)
-              (generate-table "model_show_table" data
-                              :row-partial view/model-row
+        (create-sort-table ($ :#type_show_box)
+              (generate-table "type_show_table" data
+                              :row-partial view/type-row
                               :caption (str "Total: " (count data))
                               :fields [:name :url :desc :tags]))
         (make-table-editable))
-      :data {:name model})))
+      :data {:name type})))
 
-(defn ^:export model-stats []
+(defn ^:export type-stats []
   (backend-request (path-to "/types")
-    #(create-sort-table ($ :#model_stats_box)
-            (generate-table "model_stats_table" (:results %) 
+    #(create-sort-table ($ :#type_stats_box)
+            (generate-table "type_stats_table" (:results %) 
                             :caption (format "%s things, %s tags" (get-in % [:counts :thing]) (get-in % [:counts :tags]))
-                            :row-partial view/model-stats-row
+                            :row-partial view/type-stats-row
                             :fields [:name :count :name-percent :url-percent]))))

@@ -99,7 +99,7 @@
    [:td (:count row)]
    [:td (:desc row)]])
 
-(defpartial model-stats-row [row & fields]
+(defpartial type-stats-row [row & fields]
   [:tr
    (td-type (name (:name row)))
    [:td (:count row)]
@@ -107,7 +107,7 @@
    [:td (:url-percent row)]
    ])
 
-(defpartial model-row [row & fields]
+(defpartial type-row [row & fields]
   [:tr {:data-id (:id row)}
    (td-name (:name row) (:id row))
    (td-url (:url row))

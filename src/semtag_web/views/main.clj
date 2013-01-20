@@ -9,7 +9,7 @@
       [:a.brand {:href "/"} "Home"] 
       [:div.nav-collapse
         [:ul.nav
-         [:li [:a {:href "/model-stats"} "Model Stats"]]
+         [:li [:a {:href "/type-stats"} "Type Stats"]]
          [:li [:a {:href "/tag-stats"} "Tag Stats"]]
          ]]]]])
 
@@ -42,15 +42,15 @@
     [:div#tag_stats_box.top_box.hero-unit]
     :js-fn "tag_stats"))
 
-(defn model-stats []
+(defn type-stats []
   (main-layout
-    [:div#model_stats_box.top_box.hero-unit]
-    :js-fn "model_stats"))
+    [:div#type_stats_box.top_box.hero-unit]
+    :js-fn "type_stats"))
 
-(defn model-show [model]
+(defn type-show [type]
   (main-layout
-    [:div#model_show_box.top_box.hero-unit]
-    :js-fn "model_show"))
+    [:div#type_show_box.top_box.hero-unit]
+    :js-fn "type_show"))
 
 (defn home
   ([] (home "home"))
