@@ -198,8 +198,9 @@
               (generate-table "type_show_table" data
                               :row-partial view/type-row
                               :caption (str "Total: " (count data))
-                              :fields [:name :url :desc :tags]))
-        (make-table-editable))
+                              :fields [:name :url :desc :tags :created-at]))
+        (make-table-editable)
+        (.timeago ($ :td.timestamp)))
       :data {:name type})))
 
 (defn ^:export type-stats []
