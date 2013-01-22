@@ -17,7 +17,8 @@
 
 table caption {
   font-weight: bold;
-  font-size: 18px
+  font-size: 18px;
+  padding: 5px;
 }
 
 #url_search_button {
