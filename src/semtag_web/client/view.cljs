@@ -115,6 +115,14 @@
    (td-tags (:tags row))
    (td-timestamp (:created-at row))])
 
+(defpartial all-row [row & fields]
+  [:tr {:data-id (:id row)}
+   (td-type (:type row))
+   (td-name (:name row) (:id row))
+   (td-url (:url row))
+   (td-tags (:tags row))
+   (td-timestamp (:created-at row))])
+
 (defpartial tag-row [row & fields]
   (let [attr (:attribute row)]
     [:tr {:data-id (:id row)}

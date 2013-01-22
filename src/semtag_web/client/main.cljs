@@ -203,6 +203,17 @@
         (.timeago ($ :td.timestamp)))
       :data {:name type})))
 
+(defn ^:export all []
+  (backend-request (path-to "/all")
+                   (fn [data]
+                     (create-sort-table ($ :#all_box)
+                                        (generate-table "all_table" data
+                                                        :row-partial view/all-row
+                                                        :caption (str "Total: " (count data))
+                                                        :fields [:type :name :url :tags :created-at]))
+                     (make-table-editable)
+                     (.timeago ($ :td.timestamp)))))
+
 (defn ^:export type-stats []
   (backend-request (path-to "/types")
     #(create-sort-table ($ :#type_stats_box)

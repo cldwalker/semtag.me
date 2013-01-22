@@ -11,7 +11,7 @@
         [:ul.nav
          [:li [:a {:href "/type-stats"} "Type Stats"]]
          [:li [:a {:href "/tag-stats"} "Tag Stats"]]
-         ]]]]])
+         [:li [:a {:href "/all"} "All The Things"]]]]]]])
 
 (defn main-layout [body & {:as options}]
   (html5
@@ -51,6 +51,11 @@
   (main-layout
     [:div#type_show_box.top_box.hero-unit]
     :js-fn "type_show"))
+
+(defn all []
+  (main-layout
+   [:div#all_box.top_box.hero-unit]
+   :js-fn "all"))
 
 (defn home
   ([] (home "home"))

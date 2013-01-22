@@ -26,6 +26,7 @@
   (GET "/tag-stats" [] (views/tag-stats))
   (GET "/status" [query] "HEY")
   (GET "/add" [] (views/home "entity_add"))
+  (GET "/all" [] (views/all))
   (GET "/:type" [type] (views/type-show type))
   (GET "/thing/:tag" [tag] (views/tag-show tag))
   (context "/api" [] demo-api-routes)
