@@ -32,10 +32,10 @@
      ]
     ))
 
-(defn tag-show [tag]
+(defn thing-show [tag]
   (main-layout
-    [:div#tag_box.top_box.hero-unit]
-    :js-fn "tag_show"))
+    [:div#thing_box.top_box.hero-unit]
+    :js-fn "thing_show"))
 
 (defn tag-stats []
   (main-layout

@@ -15,7 +15,7 @@
                  {:type "search_engine" :url "http://google.com" :desc "kinda useful" :tags ["search"]}]))
   (GET "/tags" []
        (prn-str ["one" "two" "three"]))
-  (GET "/types" []
+  (GET "/type-stats" []
        (prn-str [{:url-percent 0.375, :name-percent 0.75, :count 8, :name :company}
                  {:url-percent 1.0, :name-percent 0.0, :count 2, :name :shop}]))
            )
@@ -28,7 +28,7 @@
   (GET "/add" [] (views/home "entity_add"))
   (GET "/all" [] (views/all))
   (GET "/:type" [type] (views/type-show type))
-  (GET "/thing/:tag" [tag] (views/tag-show tag))
+  (GET "/thing/:tag" [tag] (views/thing-show tag))
   (context "/api" [] demo-api-routes)
   (route/resources "/")
   (route/not-found "Not Found"))

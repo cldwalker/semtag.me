@@ -123,7 +123,7 @@
    (td-tags (:tags row))
    (td-timestamp (:created-at row))])
 
-(defpartial tag-row [row & fields]
+(defpartial thing-row [row & fields]
   (let [attr (:attribute row)]
     [:tr {:data-id (:id row)}
      [:td attr]

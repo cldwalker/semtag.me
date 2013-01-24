@@ -125,24 +125,24 @@
       (jq/show $text))))
 
 ;;; on-load js fns for specific pages
-(defn ^:export tag-show []
-  (let [$tag-box ($ :#tag_box)
-        tag (util/match-from-current-uri #"[^\/]+$")]
+(defn ^:export thing-show []
+  (let [$thing-box ($ :#thing_box)
+        thing (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/thing")
       (fn [data]
         (if (string? data)
           (alert data)
           (do
-            (create-sort-table $tag-box
-                   (generate-table "tag_show_table"
+            (create-sort-table $thing-box
+                   (generate-table "thing_show_table"
                                    data
-                                   :caption (if (re-find #"^[0-9]+$" tag) "" (view/link-tagged tag)) 
-                                   :row-partial view/tag-row
+                                   :caption (if (re-find #"^\d+$" thing) "" (view/link-tagged thing)) 
+                                   :row-partial view/thing-row
                                    :fields [:attribute :value])) 
             (.timeago ($ :td.timestamp))
             (make-table-editable))
           ))
-       :data {:id tag})))
+       :data {:id thing})))
 
 (defn ^:export tag-stats []
   (backend-request (path-to "/tag-stats")
