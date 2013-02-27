@@ -83,6 +83,18 @@
     (bind editable-cells "click" (juxt expand-editable-text (partial set-edit-state "edit-in-progress")))
     (bind editable-cells :keypress (return-key-pressed saves-edit))))
 
+(defn- enable-delete-link []
+  (bind ($ :td.delete) "click"
+        (fn [event]
+          (.preventDefault event)
+          (let [$elem ($ (.-currentTarget event))
+                id (.data (jq/parent $elem) "id")]
+            (backend-request (path-to "/delete")
+                             (fn [data]
+                               (alert "Deleted!" :info))
+                             :type "POST"
+                             :data {:id id})))))
+
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
@@ -135,13 +147,13 @@
           (do
             (create-sort-table $thing-box
                    (generate-table "thing_show_table"
-                                   data
+                                   (conj data {:attribute :actions :id (:id (first data))})
                                    :caption (if (re-find #"^\d+$" thing) "" (view/link-tagged thing)) 
                                    :row-partial view/thing-row
                                    :fields [:attribute :value])) 
             (.timeago ($ :td.timestamp))
-            (make-table-editable))
-          ))
+            (make-table-editable)
+            (enable-delete-link))))
        :data {:id thing})))
 
 (defn ^:export tag-stats []

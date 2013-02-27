@@ -1,6 +1,7 @@
 (ns semtag-web.client.view
   (:require [crate.core :as crate]
-            [clojure.string :as string])
+            [clojure.string :as string]
+            semtag-web.client.util)
   (:use-macros [crate.def-macros :only [defpartial]]))
 
 ;;; util fns
@@ -136,6 +137,7 @@
        :desc (td-desc (:value row) 1000)
        :created-at (td-timestamp (:value row))
        :updated-at (td-timestamp (:value row))
+       :actions [:td.delete [:a {:href "#"} "Delete"]]
        [:td (str (:value row))])
      ]))
 
