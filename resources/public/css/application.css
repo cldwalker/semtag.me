@@ -43,15 +43,15 @@ table caption {
 }
 
 .table-striped tbody tr td.edit-in-progress {
-  background-color: yellow;
+  background-color: #fcf8e3;
 }
 
 .table-striped tbody tr td.edit-completed {
-  background-color: green;
+  background-color: #dff0d8;
 }
 
 .table-striped tbody tr td.edit-failed {
-  background-color: red;
+  background-color: #f2dede;
 }
 
 a.noname {
