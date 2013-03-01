@@ -95,23 +95,27 @@
                              :type "POST"
                              :data {:id id})))))
 
+(defn frequencies-string [items]
+  (->> items
+       frequencies
+       (sort-by #(second %1) (fn [a b] (> a b)))
+       (map #(format "%s %s" (second %1) (name (first %1))))
+       (clojure.string/join ", ")))
+
 (defn type-stats-string [tagged]
-  (format "%s (%s)"
-          (count (map :url tagged))
-          (->>
-           (map #(:type %) tagged)
-           (reduce #(assoc %1 %2 (inc (%1 %2 0))) {})
-           (sort-by #(second %1) (fn [a b] (> a b)))
-           (map #(format "%s %s" (second %1) (name (first %1))))
-           (clojure.string/join ", "))))
+  )
 
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
   (jq/after (jq/find parent :h2)
+            (view/pre-table-desc (str "Tags: " (frequencies-string (flatten (map :tags data))))))
+  (jq/after (jq/find parent :#pre-table-desc)
             (generate-table "search_table" data
                             :fields [:type :name :url :desc :tags]
                             :row-partial view/tag-search-row
-                            :caption (str "Total: " (type-stats-string data))))
+                            :caption (format "Total: %s (types: %s)"
+                                             (count (map :url data))
+                                             (frequencies-string (map :type data)))))
 
   (make-table-editable)
   (add-sort-to parent))

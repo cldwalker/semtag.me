@@ -84,7 +84,10 @@
      [:tr
       (map #(vec [:th %]) headers)
       ]]
-     (generate-rows data options)]))
+   (generate-rows data options)]))
+
+(defpartial pre-table-desc [string]
+  [:h4#pre-table-desc string])
 
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
