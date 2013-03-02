@@ -109,14 +109,13 @@
   (jq/remove ($ :#search_table))
   (jq/remove ($ :#table_stats))
   (jq/after (jq/find parent :h2)
-            (view/table-stats (str "Tag Counts: " (frequencies-string (flatten (map :tags data))))))
+            (view/table-stats (str "Tag Counts: " (frequencies-string (flatten (map :tags data))))
+                              (str "Type Counts: " (frequencies-string (map :type data)))))
   (jq/after (jq/find parent :#table_stats)
             (generate-table "search_table" data
                             :fields [:type :name :url :desc :tags]
                             :row-partial view/tag-search-row
-                            :caption (format "Total: %s (types: %s)"
-                                             (count (map :url data))
-                                             (frequencies-string (map :type data)))))
+                            :caption (format "Total: %s" (count (map :url data)))))
 
   (make-table-editable)
   (add-sort-to parent))
