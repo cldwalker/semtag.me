@@ -61,3 +61,7 @@ a.noname {
 #search_box label.radio {
   display: block;
 }
+
+#table_stats {
+  width: 600px;
+}
