@@ -86,8 +86,8 @@
       ]]
    (generate-rows data options)]))
 
-(defpartial pre-table-desc [string]
-  [:h4#pre-table-desc string])
+(defpartial table-stats [string]
+  [:h4#table-stats string])
 
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}

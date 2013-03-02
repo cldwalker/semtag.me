@@ -107,9 +107,10 @@
 
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
+  (jq/remove ($ :#table-stats))
   (jq/after (jq/find parent :h2)
-            (view/pre-table-desc (str "Tags: " (frequencies-string (flatten (map :tags data))))))
-  (jq/after (jq/find parent :#pre-table-desc)
+            (view/table-stats (str "Tags: " (frequencies-string (flatten (map :tags data))))))
+  (jq/after (jq/find parent :#table-stats)
             (generate-table "search_table" data
                             :fields [:type :name :url :desc :tags]
                             :row-partial view/tag-search-row
