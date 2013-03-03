@@ -102,8 +102,6 @@
        (map #(format "%s %s" (second %1) (name (first %1))))
        (clojure.string/join ", ")))
 
-(defn type-stats-string [tagged]
-  )
 
 (defn- create-search-table [parent data]
   (jq/remove ($ :#search_table))
@@ -164,7 +162,7 @@
                                    (conj data {:attribute :actions :id (:id (first data))})
                                    :caption (if (re-find #"^\d+$" thing) "" (view/link-tagged thing)) 
                                    :row-partial view/thing-row
-                                   :fields [:attribute :value])) 
+                                   :fields [:attribute :value]))
             (.timeago ($ :td.timestamp))
             (make-table-editable)
             (enable-delete-link))))
@@ -226,7 +224,9 @@
                               :caption (str "Total: " (count data))
                               :fields [:name :url :desc :tags :created-at]))
         (make-table-editable)
-        (.timeago ($ :td.timestamp)))
+        (.timeago ($ :td.timestamp))
+        (jq/prepend ($ :#type_show_box)
+                    (view/table-stats (str "Tag Counts: " (frequencies-string (flatten (map :tags data)))))))
       :data {:name type})))
 
 (defn ^:export all []
