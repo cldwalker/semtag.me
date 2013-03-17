@@ -220,16 +220,17 @@
 (defn ^:export type-show []
   (let [type (util/match-from-current-uri #"[^\/]+$")]
     (backend-request (path-to "/type")
-      (fn [data]
+      (fn [{things :things tags :tags}]
         (create-sort-table ($ :#type_show_box)
-              (generate-table "type_show_table" data
+              (generate-table "type_show_table" things
                               :row-partial view/type-row
-                              :caption (str "Total: " (count data))
+                              :caption (str "Total: " (count things))
                               :fields [:name :url :desc :tags :created-at]))
         (make-table-editable)
         (.timeago ($ :td.timestamp))
         (jq/prepend ($ :#type_show_box)
-                    (view/table-stats (frequency-stat "Tag Counts" (flatten (map :tags data))))))
+                    (view/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                                      (frequency-stat "Tag Counts" (flatten (map :tags things))))))
       :data {:name type})))
 
 (defn ^:export all []
