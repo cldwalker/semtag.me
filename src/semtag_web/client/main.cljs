@@ -103,17 +103,18 @@
        (clojure.string/join ", ")))
 
 
-(defn- create-search-table [parent data]
+(defn- create-search-table [parent {things :things tags :tags}]
   (jq/remove ($ :#search_table))
   (jq/remove ($ :#table_stats))
   (jq/after (jq/find parent :h2)
-            (view/table-stats (str "Tag Counts: " (frequencies-string (flatten (map :tags data))))
-                              (str "Type Counts: " (frequencies-string (map :type data)))))
+            (view/table-stats (str "Tag Type Counts: " (frequencies-string (map first tags)))
+                              (str "Tag Counts: " (frequencies-string (flatten (map :tags things))))
+                              (str "Type Counts: " (frequencies-string (map :type things)))))
   (jq/after (jq/find parent :#table_stats)
-            (generate-table "search_table" data
+            (generate-table "search_table" things
                             :fields [:type :name :url :desc :tags]
                             :row-partial view/tag-search-row
-                            :caption (format "Total: %s" (count (map :url data)))))
+                            :caption (format "Total: %s" (count (map :url things)))))
 
   (make-table-editable)
   (add-sort-to parent))
