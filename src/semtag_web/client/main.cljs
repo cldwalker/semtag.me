@@ -95,16 +95,15 @@
                              :type "POST"
                              :data {:id id})))))
 
-(defn- frequency-stat [title data]
-  (format "%s: %s - %s" title (count data) (frequencies-string data)))
-
-(defn frequencies-string [items]
+(defn- frequencies-string [items]
   (->> items
        frequencies
        (sort-by #(second %1) (fn [a b] (> a b)))
        (map #(format "%s %s" (second %1) (name (first %1))))
        (clojure.string/join ", ")))
 
+(defn- frequency-stat [title data]
+  (format "%s: %s - %s" title (count data) (frequencies-string data)))
 
 (defn- create-search-table [parent {things :things tags :tags}]
   (jq/remove ($ :#search_table))
