@@ -95,6 +95,9 @@
                              :type "POST"
                              :data {:id id})))))
 
+(defn- frequency-stat [title data]
+  (format "%s: %s - %s" title (count data) (frequencies-string data)))
+
 (defn frequencies-string [items]
   (->> items
        frequencies
@@ -107,9 +110,9 @@
   (jq/remove ($ :#search_table))
   (jq/remove ($ :#table_stats))
   (jq/after (jq/find parent :h2)
-            (view/table-stats (str "Tag Type Counts: " (frequencies-string (map first tags)))
-                              (str "Tag Counts: " (frequencies-string (flatten (map :tags things))))
-                              (str "Type Counts: " (frequencies-string (map :type things)))))
+            (view/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                              (frequency-stat "Tag Counts" (flatten (map :tags things)))
+                              (frequency-stat "Type Counts" (map :type things))))
   (jq/after (jq/find parent :#table_stats)
             (generate-table "search_table" things
                             :fields [:type :name :url :desc :tags]
@@ -227,7 +230,7 @@
         (make-table-editable)
         (.timeago ($ :td.timestamp))
         (jq/prepend ($ :#type_show_box)
-                    (view/table-stats (str "Tag Counts: " (frequencies-string (flatten (map :tags data)))))))
+                    (view/table-stats (frequency-stat "Tag Counts" (flatten (map :tags data))))))
       :data {:name type})))
 
 (defn ^:export all []
