@@ -3,7 +3,7 @@
   :url "http://github.com/cldwalker/semtag-web"
   :ring  {:handler semtag-web.server/app}
   :plugins  [[lein-ring "0.8.2"] [lein-cljsbuild "0.2.9"]]
-  :dependencies [[org.clojure/clojure "1.4.0"]
+  :dependencies [[org.clojure/clojure "1.5.0"]
                  [org.clojure/clojurescript "0.0-1535"]
                  [hiccup-bootstrap "0.1.1"]
                  [jayq "0.3.0"]
