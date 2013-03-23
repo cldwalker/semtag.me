@@ -8,8 +8,14 @@
                  [hiccup-bootstrap "0.1.1"]
                  [jayq "0.3.0"]
                  [crate "0.2.1"]
-                 [compojure "1.1.3"]
-                 [ring/ring-devel "1.1.6"]]
+                 [io.pedestal/pedestal.service "0.1.1"]
+                 [io.pedestal/pedestal.jetty "0.1.1"]
+
+                 ;; Logging
+                 [ch.qos.logback/logback-classic "1.0.7"]
+                 [org.slf4j/jul-to-slf4j "1.7.2"]
+                 [org.slf4j/jcl-over-slf4j "1.7.2"]
+                 [org.slf4j/log4j-over-slf4j "1.7.2"]]
   :cljsbuild {
     :builds [
       {:source-path "src"
@@ -17,4 +23,5 @@
                   :output-to "resources/public/cljs/main.js"
                   :optimizations :simple
                   :pretty-print true}}]}
+  :resource-paths ["config"]
   :main ^{:skip-aot true} semtag-web.server)

@@ -1,53 +1,44 @@
+; Copyright 2013 Relevance, Inc.
+
+; The use and distribution terms for this software are covered by the
+; Eclipse Public License 1.0 (http://opensource.org/licenses/eclipse-1.0)
+; which can be found in the file epl-v10.html at the root of this distribution.
+;
+; By using this software in any fashion, you are agreeing to be bound by
+; the terms of this license.
+;
+; You must not remove this notice, or any other, from this software.
+
 (ns semtag-web.server
-  (:require [compojure.handler :as handler]
-            [compojure.core :refer [defroutes context GET ANY]]
-            [clojure.string :as string]
-            [semtag-web.views.main :as views]
-            [ring.middleware.stacktrace :refer [wrap-stacktrace]]
-            [hiccup.bootstrap.middleware :refer [wrap-bootstrap-resources]]
-            [compojure.route :as route]))
+  (:gen-class) ; for -main method in uberjar
+  (:require [semtag-web.service :as service]
+            [io.pedestal.service.http :as bootstrap]))
 
-; Mocks api routes that should exist for the separate backend so that the app
-; can still be demoed without relying on it.
-(defroutes demo-api-routes
-  (GET "/search" []
-       (prn-str [{:type "search_engine" :url "http://yahoo.com" :desc "huh, what" :tags ["dunno"]}
-                 {:type "search_engine" :url "http://google.com" :desc "kinda useful" :tags ["search"]}]))
-  (GET "/tags" []
-       (prn-str ["one" "two" "three"]))
-  (GET "/type-stats" []
-       (prn-str [{:url-percent 0.375, :name-percent 0.75, :count 8, :name :company}
-                 {:url-percent 1.0, :name-percent 0.0, :count 2, :name :shop}]))
-           )
+(def service-instance
+  "Global var to hold service instance."
+  nil)
 
-(defroutes app-routes
-  (GET "/" [] (views/home))
-  (GET "/type-stats" [] (views/type-stats))
-  (GET "/tag-stats" [] (views/tag-stats))
-  (GET "/status" [query] "HEY")
-  (GET "/add" [] (views/home "entity_add"))
-  (GET "/all" [] (views/all))
-  (GET "/:type" [type] (views/type-show type))
-  (GET "/thing/:tag" [tag] (views/thing-show tag))
-  (context "/api" [] demo-api-routes)
-  (route/resources "/")
-  (route/not-found "Not Found"))
+(defn create-server
+  "Standalone dev/prod mode."
+  [& [opts]]
+  (alter-var-root #'service-instance
+                  (constantly (bootstrap/create-server (merge service/service opts)))))
 
-(defn wrap-request-logging [app]
-  (fn [{:keys [request-method uri query-params] :as req}]
-    (let [resp (app req)]
-      (println
-        (format
-          "[%s] %s %s %s %s"
-          (.format (java.text.SimpleDateFormat. "EEE, d MMM yyyy HH:mm:ss Z") (java.util.Date.))
-          (string/upper-case (name request-method))
-          uri
-          (:status resp)
-          query-params))
-    resp)))
+(defn -main [& args]
+  (create-server)
+  (bootstrap/start service-instance))
 
-(def app
-  (handler/site (-> app-routes
-                  wrap-bootstrap-resources
-                  wrap-stacktrace
-                  wrap-request-logging)))
+
+;; Container prod mode for use with the io.pedestal.servlet.ClojureVarServlet class.
+
+(defn servlet-init [this config]
+  (alter-var-root #'service-instance
+                  (constantly (bootstrap/create-servlet service/service)))
+  (.init (::bootstrap/servlet service-instance) config))
+
+(defn servlet-destroy [this]
+  (alter-var-root #'service-instance nil))
+
+(defn servlet-service [this servlet-req servlet-resp]
+  (.service ^javax.servlet.Servlet (::bootstrap/servlet service-instance)
+            servlet-req servlet-resp))
