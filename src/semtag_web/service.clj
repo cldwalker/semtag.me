@@ -3,21 +3,23 @@
               [io.pedestal.service.http.route :as route]
               [io.pedestal.service.http.body-params :as body-params]
               [io.pedestal.service.http.route.definition :refer [defroutes]]
+              [io.pedestal.service.interceptor :as interceptor]
               [semtag-web.views.main :as views]
               [ring.util.response :as ring-resp]))
 
-(defn html-response
-  [html]
-  (ring-resp/content-type (ring-resp/response html) "text/html"))
+(defn home-page [request] (ring-resp/response (views/home)))
+(defn add-page [request] (ring-resp/response (views/home "entity_add")))
+(defn all-page [request] (ring-resp/response (views/all)))
 
-(defn home-page
-  [request]
-  (html-response (views/home)))
-
+(interceptor/defon-response html-content-type
+  [response]
+  (ring-resp/content-type response "text/html"))
+5
 (defroutes routes
   [[["/" {:get home-page}
-     ;; Set default interceptors for /about and any other paths under /
-     ^:interceptors [(body-params/body-params)]
+     ^:interceptors [html-content-type]
+     ["/add" {:get add-page}]
+     ["/all" {:get all-page}]
      ]]])
 
 ;; You can use this fn or a per-request fn via io.pedestal.service.http.route/url-for
