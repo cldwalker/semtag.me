@@ -10,6 +10,12 @@
 (defn home-page [request] (ring-resp/response (views/home)))
 (defn add-page [request] (ring-resp/response (views/home "entity_add")))
 (defn all-page [request] (ring-resp/response (views/all)))
+(defn type-stats-page [request] (ring-resp/response (views/type-stats)))
+(defn tag-stats-page [request] (ring-resp/response (views/tag-stats)))
+(defn type-page [request]
+  (ring-resp/response (views/type-show (-> request :params :type))))
+(defn thing-page [request]
+  (ring-resp/response (views/thing-show (-> request :params :tag))))
 
 (interceptor/defon-response html-content-type
   [response]
@@ -20,6 +26,13 @@
      ^:interceptors [html-content-type]
      ["/add" {:get add-page}]
      ["/all" {:get all-page}]
+     ["/type-stats" {:get type-stats-page}]
+     ["/tag-stats" {:get tag-stats-page}]
+     ["/:type" {:get type-page}]
+     ["/thing/:tag" {:get thing-page}]
+
+     ;; TODO: Add api routes for testing and examples
+     ;;["/api/*"]
      ]]])
 
 ;; You can use this fn or a per-request fn via io.pedestal.service.http.route/url-for
