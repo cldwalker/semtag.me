@@ -5,6 +5,7 @@
               [io.pedestal.service.http.route.definition :refer [defroutes]]
               [io.pedestal.service.interceptor :as interceptor]
               [semtag-web.views.main :as views]
+              [clojure.string :as string]
               [ring.util.response :as ring-resp]))
 
 (defn home-page [request] (ring-resp/response (views/home)))
@@ -16,6 +17,21 @@
   (ring-resp/response (views/type-show (-> request :params :type))))
 (defn thing-page [request]
   (ring-resp/response (views/thing-show (-> request :params :tag))))
+
+;; TODO: replace log-request cleanly
+(interceptor/defafter log-response
+  [{{:keys [request-method uri query-params] :as request} :request
+    {:keys [status]} :response
+    :as context}]
+  (println
+   (format
+    "[%s] %s %s %s %s"
+    (.format (java.text.SimpleDateFormat. "EEE, d MMM yyyy HH:mm:ss Z") (java.util.Date.))
+    (string/upper-case (name request-method))
+    uri
+    status
+    query-params))
+  context)
 
 (interceptor/defon-response html-content-type
   [response]
