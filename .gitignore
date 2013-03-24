@@ -5,3 +5,5 @@ pom.xml
 .lein-deps-sum
 resources/public/cljs/
 logs
+target
+.lein-repl-history
