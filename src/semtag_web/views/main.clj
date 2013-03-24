@@ -1,6 +1,5 @@
 (ns semtag-web.views.main
-  (:require [hiccup.page :refer [html5 include-js include-css]]
-            [hiccup.bootstrap.page :refer [include-bootstrap]]))
+  (:require [hiccup.page :refer [html5 include-js include-css]]))
 
 (defn- navbar []
   [:div.navbar.navbar-fixed-top
@@ -17,11 +16,13 @@
   (html5
     [:head
       [:title "Semtag"]
-      (include-js "/js/jquery-1.8.3.min.js")
-      (include-js "/js/jquery.tablesorter.min.js")
-      (include-js "/js/jquery.timeago.js")
-      (include-bootstrap)
-      (include-css "/css/application.css")
+     (include-js "/js/jquery-1.8.3.min.js")
+     (include-js "/js/jquery.tablesorter.min.js")
+     (include-js "/js/jquery.timeago.js")
+     (include-css "/bootstrap/css/bootstrap.css")
+     (include-css "/bootstrap/css/bootstrap-responsive.css")
+     (include-js  "/bootstrap/js/bootstrap.js")
+     (include-css "/css/application.css")
      ]
     [:body
      (navbar)

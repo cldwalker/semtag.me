@@ -5,7 +5,7 @@
   :plugins  [[lein-ring "0.8.2"] [lein-cljsbuild "0.2.9"]]
   :dependencies [[org.clojure/clojure "1.5.0"]
                  [org.clojure/clojurescript "0.0-1535"]
-                 [hiccup-bootstrap "0.1.1"]
+                 [hiccup "1.0.0"]
                  [jayq "0.3.0"]
                  [crate "0.2.1"]
                  [io.pedestal/pedestal.service "0.1.1"]
@@ -23,5 +23,5 @@
                   :output-to "resources/public/cljs/main.js"
                   :optimizations :simple
                   :pretty-print true}}]}
-  :resource-paths ["config"]
+  :resource-paths ["config" "resources"]
   :main ^{:skip-aot true} semtag-web.server)
