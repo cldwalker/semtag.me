@@ -3,6 +3,7 @@
               [io.pedestal.service.http.route :as route]
               [io.pedestal.service.http.body-params :as body-params]
               [io.pedestal.service.http.route.definition :refer [defroutes]]
+              [io.pedestal.service.http.impl.servlet-interceptor :as http-servlet-interceptor]
               [io.pedestal.service.interceptor :as interceptor]
               [semtag-web.views.main :as views]
               [clojure.string :as string]
@@ -39,7 +40,8 @@
 5
 (defroutes routes
   [[["/" {:get home-page}
-     ^:interceptors [html-content-type]
+     ;; TODO: convert ring stacktrace middleware
+     ^:interceptors [html-content-type http-servlet-interceptor/exception-debug]
      ["/add" {:get add-page}]
      ["/all" {:get all-page}]
      ["/type-stats" {:get type-stats-page}]
