@@ -69,4 +69,4 @@
               ;; Either :jetty or :tomcat (see comments in project.clj
               ;; to enable Tomcat)
               ::bootstrap/type :jetty
-              ::bootstrap/port 8000})
+              ::bootstrap/port (Integer. (or (System/getenv "PORT") 8000))})
