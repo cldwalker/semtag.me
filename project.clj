@@ -7,8 +7,8 @@
                  [hiccup "1.0.0"]
                  [jayq "0.3.0"]
                  [crate "0.2.1"]
-                 [io.pedestal/pedestal.service "0.1.1"]
-                 [io.pedestal/pedestal.jetty "0.1.1"]
+                 [io.pedestal/pedestal.service "0.1.7"]
+                 [io.pedestal/pedestal.jetty "0.1.7"]
 
                  ;; Logging
                  [ch.qos.logback/logback-classic "1.0.7"]
