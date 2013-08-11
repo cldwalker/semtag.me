@@ -37,7 +37,7 @@
 (interceptor/defon-response html-content-type
   [response]
   (ring-resp/content-type response "text/html"))
-5
+
 (defroutes routes
   [[["/" {:get home-page}
      ;; TODO: convert ring stacktrace middleware
