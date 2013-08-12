@@ -11,12 +11,11 @@
 
 (defn render-page [renderer [_ path] transmitter]
   (let [parent (render/get-parent-id renderer path)
-        id (render/new-id! renderer path)
         html (templates/add-template renderer path (:semtag-web-page templates))]
-    (dom/append! (dom/by-id parent) (html {:id id :message ""}))))
+    (dom/append! (dom/by-id parent) (html {}))))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
-  (templates/update-t renderer [:app-model] {:message new-value}))
+  (dom/set-html! (dom/by-id "greeting") new-value))
 
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:value (.-value (dom/by-id "url_search_text"))}))

@@ -3,4 +3,4 @@
 
 (defmacro semtag-web-templates
   []
-  {:semtag-web-page (dtfn (tnodes "semtag-web.html" "hello") #{:id})})
+  {:semtag-web-page (dtfn (tnodes "semtag-web.html" "home") #{})})
