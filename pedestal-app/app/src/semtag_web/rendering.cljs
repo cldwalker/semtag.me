@@ -26,4 +26,5 @@
     [[[:node-create [:app-model] render-page]
       [:node-destroy [:app-model] d/default-exit]
       [:value [:app-model :greeting] render-message]]
-     (util/click [:app-model :set-greeting] "url_search_button" :fn url-search)]))
+     (util/click [:app-model :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :set-greeting] "add_url_button" :fn url-search)]))

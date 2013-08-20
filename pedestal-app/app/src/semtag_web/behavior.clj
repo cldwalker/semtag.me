@@ -17,7 +17,8 @@
 (def example-app
   {:version 2
    :transform [[:set-greeting [:greeting] set-value-transform]
-               [:search [:search] set-value-transform]]
+               [:search [:search] set-value-transform]
+               [:set-value [:search-results] set-value-transform]]
    :effect #{[#{[:search]} publish-search :single-val]}
    :emit [{:init init-app-model}
           [#{[:*]} (app/default-emitter [:app-model])]]})
