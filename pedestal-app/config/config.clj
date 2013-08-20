@@ -64,6 +64,7 @@
                         ;; page will be generated from the template
                         ;; application.html
                         :uri "/semtag-web-data-ui.html"
+                        :params "renderer=auto"
                         ;; Provide the name that will appear in the
                         ;; control panel for this aspect.
                         :name "Data UI"
@@ -81,6 +82,13 @@
                         :output-root :tools-public
                         ;; The data-ui aspect uses the tooling.html template
                         :template "tooling.html"}
+              :ui {:uri "/semtag-web-ui.html"
+                            :name "UI"
+                            :out-file "semtag-web-ui.js"
+                            :main 'semtag_web.simulated.start
+                            :logging? true
+                            :recording? true
+                            :order 3}
               :development {:uri "/semtag-web-dev.html"
                             :name "Development"
                             :out-file "semtag-web-dev.js"

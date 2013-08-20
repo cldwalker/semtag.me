@@ -5,7 +5,8 @@
             [io.pedestal.app.render :as render]
             [io.pedestal.app.messages :as msg]
             [semtag-web.behavior :as behavior]
-            [semtag-web.rendering :as rendering]))
+            [semtag-web.rendering :as rendering]
+            [goog.Uri]))
 
 (defn create-app [render-config]
   (let [app (app/build behavior/example-app)
@@ -17,6 +18,10 @@
 
 (defn setup-effects [app services-fn]
   (app/consume-effects (:app app) services-fn))
+
+(defn param [name]
+  (let [uri (goog.Uri. (.toString (.-location js/document)))]
+    (.getParameterValue uri name)))
 
 (defn ^:export main []
   (create-app (rendering/render-config)))
