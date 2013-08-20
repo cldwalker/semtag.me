@@ -15,5 +15,8 @@
     (p/put-message (:input app) {msg/type :set-greeting msg/topic [:greeting] :value "Hello World!"})
     {:app app :app-model app-model}))
 
+(defn setup-effects [app services-fn]
+  (app/consume-effects (:app app) services-fn))
+
 (defn ^:export main []
   (create-app (rendering/render-config)))
