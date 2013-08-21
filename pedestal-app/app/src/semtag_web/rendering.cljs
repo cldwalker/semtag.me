@@ -19,7 +19,7 @@
   (dom/set-html! (dom/by-id "greeting") new-value))
 
 (defn render-search-results [_ [_ _ _ things] _]
-  (dom/insert-after! (dom/by-id "greeting")
+  (dom/swap-content! (dom/by-id "search_table")
                      (p/generate-table "search_table" things
                                        :fields [:type :name :url :desc :tags]
                                        :row-partial p/tag-search-row
