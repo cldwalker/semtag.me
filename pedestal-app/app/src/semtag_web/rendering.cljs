@@ -2,11 +2,26 @@
   (:require [domina :as dom]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
+            [clojure.string]
             [io.pedestal.app.render.push :as render]
             [io.pedestal.app.messages :as msg]
             [io.pedestal.app.render.push.templates :as templates]
             [io.pedestal.app.render.push.handlers.automatic :as d])
   (:require-macros [semtag-web.html-templates :as html-templates]))
+
+;; Helper fns
+
+(defn- frequencies-string [items]
+  (->> items
+       frequencies
+       (sort-by #(second %1) (fn [a b] (> a b)))
+       (map #(format "%s %s" (second %1) (name (first %1))))
+       (clojure.string/join ", ")))
+
+(defn- frequency-stat [title data]
+  (format "%s: %s - %s" title (count data) (frequencies-string data)))
+
+;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
 
@@ -18,12 +33,19 @@
 (defn render-message [renderer [_ path _ new-value] transmitter]
   (dom/set-html! (dom/by-id "greeting") new-value))
 
-(defn render-search-results [_ [_ _ _ things] _]
-  (dom/swap-content! (dom/by-id "search_table")
-                     (p/generate-table "search_table" things
-                                       :fields [:type :name :url :desc :tags]
-                                       :row-partial p/tag-search-row
-                                       :caption (format "Total: %s" (count (map :url things))))))
+(defn render-search-results [_ [_ _ _ new-value] _]
+  (let [{:keys [things tags]} new-value]
+    (dom/swap-content!
+      (dom/by-id "table_stats")
+      (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                     (frequency-stat "Tag Counts" (flatten (map :tags things)))
+                     (frequency-stat "Type Counts" (map :type things))))
+    (dom/swap-content!
+      (dom/by-id "search_table")
+      (p/generate-table "search_table" things
+                        :fields [:type :name :url :desc :tags]
+                        :row-partial p/tag-search-row
+                        :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:value (.-value (dom/by-id "url_search_text"))}))

@@ -9,4 +9,6 @@
                               :value (format "Search results for '%s'" (:value message))})
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [:search-results]
-                              :value [{:url "http://funnyordie.com" :desc (str "tiz " (:value message))}]}))
+                              :value {:tags '(["funny"])
+                                      :things [{:url "http://funnyordie.com" :desc (str "tiz " (:value message))
+                                                :type "site" :tags ["funny"]}]}}))
