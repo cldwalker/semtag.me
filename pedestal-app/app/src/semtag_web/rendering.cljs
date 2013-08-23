@@ -31,7 +31,7 @@
     (dom/append! (dom/by-id parent) (html {}))))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
-  (dom/set-html! (dom/by-id "greeting") new-value))
+  (dom/set-html! (dom/by-id "search_title") new-value))
 
 (defn render-search-results [_ [_ _ _ new-value] _]
   (let [{:keys [things tags]} new-value]
@@ -55,7 +55,7 @@
     into
     [[[:node-create [:app-model] render-page]
       [:node-destroy [:app-model] d/default-exit]
-      [:value [:app-model :greeting] render-message]
+      [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :set-greeting] "add_url_button" :fn url-search)]))
+     (util/click [:app-model :search-title] "add_url_button" :fn url-search)]))

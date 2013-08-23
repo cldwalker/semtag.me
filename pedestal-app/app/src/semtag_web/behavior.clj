@@ -7,7 +7,7 @@
   (:value message))
 
 (defn init-app-model []
-  [[:transform-enable [:app-model :set-greeting] :set-greeting [{msg/topic [:greeting] (msg/param :value) {}}]]
+  [[:transform-enable [:app-model :search-title] :set-search-title [{msg/type :set-value msg/topic [:search-title] (msg/param :value) {}}]]
    [:transform-enable [:app-model :search] :search [{msg/topic [:search] (msg/param :value) {}}]]])
 
 ;; purposefully not putting a type or path - what's the point if it's getting consumed
@@ -16,7 +16,7 @@
 
 (def example-app
   {:version 2
-   :transform [[:set-greeting [:greeting] set-value-transform]
+   :transform [[:set-value [:search-title] set-value-transform]
                [:search [:search] set-value-transform]
                [:set-value [:search-results] set-value-transform]]
    :effect #{[#{[:search]} publish-search :single-val]}
