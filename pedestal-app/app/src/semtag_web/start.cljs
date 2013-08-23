@@ -4,6 +4,7 @@
             [io.pedestal.app.render.push :as push-render]
             [io.pedestal.app.render :as render]
             [io.pedestal.app.messages :as msg]
+            [semtag-web.services :as services]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
             [goog.Uri]))
@@ -24,4 +25,5 @@
     (.getParameterValue uri name)))
 
 (defn ^:export main []
-  (create-app (rendering/render-config)))
+  (doto (create-app (rendering/render-config))
+      (setup-effects services/services-fn)))
