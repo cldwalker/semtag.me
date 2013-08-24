@@ -1,5 +1,6 @@
 (ns semtag-web.rendering
   (:require [domina :as dom]
+            [domina.css :as css]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
             [clojure.string]
@@ -49,7 +50,7 @@
 
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
-                                :search-type "regex"}))
+                                :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
 
 (defn render-config []
   (reduce
