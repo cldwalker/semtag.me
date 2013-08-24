@@ -15,23 +15,29 @@
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [:search-results]
                               :value results}))
-(defn- alert
-  "Creates an alert partial with correct type"
+(defn alert
+  "Creates an alert partial for given type"
   [msg alert-type]
   (dom/prepend! (dom/by-id "main")
                 (partials/alert msg (str "alert-" (name alert-type)))))
 
+(defn GET [uri success-fn]
+  (xhr/request (gensym)
+               uri
+               :request-method "GET"
+               :on-success success-fn
+               :on-error (fn [{:keys [xhr] :as msg}]
+                           (.log js/console "Request failed with:" (.getResponse xhr))
+                           (alert (format "Request '%s' failed with: %s"
+                                          uri
+                                          (.getResponse xhr)) :error))))
+
 (defn services-fn [message input-queue]
   (.log js/console (str "Sending query to server: " message))
   (put-search-title input-queue (:query message))
-  (xhr/request (gensym)
-               #_(str "http://localhost:3000/api/search?query=" (:query message) "&search_type=" (:search-type message))
-               "http://localhost:3000/api/search"
-               :request-method "GET"
-               :on-success (fn [args]
-                             (put-search-results
-                               input-queue
-                               (-> args :body read-string)))
-               :on-error (fn [{:keys [xhr] :as msg}]
-                           (.log js/console "Request failed with:" (.getResponse xhr))
-                           (alert (str "Request failed with: "(.getResponse xhr)) :error))))
+  (GET
+    (str "http://localhost:3000/api/search?query=" (:query message) "&search_type=" (:search-type message))
+    (fn [args]
+      (put-search-results
+        input-queue
+        (-> args :body read-string)))))
