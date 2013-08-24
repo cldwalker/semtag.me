@@ -1,6 +1,5 @@
 (ns ^:shared semtag-web.behavior
-    (:require [clojure.string :as string]
-              [io.pedestal.app :as app]
+    (:require [io.pedestal.app :as app]
               [io.pedestal.app.messages :as msg]))
 
 (defn set-value [old-value message]
