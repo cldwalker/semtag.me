@@ -48,7 +48,8 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn url-search [{:keys [transform messages]}]
-  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))}))
+  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
+                                :search-type "regex"}))
 
 (defn render-config []
   (reduce
