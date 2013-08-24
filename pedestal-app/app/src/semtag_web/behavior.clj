@@ -6,18 +6,21 @@
 (defn set-value-transform [old-value message]
   (:value message))
 
+(defn map-value-transform [_ message]
+  (dissoc message msg/topic msg/type))
+
 (defn init-app-model []
   [[:transform-enable [:app-model :search-title] :set-search-title [{msg/type :set-value msg/topic [:search-title] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :search] :search [{msg/topic [:search] (msg/param :value) {}}]]])
+   [:transform-enable [:app-model :search] :search [{msg/topic [:search] (msg/param :query) {}}]]])
 
 ;; purposefully not putting a type or path - what's the point if it's getting consumed
-(defn publish-search [search-val]
-  [{:value search-val}])
+(defn publish-search [search-map]
+  [(dissoc search-map msg/topic msg/type)])
 
 (def example-app
   {:version 2
    :transform [[:set-value [:search-title] set-value-transform]
-               [:search [:search] set-value-transform]
+               [:search [:search] map-value-transform]
                [:set-value [:search-results] set-value-transform]]
    :effect #{[#{[:search]} publish-search :single-val]}
    :emit [{:init init-app-model}

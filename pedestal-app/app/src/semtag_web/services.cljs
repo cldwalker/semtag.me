@@ -16,9 +16,9 @@
 
 (defn services-fn [message input-queue]
   (.log js/console (str "Sending query to server: " message))
-  (put-search-title input-queue (:value message))
+  (put-search-title input-queue (:query message))
   (xhr/request (gensym)
-               (str "http://localhost:3000/api/search?query=" (:value message))
+               (str "http://localhost:3000/api/search?query=" (:query message))
                :request-method "GET"
                :on-success (fn [args]
                              (put-search-results

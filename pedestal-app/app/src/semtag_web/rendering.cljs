@@ -48,7 +48,7 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn url-search [{:keys [transform messages]}]
-  (msg/fill transform messages {:value (.-value (dom/by-id "url_search_text"))}))
+  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))}))
 
 (defn render-config []
   (reduce
@@ -57,5 +57,4 @@
       [:node-destroy [:app-model] d/default-exit]
       [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]]
-     (util/click [:app-model :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :search-title] "add_url_button" :fn url-search)]))
+     (util/click [:app-model :search] "url_search_button" :fn url-search)]))
