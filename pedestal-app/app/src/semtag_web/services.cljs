@@ -16,7 +16,7 @@
                               msg/topic [:search-results]
                               :value results}))
 (defn alert
-  "Creates an alert partial for given type"
+  "Adds an alert box at the top of the page"
   [msg alert-type]
   (dom/prepend! (dom/by-id "main")
                 (partials/alert msg (str "alert-" (name alert-type)))))
@@ -27,10 +27,10 @@
                :request-method "GET"
                :on-success success-fn
                :on-error (fn [{:keys [xhr] :as msg}]
-                           (.log js/console "Request failed with:" (.getResponse xhr))
                            (alert (format "Request '%s' failed with: %s"
                                           uri
-                                          (.getResponse xhr)) :error))))
+                                          (.getResponse xhr))
+                                  :error))))
 
 (defn services-fn [message input-queue]
   (.log js/console (str "Sending query to server: " message))
