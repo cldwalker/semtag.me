@@ -26,10 +26,16 @@
 
 (def templates (html-templates/semtag-web-templates))
 
-(defn render-page [renderer [_ path] transmitter]
-  (let [parent (render/get-parent-id renderer path)
+(defn render-home-page [renderer _ transmitter]
+  (let [path [:app-model] ; consider not hard-coding this
+        parent (render/get-parent-id renderer path)
         html (templates/add-template renderer path (:semtag-web-page templates))]
     (dom/append! (dom/by-id parent) (html {}))))
+
+(defn render-page [renderer [_ _ _ value :as route] input-queue]
+  (case value
+    "noop" (.log js/console "NOOP") ; test route
+    (render-home-page renderer route input-queue)))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
   (dom/set-html! (dom/by-id "search_title") new-value))
@@ -55,8 +61,7 @@
 (defn render-config []
   (reduce
     into
-    [[[:node-create [:app-model] render-page]
-      [:node-destroy [:app-model] d/default-exit]
+    [[[:value [:app-model :page] render-page]
       [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)]))

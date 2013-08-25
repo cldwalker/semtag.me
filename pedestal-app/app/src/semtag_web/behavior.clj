@@ -18,7 +18,8 @@
 
 (def example-app
   {:version 2
-   :transform [[:set-value [:search-title] set-value]
+   :transform [[:set-value [:page] set-value]
+               [:set-value [:search-title] set-value]
                [:map-value [:search] map-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:search]} publish-search :single-val]}
