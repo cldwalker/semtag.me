@@ -34,6 +34,7 @@
 
 (defn render-page [renderer [_ _ _ value :as route] input-queue]
   (case value
+    "replace" (dom/set-html! (dom/by-id "main") "OWNED!")
     "noop" (.log js/console "NOOP") ; test route
     (render-home-page renderer route input-queue)))
 
@@ -61,7 +62,9 @@
 (defn render-config []
   (reduce
     into
-    [[[:value [:app-model :page] render-page]
+    ;; Click doesn't work unless this is enabled
+    [[#_[:node-create [:app-model] render-home-page]
+      [:value [:app-model :page] render-page]
       [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)]))
