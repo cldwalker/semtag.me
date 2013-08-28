@@ -22,6 +22,7 @@
                 (partials/alert msg (str "alert-" (name alert-type)))))
 
 (defn GET [uri success-fn]
+  (.log js/console (str "Calling API endpoint: " uri))
   (xhr/request (gensym)
                uri
                :request-method "GET"
@@ -32,8 +33,7 @@
                                           (.getResponse xhr))
                                   :error))))
 
-(defn services-fn [message input-queue]
-  (.log js/console (str "Sending query to server: " message))
+(defn call-search [message input-queue]
   (put-search-title input-queue (:query message))
   (GET
     (str "http://localhost:3000/api/search?query=" (:query message) "&search_type=" (:search-type message))
@@ -41,3 +41,10 @@
       (put-search-results
         input-queue
         (-> args :body read-string)))))
+
+(defn services-fn [message input-queue]
+  (.log js/console (str "Effect called with: " message))
+  (case (msg/topic message)
+    [:search] (call-search message input-queue)
+    [:page] (when (= "home" (:value message)) (.log js/console "WOOT"))
+    nil))
