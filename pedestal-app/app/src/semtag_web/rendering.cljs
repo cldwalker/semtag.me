@@ -26,17 +26,15 @@
 
 (def templates (html-templates/semtag-web-templates))
 
-(defn render-home-page [renderer _ transmitter]
-  (let [path [:app-model] ; consider not hard-coding this
-        parent (render/get-parent-id renderer path)
-        html (templates/add-template renderer path (:semtag-web-page templates))]
-    (dom/append! (dom/by-id parent) (html {}))))
+(defn render-home-page [renderer [_ path] transmitter]
+  (let [html (templates/add-template renderer path (:semtag-web-page templates))]
+    ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
+    (dom/append! (dom/by-id "content") (html {}))))
 
-(defn render-page [renderer [_ _ _ value :as route] input-queue]
+(defn render-page [renderer [_ _ _ value :as delta] input-queue]
   (case value
-    "replace" (dom/set-html! (dom/by-id "main") "OWNED!")
     "noop" (.log js/console "NOOP") ; test route
-    (render-home-page renderer route input-queue)))
+    (render-home-page renderer delta input-queue)))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
   (dom/set-html! (dom/by-id "search_title") new-value))
@@ -62,9 +60,7 @@
 (defn render-config []
   (reduce
     into
-    ;; Click doesn't work unless this is enabled
-    [[#_[:node-create [:app-model] render-home-page]
-      [:value [:app-model :page] render-page]
+    [[[:value [:app-model :page] render-page]
       [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)]))
