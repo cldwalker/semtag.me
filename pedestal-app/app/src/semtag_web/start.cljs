@@ -9,12 +9,21 @@
             [semtag-web.rendering :as rendering]
             [goog.Uri]))
 
+(defn page-from-url []
+  ;; For now we use hash. If I put a server to route all urls to this js app,
+  ;; this could change to full urls.
+  (case (.-hash window.location)
+    "#/types" "types"
+    "home"))
+
 (defn create-app [render-config]
   (let [app (app/build behavior/example-app)
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
-    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value "types"})
+    (p/put-message (:input app) {msg/type :set-value
+                                 msg/topic [:page]
+                                 :value (page-from-url)})
     {:app app :app-model app-model}))
 
 (defn setup-effects [app services-fn]
