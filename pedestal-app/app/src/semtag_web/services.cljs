@@ -6,6 +6,8 @@
             [io.pedestal.app.messages :as msg]
             [cljs.reader :refer [read-string]]))
 
+;; Helper fns
+
 (defn put-search-title [input-queue query]
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [:search-title]
@@ -27,28 +29,33 @@
   (dom/prepend! (dom/by-id "main")
                 (partials/alert msg (str "alert-" (name alert-type)))))
 
-(defn GET [uri success-fn]
-  (.log js/console (str "Calling API endpoint: " uri))
-  (xhr/request (gensym)
-               uri
-               :request-method "GET"
-               :on-success success-fn
-               :on-error (fn [{:keys [xhr] :as msg}]
-                           (alert (format "Request '%s' failed with: %s"
-                                          uri
-                                          (.getResponse xhr))
-                                  :error))))
+(def base-uri "http://localhost:3000/api")
+
+(defn GET [rel-uri success-fn]
+  (let [uri (str base-uri rel-uri)]
+    (.log js/console (str "Calling API endpoint: " uri))
+    (xhr/request (gensym)
+                 uri
+                 :request-method "GET"
+                 :on-success (fn [data]
+                               (success-fn (-> data :body read-string)))
+                 :on-error (fn [{:keys [xhr] :as msg}]
+                             (alert (format "Request '%s' failed with: %s"
+                                            uri
+                                            (.getResponse xhr))
+                                    :error)))))
+
+;; Effect fns
 
 (defn call-search [message input-queue]
   (put-search-title input-queue (:query message))
   (GET
-    (str "http://localhost:3000/api/search?query=" (:query message) "&search_type=" (:search-type message))
-    (fn [args]
-      (put-search-results
-        input-queue
-        (-> args :body read-string)))))
+    (str "/search?query=" (:query message) "&search_type=" (:search-type message))
+    (partial put-search-results input-queue)))
 
-(defn call-types [message input-queue])
+(defn call-types [message input-queue]
+  (GET "/types"
+       (partial put-types-results input-queue)))
 
 (defn services-fn [message input-queue]
   (.log js/console (str "Effect called with: " message))
