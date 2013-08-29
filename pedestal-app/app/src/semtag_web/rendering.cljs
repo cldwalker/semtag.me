@@ -29,7 +29,7 @@
 (defn render-home-page [renderer [_ path] transmitter]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
-    (dom/append! (dom/by-id "content") (html {}))))
+    (dom/set-html! (dom/by-id "content") (html {}))))
 
 (defn render-page [renderer [_ _ _ value :as delta] input-queue]
   (case value
@@ -55,7 +55,7 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn render-types-results [_ [_ _ _ new-value] _]
-  (dom/append!
+  (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "type_stats_table" (:results new-value)
                       :caption (format "%s things, %s tags"
