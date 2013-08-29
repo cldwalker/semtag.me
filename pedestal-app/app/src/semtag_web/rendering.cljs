@@ -34,7 +34,8 @@
 (defn render-page [renderer [_ _ _ value :as delta] input-queue]
   (case value
     "noop" (.log js/console "NOOP") ; test route
-    (render-home-page renderer delta input-queue)))
+    "home" (render-home-page renderer delta input-queue)
+    nil))
 
 (defn render-message [renderer [_ path _ new-value] transmitter]
   (dom/set-html! (dom/by-id "search_title") new-value))
@@ -53,6 +54,16 @@
                         :row-partial p/tag-search-row
                         :caption (format "Total: %s" (count (map :url things)))))))
 
+(defn render-types-results [_ [_ _ _ new-value] _]
+  (dom/append!
+    (dom/by-id "content")
+    (p/generate-table "type_stats_table" (:results new-value)
+                      :caption (format "%s things, %s tags"
+                                       (get-in new-value [:counts :thing])
+                                       (get-in new-value [:counts :tags]))
+                      :row-partial p/type-stats-row
+                      :fields [:name :count :name-percent :url-percent])))
+
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
                                 :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
@@ -62,5 +73,6 @@
     into
     [[[:value [:app-model :page] render-page]
       [:value [:app-model :search-title] render-message]
-      [:value [:app-model :search-results] render-search-results]]
+      [:value [:app-model :search-results] render-search-results]
+      [:value [:app-model :types-results] render-types-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)]))

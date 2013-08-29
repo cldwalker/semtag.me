@@ -15,6 +15,12 @@
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [:search-results]
                               :value results}))
+
+(defn put-types-results [input-queue results]
+  (p/put-message input-queue {msg/type :set-value
+                              msg/topic [:types-results]
+                              :value results}))
+
 (defn alert
   "Adds an alert box at the top of the page"
   [msg alert-type]
@@ -42,9 +48,11 @@
         input-queue
         (-> args :body read-string)))))
 
+(defn call-types [message input-queue])
+
 (defn services-fn [message input-queue]
   (.log js/console (str "Effect called with: " message))
   (case (msg/topic message)
     [:search] (call-search message input-queue)
-    [:page] (when (= "home" (:value message)) (.log js/console "WOOT"))
+    [:page] (when (= "types" (:value message)) (call-types message input-queue))
     nil))

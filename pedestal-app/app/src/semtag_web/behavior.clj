@@ -29,6 +29,7 @@
    :transform [[:set-value [:page] set-value]
                [:set-value [:search-title] set-value]
                [:map-value [:search] map-value]
+               [:set-value [:types-results] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search]} publish-message]}
    :emit [[#{[:page]} page-deltas]
