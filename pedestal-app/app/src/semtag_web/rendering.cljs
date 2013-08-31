@@ -81,6 +81,9 @@
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
                                 :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
 
+(defn create-url [{:keys [transform messages]}]
+  (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
+
 (defn render-config []
   (reduce
     into
@@ -89,5 +92,6 @@
       [:value [:app-model :search-results] render-search-results]
       [:value [:app-model :types-results] render-types-results]
       [:value [:app-model :tag-stats-results] render-tag-stats-results]
-      [:value [:app-model :tags-results] render-tags-results]] 
-     (util/click [:app-model :search] "url_search_button" :fn url-search)]))
+      [:value [:app-model :tags-results] render-tags-results]]
+     (util/click [:app-model :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :create-url] "add_url_button" :fn create-url)]))
