@@ -15,7 +15,13 @@
     {:results '({:url-percent "1.00", :name-percent "0.00", :count "3", :name "api"})
      :counts {:thing 3, :name 2, :url 2, :tags 4}}))
 
+(defn call-tags [message input-queue]
+  (services/put-tags
+    input-queue
+    '("funny" "awesome" "boa" "bom")))
+
 (defn services-fn [message input-queue]
   (with-redefs [services/call-search call-search
-                services/call-types call-types]
+                services/call-types call-types
+                services/call-tags call-tags]
     (services/services-fn message input-queue)))

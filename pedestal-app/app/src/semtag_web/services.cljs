@@ -23,6 +23,11 @@
                               msg/topic [:types-results]
                               :value results}))
 
+(defn put-tags [input-queue results]
+  (p/put-message input-queue {msg/type :set-value
+                              msg/topic [:tags-results]
+                              :value results}))
+
 (defn alert
   "Adds an alert box at the top of the page"
   [msg alert-type]
@@ -57,9 +62,16 @@
   (GET "/types"
        (partial put-types-results input-queue)))
 
+(defn call-tags [message input-queue]
+  (GET "/tags"
+       (partial put-tags input-queue)))
+
 (defn services-fn [message input-queue]
   (.log js/console (str "Effect called with: " message))
   (case (msg/topic message)
     [:search] (call-search message input-queue)
-    [:page] (when (= "types" (:value message)) (call-types message input-queue))
+    [:page] (case (:value message)
+              "types" (call-types message input-queue)
+              "home" (call-tags message input-queue)
+              nil)
     nil))
