@@ -31,6 +31,7 @@
                [:map-value [:search] map-value]
                [:set-value [:types-results] set-value]
                [:set-value [:tags-results] set-value]
+               [:set-value [:tag-stats-results] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search]} publish-message]}
    :emit [[#{[:page]} page-deltas]

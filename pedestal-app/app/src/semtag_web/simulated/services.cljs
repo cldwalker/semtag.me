@@ -20,8 +20,16 @@
     input-queue
     '("funny" "awesome" "boa" "bom")))
 
+(defn call-tag-stats [message input-queue]
+  (services/put-tag-stats
+    input-queue
+    (list
+      {:desc "1 idea, 1 cjar", :count "2", :tag "cjar=lein-newnew"}
+      {:desc "1 cjar, 1 obook, 5 plugin", :count "7", :tag "lib=jquery"})))
+
 (defn services-fn [message input-queue]
   (with-redefs [services/call-search call-search
                 services/call-types call-types
-                services/call-tags call-tags]
+                services/call-tags call-tags
+                services/call-tag-stats call-tag-stats]
     (services/services-fn message input-queue)))

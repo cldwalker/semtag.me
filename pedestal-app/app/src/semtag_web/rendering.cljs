@@ -69,6 +69,14 @@
     (dom/by-id "url_search_text")
     (p/generate-datalist new-value)))
 
+(defn render-tag-stats-results [_ [_ _ _ new-value] _]
+  (dom/set-html!
+    (dom/by-id "content")
+    (p/generate-table "tag_stats_table" new-value
+                      :row-partial p/tag-stats-row
+                      :caption (str "Total: " (count new-value))
+                      :fields [:tag :count :desc])))
+
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
                                 :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
@@ -80,5 +88,6 @@
       [:value [:app-model :search-title] render-message]
       [:value [:app-model :search-results] render-search-results]
       [:value [:app-model :types-results] render-types-results]
+      [:value [:app-model :tag-stats-results] render-tag-stats-results]
       [:value [:app-model :tags-results] render-tags-results]] 
      (util/click [:app-model :search] "url_search_button" :fn url-search)]))

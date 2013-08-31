@@ -14,6 +14,7 @@
   ;; this could change to full urls.
   (case (.-hash window.location)
     "#/types" "types"
+    "#/tag-stats" "tag-stats"
     "home"))
 
 (defn create-app [render-config]
