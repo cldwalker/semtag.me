@@ -4,9 +4,8 @@
                  [org.clojure/clojurescript "0.0-1847"]
                  [domina "1.0.1"]
                  [crate "0.2.1"]
-                 ;; TODO - remove
-                 [ch.qos.logback/logback-classic "1.0.7" :exclusions [org.slf4j/slf4j-api]]
-                 [io.pedestal/pedestal.app "0.2.0"]
+                 ;; exclusions necessary until app gets its logback act together
+                 [io.pedestal/pedestal.app "0.2.0" :exclusions [org.slf4j/slf4j-api]]
                  [io.pedestal/pedestal.app-tools "0.2.0"]]
   :profiles {:dev {:source-paths ["dev"]
                    :plugins [[com.cemerick/austin "0.1.0"]]}}
