@@ -1,8 +1,3 @@
-(defn dev
-  []
-  (require 'dev)
-  (in-ns 'dev))
-
 (require 'cemerick.austin.repls)
 (defn repl
   "Start Austin cljs-repl and saves repl environment to repl-env.
