@@ -62,7 +62,6 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn render-types-results [_ [_ _ _ new-value] _]
-  (history/navigated input-queue :types)
   (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "type_stats_table" (:results new-value)
@@ -100,6 +99,7 @@
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
 
 (defn render-types-page [_ _ input-queue]
+  (history/navigated input-queue :types)
   (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "types"}))
 
 (defn render-config []
