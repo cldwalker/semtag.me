@@ -87,11 +87,12 @@
 (defn render-config []
   (reduce
     into
-    [[[:value [:app-model :page] render-page]
-      [:value [:app-model :search-title] render-message]
+    [[;[:value [:app-model :page] render-page]
+      [:node-create [:app-model :home] render-home-page]
+      [:value [:app-model :home :search-title] render-message]
+      [:value [:app-model :home :tags-results] render-tags-results]
       [:value [:app-model :search-results] render-search-results]
       [:value [:app-model :types-results] render-types-results]
-      [:value [:app-model :tag-stats-results] render-tag-stats-results]
-      [:value [:app-model :tags-results] render-tags-results]]
+      [:value [:app-model :tag-stats-results] render-tag-stats-results]]
      (util/click [:app-model :search] "url_search_button" :fn url-search)
      (util/click [:app-model :create-url] "add_url_button" :fn create-url)]))

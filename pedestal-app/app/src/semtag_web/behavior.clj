@@ -17,6 +17,10 @@
   ;; needs to return a collection
   [message])
 
+(defn init-home [_]
+  (into [[:node-create [:app-model :home]]]
+        (home-deltas)))
+
 (defn page-deltas [{{page :page} :new-model}]
   (into [[:value [:app-model :page] page]]
         ;; transform deltas have to come after page is visible - otherwise
@@ -35,6 +39,8 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
-   :emit [[#{[:page]} page-deltas]
+   :emit [;[#{[:page]} page-deltas]
+          {:init init-home}
+          [#{[:search] [:search-title] [:tags-results]} (app/default-emitter [:app-model :home])]
           [#{[:*]} (app/default-emitter [:app-model])]]})
 
