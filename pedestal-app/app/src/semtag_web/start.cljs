@@ -22,9 +22,10 @@
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
-    (p/put-message (:input app) {msg/type :set-value
+    ;; TODO - send :set-focus
+    #_(p/put-message (:input app) {msg/type :set-value
                                  msg/topic [:page]
-                                 :value (page-from-url)})
+                                 :value "types" #_(page-from-url)})
     {:app app :app-model app-model}))
 
 (defn setup-effects [app services-fn]

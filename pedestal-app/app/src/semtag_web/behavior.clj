@@ -9,8 +9,8 @@
   (dissoc message msg/topic msg/type))
 
 (defn home-deltas []
-  [[:transform-enable [:app-model :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
+  [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
+   [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
 ;; pass full message so we can differentiate between effects in services.cljs
 (defn publish-message [{:keys [message]}]
@@ -28,6 +28,9 @@
         (if (= "home" page)
           (home-deltas) [])))
 
+(defn init-types [_]
+  [[:node-create [:app-model :types]]])
+
 (def example-app
   {:version 2
    :transform [[:set-value [:page] set-value]
@@ -39,8 +42,14 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
-   :emit [;[#{[:page]} page-deltas]
+   :emit [#_[#{[:page]} page-deltas]
           {:init init-home}
-          [#{[:search] [:search-title] [:tags-results]} (app/default-emitter [:app-model :home])]
-          [#{[:*]} (app/default-emitter [:app-model])]]})
+          [#{[:search] [:search-title] [:tags-results] [:search-results]} (app/default-emitter [:app-model :home])]
+
+          {:init init-types}
+          [#{[:types-results]} (app/default-emitter [:app-model :types])]
+          #_[#{[:*]} (app/default-emitter [:app-model])]]
+   :focus {:home [[:app-model :home]]
+           :types [[:app-model :types]]
+           :default :home}})
 

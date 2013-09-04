@@ -3,6 +3,7 @@
             [domina.css :as css]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
+            [io.pedestal.app.protocols :as prot]
             [clojure.string]
             [io.pedestal.app.render.push :as render]
             [io.pedestal.app.messages :as msg]
@@ -26,10 +27,11 @@
 
 (def templates (html-templates/semtag-web-templates))
 
-(defn render-home-page [renderer [_ path] transmitter]
+(defn render-home-page [renderer [_ path] input-queue]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
-    (dom/set-html! (dom/by-id "content") (html {}))))
+    (dom/set-html! (dom/by-id "content") (html {})))
+  (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "home"}))
 
 (defn render-page [renderer [_ _ _ value :as delta] input-queue]
   (case value
@@ -84,15 +86,27 @@
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
 
+(defn render-types-page [_ _ input-queue]
+  (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "types"}))
+
 (defn render-config []
   (reduce
     into
     [[;[:value [:app-model :page] render-page]
+      ;; home page
       [:node-create [:app-model :home] render-home-page]
+      ;; TODO - node-destroy
       [:value [:app-model :home :search-title] render-message]
       [:value [:app-model :home :tags-results] render-tags-results]
-      [:value [:app-model :search-results] render-search-results]
-      [:value [:app-model :types-results] render-types-results]
+      [:value [:app-model :home :search-results] render-search-results]
+
+      ;; types page
+      [:node-create [:app-model :types] render-types-page]
+      [:value [:app-model :types :types-results] render-types-results]
+
+      ;; tag-stats page
       [:value [:app-model :tag-stats-results] render-tag-stats-results]]
-     (util/click [:app-model :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :create-url] "add_url_button" :fn create-url)]))
+
+     ;; home page
+     (util/click [:app-model :home :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :home :create-url] "add_url_button" :fn create-url)]))
