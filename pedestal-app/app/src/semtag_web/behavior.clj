@@ -25,13 +25,6 @@
   (into [[:node-create [:app-model :home]]]
         (home-deltas)))
 
-(defn page-deltas [{{page :page} :new-model}]
-  (into [[:value [:app-model :page] page]]
-        ;; transform deltas have to come after page is visible - otherwise
-        ;; you're binding to nonexistant dom ids
-        (if (= "home" page)
-          (home-deltas) [])))
-
 (defn init-types [_]
   [[:node-create [:app-model :types]]])
 
@@ -46,8 +39,7 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
-   :emit [#_[#{[:page]} page-deltas]
-          {:init init-home}
+   :emit [{:init init-home}
           [#{[:search] [:search-title] [:tags-results] [:search-results]} (app/default-emitter [:app-model :home])]
 
           {:init init-types}

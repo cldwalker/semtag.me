@@ -38,13 +38,7 @@
 (defn clear-id [id]
   (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
-(defn render-page [renderer [_ _ _ value :as delta] input-queue]
-  (case value
-    "noop" (.log js/console "NOOP") ; test route
-    "home" (render-home-page renderer delta input-queue)
-    nil))
-
-(defn render-message [renderer [_ path _ new-value] transmitter]
+(defn set-search-title [renderer [_ path _ new-value] _]
   (dom/set-html! (dom/by-id "search_title") new-value))
 
 (defn render-search-results [_ [_ _ _ new-value] _]
@@ -100,11 +94,10 @@
 (defn render-config []
   (reduce
     into
-    [[;[:value [:app-model :page] render-page]
-      ;; home page
+    [[;; home page
       [:node-create [:app-model :home] render-home-page]
       [:node-destroy [:app-model :home] (clear-id "content")]
-      [:value [:app-model :home :search-title] render-message]
+      [:value [:app-model :home :search-title] set-search-title]
       [:value [:app-model :home :tags-results] render-tags-results]
       [:value [:app-model :home :search-results] render-search-results]
 
