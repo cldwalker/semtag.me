@@ -12,6 +12,10 @@
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
    [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
+(defn navbar-deltas []
+  [[:transform-enable [:app-model :navbar :types] :types-link [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
+                                                               {msg/type :set-focus msg/topic msg/app-model :name :types}]]])
+
 ;; pass full message so we can differentiate between effects in services.cljs
 (defn publish-message [{:keys [message]}]
   ;; needs to return a collection
@@ -48,8 +52,10 @@
 
           {:init init-types}
           [#{[:types-results]} (app/default-emitter [:app-model :types])]
+
+          {:init navbar-deltas}
           #_[#{[:*]} (app/default-emitter [:app-model])]]
-   :focus {:home [[:app-model :home]]
-           :types [[:app-model :types]]
+   :focus {:home [[:app-model :home] [:app-model :navbar]]
+           :types [[:app-model :types] [:app-model :navbar]]
            :default :home}})
 

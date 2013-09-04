@@ -84,12 +84,8 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:tag :count :desc])))
 
-;; TODO - try as a transform-enable to remove effect called more than once when traversing history
-(defn focus-types [{:keys [input-queue]}]
-  (prot/put-message input-queue {msg/topic msg/app-model
-                                 msg/type :set-focus
-                                 :name :types})
-  [])
+(defn focus-types [{:keys [transform messages]}]
+  (msg/fill transform messages {:value "types"}))
 
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
@@ -99,8 +95,7 @@
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
 
 (defn render-types-page [_ _ input-queue]
-  (history/navigated input-queue :types)
-  (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "types"}))
+  (history/navigated input-queue :types))
 
 (defn render-config []
   (reduce
@@ -121,7 +116,9 @@
       ;; tag-stats page
       [:value [:app-model :tag-stats-results] render-tag-stats-results]]
 
+     ;; navbar
+     (util/click [:app-model :navbar :types] "types_link" :fn focus-types)
+
      ;; home page
-     (util/click [:app-model :home :search] "url_search_button" :fn focus-types)
-     ;(util/click [:app-model :home :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :home :search] "url_search_button" :fn url-search)
      (util/click [:app-model :home :create-url] "add_url_button" :fn create-url)]))
