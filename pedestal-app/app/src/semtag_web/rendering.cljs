@@ -3,8 +3,9 @@
             [domina.css :as css]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
-            [io.pedestal.app.protocols :as prot]
+            [semtag-web.history :as history]
             [clojure.string]
+            [io.pedestal.app.protocols :as prot]
             [io.pedestal.app.render.push :as render]
             [io.pedestal.app.messages :as msg]
             [io.pedestal.app.render.push.templates :as templates]
@@ -28,10 +29,14 @@
 (def templates (html-templates/semtag-web-templates))
 
 (defn render-home-page [renderer [_ path] input-queue]
+  (history/navigated input-queue :home)
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {})))
   (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "home"}))
+
+(defn clear-id [id]
+  (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
 (defn render-page [renderer [_ _ _ value :as delta] input-queue]
   (case value
@@ -57,6 +62,7 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn render-types-results [_ [_ _ _ new-value] _]
+  (history/navigated input-queue :types)
   (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "type_stats_table" (:results new-value)
@@ -79,6 +85,13 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:tag :count :desc])))
 
+;; TODO - try as a transform-enable to remove effect called more than once when traversing history
+(defn focus-types [{:keys [input-queue]}]
+  (prot/put-message input-queue {msg/topic msg/app-model
+                                 msg/type :set-focus
+                                 :name :types})
+  [])
+
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
                                 :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
@@ -95,18 +108,20 @@
     [[;[:value [:app-model :page] render-page]
       ;; home page
       [:node-create [:app-model :home] render-home-page]
-      ;; TODO - node-destroy
+      [:node-destroy [:app-model :home] (clear-id "content")]
       [:value [:app-model :home :search-title] render-message]
       [:value [:app-model :home :tags-results] render-tags-results]
       [:value [:app-model :home :search-results] render-search-results]
 
       ;; types page
       [:node-create [:app-model :types] render-types-page]
+      [:node-destroy [:app-model :types] (clear-id "content")]
       [:value [:app-model :types :types-results] render-types-results]
 
       ;; tag-stats page
       [:value [:app-model :tag-stats-results] render-tag-stats-results]]
 
      ;; home page
-     (util/click [:app-model :home :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :home :search] "url_search_button" :fn focus-types)
+     ;(util/click [:app-model :home :search] "url_search_button" :fn url-search)
      (util/click [:app-model :home :create-url] "add_url_button" :fn create-url)]))
