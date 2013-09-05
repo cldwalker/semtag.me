@@ -81,6 +81,9 @@
 (defn focus-types [{:keys [transform messages]}]
   (msg/fill transform messages {:value "types"}))
 
+(defn focus-tag-stats [{:keys [transform messages]}]
+  (msg/fill transform messages {:value "tag-stats"}))
+
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
                                 :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
@@ -90,6 +93,9 @@
 
 (defn render-types-page [_ _ input-queue]
   (history/navigated input-queue :types))
+
+(defn render-tag-stats-page [_ _ input-queue]
+  (history/navigated input-queue :tag-stats))
 
 (defn render-config []
   (reduce
@@ -107,10 +113,13 @@
       [:value [:app-model :types :types-results] render-types-results]
 
       ;; tag-stats page
-      [:value [:app-model :tag-stats-results] render-tag-stats-results]]
+      [:node-create [:app-model :tag-stats] render-tag-stats-page]
+      [:node-destroy [:app-model :tag-stats] (clear-id "content")]
+      [:value [:app-model :tag-stats :tag-stats-results] render-tag-stats-results]]
 
      ;; navbar
      (util/click [:app-model :navbar :types] "types_link" :fn focus-types)
+     (util/click [:app-model :navbar :tag-stats] "tag_stats_link" :fn focus-tag-stats)
 
      ;; home page
      (util/click [:app-model :home :search] "url_search_button" :fn url-search)

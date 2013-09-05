@@ -14,7 +14,9 @@
 
 (defn navbar-deltas []
   [[:transform-enable [:app-model :navbar :types] :types-link [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
-                                                               {msg/type :set-focus msg/topic msg/app-model :name :types}]]])
+                                                               {msg/type :set-focus msg/topic msg/app-model :name :types}]]
+   [:transform-enable [:app-model :navbar :tag-stats] :tag-stats-link [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
+                                                                       {msg/type :set-focus msg/topic msg/app-model :name :tag-stats}]]])
 
 ;; pass full message so we can differentiate between effects in services.cljs
 (defn publish-message [{:keys [message]}]
@@ -27,6 +29,9 @@
 
 (defn init-types [_]
   [[:node-create [:app-model :types]]])
+
+(defn init-tag-stats [_]
+  [[:node-create [:app-model :tag-stats]]])
 
 (def example-app
   {:version 2
@@ -46,9 +51,13 @@
           {:init init-types}
           [#{[:types-results]} (app/default-emitter [:app-model :types])]
 
+          {:init init-tag-stats}
+          [#{[:tag-stats-results]} (app/default-emitter [:app-model :tag-stats])]
+
           {:init navbar-deltas}
           #_[#{[:*]} (app/default-emitter [:app-model])]]
    :focus {:home [[:app-model :home] [:app-model :navbar]]
            :types [[:app-model :types] [:app-model :navbar]]
+           :tag-stats [[:app-model :tag-stats] [:app-model :navbar]]
            :default :home}})
 
