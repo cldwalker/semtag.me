@@ -30,6 +30,7 @@
 
 (def example-app
   {:version 2
+   ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [[:set-value [:page] set-value]
                [:set-value [:search-title] set-value]
                [:map-value [:search] map-value]

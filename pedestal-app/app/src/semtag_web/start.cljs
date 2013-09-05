@@ -18,14 +18,16 @@
     "home"))
 
 (defn create-app [render-config]
-  (let [app (app/build behavior/example-app)
+  (let [behavior-with-new-default-focus
+        (assoc-in behavior/example-app
+                  [:focus :default]
+                  (keyword (page-from-url)))
+        app (app/build behavior-with-new-default-focus)
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
-    ;; TODO - send :set-focus
-    #_(p/put-message (:input app) {msg/type :set-value
-                                 msg/topic [:page]
-                                 :value "types" #_(page-from-url)})
+    ;; consider reuse with navbar-deltas
+    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (page-from-url)})
     {:app app :app-model app-model}))
 
 (defn setup-effects [app services-fn]
