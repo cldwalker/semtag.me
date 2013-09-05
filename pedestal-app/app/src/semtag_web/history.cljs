@@ -6,10 +6,10 @@
 
 (def last-page (atom nil))
 
-(def dispatchers (atom {}))
+(def input-queues (atom {}))
 
 (defn navigate [token]
-  (when-let [d (get @dispatchers token)]
+  (when-let [d (get @input-queues token)]
     (.log js/console "NAVIGATE" (pr-str token))
     (p/put-message d {msg/topic msg/app-model
                       msg/type :set-focus
@@ -26,7 +26,7 @@
           (.replaceState js/history token nil nil)
           (.pushState js/history token nil nil))))
     (reset! last-page token)
-    (swap! dispatchers assoc token d)))
+    (swap! input-queues assoc token d)))
 
 (if supported?
   (set! (.-onpopstate js/window) (fn [e]
