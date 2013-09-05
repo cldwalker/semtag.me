@@ -7,27 +7,27 @@
             [semtag-web.services :as services]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
+            [semtag-web.history :as history]
             [goog.Uri]))
 
-(defn page-from-url []
-  ;; For now we use hash. If I put a server to route all urls to this js app,
+(defn- url->screen []
+  ;; For now we detect on hash. If I put a server to route all urls to this js app,
   ;; this could change to full urls.
-  (case (.-hash window.location)
-    "#/types" "types"
-    "#/tag-stats" "tag-stats"
-    "home"))
+  (get history/inv-routes
+       (.-hash window.location)
+       history/default-route))
 
 (defn create-app [render-config]
   (let [behavior-with-new-default-focus
         (assoc-in behavior/example-app
                   [:focus :default]
-                  (keyword (page-from-url)))
+                  (url->screen))
         app (app/build behavior-with-new-default-focus)
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
     ;; consider reuse with navbar-deltas
-    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (page-from-url)})
+    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (name (url->screen))})
     {:app app :app-model app-model}))
 
 (defn setup-effects [app services-fn]
