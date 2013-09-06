@@ -12,11 +12,14 @@
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
    [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
+(defn set-focus-delta [screen]
+  [:transform-enable [:app-model :navbar screen] screen [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
+                                                         {msg/type :set-focus msg/topic msg/app-model :name screen}]])
+
 (defn navbar-deltas []
-  [[:transform-enable [:app-model :navbar :types] :types-link [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
-                                                               {msg/type :set-focus msg/topic msg/app-model :name :types}]]
-   [:transform-enable [:app-model :navbar :tag-stats] :tag-stats-link [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
-                                                                       {msg/type :set-focus msg/topic msg/app-model :name :tag-stats}]]])
+  [(set-focus-delta :home)
+   (set-focus-delta :types)
+   (set-focus-delta :tag-stats)])
 
 ;; pass full message so we can differentiate between effects in services.cljs
 (defn publish-message [{:keys [message]}]

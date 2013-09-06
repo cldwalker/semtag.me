@@ -32,8 +32,7 @@
   (history/navigated input-queue :home)
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
-    (dom/set-html! (dom/by-id "content") (html {})))
-  (prot/put-message input-queue {msg/type :set-value msg/topic [:page] :value "home"}))
+    (dom/set-html! (dom/by-id "content") (html {}))))
 
 (defn clear-id [id]
   (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
@@ -78,11 +77,9 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:tag :count :desc])))
 
-(defn focus-types [{:keys [transform messages]}]
-  (msg/fill transform messages {:value "types"}))
-
-(defn focus-tag-stats [{:keys [transform messages]}]
-  (msg/fill transform messages {:value "tag-stats"}))
+(defn focus-fn [screen]
+  (fn [{:keys [transform messages]}]
+    (msg/fill transform messages {:value (name screen)})))
 
 (defn url-search [{:keys [transform messages]}]
   (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
@@ -118,8 +115,9 @@
       [:value [:app-model :tag-stats :tag-stats-results] render-tag-stats-results]]
 
      ;; navbar
-     (util/click [:app-model :navbar :types] "types_link" :fn focus-types)
-     (util/click [:app-model :navbar :tag-stats] "tag_stats_link" :fn focus-tag-stats)
+     (util/click [:app-model :navbar :home] "home_link" :fn (focus-fn :home))
+     (util/click [:app-model :navbar :types] "types_link" :fn (focus-fn :types))
+     (util/click [:app-model :navbar :tag-stats] "tag_stats_link" :fn (focus-fn :tag-stats))
 
      ;; home page
      (util/click [:app-model :home :search] "url_search_button" :fn url-search)
