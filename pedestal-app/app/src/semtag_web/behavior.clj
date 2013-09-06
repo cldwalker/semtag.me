@@ -2,12 +2,23 @@
     (:require [io.pedestal.app :as app]
               [io.pedestal.app.messages :as msg]))
 
+;; Transform fns
+;;
 (defn set-value [old-value message]
   (:value message))
 
 (defn map-value [_ message]
   (dissoc message msg/topic msg/type))
 
+;; Effect fns
+;;
+;; pass full message so we can differentiate between effects in services.cljs
+(defn publish-message [{:keys [message]}]
+  ;; needs to return a collection
+  [message])
+
+;; Emit fns
+;;
 (defn home-deltas []
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
    [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
@@ -20,11 +31,6 @@
   [(set-focus-delta :home)
    (set-focus-delta :types)
    (set-focus-delta :tag-stats)])
-
-;; pass full message so we can differentiate between effects in services.cljs
-(defn publish-message [{:keys [message]}]
-  ;; needs to return a collection
-  [message])
 
 (defn init-home [_]
   (into [[:node-create [:app-model :home]]]
