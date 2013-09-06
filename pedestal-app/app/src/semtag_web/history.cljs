@@ -8,7 +8,8 @@
 ;; -----------
 (def routes "Maps screens to relative paths"
   {:types "#/types"
-   :tag-stats "#/tag-stats"})
+   :tag-stats "#/tag-stats"
+   :home "#/"})
 
 (def default-route :home)
 
