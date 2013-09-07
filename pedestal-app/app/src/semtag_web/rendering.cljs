@@ -136,6 +136,7 @@
      (util/click [:app-model :navbar :home] "home_link" :fn (focus-fn :home))
      (util/click [:app-model :navbar :types] "types_link" :fn (focus-fn :types))
      (util/click [:app-model :navbar :tag-stats] "tag_stats_link" :fn (focus-fn :tag-stats))
+     (util/click [:app-model :navbar :all] "all_link" :fn (focus-fn :all))
 
      ;; home page
      (util/click [:app-model :home :search] "url_search_button" :fn url-search)

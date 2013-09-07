@@ -30,7 +30,8 @@
 (defn navbar-deltas []
   [(set-focus-delta :home)
    (set-focus-delta :types)
-   (set-focus-delta :tag-stats)])
+   (set-focus-delta :tag-stats)
+   (set-focus-delta :all)])
 
 (defn init-home [_]
   (into [[:node-create [:app-model :home]]]
