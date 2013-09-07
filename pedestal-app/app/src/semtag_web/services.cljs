@@ -42,39 +42,34 @@
 
 ;; Effect fns
 
-(defn call-search [message input-queue]
+(defmulti send-message
+  "Sends message to cause an effect"
+  (fn [message input-queue] (keyword (:value message))))
+
+;; for types, tag-stats and all
+(defmethod send-message :default
+  [{:keys [value]} input-queue]
+  (GET (str "/" value)
+       (partial put-value [(keyword (str value "-results"))] input-queue)))
+
+(defmethod send-message :home
+  [message input-queue]
+  (GET "/tags"
+       (partial put-value [:tags-results] input-queue)))
+
+(defmethod send-message :search
+  [message input-queue]
   (put-search-title input-queue (:query message))
   (GET
     (str "/search?query=" (:query message) "&search_type=" (:search-type message))
     (partial put-value [:search-results] input-queue)))
 
-(defn call-types [message input-queue]
-  (GET "/types"
-       (partial put-value [:types-results] input-queue)))
-
-(defn call-tags [message input-queue]
-  (GET "/tags"
-       (partial put-value [:tags-results] input-queue)))
-
-(defn call-tag-stats [message input-queue]
-  (GET "/tag-stats"
-       (partial put-value [:tag-stats-results] input-queue)))
-
-(defn call-all [message input-queue]
-  (GET "/all"
-       (partial put-value [:all-results] input-queue)))
-
-(defn page-effects [message input-queue]
-  (case (:value message)
-    "types" (call-types message input-queue)
-    "tag-stats" (call-tag-stats message input-queue)
-    "all" (call-all message input-queue)
-    "home" (call-tags message input-queue)
-    nil))
-
-(defn services-fn [message input-queue]
-  (.log js/console (str "Effect called with: " message))
-  (case (msg/topic message)
-    [:search] (call-search message input-queue)
-    [:page] (page-effects message input-queue)
-    nil))
+(defn services-fn
+  ([message input-queue] (services-fn message input-queue send-message))
+  ([message input-queue send-fn]
+   (.log js/console (str "Effect called with: " message))
+   (case (msg/topic message)
+     ;; add :value so we can dispatch to it
+     [:search] (send-fn (assoc message :value "search") input-queue)
+     [:page] (send-fn message input-queue)
+     nil)))
