@@ -13,30 +13,10 @@
                               msg/topic [:search-title]
                               :value (format "Search results for '%s'" query)}))
 
-(defn put-search-results [input-queue results]
+(defn put-value [path input-queue value]
   (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:search-results]
-                              :value results}))
-
-(defn put-types-results [input-queue results]
-  (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:types-results]
-                              :value results}))
-
-(defn put-tags [input-queue results]
-  (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:tags-results]
-                              :value results}))
-
-(defn put-tag-stats [input-queue results]
-  (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:tag-stats-results]
-                              :value results}))
-
-(defn put-all [input-queue results]
-  (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:all-results]
-                              :value results}))
+                              msg/topic path
+                              :value value}))
 
 (defn alert
   "Adds an alert box at the top of the page"
@@ -66,23 +46,23 @@
   (put-search-title input-queue (:query message))
   (GET
     (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-    (partial put-search-results input-queue)))
+    (partial put-value [:search-results] input-queue)))
 
 (defn call-types [message input-queue]
   (GET "/types"
-       (partial put-types-results input-queue)))
+       (partial put-value [:types-results] input-queue)))
 
 (defn call-tags [message input-queue]
   (GET "/tags"
-       (partial put-tags input-queue)))
+       (partial put-value [:tags-results] input-queue)))
 
 (defn call-tag-stats [message input-queue]
   (GET "/tag-stats"
-       (partial put-tag-stats input-queue)))
+       (partial put-value [:tag-stats-results] input-queue)))
 
 (defn call-all [message input-queue]
   (GET "/all"
-       (partial put-all input-queue)))
+       (partial put-value [:all-results] input-queue)))
 
 (defn page-effects [message input-queue]
   (case (:value message)
