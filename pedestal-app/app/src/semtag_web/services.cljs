@@ -1,7 +1,5 @@
 (ns semtag-web.services
   (:require [io.pedestal.app.protocols :as p]
-            [semtag-web.partials :as partials]
-            [domina :as dom]
             [io.pedestal.app.net.xhr :as xhr]
             [io.pedestal.app.messages :as msg]
             [cljs.reader :refer [read-string]]))
@@ -18,15 +16,9 @@
                               msg/topic path
                               :value value}))
 
-(defn alert
-  "Adds an alert box at the top of the page"
-  [msg alert-type]
-  (dom/prepend! (dom/by-id "main")
-                (partials/alert msg (str "alert-" (name alert-type)))))
-
 (def base-uri "http://localhost:3000/api")
 
-(defn GET [rel-uri success-fn]
+(defn GET [rel-uri success-fn input-queue]
   (let [uri (str base-uri rel-uri)]
     (.log js/console (str "Calling API endpoint: " uri))
     (xhr/request (gensym)
@@ -35,10 +27,11 @@
                  :on-success (fn [data]
                                (success-fn (-> data :body read-string)))
                  :on-error (fn [{:keys [xhr] :as msg}]
-                             (alert (format "Request '%s' failed with: %s"
-                                            uri
-                                            (.getResponse xhr))
-                                    :error)))))
+                             (put-value [:alert-error]
+                                        input-queue
+                                        (format "Request '%s' failed with: %s"
+                                                uri
+                                                (.getResponse xhr)))))))
 
 ;; Effect fns
 
@@ -50,19 +43,22 @@
 (defmethod send-message :default
   [{:keys [value]} input-queue]
   (GET (str "/" value)
-       (partial put-value [(keyword (str value "-results"))] input-queue)))
+       (partial put-value [(keyword (str value "-results"))] input-queue)
+       input-queue))
 
 (defmethod send-message :home
   [message input-queue]
   (GET "/tags"
-       (partial put-value [:tags-results] input-queue)))
+       (partial put-value [:tags-results] input-queue)
+       input-queue))
 
 (defmethod send-message :search
   [message input-queue]
   (put-search-title input-queue (:query message))
   (GET
     (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-    (partial put-value [:search-results] input-queue)))
+    (partial put-value [:search-results] input-queue)
+    input-queue))
 
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))

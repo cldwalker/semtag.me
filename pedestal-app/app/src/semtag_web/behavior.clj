@@ -57,6 +57,7 @@
                [:set-value [:tags-results] set-value]
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:all-results] set-value]
+               [:set-value [:alert-error] set-value]
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
    :emit [{:init init-home}
@@ -72,6 +73,7 @@
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
 
           {:init navbar-deltas}
+          [#{[:alert-error]} (app/default-emitter [:app-model :navbar])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
    :focus {:home [[:app-model :home] [:app-model :navbar]]
            :types [[:app-model :types] [:app-model :navbar]]

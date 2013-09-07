@@ -35,6 +35,12 @@
   (fn [_ _ input-queue]
     (history/navigated input-queue screen)))
 
+(defn render-alert
+  "Adds an alert box at the top of the page"
+  [msg alert-type]
+  (dom/prepend! (dom/by-id "main")
+                (p/alert msg (str "alert-" (name alert-type)))))
+
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
@@ -106,6 +112,10 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:type :name :url :tags :created-at])))
 
+(defn render-alert-error [_ [_ _ _ msg] _]
+  (render-alert msg :error))
+
+;; TODO - undo for all :value's that render
 (defn render-config []
   (reduce
     into
@@ -130,6 +140,9 @@
      [:node-create [:app-model :all] (navigate-fn :all)]
      [:node-destroy [:app-model :all] (clear-id "content")]
      [:value [:app-model :all :all-results] render-all-results]
+
+    ;; navbar/shared
+    [:value [:app-model :navbar :alert-error] render-alert-error]
      ]
 
      ;; navbar
