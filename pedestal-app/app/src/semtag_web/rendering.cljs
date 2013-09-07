@@ -24,18 +24,28 @@
 (defn- frequency-stat [title data]
   (format "%s: %s - %s" title (count data) (frequencies-string data)))
 
+(defn clear-id [id]
+  (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
+
+(defn focus-fn [screen]
+  (fn [{:keys [transform messages]}]
+    (msg/fill transform messages {:value (name screen)})))
+
+(defn navigate-fn [screen]
+  (fn [_ _ input-queue]
+    (history/navigated input-queue screen)))
+
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
 
+;;; Home
+;;;
 (defn render-home-page [renderer [_ path] input-queue]
   (history/navigated input-queue :home)
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {}))))
-
-(defn clear-id [id]
-  (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
 (defn set-search-title [renderer [_ path _ new-value] _]
   (dom/set-html! (dom/by-id "search_title") new-value))
@@ -54,6 +64,20 @@
                         :row-partial p/tag-search-row
                         :caption (format "Total: %s" (count (map :url things)))))))
 
+(defn render-tags-results [_ [_ _ _ new-value] _]
+  (dom/insert-after!
+    (dom/by-id "url_search_text")
+    (p/generate-datalist new-value)))
+
+(defn url-search [{:keys [transform messages]}]
+  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
+                                :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
+
+(defn create-url [{:keys [transform messages]}]
+  (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
+
+;;; Other pages
+;;;
 (defn render-types-results [_ [_ _ _ new-value] _]
   (dom/set-html!
     (dom/by-id "content")
@@ -64,10 +88,7 @@
                       :row-partial p/type-stats-row
                       :fields [:name :count :name-percent :url-percent])))
 
-(defn render-tags-results [_ [_ _ _ new-value] _]
-  (dom/insert-after!
-    (dom/by-id "url_search_text")
-    (p/generate-datalist new-value)))
+
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] _]
   (dom/set-html!
@@ -85,27 +106,6 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:type :name :url :tags :created-at])))
 
-(defn focus-fn [screen]
-  (fn [{:keys [transform messages]}]
-    (msg/fill transform messages {:value (name screen)})))
-
-(defn url-search [{:keys [transform messages]}]
-  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
-                                :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
-
-(defn create-url [{:keys [transform messages]}]
-  (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
-
-(defn render-types-page [_ _ input-queue]
-  (history/navigated input-queue :types))
-
-(defn render-tag-stats-page [_ _ input-queue]
-  (history/navigated input-queue :tag-stats))
-
-(defn navigate-fn [screen]
-  (fn [_ _ input-queue]
-    (history/navigated input-queue screen)))
-
 (defn render-config []
   (reduce
     into
@@ -117,12 +117,12 @@
       [:value [:app-model :home :search-results] render-search-results]
 
       ;; types page
-      [:node-create [:app-model :types] render-types-page]
+      [:node-create [:app-model :types] (navigate-fn :types)]
       [:node-destroy [:app-model :types] (clear-id "content")]
       [:value [:app-model :types :types-results] render-types-results]
 
       ;; tag-stats page
-      [:node-create [:app-model :tag-stats] render-tag-stats-page]
+      [:node-create [:app-model :tag-stats] (navigate-fn :tag-stats)]
       [:node-destroy [:app-model :tag-stats] (clear-id "content")]
       [:value [:app-model :tag-stats :tag-stats-results] render-tag-stats-results]
 
