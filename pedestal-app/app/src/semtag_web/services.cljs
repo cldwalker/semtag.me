@@ -32,6 +32,12 @@
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [:tag-stats-results]
                               :value results}))
+
+(defn put-all [input-queue results]
+  (p/put-message input-queue {msg/type :set-value
+                              msg/topic [:all-results]
+                              :value results}))
+
 (defn alert
   "Adds an alert box at the top of the page"
   [msg alert-type]
@@ -74,10 +80,15 @@
   (GET "/tag-stats"
        (partial put-tag-stats input-queue)))
 
+(defn call-all [message input-queue]
+  (GET "/all"
+       (partial put-all input-queue)))
+
 (defn page-effects [message input-queue]
   (case (:value message)
     "types" (call-types message input-queue)
     "tag-stats" (call-tag-stats message input-queue)
+    "all" (call-all message input-queue)
     "home" (call-tags message input-queue)
     nil))
 

@@ -77,6 +77,14 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:tag :count :desc])))
 
+(defn render-all-results [_ [_ _ _ new-value] _]
+  (dom/set-html!
+    (dom/by-id "content")
+    (p/generate-table "all_table" new-value
+                      :row-partial p/all-row
+                      :caption (str "Total: " (count new-value))
+                      :fields [:type :name :url :tags :created-at])))
+
 (defn focus-fn [screen]
   (fn [{:keys [transform messages]}]
     (msg/fill transform messages {:value (name screen)})))
@@ -93,6 +101,10 @@
 
 (defn render-tag-stats-page [_ _ input-queue]
   (history/navigated input-queue :tag-stats))
+
+(defn navigate-fn [screen]
+  (fn [_ _ input-queue]
+    (history/navigated input-queue screen)))
 
 (defn render-config []
   (reduce
@@ -112,7 +124,13 @@
       ;; tag-stats page
       [:node-create [:app-model :tag-stats] render-tag-stats-page]
       [:node-destroy [:app-model :tag-stats] (clear-id "content")]
-      [:value [:app-model :tag-stats :tag-stats-results] render-tag-stats-results]]
+      [:value [:app-model :tag-stats :tag-stats-results] render-tag-stats-results]
+
+     ;; all page
+     [:node-create [:app-model :all] (navigate-fn :all)]
+     [:node-destroy [:app-model :all] (clear-id "content")]
+     [:value [:app-model :all :all-results] render-all-results]
+     ]
 
      ;; navbar
      (util/click [:app-model :navbar :home] "home_link" :fn (focus-fn :home))
