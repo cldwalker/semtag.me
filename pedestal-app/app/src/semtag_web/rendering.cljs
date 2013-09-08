@@ -4,7 +4,7 @@
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
             [semtag-web.history :as history]
-            [clojure.string]
+            [clojure.string :as string]
             [io.pedestal.app.protocols :as prot]
             [io.pedestal.app.render.push :as render]
             [io.pedestal.app.messages :as msg]
@@ -19,7 +19,7 @@
        frequencies
        (sort-by #(second %1) (fn [a b] (> a b)))
        (map #(format "%s %s" (second %1) (name (first %1))))
-       (clojure.string/join ", ")))
+       (string/join ", ")))
 
 (defn- frequency-stat [title data]
   (format "%s: %s - %s" title (count data) (frequencies-string data)))
@@ -27,9 +27,11 @@
 (defn clear-id [id]
   (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
-(defn focus-fn [screen]
-  (fn [{:keys [transform messages]}]
-    (msg/fill transform messages {:value (name screen)})))
+(defn- target-screen [event]
+  (let [current-uri (str (.-origin window.location) (.-pathname window.location))
+        target-uri (-> event .-currentTarget .-href)
+        rel-target-uri (string/replace target-uri current-uri "")]
+    (get history/inv-routes rel-target-uri)))
 
 (defn navigate-fn [screen]
   (fn [_ _ input-queue]
@@ -112,6 +114,11 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:type :name :url :tags :created-at])))
 
+(defn href-sets-focus [{:keys [transform messages event]}]
+  (if-let [screen (target-screen event)]
+    (msg/fill transform messages {:value (name screen) :name screen})
+    (.log js/console "No screen found for element" (.-currentTarget event))))
+
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
@@ -146,10 +153,7 @@
      ]
 
      ;; navbar
-     (util/click [:app-model :navbar :home] "home_link" :fn (focus-fn :home))
-     (util/click [:app-model :navbar :types] "types_link" :fn (focus-fn :types))
-     (util/click [:app-model :navbar :tag-stats] "tag_stats_link" :fn (focus-fn :tag-stats))
-     (util/click [:app-model :navbar :all] "all_link" :fn (focus-fn :all))
+     (util/click [:app-model :navbar :links] (css/sel ".navbar a") :fn href-sets-focus)
 
      ;; home page
      (util/click [:app-model :home :search] "url_search_button" :fn url-search)

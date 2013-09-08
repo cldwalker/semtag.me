@@ -23,15 +23,10 @@
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
    [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
-(defn set-focus-delta [screen]
-  [:transform-enable [:app-model :navbar screen] screen [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
-                                                         {msg/type :set-focus msg/topic msg/app-model :name screen}]])
 
 (defn navbar-deltas []
-  [(set-focus-delta :home)
-   (set-focus-delta :types)
-   (set-focus-delta :tag-stats)
-   (set-focus-delta :all)])
+  [[:transform-enable [:app-model :navbar :links] :links [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
+                                                          {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 
 (defn init-home [_]
   (into [[:node-create [:app-model :home]]]

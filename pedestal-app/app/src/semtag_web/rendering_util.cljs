@@ -12,8 +12,8 @@
   [dom-id f]
   (fn [_ [_ path transform-name messages] input-queue]
     (events/send-on :click dom-id input-queue
-                    (fn []
-                      (f {:transform transform-name :messages messages :input-queue input-queue})))))
+                    (fn [e]
+                      (f {:transform transform-name :messages messages :input-queue input-queue :event (.-evt e)})))))
 
 (defn click [path dom-id & {:keys [inputs fn]}]
   [[:transform-enable
