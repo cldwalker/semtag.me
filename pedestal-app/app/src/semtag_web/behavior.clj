@@ -21,7 +21,8 @@
 ;;
 (defn home-deltas []
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
+   [:transform-enable [:app-model :home :search] :search [{msg/type :set-focus msg/topic msg/app-model :name :search}
+                                                          {msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
 
 (defn navbar-deltas []
@@ -41,6 +42,9 @@
 (defn init-all [_]
   [[:node-create [:app-model :all]]])
 
+(defn init-search [_]
+  [[:node-create [:app-model :search]]])
+
 (def example-app
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
@@ -56,7 +60,7 @@
                [:set-value [:search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
    :emit [{:init init-home}
-          [#{[:search] [:search-title] [:tags-results] [:search-results]} (app/default-emitter [:app-model :home])]
+          [#{[:tags-results]} (app/default-emitter [:app-model :home])]
 
           {:init init-types}
           [#{[:types-results]} (app/default-emitter [:app-model :types])]
@@ -67,6 +71,10 @@
           {:init init-all}
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
 
+
+          {:init init-search}
+          [#{[:search] [:search-title] [:search-results]} (app/default-emitter [:app-model :search])]
+
           {:init navbar-deltas}
           [#{[:alert-error]} (app/default-emitter [:app-model :navbar])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
@@ -74,5 +82,6 @@
            :types [[:app-model :types] [:app-model :navbar]]
            :tag-stats [[:app-model :tag-stats] [:app-model :navbar]]
            :all [[:app-model :all] [:app-model :navbar]]
+           :search [[:app-model :search] [:app-model :home] [:app-model :navbar]]
            :default :home}})
 

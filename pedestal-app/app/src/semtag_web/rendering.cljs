@@ -129,9 +129,7 @@
     [[;; home page
       [:node-create [:app-model :home] render-home-page]
       [:node-destroy [:app-model :home] (clear-id "content")]
-      [:value [:app-model :home :search-title] set-search-title]
       [:value [:app-model :home :tags-results] render-tags-results]
-      [:value [:app-model :home :search-results] render-search-results]
 
       ;; types page
       [:node-create [:app-model :types] (navigate-fn :types)]
@@ -147,6 +145,13 @@
      [:node-create [:app-model :all] (navigate-fn :all)]
      [:node-destroy [:app-model :all] (clear-id "content")]
      [:value [:app-model :all :all-results] render-all-results]
+
+     ;; all page
+     [:node-create [:app-model :search] (navigate-fn :search)]
+    ;; TODO - still need to clear up more of table
+     [:node-destroy [:app-model :search] (clear-id "table_stats")]
+     [:value [:app-model :search :search-title] set-search-title]
+     [:value [:app-model :search :search-results] render-search-results]
 
     ;; navbar/shared
     [:value [:app-model :navbar :alert-error] render-alert-error]
