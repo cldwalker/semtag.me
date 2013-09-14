@@ -24,17 +24,19 @@
 (def last-page (atom nil))
 
 (def input-queues (atom {}))
+(def set-focus-maps (atom {}))
 
 (defn navigate [token]
   (when-let [d (get @input-queues token)]
-    (.log js/console "NAVIGATE" (pr-str token))
-    (p/put-message d {msg/topic msg/app-model
-                      msg/type :set-focus
-                      :name token})))
+    (.log js/console "NAVIGATE" (pr-str (get @set-focus-maps token)))
+    (p/put-message d (merge
+                       {msg/topic msg/app-model
+                        msg/type :set-focus}
+                       (get @set-focus-maps token)))))
 
 (def supported? (and js/history (.-pushState js/history)))
 
-(defn navigated [d token]
+(defn navigated [d token & args]
   (when supported?
     (.log js/console "NAVIGATED" (pr-str token))
     (let [current-token (.-state js/history)]
@@ -43,7 +45,9 @@
           (.replaceState js/history token nil nil)
           (.pushState js/history token nil (url-for token)))))
     (reset! last-page token)
-    (swap! input-queues assoc token d)))
+    (swap! input-queues assoc token d)
+    (swap! set-focus-maps assoc token
+           (apply hash-map :name token args))))
 
 (if supported?
   (set! (.-onpopstate js/window) (fn [e]

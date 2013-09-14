@@ -8,7 +8,7 @@
 
 (defn put-search-title [input-queue query]
   (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:search-title]
+                              msg/topic [:search-1 :search-title]
                               :value (format "Search results for '%s'" query)}))
 
 (defn put-value [path input-queue value]
@@ -57,7 +57,7 @@
   (put-search-title input-queue (:query message))
   (GET
     (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-    (partial put-value [:search-results] input-queue)
+    (partial put-value [:search-1 :search-results] input-queue)
     input-queue))
 
 (defn services-fn

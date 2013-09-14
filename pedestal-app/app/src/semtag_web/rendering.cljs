@@ -122,6 +122,13 @@
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
+(defn navigate-search  [_ [_ path] input-queue]
+  (let [set-focus-opts (-> input-queue :state deref :item (dissoc msg/type msg/topic :name)
+                           vec flatten)]
+    (.log js/console "navigate-fn" (pr-str (last path) set-focus-opts))
+    (apply history/navigated input-queue (last path)
+           :name :search set-focus-opts)))
+
 ;; TODO - undo for all :value's that render
 (defn render-config []
   (reduce
@@ -147,11 +154,11 @@
      [:value [:app-model :all :all-results] render-all-results]
 
      ;; all page
-     [:node-create [:app-model :search] (navigate-fn :search)]
+     [:node-create [:app-model :search :*] navigate-search]
     ;; TODO - still need to clear up more of table
-     [:node-destroy [:app-model :search] (clear-id "table_stats")]
-     [:value [:app-model :search :search-title] set-search-title]
-     [:value [:app-model :search :search-results] render-search-results]
+     [:node-destroy [:app-model :search :*] (clear-id "table_stats")]
+     [:value [:app-model :search :* :search-title] set-search-title]
+     [:value [:app-model :search :* :search-results] render-search-results]
 
     ;; navbar/shared
     [:value [:app-model :navbar :alert-error] render-alert-error]

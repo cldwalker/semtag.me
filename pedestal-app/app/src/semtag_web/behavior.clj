@@ -49,7 +49,7 @@
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [[:set-value [:page] set-value]
-               [:set-value [:search-title] set-value]
+               [:set-value [:* :search-title] set-value]
                [:map-value [:search] map-value]
                [:set-value [:create-url] set-value]
                [:set-value [:types-results] set-value]
@@ -57,7 +57,7 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:all-results] set-value]
                [:set-value [:alert-error] set-value]
-               [:set-value [:search-results] set-value]]
+               [:set-value [:* :search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
    :emit [{:init init-home}
           [#{[:tags-results]} (app/default-emitter [:app-model :home])]
@@ -73,7 +73,8 @@
 
 
           {:init init-search}
-          [#{[:search] [:search-title] [:search-results]} (app/default-emitter [:app-model :search])]
+          [#{[:search]} (constantly [[:node-create [:app-model :search :search-1]]])]
+          [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init navbar-deltas}
           [#{[:alert-error]} (app/default-emitter [:app-model :navbar])]
