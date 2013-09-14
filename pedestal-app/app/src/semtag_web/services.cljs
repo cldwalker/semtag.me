@@ -6,9 +6,9 @@
 
 ;; Helper fns
 
-(defn put-search-title [input-queue query]
+(defn put-search-title [input-queue query search-id]
   (p/put-message input-queue {msg/type :set-value
-                              msg/topic [:search-1 :search-title]
+                              msg/topic [search-id :search-title]
                               :value (format "Search results for '%s'" query)}))
 
 (defn put-value [path input-queue value]
@@ -54,11 +54,14 @@
 
 (defmethod send-message :search
   [message input-queue]
-  (put-search-title input-queue (:query message))
-  (GET
-    (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-    (partial put-value [:search-1 :search-results] input-queue)
-    input-queue))
+  (let [search-id (keyword (str "search-"
+                                (hash (sorted-map (select-keys message [:query :search-type])))))]
+    #_(.log js/console "PATH-services" (pr-str search-id (select-keys message [:query :search-type])))
+    (put-search-title input-queue (:query message) search-id)
+    (GET
+      (str "/search?query=" (:query message) "&search_type=" (:search-type message))
+      (partial put-value [search-id :search-results] input-queue)
+      input-queue)))
 
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))

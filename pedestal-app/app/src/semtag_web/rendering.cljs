@@ -125,7 +125,7 @@
 (defn navigate-search  [_ [_ path] input-queue]
   (let [set-focus-opts (-> input-queue :state deref :item (dissoc msg/type msg/topic :name)
                            vec flatten)]
-    (.log js/console "navigate-fn" (pr-str (last path) set-focus-opts))
+    #_(.log js/console "navigate-fn" (pr-str (last path) set-focus-opts))
     (apply history/navigated input-queue (last path)
            :name :search set-focus-opts)))
 
@@ -153,7 +153,7 @@
      [:node-destroy [:app-model :all] (clear-id "content")]
      [:value [:app-model :all :all-results] render-all-results]
 
-     ;; all page
+     ;; search page
      [:node-create [:app-model :search :*] navigate-search]
     ;; TODO - still need to clear up more of table
      [:node-destroy [:app-model :search :*] (clear-id "table_stats")]

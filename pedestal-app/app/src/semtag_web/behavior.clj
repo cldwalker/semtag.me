@@ -45,6 +45,17 @@
 (defn init-search [_]
   [[:node-create [:app-model :search]]])
 
+(defn sub-search [{:keys [new-model]}]
+  #_(.log js/console "PATH-emit" (pr-str (hash (sorted-map (:search new-model))) (:search new-model)))
+  (when (:search new-model)
+    [[:node-create [:app-model :search (keyword (str "search-" (hash (sorted-map (:search new-model)))))]]]))
+
+(defn navigate-input [msg]
+  (.log js/console "PRE" (pr-str msg))
+  (if (= (:name msg) :search)
+    [msg (merge {msg/type :map-value msg/topic [:search]} (select-keys msg [:query :search-type]))]
+    [msg]))
+
 (def example-app
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
@@ -71,9 +82,8 @@
           {:init init-all}
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
 
-
-          {:init init-search}
-          [#{[:search]} (constantly [[:node-create [:app-model :search :search-1]]])]
+          ;{:init init-search}
+          [#{[:search]} sub-search]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init navbar-deltas}

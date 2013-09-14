@@ -35,7 +35,7 @@
 
 (defmethod send-message :search
   [message input-queue]
-  (services/put-search-title input-queue (:query message))
+  (services/put-search-title input-queue (:query message) nil)
   (services/put-value
     [:search-results]
     input-queue

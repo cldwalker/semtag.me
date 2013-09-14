@@ -4,6 +4,7 @@
             [io.pedestal.app.render.push :as push-render]
             [io.pedestal.app.render :as render]
             [io.pedestal.app.messages :as msg]
+            [io.pedestal.app.util.platform :as platform]
             [semtag-web.services :as services]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
@@ -16,6 +17,21 @@
   (get history/inv-routes
        (.-hash window.location)
        history/default-route))
+
+(defmethod app/process-app-model-message :navigate [state flow message]
+  (let [deltas (app/refresh-emitters state flow)
+        paths (get-in state [:io.pedestal.app/named-paths (:name message)])
+        old-paths (:io.pedestal.app/subscriptions state)
+        destroy-paths (remove (set paths) old-paths)]
+    (platform/log-group ":navigate" {:message message
+                                     :named-paths (get-in state [:io.pedestal.app/named-paths])
+                                     :paths paths
+                                     :destroy-paths destroy-paths
+                                     :old-paths old-paths
+                                     :deltas deltas})
+    (assoc state :io.pedestal.app/subscriptions paths
+           :emit (into (mapv #(vector :navigate-node-destroy %) destroy-paths)
+                       deltas))))
 
 (defn create-app [render-config]
   (let [behavior-with-new-default-focus
