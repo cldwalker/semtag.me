@@ -78,8 +78,15 @@
     (p/generate-datalist new-value)))
 
 (defn url-search [{:keys [transform messages]}]
-  (msg/fill transform messages {:query (.-value (dom/by-id "url_search_text"))
-                                :search-type (dom/value (css/sel "input[name=search_type]:checked"))}))
+  (let [search-map {:query (.-value (dom/by-id "url_search_text"))
+                    :search-type (dom/value (css/sel "input[name=search_type]:checked"))}
+        search-id (keyword (str "search-" (hash (sorted-map search-map))))]
+    (into
+      ;; TODO: move next 2 messages into behavior and sub appropriately
+      [{msg/type :add-named-paths msg/topic msg/app-model :name search-id
+        :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]}
+       {msg/type :set-focus msg/topic msg/app-model :name search-id}]
+      (msg/fill transform messages search-map))))
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
@@ -127,7 +134,7 @@
                            vec flatten)]
     #_(.log js/console "navigate-fn" (pr-str (last path) set-focus-opts))
     (apply history/navigated input-queue (last path)
-           :name :search set-focus-opts)))
+           :name (last path) set-focus-opts)))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []

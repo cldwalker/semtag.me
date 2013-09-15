@@ -21,7 +21,7 @@
 ;;
 (defn home-deltas []
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :home :search] :search [{msg/type :set-focus msg/topic msg/app-model :name :search}
+   [:transform-enable [:app-model :home :search] :search [#_{msg/type :set-focus msg/topic msg/app-model :name :search}
                                                           {msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
 
