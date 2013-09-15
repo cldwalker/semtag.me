@@ -21,7 +21,7 @@
 ;;
 (defn home-deltas []
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   ;; Using add-named-paths creates dynamic focii. With this approach each search result, is
+   ;; Using add-named-paths creates dynamic focii. With this approach each search result is
    ;; navigable via html5 history. Although adding a named path only needs to happen once per unique
    ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
    [:transform-enable [:app-model :home :search] :search [{msg/type :add-named-paths msg/topic msg/app-model (msg/param :name) {} (msg/param :paths) {}}
@@ -46,10 +46,8 @@
 (defn init-all [_]
   [[:node-create [:app-model :all]]])
 
-(defn init-search [_]
-  [[:node-create [:app-model :search]]])
-
-(defn sub-search [{:keys [new-model]}]
+(defn search-deltas [{:keys [new-model]}]
+  ;; TODO - fix this getting called for more than just :search
   (when (:search new-model)
     [[:node-create [:app-model :search (keyword (str "search-" (hash (sorted-map (:search new-model)))))]]]))
 
@@ -79,8 +77,7 @@
           {:init init-all}
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
 
-          ;{:init init-search}
-          [#{[:search]} sub-search]
+          [#{[:search]} search-deltas]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init navbar-deltas}
@@ -90,6 +87,7 @@
            :types [[:app-model :types] [:app-model :navbar]]
            :tag-stats [[:app-model :tag-stats] [:app-model :navbar]]
            :all [[:app-model :all] [:app-model :navbar]]
-           :search [[:app-model :search] [:app-model :home] [:app-model :navbar]]
+           ;; dynamic focii we define with :search transform
+           ;:search-* [[:app-model :search] [:app-model :home] [:app-model :navbar]]
            :default :home}})
 
