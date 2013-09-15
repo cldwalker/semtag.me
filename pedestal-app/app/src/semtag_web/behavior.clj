@@ -46,15 +46,8 @@
   [[:node-create [:app-model :search]]])
 
 (defn sub-search [{:keys [new-model]}]
-  #_(.log js/console "PATH-emit" (pr-str (hash (sorted-map (:search new-model))) (:search new-model)))
   (when (:search new-model)
     [[:node-create [:app-model :search (keyword (str "search-" (hash (sorted-map (:search new-model)))))]]]))
-
-(defn navigate-input [msg]
-  (.log js/console "PRE" (pr-str msg))
-  (if (= (:name msg) :search)
-    [msg (merge {msg/type :map-value msg/topic [:search]} (select-keys msg [:query :search-type]))]
-    [msg]))
 
 (def example-app
   {:version 2

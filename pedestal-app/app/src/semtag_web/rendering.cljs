@@ -130,11 +130,7 @@
   (render-alert msg :error))
 
 (defn navigate-search  [_ [_ path] input-queue]
-  (let [set-focus-opts (-> input-queue :state deref :item (dissoc msg/type msg/topic :name)
-                           vec flatten)]
-    #_(.log js/console "navigate-fn" (pr-str (last path) set-focus-opts))
-    (apply history/navigated input-queue (last path)
-           :name (last path) set-focus-opts)))
+  (history/navigated input-queue (last path)))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []
