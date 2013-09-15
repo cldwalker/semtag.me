@@ -4,6 +4,7 @@
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
             [semtag-web.history :as history]
+            [semtag-web.route :as route]
             [clojure.string :as string]
             [io.pedestal.app.protocols :as prot]
             [io.pedestal.app.render.push :as render]
@@ -31,7 +32,7 @@
   (let [current-uri (str (.-origin window.location) (.-pathname window.location))
         target-uri (-> event .-currentTarget .-href)
         rel-target-uri (string/replace target-uri current-uri "")]
-    (get history/inv-routes rel-target-uri)))
+    (get route/inv-routes rel-target-uri)))
 
 (defn navigate-fn [screen]
   (fn [_ _ input-queue]
@@ -81,7 +82,8 @@
   (let [search-map {:query (.-value (dom/by-id "url_search_text"))
                     :search-type (dom/value (css/sel "input[name=search_type]:checked"))}
         search-id (keyword (str "search-" (hash (sorted-map search-map))))]
-    (swap! history/dynamic-screens assoc search-id search-map)
+    ;; needed for history navigation
+    (swap! route/dynamic-screens assoc search-id search-map)
     (msg/fill transform messages (assoc search-map
                                         :name search-id
                                         :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]))))
