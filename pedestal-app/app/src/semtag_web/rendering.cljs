@@ -81,6 +81,7 @@
   (let [search-map {:query (.-value (dom/by-id "url_search_text"))
                     :search-type (dom/value (css/sel "input[name=search_type]:checked"))}
         search-id (keyword (str "search-" (hash (sorted-map search-map))))]
+    (swap! history/dynamic-screens assoc search-id search-map)
     (msg/fill transform messages (assoc search-map
                                         :name search-id
                                         :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]))))
@@ -127,10 +128,7 @@
   (render-alert msg :error))
 
 (defn navigate-search  [_ [_ path] input-queue]
-  ;; This is hacky but the alternative is creating an atom to map dynamic screen ids to params
-  ;; in url-search
-  (let [set-focus-params (-> input-queue :state deref :item (dissoc msg/type msg/topic))]
-    (history/navigated input-queue (last path) set-focus-params)))
+  (history/navigated input-queue (last path)))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []

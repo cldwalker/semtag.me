@@ -16,17 +16,20 @@
 (def dynamic-routes
   {:search "#/search"})
 
+(def dynamic-screens "Maps screen ids to their url params"
+  (atom {}))
+
 (def default-route :home)
 
 (def inv-routes (zipmap (vals routes) (keys routes)))
 
-(defn url-for [screen params]
-  (if (empty? params)
-    (get routes screen "")
+(defn url-for [screen]
+  (if-let [params (get @dynamic-screens screen)]
     (str (get dynamic-routes (keyword (re-find #"[a-z]+" (name screen))))
          "?"
          (string/join "&"
-                      (map #(str (name (key %)) "=" (val %)) params)))))
+                      (map #(str (name (key %)) "=" (val %)) params)))
+    (get routes screen "")))
 
 ;; history fns
 ;; -----------
@@ -43,18 +46,16 @@
 
 (def supported? (and js/history (.-pushState js/history)))
 
-(defn navigated
-  ([d token] (navigated d token {}))
-  ([d token screen-params]
+(defn navigated [d token]
   (when supported?
-    (.log js/console "NAVIGATED" (pr-str token screen-params))
+    (.log js/console "NAVIGATED" (pr-str token))
     (let [current-token (.-state js/history)]
       (when (not= current-token token)
         (if (nil? @last-page)
           (.replaceState js/history token nil nil)
-          (.pushState js/history token nil (url-for token screen-params)))))
+          (.pushState js/history token nil (url-for token)))))
     (reset! last-page token)
-    (swap! input-queues assoc token d))))
+    (swap! input-queues assoc token d)))
 
 (if supported?
   (set! (.-onpopstate js/window) (fn [e]
