@@ -23,5 +23,15 @@
                       (map #(str (name (key %)) "=" (val %)) params)))
     (get routes screen "")))
 
-(defn url->screen [url]
-  (get inv-routes url))
+(defn create-screen-id [params seed]
+  (keyword (str (name seed) "-" (hash (sorted-map params)))))
+
+(defn url->screen
+  ([url] (url->screen url {}))
+  ([url params]
+   (or (get inv-routes url)
+       (some->> dynamic-routes
+                (some (fn [[screen v]]
+                        (when (re-find (re-pattern v) url)
+                          screen)))
+                (create-screen-id params)))))

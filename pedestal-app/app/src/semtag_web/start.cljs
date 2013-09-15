@@ -12,19 +12,30 @@
             [semtag-web.history :as history]
             [goog.Uri]))
 
+(defn- put-message-on-page-load [app screen params]
+  ;; TODO
+  (if true
+    (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params))
+    ;; consider reuse with navbar-deltas
+    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (name screen)})))
+
 (defn create-app [render-config]
-  (let [;; For now we detect on hash. If I put a server to route all urls to this js app,
+  (let [params {:query "ajax" :search-type "tagged"} ;; TODO
+        ;; For now we detect on hash. If I put a server to route all urls to this js app,
         ;; this could change to full urls.
-        screen (or (route/url->screen (.-hash window.location))
+        screen (or (route/url->screen (.-hash window.location) params)
                    (get-in behavior/example-app [:focus :default]))
-        behavior-with-new-default-focus (assoc-in behavior/example-app
-                                                  [:focus :default] screen)
+        _ (.log js/console "SCREEN" (pr-str screen))
+        behavior-with-new-default-focus (-> behavior/example-app
+                                            (assoc-in [:focus :default] screen)
+                                            (assoc-in [:focus screen]
+                                                      [[:app-model :search screen] [:app-model :home] [:app-model :navbar]]))
+        _ (.log js/console (pr-str (:focus behavior-with-new-default-focus)))
         app (app/build behavior-with-new-default-focus)
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
-    ;; consider reuse with navbar-deltas
-    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (name screen)})
+    (put-message-on-page-load app screen params)
     {:app app :app-model app-model}))
 
 (defn setup-effects [app services-fn]
