@@ -21,7 +21,11 @@
 ;;
 (defn home-deltas []
   [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :home :search] :search [#_{msg/type :set-focus msg/topic msg/app-model :name :search}
+   ;; Using add-named-paths creates dynamic focii. With this approach each search result, is
+   ;; navigable via html5 history. Although adding a named path only needs to happen once per unique
+   ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
+   [:transform-enable [:app-model :home :search] :search [{msg/type :add-named-paths msg/topic msg/app-model (msg/param :name) {} (msg/param :paths) {}}
+                                                          {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}
                                                           {msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
 

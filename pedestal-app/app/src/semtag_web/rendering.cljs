@@ -81,12 +81,9 @@
   (let [search-map {:query (.-value (dom/by-id "url_search_text"))
                     :search-type (dom/value (css/sel "input[name=search_type]:checked"))}
         search-id (keyword (str "search-" (hash (sorted-map search-map))))]
-    (into
-      ;; TODO: move next 2 messages into behavior and sub appropriately
-      [{msg/type :add-named-paths msg/topic msg/app-model :name search-id
-        :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]}
-       {msg/type :set-focus msg/topic msg/app-model :name search-id}]
-      (msg/fill transform messages search-map))))
+    (msg/fill transform messages (assoc search-map
+                                        :name search-id
+                                        :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]))))
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
