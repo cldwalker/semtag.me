@@ -5,6 +5,7 @@
             [io.pedestal.app.render :as render]
             [io.pedestal.app.messages :as msg]
             [semtag-web.services :as services]
+            ;[semtag-web.debug :as debug]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
             [semtag-web.history :as history]
