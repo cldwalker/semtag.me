@@ -32,7 +32,7 @@
   (let [current-uri (str (.-origin window.location) (.-pathname window.location))
         target-uri (-> event .-currentTarget .-href)
         rel-target-uri (string/replace target-uri current-uri "")]
-    (get route/inv-routes rel-target-uri)))
+    (route/url->screen rel-target-uri)))
 
 (defn navigate-fn [screen]
   (fn [_ _ input-queue]

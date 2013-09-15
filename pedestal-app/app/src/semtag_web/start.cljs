@@ -15,7 +15,8 @@
 (defn create-app [render-config]
   (let [;; For now we detect on hash. If I put a server to route all urls to this js app,
         ;; this could change to full urls.
-        screen (route/url->screen (.-hash window.location))
+        screen (or (route/url->screen (.-hash window.location))
+                   (get-in behavior/example-app [:focus :default]))
         behavior-with-new-default-focus (assoc-in behavior/example-app
                                                   [:focus :default] screen)
         app (app/build behavior-with-new-default-focus)

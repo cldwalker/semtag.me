@@ -13,8 +13,6 @@
 (def dynamic-screens "Maps screen ids to their url params"
   (atom {}))
 
-(def default-route :home)
-
 (def inv-routes (zipmap (vals routes) (keys routes)))
 
 (defn url-for [screen]
@@ -25,5 +23,5 @@
                       (map #(str (name (key %)) "=" (val %)) params)))
     (get routes screen "")))
 
-(defn- url->screen [url]
-  (get inv-routes url default-route))
+(defn url->screen [url]
+  (get inv-routes url))
