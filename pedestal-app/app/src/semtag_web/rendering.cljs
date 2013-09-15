@@ -127,7 +127,10 @@
   (render-alert msg :error))
 
 (defn navigate-search  [_ [_ path] input-queue]
-  (history/navigated input-queue (last path)))
+  ;; This is hacky but the alternative is creating an atom to map dynamic screen ids to params
+  ;; in url-search
+  (let [set-focus-params (-> input-queue :state deref :item (dissoc msg/type msg/topic))]
+    (history/navigated input-queue (last path) set-focus-params)))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []

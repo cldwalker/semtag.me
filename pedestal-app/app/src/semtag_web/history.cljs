@@ -1,6 +1,7 @@
 ;; from https://gist.github.com/brentonashworth/5728698
 (ns semtag-web.history
   (:require [io.pedestal.app.protocols :as p]
+            [clojure.string :as string]
             [io.pedestal.app.util.log :as log]
             [io.pedestal.app.messages :as msg]))
 
@@ -12,12 +13,20 @@
    :all "#/all"
    :home "#/"})
 
+(def dynamic-routes
+  {:search "#/search"})
+
 (def default-route :home)
 
 (def inv-routes (zipmap (vals routes) (keys routes)))
 
-(defn url-for [screen]
-  (get routes screen ""))
+(defn url-for [screen params]
+  (if (empty? params)
+    (get routes screen "")
+    (str (get dynamic-routes (keyword (re-find #"[a-z]+" (name screen))))
+         "?"
+         (string/join "&"
+                      (map #(str (name (key %)) "=" (val %)) params)))))
 
 ;; history fns
 ;; -----------
@@ -34,16 +43,18 @@
 
 (def supported? (and js/history (.-pushState js/history)))
 
-(defn navigated [d token]
+(defn navigated
+  ([d token] (navigated d token {}))
+  ([d token screen-params]
   (when supported?
-    (.log js/console "NAVIGATED" (pr-str token))
+    (.log js/console "NAVIGATED" (pr-str token screen-params))
     (let [current-token (.-state js/history)]
       (when (not= current-token token)
         (if (nil? @last-page)
           (.replaceState js/history token nil nil)
-          (.pushState js/history token nil (url-for token)))))
+          (.pushState js/history token nil (url-for token screen-params)))))
     (reset! last-page token)
-    (swap! input-queues assoc token d)))
+    (swap! input-queues assoc token d))))
 
 (if supported?
   (set! (.-onpopstate js/window) (fn [e]
