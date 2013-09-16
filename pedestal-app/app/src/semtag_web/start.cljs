@@ -38,6 +38,7 @@
                    (get-in behavior/example-app [:focus :default]))
         behavior (cond-> behavior/example-app
                    true (assoc-in [:focus :default] screen)
+                   ;; needs to match what's generated in rendering/url-search
                    (re-find #"^search" (name screen)) (assoc-in [:focus screen]
                                                                 [[:app-model :search screen] [:app-model :home] [:app-model :navbar]]))
         app (app/build behavior)
