@@ -25,7 +25,10 @@
 
 ;; may eventually be in it's own namespace
 (defn create-screen-id [seed params]
-  (keyword (str (name seed) "-" (hash (sorted-map params)))))
+  (keyword (str (name seed) "-"
+                (string/join "_"
+                             (map #(str (-> % key name) "_"  (val %))
+                                  (->> params (reduce into) (apply sorted-map)))))))
 
 (defn url->screen
   ([url] (url->screen url {}))
