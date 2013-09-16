@@ -1,5 +1,6 @@
 (ns ^:shared semtag-web.behavior
     (:require [io.pedestal.app :as app]
+              [semtag-web.route :as route]
               [io.pedestal.app.messages :as msg]))
 
 ;; Transform fns
@@ -49,7 +50,7 @@
 (defn search-deltas [{:keys [new-model]}]
   ;; TODO - fix this getting called for more than just :search
   (when (:search new-model)
-    [[:node-create [:app-model :search (keyword (str "search-" (hash (sorted-map (:search new-model)))))]]]))
+    [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
 
 (def example-app
   {:version 2

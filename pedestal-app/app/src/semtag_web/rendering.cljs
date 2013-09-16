@@ -81,7 +81,7 @@
 (defn url-search [{:keys [transform messages]}]
   (let [search-map {:query (.-value (dom/by-id "url_search_text"))
                     :search-type (dom/value (css/sel "input[name=search_type]:checked"))}
-        search-id (keyword (str "search-" (hash (sorted-map search-map))))]
+        search-id (route/create-screen-id :search search-map)]
     ;; needed for history navigation
     (swap! route/dynamic-screens assoc search-id search-map)
     (msg/fill transform messages (assoc search-map

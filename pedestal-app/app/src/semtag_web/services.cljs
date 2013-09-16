@@ -2,13 +2,17 @@
   (:require [io.pedestal.app.protocols :as p]
             [io.pedestal.app.net.xhr :as xhr]
             [io.pedestal.app.messages :as msg]
+            [semtag-web.route :as route]
             [cljs.reader :refer [read-string]]))
 
 ;; Helper fns
 
-(defn put-search-title [input-queue query search-id]
+(defn search-id [message]
+  (route/create-screen-id :search (select-keys message [:query :search-type])))
+
+(defn put-search-title [input-queue {:keys [query] :as message}]
   (p/put-message input-queue {msg/type :set-value
-                              msg/topic [search-id :search-title]
+                              msg/topic [(search-id message) :search-title]
                               :value (format "Search results for '%s'" query)}))
 
 (defn put-value [path input-queue value]
@@ -54,14 +58,11 @@
 
 (defmethod send-message :search
   [message input-queue]
-  (let [search-id (keyword (str "search-"
-                                (hash (sorted-map (select-keys message [:query :search-type])))))]
-    #_(.log js/console "PATH-services" (pr-str search-id (select-keys message [:query :search-type])))
-    (put-search-title input-queue (:query message) search-id)
-    (GET
-      (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-      (partial put-value [search-id :search-results] input-queue)
-      input-queue)))
+  (put-search-title input-queue message)
+  (GET
+    (str "/search?query=" (:query message) "&search_type=" (:search-type message))
+    (partial put-value [(search-id message) :search-results] input-queue)
+    input-queue))
 
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
