@@ -15,7 +15,11 @@
 
 (defn- put-message-on-page-load [app screen params]
   (if (re-find #"^search" (name screen))
-    (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params))
+    (do
+      ;; Ideally, :search-form effects could be triggered from rendering but this
+      ;; causes history caching inconsistencies.
+      (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value :search-form})
+      (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params)))
     ;; consider reuse with navbar-deltas
     (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (name screen)})))
 

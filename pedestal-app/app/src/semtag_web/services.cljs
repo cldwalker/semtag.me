@@ -50,11 +50,15 @@
        (partial put-value [(keyword (str value "-results"))] input-queue)
        input-queue))
 
-(defmethod send-message :home
+(defmethod send-message :search-form
   [message input-queue]
   (GET "/tags"
        (partial put-value [:tags-results] input-queue)
        input-queue))
+
+(defmethod send-message :home
+  [message input-queue]
+  (send-message (assoc message :value :search-form) input-queue))
 
 (defmethod send-message :search
   [message input-queue]
