@@ -55,23 +55,6 @@
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {}))))
 
-(defn set-search-title [renderer [_ path _ new-value] _]
-  (dom/set-html! (dom/by-id "search_title") new-value))
-
-(defn render-search-results [_ [_ _ _ new-value] _]
-  (let [{:keys [things tags]} new-value]
-    (dom/swap-content!
-      (dom/by-id "table_stats")
-      (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                     (frequency-stat "Tag Counts" (flatten (map :tags things)))
-                     (frequency-stat "Type Counts" (map :type things))))
-    (dom/swap-content!
-      (dom/by-id "search_table")
-      (p/generate-table "search_table" things
-                        :fields [:type :name :url :desc :tags]
-                        :row-partial p/tag-search-row
-                        :caption (format "Total: %s" (count (map :url things)))))))
-
 (defn render-tags-results [_ [_ _ _ new-value] _]
   (dom/insert-after!
     (dom/by-id "url_search_text")
@@ -89,6 +72,29 @@
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
+
+;; Search page
+(defn set-search-title [renderer [_ path _ new-value] _]
+  (dom/set-html! (dom/by-id "search_title") new-value))
+
+(defn render-search-results [_ [_ _ _ new-value] _]
+  (let [{:keys [things tags]} new-value]
+    (dom/swap-content!
+      (dom/by-id "table_stats")
+      (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                     (frequency-stat "Tag Counts" (flatten (map :tags things)))
+                     (frequency-stat "Type Counts" (map :type things))))
+    (dom/swap-content!
+      (dom/by-id "search_table")
+      (p/generate-table "search_table" things
+                        :fields [:type :name :url :desc :tags]
+                        :row-partial p/tag-search-row
+                        :caption (format "Total: %s" (count (map :url things)))))))
+
+;; we'd like to destroy/hide these but that requires changing render-search-results
+(defn clear-search [_ _ _]
+  (dom/set-html! (dom/by-id "table_stats") "")
+  (dom/set-html! (dom/by-id "search_table") ""))
 
 ;;; Other pages
 ;;;
@@ -160,8 +166,7 @@
 
      ;; search page
      [:node-create [:app-model :search :*] navigate-search]
-    ;; TODO - still need to clear up more of table
-     [:node-destroy [:app-model :search :*] (clear-id "table_stats")]
+     [:node-destroy [:app-model :search :*] clear-search]
      [:value [:app-model :search :* :search-title] set-search-title]
      [:value [:app-model :search :* :search-results] render-search-results]
 
