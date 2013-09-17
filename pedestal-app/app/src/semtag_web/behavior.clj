@@ -51,7 +51,7 @@
   (when (:search new-model)
     [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
 
-(def example-app
+(def app
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [[:set-value [:page] set-value]

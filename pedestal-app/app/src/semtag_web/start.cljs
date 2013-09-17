@@ -39,8 +39,8 @@
         ;; For now we detect on hash. If I put a server to route all urls to this js app,
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)
-                   (get-in behavior/example-app [:focus :default]))
-        behavior (cond-> behavior/example-app
+                   (get-in behavior/app [:focus :default]))
+        behavior (cond-> behavior/app
                    true (assoc-in [:focus :default] screen)
                    ;; needs to match what's generated in rendering/url-search
                    (re-find #"^search" (name screen)) (assoc-in [:focus screen]
