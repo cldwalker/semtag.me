@@ -40,7 +40,7 @@
                    true (assoc-in [:focus :default] screen)
                    ;; needs to match what's generated in rendering/url-search
                    (re-find #"^search" (name screen)) (assoc-in [:focus screen]
-                                                                [[:app-model :search screen] [:app-model :home] [:app-model :navbar]]))
+                                                                [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]]))
         app (app/build behavior)
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]

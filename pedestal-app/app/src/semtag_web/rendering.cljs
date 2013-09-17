@@ -48,10 +48,9 @@
 
 (def templates (html-templates/semtag-web-templates))
 
-;;; Home
+;;; Search-form
 ;;;
-(defn render-home-page [renderer [_ path] input-queue]
-  (history/navigated input-queue :home)
+(defn render-search-form [renderer [_ path] input-queue]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {}))))
@@ -86,7 +85,7 @@
     (swap! route/dynamic-screens assoc search-id search-map)
     (msg/fill transform messages (assoc search-map
                                         :name search-id
-                                        :paths [[:app-model :search search-id] [:app-model :home] [:app-model :navbar]]))))
+                                        :paths [[:app-model :search-form] [:app-model :search search-id] [:app-model :navbar]]))))
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
@@ -136,10 +135,13 @@
 (defn render-config []
   (reduce
     into
-    [[;; home page
-      [:node-create [:app-model :home] render-home-page]
-      [:node-destroy [:app-model :home] (clear-id "content")]
-      [:value [:app-model :home :tags-results] render-tags-results]
+    [[[:node-create [:app-model :home] (navigate-fn :home)]
+      ;; nothing to destroy yet
+
+      ;; search-form section
+      [:node-create [:app-model :search-form] render-search-form]
+      [:node-destroy [:app-model :search-form] (clear-id "content")]
+      [:value [:app-model :search-form :tags-results] render-tags-results]
 
       ;; types page
       [:node-create [:app-model :types] (navigate-fn :types)]
@@ -170,6 +172,6 @@
      ;; navbar
      (util/click [:app-model :navbar :links] (css/sel ".navbar a") :fn href-sets-focus)
 
-     ;; home page
-     (util/click [:app-model :home :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :home :create-url] "add_url_button" :fn create-url)]))
+     ;; search-form
+     (util/click [:app-model :search-form :search] "url_search_button" :fn url-search)
+     (util/click [:app-model :search-form :create-url] "add_url_button" :fn create-url)]))
