@@ -1,23 +1,9 @@
 ;; from https://gist.github.com/brentonashworth/5728698
 (ns semtag-web.history
   (:require [io.pedestal.app.protocols :as p]
+            [semtag-web.route :as route]
             [io.pedestal.app.util.log :as log]
             [io.pedestal.app.messages :as msg]))
-
-;; routing fns
-;; -----------
-(def routes "Maps screens to relative paths"
-  {:types "#/types"
-   :tag-stats "#/tag-stats"
-   :all "#/all"
-   :home "#/"})
-
-(def default-route :home)
-
-(def inv-routes (zipmap (vals routes) (keys routes)))
-
-(defn url-for [screen]
-  (get routes screen ""))
 
 ;; history fns
 ;; -----------
@@ -41,7 +27,7 @@
       (when (not= current-token token)
         (if (nil? @last-page)
           (.replaceState js/history token nil nil)
-          (.pushState js/history token nil (url-for token)))))
+          (.pushState js/history token nil (route/url-for token)))))
     (reset! last-page token)
     (swap! input-queues assoc token d)))
 

@@ -1,5 +1,6 @@
 (ns ^:shared semtag-web.behavior
     (:require [io.pedestal.app :as app]
+              [semtag-web.route :as route]
               [io.pedestal.app.messages :as msg]))
 
 ;; Transform fns
@@ -19,9 +20,14 @@
 
 ;; Emit fns
 ;;
-(defn home-deltas []
-  [[:transform-enable [:app-model :home :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
-   [:transform-enable [:app-model :home :search] :search [{msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
+(defn search-form-deltas []
+  [[:transform-enable [:app-model :search-form :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
+   ;; Using add-named-paths creates dynamic focii. With this approach each search result is
+   ;; navigable via html5 history. Although adding a named path only needs to happen once per unique
+   ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
+   [:transform-enable [:app-model :search-form :search] :search [{msg/type :add-named-paths msg/topic msg/app-model (msg/param :name) {} (msg/param :paths) {}}
+                                                                 {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}
+                                                                 {msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
 
 
 (defn navbar-deltas []
@@ -29,8 +35,7 @@
                                                           {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 
 (defn init-home [_]
-  (into [[:node-create [:app-model :home]]]
-        (home-deltas)))
+  [[:node-create [:app-model :home]]])
 
 (defn init-types [_]
   [[:node-create [:app-model :types]]])
@@ -41,11 +46,16 @@
 (defn init-all [_]
   [[:node-create [:app-model :all]]])
 
-(def example-app
+(defn search-deltas [{:keys [new-model]}]
+  ;; TODO - fix this getting called for more than just :search
+  (when (:search new-model)
+    [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
+
+(def app
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [[:set-value [:page] set-value]
-               [:set-value [:search-title] set-value]
+               [:set-value [:* :search-title] set-value]
                [:map-value [:search] map-value]
                [:set-value [:create-url] set-value]
                [:set-value [:types-results] set-value]
@@ -53,10 +63,12 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:all-results] set-value]
                [:set-value [:alert-error] set-value]
-               [:set-value [:search-results] set-value]]
+               [:set-value [:* :search-results] set-value]]
    :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
    :emit [{:init init-home}
-          [#{[:search] [:search-title] [:tags-results] [:search-results]} (app/default-emitter [:app-model :home])]
+          [#{[:tags-results]} (app/default-emitter [:app-model :search-form])]
+
+          {:init search-form-deltas}
 
           {:init init-types}
           [#{[:types-results]} (app/default-emitter [:app-model :types])]
@@ -67,12 +79,17 @@
           {:init init-all}
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
 
+          [#{[:search]} search-deltas]
+          [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
+
           {:init navbar-deltas}
           [#{[:alert-error]} (app/default-emitter [:app-model :navbar])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
-   :focus {:home [[:app-model :home] [:app-model :navbar]]
+   :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :navbar]]
            :types [[:app-model :types] [:app-model :navbar]]
            :tag-stats [[:app-model :tag-stats] [:app-model :navbar]]
            :all [[:app-model :all] [:app-model :navbar]]
+           ;; dynamic focii we define with :search transform
+           ;:search-* [[:app-model :search-*] [:app-model :search-form] [:app-model :navbar]]
            :default :home}})
 
