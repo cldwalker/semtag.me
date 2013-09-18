@@ -31,7 +31,7 @@
 
 
 (defn navbar-deltas []
-  [[:transform-enable [:app-model :navbar :links] :links [{msg/type :set-value msg/topic [:page] (msg/param :value) {}}
+  [[:transform-enable [:app-model :navbar :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
                                                           {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 
 (defn init-home [_]
@@ -55,7 +55,7 @@
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [;; general
-               [:set-value [:page] set-value]
+               [:map-value [:page] map-value]
                [:set-value [:alert-error] set-value]
 
                ;; specific effects

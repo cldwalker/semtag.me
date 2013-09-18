@@ -18,10 +18,10 @@
     (do
       ;; Ideally, :search-form effects could be triggered from rendering but this
       ;; causes history caching inconsistencies.
-      (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value :search-form})
+      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search-form})
       (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params)))
     ;; consider reuse with navbar-deltas
-    (p/put-message (:input app) {msg/type :set-value msg/topic [:page] :value (name screen)})))
+    (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value (name screen)})))
 
 ;; use goog.Uri if it has an API for extracting param names - .getParameterValues doesn't cut it
 (defn- parse-params [url]
