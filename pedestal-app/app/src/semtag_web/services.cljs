@@ -68,6 +68,12 @@
     (partial put-value [(search-id message) :search-results] input-queue)
     input-queue))
 
+(defmethod send-message :thing
+  [message input-queue]
+  (GET (str "/thing?id=" (get-in message [:params :id]))
+       (partial put-value [(route/create-screen-id :thing (:params message)) :thing-results] input-queue)
+       input-queue))
+
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]
@@ -75,5 +81,8 @@
    (case (msg/topic message)
      ;; add :value so we can dispatch to it
      [:search] (send-fn (assoc message :value "search") input-queue)
-     [:page] (send-fn message input-queue)
+     ;; dynamic-focus-todo
+     [:page] (if (re-find #"^thing" (:value message))
+               (send-fn (assoc message :value "thing") input-queue)
+               (send-fn message input-queue))
      nil)))

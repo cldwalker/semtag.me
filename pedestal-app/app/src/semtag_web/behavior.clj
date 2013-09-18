@@ -51,6 +51,11 @@
   (when (:search new-model)
     [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
 
+(defn page-deltas [{:keys [new-model]}]
+  ;; dynamic-focus-todo
+  (when (re-find #"^thing" (get-in new-model [:page :value]))
+    [[:node-create [:app-model :thing (route/create-screen-id :thing (get-in new-model [:page :params]))]]]))
+
 (def app
   {:version 2
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
@@ -64,6 +69,7 @@
                [:set-value [:tags-results] set-value]
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:all-results] set-value]
+               [:set-value [:* :thing-results] set-value]
 
                ;; search
                [:map-value [:search] map-value]
@@ -83,6 +89,9 @@
 
           {:init init-all}
           [#{[:all-results]} (app/default-emitter [:app-model :all])]
+
+          [#{[:page]} page-deltas]
+          [#{[:* :thing-results]} (app/default-emitter [:app-model :thing])]
 
           [#{[:search]} search-deltas]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]

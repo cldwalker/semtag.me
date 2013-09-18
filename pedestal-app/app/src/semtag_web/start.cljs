@@ -6,7 +6,7 @@
             [io.pedestal.app.messages :as msg]
             [semtag-web.services :as services]
             [semtag-web.route :as route]
-            ;[semtag-web.debug :as debug]
+            [semtag-web.debug :as debug]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
             [semtag-web.history :as history]
@@ -21,9 +21,9 @@
       (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search-form})
       (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params)))
     ;; consider reuse with navbar-deltas
-    (p/put-message (:input app) (merge
-                                  params
-                                  {msg/type :map-value msg/topic [:page] :value (name screen)}))))
+    (p/put-message (:input app)
+                   ;; put params in :params so no dissocing everywhere
+                   {msg/type :map-value msg/topic [:page] :value (name screen) :params params})))
 
 ;; use goog.Uri if it has an API for extracting param names - .getParameterValues doesn't cut it
 (defn- parse-params [url]
@@ -41,6 +41,7 @@
   [behavior screen]
   (cond-> behavior
     true (assoc-in [:focus :default] screen)
+    ;; dynamic-focus-todo
     ;; needs to match what's generated in rendering/url-search
     (re-find #"^search" (name screen))
     (assoc-in [:focus screen]
@@ -55,7 +56,7 @@
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)
                    (get-in behavior/app [:focus :default]))
-        app (app/build (update-behavior behavior/app screen))
+        app (app/build (debug/log-input (update-behavior behavior/app screen)))
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
