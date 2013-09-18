@@ -8,7 +8,8 @@
    :home "#/"})
 
 (def dynamic-routes
-  {:search "#/search"})
+  {:search "#/search"
+   :thing "#/thing"})
 
 (def dynamic-screens "Maps screen ids to their url params"
   (atom {}))

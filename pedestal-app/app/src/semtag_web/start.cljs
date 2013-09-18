@@ -21,7 +21,9 @@
       (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search-form})
       (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params)))
     ;; consider reuse with navbar-deltas
-    (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value (name screen)})))
+    (p/put-message (:input app) (merge
+                                  params
+                                  {msg/type :map-value msg/topic [:page] :value (name screen)}))))
 
 ;; use goog.Uri if it has an API for extracting param names - .getParameterValues doesn't cut it
 (defn- parse-params [url]
@@ -34,18 +36,26 @@
         vec
         (as-> vals (apply hash-map vals)))))
 
+(defn- update-behavior
+  "Updates behavior with possible dynamic focus"
+  [behavior screen]
+  (cond-> behavior
+    true (assoc-in [:focus :default] screen)
+    ;; needs to match what's generated in rendering/url-search
+    (re-find #"^search" (name screen))
+    (assoc-in [:focus screen]
+              [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]])
+    (re-find #"^thing" (name screen))
+    (assoc-in [:focus screen]
+              [[:app-model :thing screen] [:app-model :navbar]])))
+
 (defn create-app [render-config]
   (let [params (parse-params window.location.hash)
         ;; For now we detect on hash. If I put a server to route all urls to this js app,
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)
                    (get-in behavior/app [:focus :default]))
-        behavior (cond-> behavior/app
-                   true (assoc-in [:focus :default] screen)
-                   ;; needs to match what's generated in rendering/url-search
-                   (re-find #"^search" (name screen)) (assoc-in [:focus screen]
-                                                                [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]]))
-        app (app/build behavior)
+        app (app/build (update-behavior behavior/app screen))
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
