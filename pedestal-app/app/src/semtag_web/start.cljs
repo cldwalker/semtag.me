@@ -6,7 +6,7 @@
             [io.pedestal.app.messages :as msg]
             [semtag-web.services :as services]
             [semtag-web.route :as route]
-            [semtag-web.debug :as debug]
+            ;[semtag-web.debug :as debug]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
             [semtag-web.history :as history]
@@ -56,7 +56,7 @@
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)
                    (get-in behavior/app [:focus :default]))
-        app (app/build (debug/log-input (update-behavior behavior/app screen)))
+        app (app/build (update-behavior behavior/app screen))
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)
