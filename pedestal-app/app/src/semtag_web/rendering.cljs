@@ -126,6 +126,17 @@
                       :caption (str "Total: " (count new-value))
                       :fields [:type :name :url :tags :created-at])))
 
+(defn render-thing-results [_ [_ path _ new-value] _]
+  (let [thing-id (nth path (- (count path) 2))]
+    (dom/set-html!
+      (dom/by-id "content")
+      (p/generate-table "thing_show_table"
+                        (conj new-value {:attribute :actions :id (:id (first new-value))})
+                        ;; TODO - fix id when it renders
+                        :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
+                        :row-partial p/thing-row
+                        :fields [:attribute :value]))))
+
 (defn href-sets-focus [{:keys [transform messages event]}]
   (if-let [screen (target-screen event)]
     (msg/fill transform messages {:value (name screen) :name screen})
@@ -134,7 +145,9 @@
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
-(defn navigate-search  [_ [_ path] input-queue]
+(defn navigate-path
+  "Navigate paths whose last element is the navigated id"
+  [_ [_ path] input-queue]
   (history/navigated input-queue (last path)))
 
 ;; TODO - undo for all :value's that render
@@ -165,10 +178,15 @@
      [:value [:app-model :all :all-results] render-all-results]
 
      ;; search page
-     [:node-create [:app-model :search :*] navigate-search]
+     [:node-create [:app-model :search :*] navigate-path]
      [:node-destroy [:app-model :search :*] clear-search]
      [:value [:app-model :search :* :search-title] set-search-title]
      [:value [:app-model :search :* :search-results] render-search-results]
+
+    ;; thing page
+     [:node-create [:app-model :thing :*] navigate-path]
+     [:node-destroy [:app-model :thing :*] (clear-id "content")]
+     [:value [:app-model :thing :* :thing-results] render-thing-results]
 
     ;; navbar/shared
     [:value [:app-model :navbar :alert-error] render-alert-error]
