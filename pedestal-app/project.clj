@@ -8,6 +8,8 @@
                  [io.pedestal/pedestal.app "0.2.0" :exclusions [org.slf4j/slf4j-api]]
                  [io.pedestal/pedestal.app-tools "0.2.0"]]
   :profiles {:dev {:source-paths ["dev"]
+                   :dependencies [[clj-webdriver/clj-webdriver "0.6.0"]
+                                  [com.github.detro.ghostdriver/phantomjsdriver "1.0.4"]]
                    :plugins [[com.cemerick/austin "0.1.0"]]}}
   :min-lein-version "2.0.0"
   :source-paths ["app/src" "app/templates"]
