@@ -7,7 +7,8 @@
 
 (deftest submit-test
   (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
-  (taxi/to "out/public/semtag-web-ui.html")
+  (taxi/to "out/public/semtag-web-test.html")
+  (Thread/sleep 1000)
   (taxi/input-text "#url_search_text" "feynman")
   (is (= "feynman" (taxi/attribute "#url_search_text" :value)))
   (taxi/click "#url_search_button")
