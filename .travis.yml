@@ -5,5 +5,5 @@ before_script:
 script: cd pedestal-app; lein2 test
 jdk:
   - openjdk6
-  - openjdk7
-  - oraclejdk7
+  # - openjdk7
+  # - oraclejdk7
