@@ -86,6 +86,14 @@
                           :output-root :tools-public
                           :template "tooling.html"
                           :order 3}
+            :test {:uri "/semtag-web-test.html"
+                   :name "Test"
+                   :out-file "semtag-web-test.js"
+                   :main semtag_web.simulated.start
+                   ;; attempt to make js paths relative
+                   ;;:compiler-options {:output-to "out/public/generated-js/out"}
+                   :logging? true
+                   :order 3}
             :development {:uri "/semtag-web-dev.html"
                           :name "Development"
                           :out-file "semtag-web-dev.js"
