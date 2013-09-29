@@ -1,10 +1,32 @@
 (ns semtag-web.integration-test
-  (:require [clojure.test :refer :all]
+  (:require [clojure.test :refer [testing deftest is are use-fixtures] :as ctest]
             [clj-webdriver.driver :refer [init-driver]]
             [clj-webdriver.core :as core]
-            [clj-webdriver.taxi :as taxi])
+            [clj-webdriver.taxi :as taxi]
+            [clojure.string :as string])
   (:import [org.openqa.selenium.phantomjs PhantomJSDriver]
            [org.openqa.selenium.remote DesiredCapabilities]))
+
+;; Customize reporting
+(def original-report ctest/report)
+(defmulti report :type)
+
+(defmethod report :default [m]
+  (original-report m))
+
+(defn screenshot-file [prefix]
+  (str prefix
+       (first (map #(:name (meta %)) ctest/*testing-vars*))
+       ".png"))
+
+;; Take screenshots on fail and error
+(defmethod report :fail [m]
+  (original-report m)
+  (taxi/take-screenshot :file (screenshot-file ".clojure-test-fail-")))
+
+(defmethod report :error [m]
+  (original-report m)
+  (taxi/take-screenshot :file (screenshot-file ".clojure-test-error-")))
 
 (use-fixtures :each
               (fn [f]
@@ -12,14 +34,14 @@
                 (taxi/to "out/public/semtag-web-test.html")
                 (Thread/sleep 1000)
 
-                (f)
+                (binding [ctest/report report] (f))
                 (taxi/quit)))
 
 (defn click [text]
   (core/click (taxi/find-element {:tag :a :text text}))
   (Thread/sleep 500))
 
-(deftest ursl-get-updated-correctly
+(deftest urls-get-updated-correctly
   (is (.endsWith (taxi/current-url) "/semtag-web-test.html"))
   (click "Tag Stats")
   (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))

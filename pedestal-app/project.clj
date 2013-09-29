@@ -24,4 +24,5 @@
                             (clojure.stacktrace/print-stack-trace t)
                             (println)))
                   :welcome (println "Welcome to pedestal-app! Run (tools-help) to see a list of useful functions.")}
+  :test-selectors {:focus :focus}
   :main ^{:skip-aot true} io.pedestal.app-tools.dev)
