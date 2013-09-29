@@ -28,6 +28,9 @@
   (original-report m)
   (taxi/take-screenshot :file (screenshot-file ".clojure-test-error-")))
 
+(defn app-url [& args]
+  (apply str "/semtag-web-test.html" args))
+
 (use-fixtures :each
               (fn [f]
                 (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
@@ -50,18 +53,18 @@
   (forward))
 
 (deftest urls-get-updated-correctly
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html"))
+  (is (.endsWith (taxi/current-url) (app-url)))
   (click "Tag Stats")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
+  (is (.endsWith (taxi/current-url) (app-url "#/tag-stats")))
 
   (click "Type Stats")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/types"))
+  (is (.endsWith (taxi/current-url) (app-url "#/types")))
 
   (click "All The Things")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/all"))
+  (is (.endsWith (taxi/current-url) (app-url "#/all")))
 
   (click "Home")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/")))
+  (is (.endsWith (taxi/current-url) (app-url "#/"))))
 
 (deftest search-submit-works
   (taxi/input-text "#url_search_text" "feynman")
