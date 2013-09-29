@@ -41,6 +41,14 @@
   (core/click (taxi/find-element {:tag :a :text text}))
   (Thread/sleep 500))
 
+;; TODO - revisit not being able to go forward - log count stays the same going forward
+#_(deftest history-works
+  (click "Tag Stats")
+  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
+  (back)
+  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/"))
+  (forward))
+
 (deftest urls-get-updated-correctly
   (is (.endsWith (taxi/current-url) "/semtag-web-test.html"))
   (click "Tag Stats")
@@ -68,8 +76,8 @@
   ;; To debug headless browser - inject in template
   "<script>
       var logs = [];
-      console.log = function(m) {
-        logs.push(m);
+      console.log = function(m1, m2) {
+        logs.push([m1, m2]);
       };
     </script>"
   (println "LOGS: ")
