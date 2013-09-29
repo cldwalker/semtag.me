@@ -6,10 +6,11 @@
             [io.pedestal.app.messages :as msg]
             [semtag-web.services :as services]
             [semtag-web.route :as route]
-            ;[semtag-web.debug :as debug]
             [semtag-web.behavior :as behavior]
             [semtag-web.rendering :as rendering]
             [semtag-web.history :as history]
+            ;[semtag-web.debug :as debug]
+            ;[ilshad.pedestal-introspector :as introspector]
             [clojure.string :as string]
             [goog.Uri]))
 
@@ -72,4 +73,6 @@
 
 (defn ^:export main []
   (doto (create-app (rendering/render-config))
-      (setup-effects services/services-fn)))
+    ;; invoke with ilshad.pedestal_introspector.open()
+    #_introspector/create
+    (setup-effects services/services-fn)))
