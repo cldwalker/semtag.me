@@ -28,12 +28,6 @@
 (defn clear-id [id]
   (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
-(defn- target-screen [event]
-  (let [current-uri (str (.-origin window.location) (.-pathname window.location))
-        target-uri (-> event .-currentTarget .-href)
-        rel-target-uri (string/replace target-uri current-uri "")]
-    (route/url->screen rel-target-uri)))
-
 (defn navigate-fn [screen]
   (fn [_ _ input-queue]
     (history/navigated input-queue screen)))
@@ -138,7 +132,7 @@
                         :fields [:attribute :value]))))
 
 (defn href-sets-focus [{:keys [transform messages event]}]
-  (if-let [screen (target-screen event)]
+  (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
     (msg/fill transform messages {:value (name screen) :name screen})
     (.log js/console "No screen found for element" (.-currentTarget event))))
 
