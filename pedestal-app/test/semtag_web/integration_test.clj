@@ -28,9 +28,6 @@
   (original-report m)
   (taxi/take-screenshot :file (screenshot-file ".clojure-test-error-")))
 
-(defn app-url [& args]
-  (apply str "/semtag-web-test.html" args))
-
 (use-fixtures :each
               (fn [f]
                 (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
@@ -40,9 +37,16 @@
                 (binding [ctest/report report] (f))
                 (taxi/quit)))
 
+;; Test Helpers
+(defn app-url [& args]
+  (apply str "/semtag-web-test.html" args))
+
 (defn click [text]
   (core/click (taxi/find-element {:tag :a :text text}))
   (Thread/sleep 500))
+
+(defn url-ends-with [& args]
+  (is (.endsWith (taxi/current-url) (apply app-url args))))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
@@ -54,24 +58,25 @@
 
 (deftest urls-get-updated-correctly
   (is (.endsWith (taxi/current-url) (app-url)))
+  (url-ends-with "")
   (click "Tag Stats")
-  (is (.endsWith (taxi/current-url) (app-url "#/tag-stats")))
+  (url-ends-with "#/tag-stats")
 
   (click "Type Stats")
-  (is (.endsWith (taxi/current-url) (app-url "#/types")))
+  (url-ends-with "#/types")
 
   (click "All The Things")
-  (is (.endsWith (taxi/current-url) (app-url "#/all")))
+  (url-ends-with "#/all")
 
   (click "Home")
-  (is (.endsWith (taxi/current-url) (app-url "#/"))))
+  (url-ends-with "#/"))
 
 (deftest search-submit-works
   (taxi/input-text "#url_search_text" "feynman")
-  (is (= "feynman" (taxi/attribute "#url_search_text" :value)))
-
   (taxi/click "#url_search_button")
   (Thread/sleep 1000)
+
+  (url-ends-with "#/search?query=feynman&search-type=tagged")
   (is (= "Search results for 'feynman'" (taxi/text "#search_title"))))
 
 (comment
