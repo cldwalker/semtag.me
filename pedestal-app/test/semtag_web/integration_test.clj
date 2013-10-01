@@ -3,6 +3,7 @@
             [clj-webdriver.driver :refer [init-driver]]
             [clj-webdriver.core :as core]
             [clj-webdriver.taxi :as taxi]
+            [semtag-web.route :as route]
             [clojure.string :as string])
   (:import [org.openqa.selenium.phantomjs PhantomJSDriver]
            [org.openqa.selenium.remote DesiredCapabilities]))
@@ -41,6 +42,9 @@
 (defn app-url [& args]
   (apply str "/semtag-web-test.html" args))
 
+(defn full-app-url [& args]
+  (str "out/public" (apply app-url args)))
+
 (defn click [text]
   (core/click (taxi/find-element {:tag :a :text text}))
   (Thread/sleep 500))
@@ -48,16 +52,7 @@
 (defn url-ends-with [& args]
   (is (.endsWith (taxi/current-url) (apply app-url args))))
 
-;; TODO - revisit not being able to go forward - log count stays the same going forward
-#_(deftest history-works
-  (click "Tag Stats")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
-  (back)
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/"))
-  (forward))
-
-(deftest urls-get-updated-correctly
-  (is (.endsWith (taxi/current-url) (app-url)))
+(deftest navbar-links-work
   (url-ends-with "")
   (click "Tag Stats")
   (url-ends-with "#/tag-stats")
@@ -71,13 +66,42 @@
   (click "Home")
   (url-ends-with "#/"))
 
-(deftest search-submit-works
+(deftest regular-search-works
   (taxi/input-text "#url_search_text" "feynman")
   (taxi/click "#url_search_button")
   (Thread/sleep 1000)
 
   (url-ends-with "#/search?query=feynman&search-type=tagged")
-  (is (= "Search results for 'feynman'" (taxi/text "#search_title"))))
+  (is (= "Search results for 'feynman'" (taxi/text "#search_title")))
+  (is (.contains (taxi/text "#table_stats") "Tag Type Counts: 1 - 1 funny"))
+  (is (seq (taxi/find-elements {:css "tbody tr"}))))
+
+(deftest second-search-with-another-search-type-works
+  (taxi/input-text "#url_search_text" "feynman")
+  (taxi/click "#url_search_button")
+  (Thread/sleep 1000)
+  (url-ends-with "#/search?query=feynman&search-type=tagged")
+
+  (taxi/clear "#url_search_text")
+  (taxi/input-text "#url_search_text" "maxwell")
+  (taxi/select
+    (taxi/element "input[name='search_type'][value='tagged-with-type']"))
+  (taxi/click "#url_search_button")
+  (Thread/sleep 1000)
+  (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type"))
+
+(deftest direct-urls-work
+  (doseq [rel-url (vals route/routes)]
+    (taxi/to (full-app-url rel-url))
+    (url-ends-with rel-url)))
+
+;; TODO - revisit not being able to go forward - log count stays the same going forward
+#_(deftest history-works
+  (click "Tag Stats")
+  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
+  (back)
+  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/"))
+  (forward))
 
 (comment
   (taxi/take-screenshot :file "out.png")
