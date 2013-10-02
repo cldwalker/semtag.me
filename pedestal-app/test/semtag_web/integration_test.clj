@@ -106,6 +106,14 @@
     (is (taxi/element (get expected-tables rel-url)) "renders correct table")
     (url-ends-with rel-url)))
 
+(deftest direct-search-url-works
+  (taxi/to (full-app-url "#/search?query=maxwell&search-type=tagged-with-type"))
+  (taxi/refresh)
+  (Thread/sleep 500)
+
+  (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type")
+  (is (seq (taxi/elements "#search_table tbody tr"))))
+
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
   (click "Tag Stats")
