@@ -73,7 +73,7 @@
 
   (url-ends-with "#/search?query=feynman&search-type=tagged")
   (is (= "Search results for 'feynman'" (taxi/text "#search_title")))
-  (is (.contains (taxi/text "#table_stats") "Tag Type Counts: 1 - 1 funny"))
+  (is (seq (taxi/text "#table_stats")))
   (is (seq (taxi/find-elements {:css "tbody tr"}))))
 
 (deftest second-search-with-another-search-type-works
@@ -90,9 +90,19 @@
   (Thread/sleep 1000)
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type"))
 
+(def expected-tables
+  {"#/types" "#type_stats_table"
+   "#/tag-stats" "#tag_stats_table"
+   "#/all" "#all_table"
+   "#/" "#search_table"})
+
 (deftest direct-urls-work
   (doseq [rel-url (vals route/routes)]
     (taxi/to (full-app-url rel-url))
+    ;; necessary for a hash url to be recognized
+    (taxi/refresh)
+    (Thread/sleep 500)
+    (is (taxi/element (get expected-tables rel-url)))
     (url-ends-with rel-url)))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
