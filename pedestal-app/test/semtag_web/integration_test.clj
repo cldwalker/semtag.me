@@ -105,12 +105,5 @@
 
 (comment
   (taxi/take-screenshot :file "out.png")
-  ;; To debug headless browser - inject in template
-  "<script>
-      var logs = [];
-      console.log = function(m1, m2) {
-        logs.push([m1, m2]);
-      };
-    </script>"
   (println "LOGS: ")
   (doseq [log (taxi/execute-script "return logs;")] (println log)))
