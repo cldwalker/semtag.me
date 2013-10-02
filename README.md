@@ -4,7 +4,7 @@ This is a clojurescript frontend client running on pedestal-service. Data is tra
 between client and server as [edn/clojure](https://github.com/edn-format/edn) thanks to
 [CORS](http://www.w3.org/TR/cors/) requests.
 
-Most of this branch is happening in pedestal-app/. See [its README](pedestal-app/README) for more
+Most of this branch is happening in pedestal-app/. See [its README](pedestal-app/README.md) for more
 info.
 
 ## Contributing
