@@ -67,14 +67,15 @@
   (url-ends-with "#/"))
 
 (deftest regular-search-works
+  (is (seq (taxi/elements "#tags option")) "renders a datalist to autocomplete input")
   (taxi/input-text "#url_search_text" "feynman")
   (taxi/click "#url_search_button")
   (Thread/sleep 1000)
 
   (url-ends-with "#/search?query=feynman&search-type=tagged")
   (is (= "Search results for 'feynman'" (taxi/text "#search_title")))
-  (is (seq (taxi/text "#table_stats")))
-  (is (seq (taxi/find-elements {:css "tbody tr"}))))
+  (is (taxi/element "#table_stats"))
+  (is (seq (taxi/elements "#search_table tbody tr"))))
 
 (deftest second-search-with-another-search-type-works
   (taxi/input-text "#url_search_text" "feynman")
@@ -102,7 +103,7 @@
     ;; necessary for a hash url to be recognized
     (taxi/refresh)
     (Thread/sleep 500)
-    (is (taxi/element (get expected-tables rel-url)))
+    (is (taxi/element (get expected-tables rel-url)) "renders correct table")
     (url-ends-with rel-url)))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
