@@ -21,7 +21,8 @@ Some unique things about this pedestal-app:
     created.
 * It comes with integration tests which require a test aspect that can run the app standalone i.e.
   without a server. This means all asset paths must be relative, including js ones which are
-  currently done by [this task](app/src/semtag_web/tasks.clj).
+  currently done by [this task](app/src/semtag_web/tasks.clj). These tests also come with a custom
+  clojure.test reporter which saves a screenshot if a test fails or errors.
 * There are dynamic focii defined for search screens. This was done to allow the screen to have
   different data results that would be unique in html5 history. Dynamic focci are achieved by
   sending a msg/app-model message of type :add-named-paths at the right time. I originally tried to
