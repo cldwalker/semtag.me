@@ -4,16 +4,8 @@ This is a clojurescript frontend client running on pedestal-service. Data is tra
 between client and server as [edn/clojure](https://github.com/edn-format/edn) thanks to
 [CORS](http://www.w3.org/TR/cors/) requests.
 
-## Usage
-
-To see this app in demo mode:
-
-```sh
-$ lein cljsbuild auto
-
-# In another tab
-$ lein run
-```
+Most of this branch is happening in pedestal-app/. See [its README](pedestal-app/README) for more
+info.
 
 ## Contributing
 [See here](http://tagaholic.me/contributing.html)
