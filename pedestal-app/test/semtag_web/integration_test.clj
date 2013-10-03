@@ -29,6 +29,19 @@
   (original-report m)
   (taxi/take-screenshot :file (screenshot-file ".clojure-test-error-")))
 
+;; clojure.test/is predicate just to generate a message
+(defmethod ctest/assert-expr 'ends-with? [msg form]
+  `(let [string# ~(nth form 1)
+         ending# ~(nth form 2)
+         msg# (format "Expected %s to end with %s" string# ending#)]
+     (let [result# (.endsWith string# ending#)]
+       (if result#
+         (ctest/do-report {:type :pass, :message msg#,
+                           :expected '~form, :actual nil})
+         (ctest/do-report {:type :fail, :message msg#,
+                           :expected '~form, :actual nil}))
+       result#)))
+
 (use-fixtures :each
               (fn [f]
                 (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
@@ -50,7 +63,7 @@
   (Thread/sleep 500))
 
 (defn url-ends-with [& args]
-  (is (.endsWith (taxi/current-url) (apply app-url args))))
+  (is (ends-with? (taxi/current-url) (apply app-url args))))
 
 (deftest navbar-links-work
   (url-ends-with "")
