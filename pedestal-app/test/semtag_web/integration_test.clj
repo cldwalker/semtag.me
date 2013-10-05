@@ -45,9 +45,6 @@
 (use-fixtures :each
               (fn [f]
                 (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
-                (taxi/to "out/public/semtag-web-test.html")
-                (Thread/sleep 1000)
-
                 (binding [ctest/report report] (f))
                 (taxi/quit)))
 
@@ -62,10 +59,15 @@
   (core/click (taxi/find-element {:tag :a :text text}))
   (Thread/sleep 500))
 
+(defn visit [url]
+  (taxi/to (full-app-url url))
+  (Thread/sleep 500))
+
 (defn url-ends-with [& args]
   (is (ends-with? (taxi/current-url) (apply app-url args))))
 
 (deftest navbar-links-work
+  (visit "")
   (url-ends-with "")
   (click "Tag Stats")
   (url-ends-with "#/tag-stats")
@@ -80,6 +82,7 @@
   (url-ends-with "#/"))
 
 (deftest regular-search-works
+  (visit "")
   (is (seq (taxi/elements "#tags option")) "renders a datalist to autocomplete input")
   (taxi/input-text "#url_search_text" "feynman")
   (taxi/click "#url_search_button")
@@ -91,6 +94,7 @@
   (is (seq (taxi/elements "#search_table tbody tr"))))
 
 (deftest second-search-with-another-search-type-works
+  (visit "")
   (taxi/input-text "#url_search_text" "feynman")
   (taxi/click "#url_search_button")
   (Thread/sleep 1000)
@@ -120,7 +124,7 @@
     (url-ends-with rel-url)))
 
 (deftest direct-search-url-works
-  (taxi/to (full-app-url "#/search?query=maxwell&search-type=tagged-with-type"))
+  (visit "#/search?query=maxwell&search-type=tagged-with-type")
   (taxi/refresh)
   (Thread/sleep 500)
 
@@ -129,6 +133,7 @@
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
+  (visit "")
   (click "Tag Stats")
   (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
   (back)
