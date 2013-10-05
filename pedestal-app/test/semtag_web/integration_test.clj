@@ -138,4 +138,4 @@
 (comment
   (taxi/take-screenshot :file "out.png")
   (println "LOGS: ")
-  (doseq [log (taxi/execute-script "return logs;")] (println log)))
+  (doseq [log (taxi/execute-script "return logs;")] (println (vec log))))
