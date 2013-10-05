@@ -10,6 +10,9 @@
 (defn search-id [message]
   (route/create-screen-id :search (select-keys message [:query :search-type])))
 
+(defn thing-id [message]
+  (route/create-screen-id :thing (:params message)))
+
 (defn put-search-title [input-queue {:keys [query] :as message}]
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [(search-id message) :search-title]
@@ -71,7 +74,7 @@
 (defmethod send-message :thing
   [message input-queue]
   (GET (str "/thing?id=" (get-in message [:params :id]))
-       (partial put-value [(route/create-screen-id :thing (:params message)) :thing-results] input-queue)
+       (partial put-value [(thing-id message) :thing-results] input-queue)
        input-queue))
 
 (defn services-fn

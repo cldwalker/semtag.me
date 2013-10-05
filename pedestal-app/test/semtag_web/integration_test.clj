@@ -125,11 +125,13 @@
 
 (deftest direct-search-url-works
   (visit "#/search?query=maxwell&search-type=tagged-with-type")
-  (taxi/refresh)
-  (Thread/sleep 500)
-
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type")
   (is (seq (taxi/elements "#search_table tbody tr"))))
+
+(deftest direct-thing-page-works
+  (visit "#/thing?id=feynman")
+  (url-ends-with "#/thing?id=feynman")
+  (is (seq (taxi/elements "#thing_show_table tbody tr"))))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works

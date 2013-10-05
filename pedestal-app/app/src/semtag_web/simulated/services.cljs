@@ -7,6 +7,11 @@
    :search {:tags '(["funny"])
             :things [{:url "http://funnyordie.com" :desc "yop"
                       :type "site" :tags ["funny"]}]}
+   :thing (list {:attribute :id, :id 17592186048349, :value 17592186048349}
+                {:attribute :type, :id 17592186048349, :value "person"}
+                {:attribute :name, :id 17592186048349, :value "feynman"}
+                {:attribute :url, :id 17592186048349, :value nil}
+                {:attribute :tags, :id 17592186048349, :value '()})
    :types {:results '({:url-percent "1.00", :name-percent "0.00", :count "3", :name "api"})
            :counts {:thing 3, :name 2, :url 2, :tags 4}}
    :tag-stats (list
@@ -40,6 +45,13 @@
     [(services/search-id message) :search-results]
     input-queue
     (:search api-responses)))
+
+(defmethod send-message :thing
+  [message input-queue]
+  (services/put-value
+    [(services/thing-id message) :thing-results]
+    input-queue
+    (:thing api-responses)))
 
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))
