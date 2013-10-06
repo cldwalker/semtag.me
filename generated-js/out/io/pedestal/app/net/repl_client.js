@@ -21,10 +21,10 @@ return [cljs.core.str(goog.uri.utils.getScheme(location)),cljs.core.str("://"),c
 io.pedestal.app.net.repl_client.repl = (function() {
 var repl = null;
 var repl__0 = (function (){
-return repl.call(null,9000);
+return repl.cljs$core$IFn$_invoke$arity$1(9000);
 });
 var repl__1 = (function (port){
-return clojure.browser.repl.connect.call(null,[cljs.core.str(io.pedestal.app.net.repl_client.server.call(null)),cljs.core.str(":"),cljs.core.str(port),cljs.core.str("/repl")].join(''));
+return clojure.browser.repl.connect([cljs.core.str(io.pedestal.app.net.repl_client.server()),cljs.core.str(":"),cljs.core.str(port),cljs.core.str("/repl")].join(''));
 });
 repl = function(port){
 switch(arguments.length){
@@ -46,6 +46,6 @@ goog.exportSymbol('io.pedestal.app.net.repl_client.repl', io.pedestal.app.net.re
 * the :fresh aspect in config/config.edn
 */
 io.pedestal.app.net.repl_client.main = (function main(){
-return io.pedestal.app.net.repl_client.repl.call(null);
+return io.pedestal.app.net.repl_client.repl.cljs$core$IFn$_invoke$arity$0();
 });
 goog.exportSymbol('io.pedestal.app.net.repl_client.main', io.pedestal.app.net.repl_client.main);

@@ -8,7 +8,7 @@ goog.require('io.pedestal.app.util.observers');
 */
 io.pedestal.app.util.log.log = (function() { 
 var log__delegate = function (level,keyvals){
-return io.pedestal.app.util.observers.publish.call(null,"\uFDD0:log",cljs.core.assoc.call(null,cljs.core.apply.call(null,cljs.core.hash_map,keyvals),"\uFDD0:level",level));
+return io.pedestal.app.util.observers.publish("\uFDD0:log",cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,keyvals),"\uFDD0:level",level));
 };
 var log = function (level,var_args){
 var keyvals = null;
@@ -18,9 +18,9 @@ if (arguments.length > 1) {
 return log__delegate.call(this, level, keyvals);
 };
 log.cljs$lang$maxFixedArity = 1;
-log.cljs$lang$applyTo = (function (arglist__12545){
-var level = cljs.core.first(arglist__12545);
-var keyvals = cljs.core.rest(arglist__12545);
+log.cljs$lang$applyTo = (function (arglist__12551){
+var level = cljs.core.first(arglist__12551);
+var keyvals = cljs.core.rest(arglist__12551);
 return log__delegate(level, keyvals);
 });
 log.cljs$core$IFn$_invoke$arity$variadic = log__delegate;
@@ -32,7 +32,7 @@ return log;
 * function being called, with arguments.
 */
 io.pedestal.app.util.log.trace = (function trace(call_expr){
-return io.pedestal.app.util.log.log.call(null,"\uFDD0:trace","\uFDD0:call",call_expr);
+return io.pedestal.app.util.log.log.cljs$core$IFn$_invoke$arity$variadic("\uFDD0:trace",cljs.core.array_seq(["\uFDD0:call",call_expr], 0));
 });
 /**
 * Logs an error message.
@@ -40,7 +40,7 @@ return io.pedestal.app.util.log.log.call(null,"\uFDD0:trace","\uFDD0:call",call_
 */
 io.pedestal.app.util.log.error = (function() { 
 var error__delegate = function (keyvals){
-return cljs.core.apply.call(null,io.pedestal.app.util.log.log,"\uFDD0:error",keyvals);
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.util.log.log,"\uFDD0:error",keyvals);
 };
 var error = function (var_args){
 var keyvals = null;
@@ -50,8 +50,8 @@ if (arguments.length > 0) {
 return error__delegate.call(this, keyvals);
 };
 error.cljs$lang$maxFixedArity = 0;
-error.cljs$lang$applyTo = (function (arglist__12546){
-var keyvals = cljs.core.seq(arglist__12546);
+error.cljs$lang$applyTo = (function (arglist__12552){
+var keyvals = cljs.core.seq(arglist__12552);
 return error__delegate(keyvals);
 });
 error.cljs$core$IFn$_invoke$arity$variadic = error__delegate;
@@ -65,7 +65,7 @@ return error;
 */
 io.pedestal.app.util.log.debug = (function() { 
 var debug__delegate = function (keyvals){
-return cljs.core.apply.call(null,io.pedestal.app.util.log.log,"\uFDD0:debug",keyvals);
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.util.log.log,"\uFDD0:debug",keyvals);
 };
 var debug = function (var_args){
 var keyvals = null;
@@ -75,8 +75,8 @@ if (arguments.length > 0) {
 return debug__delegate.call(this, keyvals);
 };
 debug.cljs$lang$maxFixedArity = 0;
-debug.cljs$lang$applyTo = (function (arglist__12547){
-var keyvals = cljs.core.seq(arglist__12547);
+debug.cljs$lang$applyTo = (function (arglist__12553){
+var keyvals = cljs.core.seq(arglist__12553);
 return debug__delegate(keyvals);
 });
 debug.cljs$core$IFn$_invoke$arity$variadic = debug__delegate;
@@ -90,7 +90,7 @@ return debug;
 */
 io.pedestal.app.util.log.info = (function() { 
 var info__delegate = function (keyvals){
-return cljs.core.apply.call(null,io.pedestal.app.util.log.log,"\uFDD0:info",keyvals);
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.util.log.log,"\uFDD0:info",keyvals);
 };
 var info = function (var_args){
 var keyvals = null;
@@ -100,8 +100,8 @@ if (arguments.length > 0) {
 return info__delegate.call(this, keyvals);
 };
 info.cljs$lang$maxFixedArity = 0;
-info.cljs$lang$applyTo = (function (arglist__12548){
-var keyvals = cljs.core.seq(arglist__12548);
+info.cljs$lang$applyTo = (function (arglist__12554){
+var keyvals = cljs.core.seq(arglist__12554);
 return info__delegate(keyvals);
 });
 info.cljs$core$IFn$_invoke$arity$variadic = info__delegate;
@@ -114,7 +114,7 @@ return info;
 */
 io.pedestal.app.util.log.warn = (function() { 
 var warn__delegate = function (keyvals){
-return cljs.core.apply.call(null,io.pedestal.app.util.log.log,"\uFDD0:warn",keyvals);
+return cljs.core.apply.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.util.log.log,"\uFDD0:warn",keyvals);
 };
 var warn = function (var_args){
 var keyvals = null;
@@ -124,8 +124,8 @@ if (arguments.length > 0) {
 return warn__delegate.call(this, keyvals);
 };
 warn.cljs$lang$maxFixedArity = 0;
-warn.cljs$lang$applyTo = (function (arglist__12549){
-var keyvals = cljs.core.seq(arglist__12549);
+warn.cljs$lang$applyTo = (function (arglist__12555){
+var keyvals = cljs.core.seq(arglist__12555);
 return warn__delegate(keyvals);
 });
 warn.cljs$core$IFn$_invoke$arity$variadic = warn__delegate;
