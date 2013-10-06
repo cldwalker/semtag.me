@@ -4,7 +4,8 @@
             [clj-webdriver.core :as core]
             [clj-webdriver.taxi :as taxi]
             [semtag-web.route :as route]
-            [clojure.string :as string])
+            [clojure.string :as string]
+            [io.pedestal.app-tools.dev :as dev])
   (:import [org.openqa.selenium.phantomjs PhantomJSDriver]
            [org.openqa.selenium.remote DesiredCapabilities]))
 
@@ -49,8 +50,14 @@
                 (taxi/quit)))
 
 ;; Test Helpers
+
+(def root-url
+  (let [aspect (keyword (or (System/getenv "ASPECT") "test"))]
+    (-> dev/config vals first :aspects aspect :uri
+        (or (throw (ex-info "This aspect does not exist!" {:aspect aspect}))))))
+
 (defn app-url [& args]
-  (apply str "/semtag-web-test.html" args))
+  (apply str root-url args))
 
 (defn full-app-url [& args]
   (str "out/public" (apply app-url args)))
@@ -137,9 +144,9 @@
 #_(deftest history-works
   (visit "")
   (click "Tag Stats")
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/tag-stats"))
+  (url-ends-with "#/tag-stats")
   (back)
-  (is (.endsWith (taxi/current-url) "/semtag-web-test.html#/"))
+  (url-ends-with "#/")
   (forward))
 
 (comment

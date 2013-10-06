@@ -15,20 +15,28 @@
       };
     </script>")
 
+(defn- add-log-capturing [html]
+  ;; load before any other js
+  (string/replace-first html #"(<script id=)" (str capture-logs-js "$1")))
+
 (defn- modify-js
-  [app-file]
+  [app-file transform-fn]
   (-> app-file
       slurp
-      ;; load before any other js
-      (string/replace-first #"(<script id=)" (str capture-logs-js "$1"))
+      transform-fn
       ; ensure relative js paths - hack until I can find out what set of compiler options works
       (string/replace #"/generated-js" "generated-js")
       (as-> new-body
         (spit app-file new-body))))
 
-(defn build-test-app
-  "Builds :test aspect"
+(defn build-app
+  "Builds an aspect, :test by default."
   [& args]
-  (println "Building test app...")
-  (time (build/build! (-> dev/config vals first) :test))
-  (modify-js "out/public/semtag-web-test.html"))
+  (let [aspect (keyword (or (first args) "test"))
+        out-file (-> dev/config vals first :aspects aspect :uri)
+        transform-js-fn (if (= aspect :test) add-log-capturing identity)]
+    (when-not out-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
+
+    (println (format "Building %s app..." aspect))
+    (time (build/build! (-> dev/config vals first) aspect))
+    (modify-js (str "out/public" out-file) transform-js-fn)))
