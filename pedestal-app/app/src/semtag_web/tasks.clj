@@ -19,24 +19,33 @@
   ;; load before any other js
   (string/replace-first html #"(<script id=)" (str capture-logs-js "$1")))
 
-(defn- modify-js
-  [app-file transform-fn]
-  (-> app-file
+; ensure relative js paths - hack until I can find out what set of compiler options works
+(defn- ensure-relative-paths [html]
+  (string/replace html #"/generated-js" "generated-js"))
+
+(defn- modify-file
+  [file transform-fn]
+  (-> file
       slurp
       transform-fn
-      ; ensure relative js paths - hack until I can find out what set of compiler options works
-      (string/replace #"/generated-js" "generated-js")
       (as-> new-body
-        (spit app-file new-body))))
+        (spit file new-body))))
 
 (defn build-app
-  "Builds an aspect, :test by default."
+  "Builds an aspect, :test if no argument is given. It also prepares it to be standalone html,
+  adds debugging for the test aspect and updates services/base-uri if $API_URI is set."
   [& args]
   (let [aspect (keyword (or (first args) "test"))
-        out-file (-> dev/config vals first :aspects aspect :uri)
-        transform-js-fn (if (= aspect :test) add-log-capturing identity)]
-    (when-not out-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
+        {html-file :uri js-file :out-file} (-> dev/config vals first :aspects aspect)
+        transform-js-fn (if (= aspect :test) (comp ensure-relative-paths add-log-capturing) ensure-relative-paths)]
+    (when-not html-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
 
     (println (format "Building %s app..." aspect))
     (time (build/build! (-> dev/config vals first) aspect))
-    (modify-js (str "out/public" out-file) transform-js-fn)))
+
+    (println "Writing" (str "out/public" html-file))
+    (modify-file (str "out/public" html-file) transform-js-fn)
+
+    (when-let [uri (System/getenv "API_URI")]
+      (println "Writing" (str "out/public/generated-js/" js-file))
+      (modify-file (str "out/public/generated-js/" js-file) #(string/replace-first % "http://localhost:3000/api" uri)))))
