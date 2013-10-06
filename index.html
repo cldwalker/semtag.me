@@ -46,15 +46,8 @@
     </div> <!-- /container -->
 
     <!-- jquery, jquery.tablesorter, jquery.timeago, cljs/main.js semtag_web.client.main.home -->
-    <script>
-      var logs = [];
-      var original_log = console.log;
-      console.log = function() {
-        logs.push(arguments);
-        original_log.apply(this, arguments)
-      };
-    </script><script id="script-driver"></script>
+    <script id="script-driver"></script>
 
-  <script src="generated-js/out/goog/base.js" type="text/javascript"></script><script src="generated-js/semtag-web-test.js" type="text/javascript"></script><script type="text/javascript">goog.require('semtag_web.simulated.start');</script><script type="text/javascript">goog.require('io.pedestal.app_tools.tooling');</script><script type="text/javascript">io.pedestal.app_tools.tooling.add_logging(semtag_web.simulated.start.main());</script></body>
+  <script src="generated-js/semtag-web.js" type="text/javascript"></script><script type="text/javascript">semtag_web.start.main();</script></body>
 
 </html>
