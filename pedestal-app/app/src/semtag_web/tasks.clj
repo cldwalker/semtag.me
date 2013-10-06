@@ -48,4 +48,5 @@
 
     (when-let [uri (System/getenv "API_URI")]
       (println "Writing" (str "out/public/generated-js/" js-file))
-      (modify-file (str "out/public/generated-js/" js-file) #(string/replace-first % "http://localhost:3000/api" uri)))))
+      (modify-file (str "out/public/generated-js/" js-file) #(string/replace-first % "http://localhost:3000/api" uri))))
+  (System/exit 0))
