@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -e
+
+lein build-app production
+cd ..
+git checkout gh-pages
+cp -Rfv pedestal-app/out/public/* .
+mv semtag-web.html index.html
+git add generated-js *.css *.js
+git commit -m "Assets rebuilt"
