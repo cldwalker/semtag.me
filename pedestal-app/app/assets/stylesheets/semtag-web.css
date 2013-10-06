@@ -27,11 +27,12 @@ table caption {
 
 #add_url_button {
   margin-bottom: 10px;
-  display: block;
+  display: none;
 }
 
 #add_url_text {
   width: 280px;
+  display:none;
 }
 
 .ellipsis {
