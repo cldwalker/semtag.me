@@ -29,12 +29,12 @@ return clearTimeout(timeout);
 io.pedestal.app.util.platform.read_form_if_string = (function read_form_if_string(x){
 if(cljs.core.string_QMARK_(x))
 {try{return io.pedestal.app.util.platform.safe_read_string(x);
-}catch (e12484){if((e12484 instanceof Error))
-{var _ = e12484;
+}catch (e12494){if((e12494 instanceof Error))
+{var _ = e12494;
 return null;
 } else
 {if("\uFDD0:else")
-{throw e12484;
+{throw e12494;
 } else
 {return null;
 }
@@ -45,54 +45,54 @@ return null;
 });
 io.pedestal.app.util.platform.log_group = (function log_group(group_name,coll){
 console.group(group_name);
-var seq__12489_12493 = cljs.core.seq(coll);
-var chunk__12490_12494 = null;
-var count__12491_12495 = 0;
-var i__12492_12496 = 0;
+var seq__12499_12503 = cljs.core.seq(coll);
+var chunk__12500_12504 = null;
+var count__12501_12505 = 0;
+var i__12502_12506 = 0;
 while(true){
-if((i__12492_12496 < count__12491_12495))
-{var d_12497 = chunk__12490_12494.cljs$core$IIndexed$_nth$arity$2(chunk__12490_12494,i__12492_12496);
-console.log(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([d_12497], 0)));
+if((i__12502_12506 < count__12501_12505))
+{var d_12507 = chunk__12500_12504.cljs$core$IIndexed$_nth$arity$2(chunk__12500_12504,i__12502_12506);
+console.log(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([d_12507], 0)));
 {
-var G__12498 = seq__12489_12493;
-var G__12499 = chunk__12490_12494;
-var G__12500 = count__12491_12495;
-var G__12501 = (i__12492_12496 + 1);
-seq__12489_12493 = G__12498;
-chunk__12490_12494 = G__12499;
-count__12491_12495 = G__12500;
-i__12492_12496 = G__12501;
+var G__12508 = seq__12499_12503;
+var G__12509 = chunk__12500_12504;
+var G__12510 = count__12501_12505;
+var G__12511 = (i__12502_12506 + 1);
+seq__12499_12503 = G__12508;
+chunk__12500_12504 = G__12509;
+count__12501_12505 = G__12510;
+i__12502_12506 = G__12511;
 continue;
 }
 } else
-{var temp__4092__auto___12502 = cljs.core.seq(seq__12489_12493);
-if(temp__4092__auto___12502)
-{var seq__12489_12503__$1 = temp__4092__auto___12502;
-if(cljs.core.chunked_seq_QMARK_(seq__12489_12503__$1))
-{var c__9646__auto___12504 = cljs.core.chunk_first(seq__12489_12503__$1);
+{var temp__4092__auto___12512 = cljs.core.seq(seq__12499_12503);
+if(temp__4092__auto___12512)
+{var seq__12499_12513__$1 = temp__4092__auto___12512;
+if(cljs.core.chunked_seq_QMARK_(seq__12499_12513__$1))
+{var c__9646__auto___12514 = cljs.core.chunk_first(seq__12499_12513__$1);
 {
-var G__12505 = cljs.core.chunk_rest(seq__12489_12503__$1);
-var G__12506 = c__9646__auto___12504;
-var G__12507 = cljs.core.count(c__9646__auto___12504);
-var G__12508 = 0;
-seq__12489_12493 = G__12505;
-chunk__12490_12494 = G__12506;
-count__12491_12495 = G__12507;
-i__12492_12496 = G__12508;
+var G__12515 = cljs.core.chunk_rest(seq__12499_12513__$1);
+var G__12516 = c__9646__auto___12514;
+var G__12517 = cljs.core.count(c__9646__auto___12514);
+var G__12518 = 0;
+seq__12499_12503 = G__12515;
+chunk__12500_12504 = G__12516;
+count__12501_12505 = G__12517;
+i__12502_12506 = G__12518;
 continue;
 }
 } else
-{var d_12509 = cljs.core.first(seq__12489_12503__$1);
-console.log(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([d_12509], 0)));
+{var d_12519 = cljs.core.first(seq__12499_12513__$1);
+console.log(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([d_12519], 0)));
 {
-var G__12510 = cljs.core.next(seq__12489_12503__$1);
-var G__12511 = null;
-var G__12512 = 0;
-var G__12513 = 0;
-seq__12489_12493 = G__12510;
-chunk__12490_12494 = G__12511;
-count__12491_12495 = G__12512;
-i__12492_12496 = G__12513;
+var G__12520 = cljs.core.next(seq__12499_12513__$1);
+var G__12521 = null;
+var G__12522 = 0;
+var G__12523 = 0;
+seq__12499_12503 = G__12520;
+chunk__12500_12504 = G__12521;
+count__12501_12505 = G__12522;
+i__12502_12506 = G__12523;
 continue;
 }
 }
@@ -109,8 +109,8 @@ return console.groupEnd();
 io.pedestal.app.util.platform.log_exceptions = (function() { 
 var log_exceptions__delegate = function (f,args){
 try{return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,args);
-}catch (e12515){if((e12515 instanceof Error))
-{var e = e12515;
+}catch (e12525){if((e12525 instanceof Error))
+{var e = e12525;
 console.groupCollapsed("Caught exception",e);
 console.log("Was applying function\n",f);
 console.log("With arguments",cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([args], 0)));
@@ -119,7 +119,7 @@ console.groupEnd();
 throw e;
 } else
 {if("\uFDD0:else")
-{throw e12515;
+{throw e12525;
 } else
 {return null;
 }
@@ -133,9 +133,9 @@ if (arguments.length > 1) {
 return log_exceptions__delegate.call(this, f, args);
 };
 log_exceptions.cljs$lang$maxFixedArity = 1;
-log_exceptions.cljs$lang$applyTo = (function (arglist__12516){
-var f = cljs.core.first(arglist__12516);
-var args = cljs.core.rest(arglist__12516);
+log_exceptions.cljs$lang$applyTo = (function (arglist__12526){
+var f = cljs.core.first(arglist__12526);
+var args = cljs.core.rest(arglist__12526);
 return log_exceptions__delegate(f, args);
 });
 log_exceptions.cljs$core$IFn$_invoke$arity$variadic = log_exceptions__delegate;

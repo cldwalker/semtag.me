@@ -31,19 +31,19 @@ if(or__3943__auto____$1)
 });
 Element.prototype.clojure$browser$event$EventType$ = true;
 Element.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13940){
-var vec__13941 = p__13940;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13941,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13941,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13950){
+var vec__13951 = p__13950;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13951,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13951,1,null);
 return cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(k.toLowerCase()),v], true);
 }),cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(goog.events.EventType)], 0))));
 });
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$ = true;
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13942){
-var vec__13943 = p__13942;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13943,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13943,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13952){
+var vec__13953 = p__13952;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13953,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13953,1,null);
 return cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(k.toLowerCase()),v], true);
 }),cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(goog.events.EventType)], 0))));
 });

@@ -18,9 +18,9 @@ if (arguments.length > 1) {
 return log__delegate.call(this, level, keyvals);
 };
 log.cljs$lang$maxFixedArity = 1;
-log.cljs$lang$applyTo = (function (arglist__12551){
-var level = cljs.core.first(arglist__12551);
-var keyvals = cljs.core.rest(arglist__12551);
+log.cljs$lang$applyTo = (function (arglist__12561){
+var level = cljs.core.first(arglist__12561);
+var keyvals = cljs.core.rest(arglist__12561);
 return log__delegate(level, keyvals);
 });
 log.cljs$core$IFn$_invoke$arity$variadic = log__delegate;
@@ -50,8 +50,8 @@ if (arguments.length > 0) {
 return error__delegate.call(this, keyvals);
 };
 error.cljs$lang$maxFixedArity = 0;
-error.cljs$lang$applyTo = (function (arglist__12552){
-var keyvals = cljs.core.seq(arglist__12552);
+error.cljs$lang$applyTo = (function (arglist__12562){
+var keyvals = cljs.core.seq(arglist__12562);
 return error__delegate(keyvals);
 });
 error.cljs$core$IFn$_invoke$arity$variadic = error__delegate;
@@ -75,8 +75,8 @@ if (arguments.length > 0) {
 return debug__delegate.call(this, keyvals);
 };
 debug.cljs$lang$maxFixedArity = 0;
-debug.cljs$lang$applyTo = (function (arglist__12553){
-var keyvals = cljs.core.seq(arglist__12553);
+debug.cljs$lang$applyTo = (function (arglist__12563){
+var keyvals = cljs.core.seq(arglist__12563);
 return debug__delegate(keyvals);
 });
 debug.cljs$core$IFn$_invoke$arity$variadic = debug__delegate;
@@ -100,8 +100,8 @@ if (arguments.length > 0) {
 return info__delegate.call(this, keyvals);
 };
 info.cljs$lang$maxFixedArity = 0;
-info.cljs$lang$applyTo = (function (arglist__12554){
-var keyvals = cljs.core.seq(arglist__12554);
+info.cljs$lang$applyTo = (function (arglist__12564){
+var keyvals = cljs.core.seq(arglist__12564);
 return info__delegate(keyvals);
 });
 info.cljs$core$IFn$_invoke$arity$variadic = info__delegate;
@@ -124,8 +124,8 @@ if (arguments.length > 0) {
 return warn__delegate.call(this, keyvals);
 };
 warn.cljs$lang$maxFixedArity = 0;
-warn.cljs$lang$applyTo = (function (arglist__12555){
-var keyvals = cljs.core.seq(arglist__12555);
+warn.cljs$lang$applyTo = (function (arglist__12565){
+var keyvals = cljs.core.seq(arglist__12565);
 return warn__delegate(keyvals);
 });
 warn.cljs$core$IFn$_invoke$arity$variadic = warn__delegate;

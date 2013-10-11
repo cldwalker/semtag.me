@@ -19,8 +19,8 @@ if (arguments.length > 0) {
 return log__delegate.call(this, args);
 };
 log.cljs$lang$maxFixedArity = 0;
-log.cljs$lang$applyTo = (function (arglist__13925){
-var args = cljs.core.seq(arglist__13925);
+log.cljs$lang$applyTo = (function (arglist__13935){
+var args = cljs.core.seq(arglist__13935);
 return log__delegate(args);
 });
 log.cljs$core$IFn$_invoke$arity$variadic = log__delegate;

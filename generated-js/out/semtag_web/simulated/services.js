@@ -14,10 +14,10 @@ return (new cljs.core.MultiFn("send-message",(function (message,input_queue){
 return cljs.core.keyword.cljs$core$IFn$_invoke$arity$1((new cljs.core.Keyword("\uFDD0:value")).call(null,message));
 }),"\uFDD0:default",hierarchy__9707__auto__,method_table__9703__auto__,prefer_table__9704__auto__,method_cache__9705__auto__,cached_hierarchy__9706__auto__));
 })();
-semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:default",(function (p__10853,input_queue){
-var map__10854 = p__10853;
-var map__10854__$1 = ((cljs.core.seq_QMARK_(map__10854))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__10854):map__10854);
-var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__10854__$1,"\uFDD0:value");
+semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:default",(function (p__11583,input_queue){
+var map__11584 = p__11583;
+var map__11584__$1 = ((cljs.core.seq_QMARK_(map__11584))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__11584):map__11584);
+var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__11584__$1,"\uFDD0:value");
 return semtag_web.services.put_value(cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1([cljs.core.str(value),cljs.core.str("-results")].join(''))], true),input_queue,cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(value).call(null,semtag_web.simulated.services.api_responses));
 }));
 semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:home",(function (message,input_queue){

@@ -11,7 +11,7 @@ var temp__4092__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(cljs.core.d
 if(cljs.core.truth_(temp__4092__auto__))
 {var d = temp__4092__auto__;
 console.log("NAVIGATE",cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([token], 0)));
-return (io.pedestal.app.protocols.put_message.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.protocols.put_message.cljs$core$IFn$_invoke$arity$2(d,cljs.core.PersistentArrayMap.fromArray([io.pedestal.app.messages.topic,io.pedestal.app.messages.app_model,io.pedestal.app.messages.type,"\uFDD0:set-focus","\uFDD0:name",token], true)) : io.pedestal.app.protocols.put_message.call(null,d,cljs.core.PersistentArrayMap.fromArray([io.pedestal.app.messages.topic,io.pedestal.app.messages.app_model,io.pedestal.app.messages.type,"\uFDD0:set-focus","\uFDD0:name",token], true)));
+return io.pedestal.app.protocols.put_message(d,cljs.core.PersistentArrayMap.fromArray([io.pedestal.app.messages.topic,io.pedestal.app.messages.app_model,io.pedestal.app.messages.type,"\uFDD0:set-focus","\uFDD0:name",token], true));
 } else
 {return null;
 }
@@ -26,8 +26,8 @@ if(cljs.core.truth_(and__3941__auto__))
 semtag_web.history.navigated = (function navigated(d,token){
 if(cljs.core.truth_(semtag_web.history.supported_QMARK_))
 {console.log("NAVIGATED",cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([token], 0)));
-var current_token_10079 = history.state;
-if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(current_token_10079,token))
+var current_token_10821 = history.state;
+if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(current_token_10821,token))
 {if((cljs.core.deref(semtag_web.history.last_page) == null))
 {history.replaceState(token,null,null);
 } else
