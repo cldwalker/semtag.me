@@ -140,6 +140,11 @@
   (url-ends-with "#/thing?id=feynman")
   (is (seq (taxi/elements "#thing_show_table tbody tr"))))
 
+(deftest thing-link-works-on-tag-stats-table
+  (visit "#/tag-stats")
+  (click "lein-newnew")
+  (url-ends-with "#/thing?id=lein-newnew"))
+
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
   (visit "")

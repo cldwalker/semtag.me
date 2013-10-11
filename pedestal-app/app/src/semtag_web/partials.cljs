@@ -28,7 +28,7 @@
   ([unique-id] (link-thing unique-id unique-id))
   ([unique-id text] (link-thing unique-id text {}))
   ([unique-id text attr]
-    [:a (merge {:href (path-to "/thing/" unique-id)} attr) text]))
+    [:a (merge {:href (path-to "#/thing" "?id=" unique-id) #_(path-to "/thing/" unique-id)} attr) text]))
 
 (defn- link-tagged [tag]
   [:a {:href (path-to "/?query=" tag)} (str "Tagged with " tag)])

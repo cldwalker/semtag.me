@@ -7,6 +7,7 @@
             [semtag-web.route :as route]
             [clojure.string :as string]
             [io.pedestal.app.protocols :as prot]
+            [io.pedestal.app.render.events :as events]
             [io.pedestal.app.render.push :as render]
             [io.pedestal.app.messages :as msg]
             [io.pedestal.app.render.push.templates :as templates]
@@ -102,15 +103,55 @@
                       :row-partial p/type-stats-row
                       :fields [:name :count :name-percent :url-percent])))
 
+;; TODO: reuse with one in start or delete
+(defn- parse-params [url]
+  (when-let [params-string (re-find #"(?!.*\?).*" url)]
+    (-> params-string
+        (string/split #"\&")
+        (as-> pairs
+          (map #(let [[k v] (string/split % #"=")] [(keyword k) v]) pairs))
+        flatten
+        vec
+        (as-> vals (apply hash-map vals)))))
 
+(defn href-sets-dynamic-focus [{:keys [transform messages event]}]
+  (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
+    (msg/fill transform messages {:value (name screen) :name screen})
+    (.log js/console "No screen found for element" (.-currentTarget event))))
 
-(defn render-tag-stats-results [_ [_ _ _ new-value] _]
+;; TODO - only generate :add-named-paths for dynamic focii
+(defn dynamic-focus-messages [& {:keys [params screen paths]}]
+  [{msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths}
+   {msg/type :set-focus msg/topic msg/app-model :name screen}
+   {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])
+
+;; Yes, we should be sending messages to do this separately but
+;; that seems like overkill right now
+;; TODO - make this generic
+(defn enable-clickable-links-on
+  [parent-selector input-queue]
+  (events/send-on :click
+                  (css/sel (str parent-selector " a"))
+                  input-queue
+                  (fn [event]
+                    (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))
+                          params (parse-params rel-uri)
+                          screen (route/url->screen rel-uri params)]
+                      (swap! route/dynamic-screens assoc screen params)
+                      (dynamic-focus-messages
+                        :screen screen
+                        :params params
+                        :paths [[:app-model :thing screen] [:app-model :navbar]])))))
+
+(defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "tag_stats_table" new-value
                       :row-partial p/tag-stats-row
                       :caption (str "Total: " (count new-value))
-                      :fields [:tag :count :desc])))
+                      :fields [:tag :count :desc]))
+
+  (enable-clickable-links-on "#tag_stats_table" input-queue))
 
 (defn render-all-results [_ [_ _ _ new-value] _]
   (dom/set-html!
