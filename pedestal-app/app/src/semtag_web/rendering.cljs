@@ -104,22 +104,6 @@
                       :row-partial p/type-stats-row
                       :fields [:name :count :name-percent :url-percent])))
 
-;; TODO: reuse with one in start or delete
-(defn- parse-params [url]
-  (when-let [params-string (re-find #"(?!.*\?).*" url)]
-    (-> params-string
-        (string/split #"\&")
-        (as-> pairs
-          (map #(let [[k v] (string/split % #"=")] [(keyword k) v]) pairs))
-        flatten
-        vec
-        (as-> vals (apply hash-map vals)))))
-
-(defn href-sets-dynamic-focus [{:keys [transform messages event]}]
-  (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
-    (msg/fill transform messages {:value (name screen) :name screen})
-    (.log js/console "No screen found for element" (.-currentTarget event))))
-
 ;; TODO - only generate :add-named-paths for dynamic focii
 (defn dynamic-focus-messages [& {:keys [params screen paths]}]
   [{msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths}
@@ -136,8 +120,8 @@
                   input-queue
                   (fn [event]
                     (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))
-                          params (parse-params rel-uri)
-                          screen (route/url->screen rel-uri params)]
+                          params (route/params-from-url :thing rel-uri)
+                          screen (route/url->screen rel-uri)]
                       (swap! route/dynamic-screens assoc screen params)
                       (dynamic-focus-messages
                         :screen screen

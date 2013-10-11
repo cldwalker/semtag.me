@@ -9,7 +9,7 @@
 
 (def dynamic-routes
   {:search "#/search"
-   :thing "#/thing"})
+   :thing "#/thing/:id"})
 
 (def dynamic-screens "Maps screen ids to their url params"
   (atom {}))
@@ -18,10 +18,15 @@
 
 (defn url-for [screen]
   (if-let [params (get @dynamic-screens screen)]
-    (str (get dynamic-routes (keyword (re-find #"[a-z]+" (name screen))))
-         "?"
-         (string/join "&"
-                      (map #(str (name (key %)) "=" (val %)) params)))
+    (let [route (get dynamic-routes (keyword (re-find #"[a-z]+" (name screen))))]
+      (if (re-find #":" route)
+        (string/replace route
+                        #":\w+"
+                        (fn [x] (get params (keyword (subs x 1)))))
+        (str route
+             "?"
+             (string/join "&"
+                          (map #(str (name (key %)) "=" (val %)) params)))))
     (get routes screen "")))
 
 ;; may eventually be in it's own namespace
@@ -31,11 +36,27 @@
                              (map #(str (-> % key name) "_"  (val %))
                                   (->> params (reduce into) (apply sorted-map)))))))
 
+(defn params-from-url [dynamic-screen url]
+  (reduce
+    (fn [accum [route-piece url-piece]]
+      (if-let [keyword-piece (->> route-piece (re-find #":(.*)") second)]
+        (assoc accum (keyword keyword-piece) url-piece)
+        accum))
+    {}
+    (zipmap (string/split (get dynamic-routes dynamic-screen) #"/")
+            (string/split url #"/"))))
+
+(defn find-dynamic-screen
+  [url [screen route]]
+  (when (some-> (re-find #"[^:]+" route)
+                re-pattern
+                (re-find url))
+    screen))
+
 (defn url->screen
-  ([url] (url->screen url {}))
+  ([url] (url->screen url nil))
   ([url params]
    (or (get inv-routes url)
-       (when-let [seed (some (fn [[screen v]]
-                          (when (re-find (re-pattern v) url)
-                            screen)) dynamic-routes)]
-                (create-screen-id seed params)))))
+       (when-let [seed (some #(find-dynamic-screen url %) dynamic-routes)]
+         (create-screen-id seed (or params
+                                    (params-from-url seed url)))))))

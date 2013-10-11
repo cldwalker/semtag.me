@@ -136,14 +136,14 @@
   (is (seq (taxi/elements "#search_table tbody tr"))))
 
 (deftest direct-thing-page-works
-  (visit "#/thing?id=feynman")
-  (url-ends-with "#/thing?id=feynman")
+  (visit "#/thing/feynman")
+  (url-ends-with "#/thing/feynman")
   (is (seq (taxi/elements "#thing_show_table tbody tr"))))
 
 (deftest thing-link-works-on-tag-stats-table
   (visit "#/tag-stats")
   (click "lein-newnew")
-  (url-ends-with "#/thing?id=lein-newnew"))
+  (url-ends-with "#/thing/lein-newnew"))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
