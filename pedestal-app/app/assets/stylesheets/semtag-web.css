@@ -35,6 +35,10 @@ table caption {
   display:none;
 }
 
+td.delete a {
+  display: none;
+}
+
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;
