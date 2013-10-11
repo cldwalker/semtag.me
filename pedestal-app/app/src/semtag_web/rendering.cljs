@@ -72,7 +72,7 @@
 (defn set-search-title [renderer [_ path _ new-value] _]
   (dom/set-html! (dom/by-id "search_title") new-value))
 
-(defn render-search-results [_ [_ _ _ new-value] _]
+(defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
     (dom/swap-content!
       (dom/by-id "table_stats")
@@ -84,7 +84,8 @@
       (p/generate-table "search_table" things
                         :fields [:type :name :url :desc :tags]
                         :row-partial p/tag-search-row
-                        :caption (format "Total: %s" (count (map :url things)))))))
+                        :caption (format "Total: %s" (count (map :url things)))))
+    (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
 (defn clear-search [_ _ _]
@@ -153,15 +154,16 @@
 
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 
-(defn render-all-results [_ [_ _ _ new-value] _]
+(defn render-all-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "all_table" new-value
                       :row-partial p/all-row
                       :caption (str "Total: " (count new-value))
-                      :fields [:type :name :url :tags :created-at])))
+                      :fields [:type :name :url :tags :created-at]))
+  (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
-(defn render-thing-results [_ [_ path _ new-value] _]
+(defn render-thing-results [_ [_ path _ new-value] input-queue]
   (let [thing-id (nth path (- (count path) 2))]
     (dom/set-html!
       (dom/by-id "content")
@@ -170,7 +172,8 @@
                         ;; TODO - fix id when it renders
                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
                         :row-partial p/thing-row
-                        :fields [:attribute :value]))))
+                        :fields [:attribute :value])))
+  (enable-clickable-links-on "#thing_show_table" input-queue))
 
 (defn href-sets-focus [{:keys [transform messages event]}]
   (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
