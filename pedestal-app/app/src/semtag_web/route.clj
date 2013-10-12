@@ -51,9 +51,7 @@
         (string/split #"\&")
         (as-> pairs
           (map #(let [[k v] (string/split % #"=")] [(keyword k) v]) pairs))
-        flatten
-        vec
-        (as-> vals (apply hash-map vals)))))
+        (as-> vals (into {} vals)))))
 
 (defn find-dynamic-route
   "Finds a dynamic route e.g. :thing for a given url"

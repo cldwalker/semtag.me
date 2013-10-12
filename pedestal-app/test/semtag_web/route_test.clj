@@ -34,8 +34,8 @@
     (is (= {:id "dude"}
          (parse-params "#/thing/dude"))))
   (testing "without keyword segment"
-    (is (= {:query "funny"}
-           (parse-params "#/search?query=funny"))))
+    (is (= {:query "funny" :type "regex"}
+           (parse-params "#/search?query=funny&type=regex"))))
   (testing "nil cases"
     (is (nil? (parse-params "#/search")))
     (is (nil? (parse-params "#/nonexistent")))))
