@@ -29,7 +29,6 @@
                           (map #(str (name (key %)) "=" (val %)) params)))))
     (get routes screen "")))
 
-;; may eventually be in it's own namespace
 (defn create-screen-id [seed params]
   (keyword (str (name seed) "-"
                 (string/join "_"
@@ -46,7 +45,18 @@
     (zipmap (string/split (get dynamic-routes dynamic-screen) #"/")
             (string/split url #"/"))))
 
+(defn params-from-query [url]
+  (when-let [params-string (->> url (re-find #"\?(.*)") second)]
+    (-> params-string
+        (string/split #"\&")
+        (as-> pairs
+          (map #(let [[k v] (string/split % #"=")] [(keyword k) v]) pairs))
+        flatten
+        vec
+        (as-> vals (apply hash-map vals)))))
+
 (defn find-dynamic-route
+  "Finds a dynamic route e.g. :thing for a given url"
   [url]
   (some (fn [[screen route]]
           (when (some-> (re-find #"[^:]+" route)
@@ -54,6 +64,15 @@
                         (re-find url))
             screen))
         dynamic-routes))
+
+(defn parse-params
+  "Parses param from url if it matches a route with a keyword segment.
+  Otherwise parses param from query string"
+  [url]
+  (when-let [route (find-dynamic-route url)]
+    (if (re-find #":" (route dynamic-routes))
+      (params-from-url route url)
+      (params-from-query url))))
 
 ;; screen is the full unique name
 ;; route is an entry in one of the route maps

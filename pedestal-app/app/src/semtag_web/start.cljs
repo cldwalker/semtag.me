@@ -26,17 +26,6 @@
                    ;; put params in :params so no dissocing everywhere
                    {msg/type :map-value msg/topic [:page] :value (name screen) :params params})))
 
-;; use goog.Uri if it has an API for extracting param names - .getParameterValues doesn't cut it
-(defn- parse-params [url]
-  (when-let [params-string (re-find #"(?!.*\?).*" url)]
-    (-> params-string
-        (string/split #"\&")
-        (as-> pairs
-          (map #(let [[k v] (string/split % #"=")] [(keyword k) v]) pairs))
-        flatten
-        vec
-        (as-> vals (apply hash-map vals)))))
-
 (defn- update-behavior
   "Updates behavior with possible dynamic focus"
   [behavior screen]
@@ -52,7 +41,7 @@
               [[:app-model :thing screen] [:app-model :navbar]])))
 
 (defn create-app [render-config]
-  (let [params (parse-params window.location.hash)
+  (let [params (route/parse-params window.location.hash)
         ;; For now we detect on hash. If I put a server to route all urls to this js app,
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)

@@ -10,7 +10,7 @@
     (swap! dynamic-screens assoc :search-query_css {:query "css"})
     (is (= "#/search?query=css"
            (url-for :search-query_css))))
-  (testing "dynamic route with keyword substitution"
+  (testing "dynamic route with keyword segment"
     (swap! dynamic-screens assoc :thing-id_felix {:id "felix"})
     (is (= "#/thing/felix"
            (url-for :thing-id_felix))))
@@ -19,18 +19,26 @@
            (url-for :thing-id_jekyll)))))
 
 (deftest find-dynamic-route-tests
-  (testing "without keyword substitution"
+  (testing "without keyword segment"
     (is (= :search (find-dynamic-route "#/search?query=funny"))))
-  (testing "with keyword substitution"
+  (testing "with keyword segment"
     (is (= :thing (find-dynamic-route "#/thing/feynman")))))
 
 (deftest params-from-url-tests
-  (testing "with hash url"
-    (is (= {:id "dude"}
-         (params-from-url :thing "#/thing/dude"))))
   (testing "with regular url"
     (is (= {:id "dude"}
          (params-from-url :thing "/thing/dude")))))
+
+(deftest parse-params-tests
+  (testing "with keyword segment"
+    (is (= {:id "dude"}
+         (parse-params "#/thing/dude"))))
+  (testing "without keyword segment"
+    (is (= {:query "funny"}
+           (parse-params "#/search?query=funny"))))
+  (testing "nil cases"
+    (is (nil? (parse-params "#/search")))
+    (is (nil? (parse-params "#/nonexistent")))))
 
 (deftest url->screen-tests
   (testing "static route"
@@ -39,6 +47,6 @@
   (testing "dynamic route with params"
     (is (= :search-query_funny_type_regex
            (url->screen "#/search" {:query "funny" :type "regex"}))))
-  (testing "dynamic route with keyword substitution"
+  (testing "dynamic route with keyword segment"
     (is (= :thing-id_feynman
            (url->screen "#/thing/feynman")))))

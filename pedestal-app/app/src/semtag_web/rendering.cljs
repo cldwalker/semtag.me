@@ -126,7 +126,7 @@
                   (fn [event]
                     (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))]
                       (when-let [route (route/find-dynamic-route rel-uri)]
-                        (let [params (route/params-from-url route rel-uri)
+                        (let [params (route/parse-params rel-uri)
                               screen (route/url->screen rel-uri)]
                           (swap! route/dynamic-screens assoc screen params)
                           (dynamic-focus-messages :screen screen
