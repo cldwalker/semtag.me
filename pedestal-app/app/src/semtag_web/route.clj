@@ -56,11 +56,11 @@
 (defn find-dynamic-route
   "Finds a dynamic route e.g. :thing for a given url"
   [url]
-  (some (fn [[screen route]]
-          (when (some-> (re-find #"[^:]+" route)
+  (some (fn [[route path]]
+          (when (some-> (re-find #"[^:]+" path)
                         re-pattern
                         (re-find url))
-            screen))
+            route))
         dynamic-routes))
 
 (defn parse-params

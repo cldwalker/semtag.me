@@ -28,17 +28,11 @@
 
 (defn- update-behavior
   "Updates behavior with possible dynamic focus"
-  [behavior screen]
+  [behavior route screen]
   (cond-> behavior
     true (assoc-in [:focus :default] screen)
-    ;; dynamic-focus-todo
-    ;; needs to match what's generated in rendering/url-search
-    (re-find #"^search" (name screen))
-    (assoc-in [:focus screen]
-              [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]])
-    (re-find #"^thing" (name screen))
-    (assoc-in [:focus screen]
-              [[:app-model :thing screen] [:app-model :navbar]])))
+    route (assoc-in [:focus screen]
+                    (rendering/dynamic-paths route screen))))
 
 (defn create-app [render-config]
   (let [params (route/parse-params window.location.hash)
@@ -46,7 +40,8 @@
         ;; this could change to full urls.
         screen (or (route/url->screen (.-hash window.location) params)
                    (get-in behavior/app [:focus :default]))
-        app (app/build (update-behavior behavior/app screen))
+        dynamic-route (route/find-dynamic-route (.-hash window.location))
+        app (app/build (update-behavior behavior/app dynamic-route screen))
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
     (app/begin app)

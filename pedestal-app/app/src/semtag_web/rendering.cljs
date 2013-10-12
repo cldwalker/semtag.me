@@ -56,6 +56,7 @@
 (defn dynamic-paths [route screen]
   (case route
     :thing [[:app-model :thing screen] [:app-model :navbar]]
+    :search [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]]
     []))
 
 (defn dynamic-href-sets-focus
@@ -109,7 +110,7 @@
     (swap! route/dynamic-screens assoc search-id search-map)
     (msg/fill transform messages (assoc search-map
                                         :name search-id
-                                        :paths [[:app-model :search-form] [:app-model :search search-id] [:app-model :navbar]]))))
+                                        :paths (dynamic-paths :search search-id)))))
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
