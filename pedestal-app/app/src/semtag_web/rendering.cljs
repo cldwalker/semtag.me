@@ -26,6 +26,14 @@
 (defn- frequency-stat [title data]
   (format "%s: %s - %s" title (count data) (frequencies-string data)))
 
+(defn render-alert
+  "Adds an alert box at the top of the page"
+  [msg alert-type]
+  (dom/prepend! (dom/by-id "main")
+                (p/alert msg (str "alert-" (name alert-type)))))
+
+;; Rendering fns e.g. (fn [_ _ _])
+;;
 (defn clear-id [id]
   (fn [_ _ _] (dom/set-html! (dom/by-id id) "")))
 
@@ -33,11 +41,49 @@
   (fn [_ _ input-queue]
     (history/navigated input-queue screen)))
 
-(defn render-alert
-  "Adds an alert box at the top of the page"
-  [msg alert-type]
-  (dom/prepend! (dom/by-id "main")
-                (p/alert msg (str "alert-" (name alert-type)))))
+(defn navigate-path
+  "Navigate paths whose last element is the navigated id"
+  [_ [_ path] input-queue]
+  (history/navigated input-queue (last path)))
+
+;; Event helper fns
+
+(defn dynamic-focus-messages [& {:keys [params screen paths]}]
+  [{msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths}
+   {msg/type :set-focus msg/topic msg/app-model :name screen}
+   {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])
+
+(defn dynamic-paths [route screen]
+  (case route
+    :thing [[:app-model :thing screen] [:app-model :navbar]]
+    []))
+
+(defn dynamic-href-sets-focus
+  "Given an event creates messages to focus a new dynamic screen"
+  [{:keys [event]}]
+  (let [rel-uri (->> event .-currentTarget .-href (re-find #"#.*?$"))]
+    (if-let [route (route/find-dynamic-route rel-uri)]
+      (let [params (route/parse-params rel-uri)
+            screen (route/url->screen rel-uri)]
+        (swap! route/dynamic-screens assoc screen params)
+        (dynamic-focus-messages :screen screen
+                                :params params
+                                :paths (dynamic-paths route screen)))
+      (.log js/console "No screen found for element" (.-currentTarget event)))))
+
+;; Yes, we should be sending messages to do this separately but
+;; that seems like overkill right now
+(defn enable-clickable-links-on
+  [parent-selector input-queue]
+  (events/send-on :click
+                  (css/sel (str parent-selector " a"))
+                  input-queue
+                  #(dynamic-href-sets-focus {:event (.-evt %)})))
+
+(defn href-sets-focus [{:keys [transform messages event]}]
+  (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
+    (msg/fill transform messages {:value (name screen) :name screen})
+    (.log js/console "No screen found for element" (.-currentTarget event))))
 
 ;; Rendering fns
 
@@ -104,35 +150,6 @@
                       :row-partial p/type-stats-row
                       :fields [:name :count :name-percent :url-percent])))
 
-;; TODO - only generate :add-named-paths for dynamic focii
-(defn dynamic-focus-messages [& {:keys [params screen paths]}]
-  [{msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths}
-   {msg/type :set-focus msg/topic msg/app-model :name screen}
-   {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])
-
-(defn dynamic-paths [route screen]
-  (case route
-    :thing [[:app-model :thing screen] [:app-model :navbar]]
-    []))
-
-;; Yes, we should be sending messages to do this separately but
-;; that seems like overkill right now
-;; TODO - make this generic
-(defn enable-clickable-links-on
-  [parent-selector input-queue]
-  (events/send-on :click
-                  (css/sel (str parent-selector " a"))
-                  input-queue
-                  (fn [event]
-                    (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))]
-                      (when-let [route (route/find-dynamic-route rel-uri)]
-                        (let [params (route/parse-params rel-uri)
-                              screen (route/url->screen rel-uri)]
-                          (swap! route/dynamic-screens assoc screen params)
-                          (dynamic-focus-messages :screen screen
-                                                  :params params
-                                                  :paths (dynamic-paths route screen))))))))
-
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
     (dom/by-id "content")
@@ -164,18 +181,8 @@
                         :fields [:attribute :value])))
   (enable-clickable-links-on "#thing_show_table" input-queue))
 
-(defn href-sets-focus [{:keys [transform messages event]}]
-  (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
-    (msg/fill transform messages {:value (name screen) :name screen})
-    (.log js/console "No screen found for element" (.-currentTarget event))))
-
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
-
-(defn navigate-path
-  "Navigate paths whose last element is the navigated id"
-  [_ [_ path] input-queue]
-  (history/navigated input-queue (last path)))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []
