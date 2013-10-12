@@ -18,6 +18,12 @@
     (is (= ""
            (url-for :thing-id_jekyll)))))
 
+(deftest find-dynamic-route-tests
+  (testing "without keyword substitution"
+    (is (= :search (find-dynamic-route "#/search?query=funny"))))
+  (testing "with keyword substitution"
+    (is (= :thing (find-dynamic-route "#/thing/feynman")))))
+
 (deftest params-from-url-tests
   (testing "with hash url"
     (is (= {:id "dude"}

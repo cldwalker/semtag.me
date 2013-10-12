@@ -46,17 +46,21 @@
     (zipmap (string/split (get dynamic-routes dynamic-screen) #"/")
             (string/split url #"/"))))
 
-(defn find-dynamic-screen
-  [url [screen route]]
-  (when (some-> (re-find #"[^:]+" route)
-                re-pattern
-                (re-find url))
-    screen))
+(defn find-dynamic-route
+  [url]
+  (some (fn [[screen route]]
+          (when (some-> (re-find #"[^:]+" route)
+                        re-pattern
+                        (re-find url))
+            screen))
+        dynamic-routes))
 
+;; screen is the full unique name
+;; route is an entry in one of the route maps
 (defn url->screen
   ([url] (url->screen url nil))
   ([url params]
    (or (get inv-routes url)
-       (when-let [seed (some #(find-dynamic-screen url %) dynamic-routes)]
+       (when-let [seed (find-dynamic-route url)]
          (create-screen-id seed (or params
                                     (params-from-url seed url)))))))

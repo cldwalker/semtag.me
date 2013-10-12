@@ -110,6 +110,11 @@
    {msg/type :set-focus msg/topic msg/app-model :name screen}
    {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])
 
+(defn dynamic-paths [route screen]
+  (case route
+    :thing [[:app-model :thing screen] [:app-model :navbar]]
+    []))
+
 ;; Yes, we should be sending messages to do this separately but
 ;; that seems like overkill right now
 ;; TODO - make this generic
@@ -119,14 +124,14 @@
                   (css/sel (str parent-selector " a"))
                   input-queue
                   (fn [event]
-                    (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))
-                          params (route/params-from-url :thing rel-uri)
-                          screen (route/url->screen rel-uri)]
-                      (swap! route/dynamic-screens assoc screen params)
-                      (dynamic-focus-messages
-                        :screen screen
-                        :params params
-                        :paths [[:app-model :thing screen] [:app-model :navbar]])))))
+                    (let [rel-uri (->> event .-evt .-currentTarget .-href (re-find #"#.*?$"))]
+                      (when-let [route (route/find-dynamic-route rel-uri)]
+                        (let [params (route/params-from-url route rel-uri)
+                              screen (route/url->screen rel-uri)]
+                          (swap! route/dynamic-screens assoc screen params)
+                          (dynamic-focus-messages :screen screen
+                                                  :params params
+                                                  :paths (dynamic-paths route screen))))))))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
