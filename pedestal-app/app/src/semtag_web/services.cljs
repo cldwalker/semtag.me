@@ -84,8 +84,7 @@
    (case (msg/topic message)
      ;; add :value so we can dispatch to it
      [:search] (send-fn (assoc message :value "search") input-queue)
-     ;; dynamic-focus-todo
-     [:page] (if (re-find #"^thing" (:value message))
-               (send-fn (assoc message :value "thing") input-queue)
+     [:page] (if-let [route (route/dynamic-screen->route (:value message))]
+               (send-fn (assoc message :value (name route)) input-queue)
                (send-fn message input-queue))
      nil)))

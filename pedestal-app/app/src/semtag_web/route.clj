@@ -7,7 +7,7 @@
    :all "#/all"
    :home "#/"})
 
-(def dynamic-routes
+(def dynamic-routes "Maps routes to relative paths"
   {:search "#/search"
    :thing "#/thing/:id"})
 
@@ -16,14 +16,25 @@
 
 (def inv-routes (zipmap (vals routes) (keys routes)))
 
+(defn screen->route
+  "Returns route name from a screen. Returns nil if invalid screen"
+  [screen]
+  (keyword (re-find #"^[^-]+" (name screen))))
+
+(defn dynamic-screen->route
+  [screen]
+  (let [route (screen->route screen)]
+    (when (get dynamic-routes route)
+      route)))
+
 (defn url-for [screen]
   (if-let [params (get @dynamic-screens screen)]
-    (let [route (get dynamic-routes (keyword (re-find #"[a-z]+" (name screen))))]
-      (if (re-find #":" route)
-        (string/replace route
+    (let [path (get dynamic-routes (screen->route screen))]
+      (if (re-find #":" path)
+        (string/replace path
                         #":\w+"
                         (fn [x] (get params (keyword (subs x 1)))))
-        (str route
+        (str path
              "?"
              (string/join "&"
                           (map #(str (name (key %)) "=" (val %)) params)))))

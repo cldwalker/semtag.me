@@ -52,9 +52,8 @@
     [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
 
 (defn page-deltas [{:keys [new-model]}]
-  ;; dynamic-focus-todo
-  (when (re-find #"^thing" (get-in new-model [:page :value]))
-    [[:node-create [:app-model :thing (route/create-screen-id :thing (get-in new-model [:page :params]))]]]))
+  (when-let [route (route/dynamic-screen->route (str (get-in new-model [:page :value])))]
+    [[:node-create [:app-model route (route/create-screen-id route (get-in new-model [:page :params]))]]]))
 
 (def app
   {:version 2
