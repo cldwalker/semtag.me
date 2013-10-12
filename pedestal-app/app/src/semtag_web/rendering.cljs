@@ -180,7 +180,7 @@
                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
                         :row-partial p/thing-row
                         :fields [:attribute :value])))
-  (enable-clickable-links-on "#thing_show_table" input-queue))
+  (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
