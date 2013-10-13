@@ -140,6 +140,7 @@
   (url-ends-with "#/thing/feynman")
   (is (seq (taxi/elements "#thing_show_table tbody tr"))))
 
+;; TODO - tests on stats table for type and search pages
 (deftest direct-type-page-works
   (visit "#/type/api")
   (url-ends-with "#/type/api")

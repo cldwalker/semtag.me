@@ -185,12 +185,16 @@
   (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue))
 
 (defn render-type-results [_ [_ _ _ new-value] input-queue]
-  (dom/set-html!
-    (dom/by-id "content")
-    (p/generate-table "type_show_table" (:things new-value) 
-                      :row-partial p/type-row
-                      :caption (str "Total: " (count (:things new-value)))
-                      :fields [:name :url :desc :tags :created-at]))
+  (let [{:keys [things tags]} new-value]
+    (dom/set-html!
+      (dom/by-id "content")
+      (p/generate-table "type_show_table" things
+                        :row-partial p/type-row
+                        :caption (str "Total: " (count things))
+                        :fields [:name :url :desc :tags :created-at]))
+    (dom/insert-before! (dom/by-id "type_show_table")
+                        (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                                       (frequency-stat "Tag Counts" (flatten (map :tags things))))))
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
