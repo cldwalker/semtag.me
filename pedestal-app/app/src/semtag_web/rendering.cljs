@@ -57,6 +57,7 @@
   (case route
     :thing [[:app-model :thing screen] [:app-model :navbar]]
     :search [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]]
+    :type [[:app-model :type screen] [:app-model :navbar]]
     []))
 
 (defn dynamic-href-sets-focus
@@ -182,6 +183,15 @@
                         :fields [:attribute :value])))
   (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue))
 
+(defn render-type-results [_ [_ _ _ new-value] input-queue]
+  (dom/set-html!
+    (dom/by-id "content")
+    (p/generate-table "type_show_table" (:things new-value) 
+                      :row-partial p/type-row
+                      :caption (str "Total: " (count (:things new-value)))
+                      :fields [:name :url :desc :tags :created-at]))
+  (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
+
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
@@ -222,6 +232,11 @@
      [:node-create [:app-model :thing :*] navigate-path]
      [:node-destroy [:app-model :thing :*] (clear-id "content")]
      [:value [:app-model :thing :* :thing-results] render-thing-results]
+
+    ;; thing page
+     [:node-create [:app-model :type :*] navigate-path]
+     [:node-destroy [:app-model :type :*] (clear-id "content")]
+     [:value [:app-model :type :* :type-results] render-type-results]
 
     ;; navbar/shared
     [:value [:app-model :navbar :alert-error] render-alert-error]

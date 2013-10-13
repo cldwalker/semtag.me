@@ -69,6 +69,7 @@
                [:set-value [:tag-stats-results] set-value]
                [:set-value [:all-results] set-value]
                [:set-value [:* :thing-results] set-value]
+               [:set-value [:* :type-results] set-value]
 
                ;; search
                [:map-value [:search] map-value]
@@ -91,6 +92,7 @@
 
           [#{[:page]} page-deltas]
           [#{[:* :thing-results]} (app/default-emitter [:app-model :thing])]
+          [#{[:* :type-results]} (app/default-emitter [:app-model :type])]
 
           [#{[:search]} search-deltas]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]

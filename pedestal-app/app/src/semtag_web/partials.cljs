@@ -56,7 +56,7 @@
 
 (defn- td-type [type]
    [:td.editable {:title type :data-field "type"}
-     [:a {:href (path-to "/" type)} type]])
+     [:a {:href (path-to "#/type/" type)} type]])
 
 (defn- td-timestamp [datetime]
   [:td.timestamp {:title (if datetime (.toISOString datetime) "")} (str datetime)])

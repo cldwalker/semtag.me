@@ -140,6 +140,11 @@
   (url-ends-with "#/thing/feynman")
   (is (seq (taxi/elements "#thing_show_table tbody tr"))))
 
+(deftest direct-type-page-works
+  (visit "#/type/api")
+  (url-ends-with "#/type/api")
+  (is (seq (taxi/elements "#type_show_table tbody tr"))))
+
 (deftest thing-link-works-on-tag-stats-table
   (visit "#/tag-stats")
   (click "lein-newnew")

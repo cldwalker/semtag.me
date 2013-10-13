@@ -12,6 +12,10 @@
                 {:attribute :name, :id 17592186048349, :value "feynman"}
                 {:attribute :url, :id 17592186048349, :value nil}
                 {:attribute :tags, :id 17592186048349, :value '()})
+   :type {:things (list {:id 17592186047997, :type "api", :url "https://developers.google.com/freebase/v1/getting-started", :tags '("freebase")}
+                        {:id 17592186047567, :desc "used by faviki to return dbpedia tags for given link/text", :type "api", :url "http://www.zemanta.com/api/", :tags '("faviki" "semantic_web")}
+                        {:id 17592186047994, :type "api", :url "http://www.omdbapi.com/", :tags '("json" "movie")})
+          :tags '(["site" "freebase"] ["wapp" "faviki"] ["cs" "semantic_web"] ["std" "json"] ["tag" "movie"])} 
    :types {:results '({:url-percent "1.00", :name-percent "0.00", :count "3", :name "api"})
            :counts {:thing 3, :name 2, :url 2, :tags 4}}
    :tag-stats (list
@@ -52,6 +56,13 @@
     [(services/thing-id message) :thing-results]
     input-queue
     (:thing api-responses)))
+
+(defmethod send-message :type
+  [message input-queue]
+  (services/put-value
+    [(services/type-id message) :type-results]
+    input-queue
+    (:type api-responses)))
 
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))
