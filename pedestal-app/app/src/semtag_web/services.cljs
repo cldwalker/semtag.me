@@ -56,7 +56,8 @@
        (partial put-value [(keyword (str value "-results"))] input-queue)
        input-queue))
 
-(defmethod send-message :search-form
+;; search_form must be underscored since '-' is reserved for delimiting route names in screens
+(defmethod send-message :search_form
   [message input-queue]
   (GET "/tags"
        (partial put-value [:tags-results] input-queue)
@@ -64,7 +65,7 @@
 
 (defmethod send-message :home
   [message input-queue]
-  (send-message (assoc message :value :search-form) input-queue))
+  (send-message (assoc message :value :search_form) input-queue))
 
 (defmethod send-message :search
   [message input-queue]

@@ -19,7 +19,7 @@
     (do
       ;; Ideally, :search-form effects could be triggered from rendering but this
       ;; causes history caching inconsistencies.
-      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search-form})
+      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search_form})
       (p/put-message (:input app) (merge {msg/type :map-value msg/topic [:search]} params)))
     ;; consider reuse with navbar-deltas
     (p/put-message (:input app)
