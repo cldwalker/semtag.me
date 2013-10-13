@@ -142,7 +142,7 @@
 
 ;;; Other pages
 ;;;
-(defn render-types-results [_ [_ _ _ new-value] _]
+(defn render-types-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
     (dom/by-id "content")
     (p/generate-table "type_stats_table" (:results new-value)
@@ -150,7 +150,8 @@
                                        (get-in new-value [:counts :thing])
                                        (get-in new-value [:counts :tags]))
                       :row-partial p/type-stats-row
-                      :fields [:name :count :name-percent :url-percent])))
+                      :fields [:name :count :name-percent :url-percent]))
+  (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
