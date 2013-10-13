@@ -29,7 +29,7 @@
 (defn render-alert
   "Adds an alert box at the top of the page"
   [msg alert-type]
-  (dom/prepend! (dom/by-id "main")
+  (dom/prepend! (dom/by-id "content")
                 (p/alert msg (str "alert-" (name alert-type)))))
 
 ;; Rendering fns e.g. (fn [_ _ _])
