@@ -92,4 +92,4 @@
    (or (get inv-routes url)
        (when-let [seed (find-dynamic-route url)]
          (create-screen-id seed (or params
-                                    (params-from-url seed url)))))))
+                                    (parse-params url)))))))

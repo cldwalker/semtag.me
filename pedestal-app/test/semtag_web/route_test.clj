@@ -43,10 +43,12 @@
 (deftest url->screen-tests
   (testing "static route"
     (is (= :types (url->screen "#/types"))))
-  ;; fails without params
   (testing "dynamic route with params"
     (is (= :search-query_funny_type_regex
            (url->screen "#/search" {:query "funny" :type "regex"}))))
+  (testing "dynamic route without keyword segment"
+    (is (= :search-query_funny_type_regex
+           (url->screen "#/search?query=funny&type=regex"))))
   (testing "dynamic route with keyword segment"
     (is (= :thing-id_feynman
            (url->screen "#/thing/feynman")))))
