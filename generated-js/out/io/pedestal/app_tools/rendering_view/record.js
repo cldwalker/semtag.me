@@ -64,12 +64,12 @@ return !(cljs.core.empty_QMARK_(x));
 });
 io.pedestal.app_tools.rendering_view.record.keyword_string_QMARK_ = (function keyword_string_QMARK_(x){
 return cljs.core.keyword_QMARK_((function (){try{return cljs.reader.read_string(x);
-}catch (e13926){if((e13926 instanceof Error))
-{var _ = e13926;
+}catch (e13939){if((e13939 instanceof Error))
+{var _ = e13939;
 return null;
 } else
 {if("\uFDD0:else")
-{throw e13926;
+{throw e13939;
 } else
 {return null;
 }
@@ -86,11 +86,11 @@ io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IMultiFn$_a
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:field-name","Position:","\uFDD0:placeholder","position in list","\uFDD0:input-class","input-mini","\uFDD0:default",0,"\uFDD0:validation-fn",io.pedestal.app_tools.rendering_view.record.valid_position_QMARK_,"\uFDD0:inline-help","","\uFDD0:inline-help-error","Position must be a number >= 0"], true);
 }));
 io.pedestal.app_tools.rendering_view.record.make_and_save_recording = (function make_and_save_recording(message){
-var map__13928 = message;
-var map__13928__$1 = ((cljs.core.seq_QMARK_(map__13928))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__13928):map__13928);
-var order = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13928__$1,"\uFDD0:order");
-var description = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13928__$1,"\uFDD0:description");
-var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13928__$1,"\uFDD0:name");
+var map__13941 = message;
+var map__13941__$1 = ((cljs.core.seq_QMARK_(map__13941))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__13941):map__13941);
+var order = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13941__$1,"\uFDD0:order");
+var description = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13941__$1,"\uFDD0:description");
+var name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__13941__$1,"\uFDD0:name");
 return io.pedestal.app_tools.rendering_view.record.save_recording(cljs.core.PersistentArrayMap.fromArray(["\uFDD0:config",cljs.core.PersistentArrayMap.fromArray(["\uFDD0:order",parseInt(order),"\uFDD0:description",description,"\uFDD0:name",cljs.reader.read_string(name)], true),"\uFDD0:data",(new cljs.core.Keyword("\uFDD0:recorded-deltas")).call(null,cljs.core.deref(io.pedestal.app_tools.rendering_view.record.recording_state))], true));
 });
 io.pedestal.app_tools.rendering_view.record.recording_QMARK_ = (function recording_QMARK_(){
@@ -116,43 +116,43 @@ return r_QMARK_;
 io.pedestal.app_tools.rendering_view.record.toggle_recording = (function toggle_recording(){
 var recording_QMARK_ = io.pedestal.app_tools.rendering_view.record.toggle_recording_internal();
 if(cljs.core.not(recording_QMARK_))
-{return io.pedestal.app.render.push.handlers.automatic.generic_modal_collect_input("content",cljs.core.gensym.cljs$core$IFn$_invoke$arity$0(),(function (){if((void 0 === io.pedestal.app_tools.rendering_view.record.t13932))
-{goog.provide('io.pedestal.app_tools.rendering_view.record.t13932');
+{return io.pedestal.app.render.push.handlers.automatic.generic_modal_collect_input("content",cljs.core.gensym.cljs$core$IFn$_invoke$arity$0(),(function (){if((void 0 === io.pedestal.app_tools.rendering_view.record.t13945))
+{goog.provide('io.pedestal.app_tools.rendering_view.record.t13945');
 
 /**
 * @constructor
 */
-io.pedestal.app_tools.rendering_view.record.t13932 = (function (recording_QMARK_,toggle_recording,meta13933){
+io.pedestal.app_tools.rendering_view.record.t13945 = (function (recording_QMARK_,toggle_recording,meta13946){
 this.recording_QMARK_ = recording_QMARK_;
 this.toggle_recording = toggle_recording;
-this.meta13933 = meta13933;
+this.meta13946 = meta13946;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 })
-io.pedestal.app_tools.rendering_view.record.t13932.cljs$lang$type = true;
-io.pedestal.app_tools.rendering_view.record.t13932.cljs$lang$ctorStr = "io.pedestal.app-tools.rendering-view.record/t13932";
-io.pedestal.app_tools.rendering_view.record.t13932.cljs$lang$ctorPrWriter = (function (this__9456__auto__,writer__9457__auto__,opt__9458__auto__){
-return cljs.core._write(writer__9457__auto__,"io.pedestal.app-tools.rendering-view.record/t13932");
+io.pedestal.app_tools.rendering_view.record.t13945.cljs$lang$type = true;
+io.pedestal.app_tools.rendering_view.record.t13945.cljs$lang$ctorStr = "io.pedestal.app-tools.rendering-view.record/t13945";
+io.pedestal.app_tools.rendering_view.record.t13945.cljs$lang$ctorPrWriter = (function (this__9456__auto__,writer__9457__auto__,opt__9458__auto__){
+return cljs.core._write(writer__9457__auto__,"io.pedestal.app-tools.rendering-view.record/t13945");
 });
-io.pedestal.app_tools.rendering_view.record.t13932.prototype.io$pedestal$app$protocols$PutMessage$ = true;
-io.pedestal.app_tools.rendering_view.record.t13932.prototype.io$pedestal$app$protocols$PutMessage$put_message$arity$2 = (function (_,message){
+io.pedestal.app_tools.rendering_view.record.t13945.prototype.io$pedestal$app$protocols$PutMessage$ = true;
+io.pedestal.app_tools.rendering_view.record.t13945.prototype.io$pedestal$app$protocols$PutMessage$put_message$arity$2 = (function (_,message){
 var self__ = this;
 return io.pedestal.app_tools.rendering_view.record.make_and_save_recording(message);
 });
-io.pedestal.app_tools.rendering_view.record.t13932.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_13934){
+io.pedestal.app_tools.rendering_view.record.t13945.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_13947){
 var self__ = this;
-return self__.meta13933;
+return self__.meta13946;
 });
-io.pedestal.app_tools.rendering_view.record.t13932.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_13934,meta13933__$1){
+io.pedestal.app_tools.rendering_view.record.t13945.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_13947,meta13946__$1){
 var self__ = this;
-return (new io.pedestal.app_tools.rendering_view.record.t13932(self__.recording_QMARK_,self__.toggle_recording,meta13933__$1));
+return (new io.pedestal.app_tools.rendering_view.record.t13945(self__.recording_QMARK_,self__.toggle_recording,meta13946__$1));
 });
-io.pedestal.app_tools.rendering_view.record.__GT_t13932 = (function __GT_t13932(recording_QMARK___$1,toggle_recording__$1,meta13933){
-return (new io.pedestal.app_tools.rendering_view.record.t13932(recording_QMARK___$1,toggle_recording__$1,meta13933));
+io.pedestal.app_tools.rendering_view.record.__GT_t13945 = (function __GT_t13945(recording_QMARK___$1,toggle_recording__$1,meta13946){
+return (new io.pedestal.app_tools.rendering_view.record.t13945(recording_QMARK___$1,toggle_recording__$1,meta13946));
 });
 } else
 {}
-return (new io.pedestal.app_tools.rendering_view.record.t13932(recording_QMARK_,toggle_recording,null));
+return (new io.pedestal.app_tools.rendering_view.record.t13945(recording_QMARK_,toggle_recording,null));
 })(),"\uFDD0:io.pedestal.app-tools.rendering-view.record/recording-info",cljs.core.PersistentVector.fromArray([cljs.core.PersistentArrayMap.fromArray([io.pedestal.app.messages.param("\uFDD0:name"),cljs.core.PersistentArrayMap.EMPTY,io.pedestal.app.messages.param("\uFDD0:description"),cljs.core.PersistentArrayMap.EMPTY,io.pedestal.app.messages.param("\uFDD0:order"),cljs.core.PersistentArrayMap.EMPTY], true)], true));
 } else
 {return null;

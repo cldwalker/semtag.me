@@ -26,8 +26,8 @@ if(cljs.core.truth_(and__3941__auto__))
 semtag_web.history.navigated = (function navigated(d,token){
 if(cljs.core.truth_(semtag_web.history.supported_QMARK_))
 {console.log("NAVIGATED",cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([token], 0)));
-var current_token_10821 = history.state;
-if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(current_token_10821,token))
+var current_token_10830 = history.state;
+if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(current_token_10830,token))
 {if((cljs.core.deref(semtag_web.history.last_page) == null))
 {history.replaceState(token,null,null);
 } else

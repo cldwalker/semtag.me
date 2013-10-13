@@ -6,12 +6,12 @@ goog.require('io.pedestal.app.render.events');
 goog.require('io.pedestal.app.render.push');
 goog.require('io.pedestal.app.util.log');
 io.pedestal.app.render.push.handlers.add_send_on = (function add_send_on(event_type,dom_content){
-return (function (renderer,p__13098,input_queue){
-var vec__13099 = p__13098;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13099,0,null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13099,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13099,2,null);
-var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13099,3,null);
+return (function (renderer,p__13111,input_queue){
+var vec__13112 = p__13111;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13112,0,null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13112,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13112,2,null);
+var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13112,3,null);
 return io.pedestal.app.render.events.send_on.cljs$core$IFn$_invoke$arity$5(event_type,dom_content,input_queue,transform_name,messages);
 });
 });
@@ -19,12 +19,12 @@ io.pedestal.app.render.push.handlers.add_send_on_click = (function add_send_on_c
 return io.pedestal.app.render.push.handlers.add_send_on("\uFDD0:click",dom_content);
 });
 io.pedestal.app.render.push.handlers.remove_send_on = (function remove_send_on(event_type,dom_content){
-return (function (renderer,p__13102,input_queue){
-var vec__13103 = p__13102;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13103,0,null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13103,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13103,2,null);
-var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13103,3,null);
+return (function (renderer,p__13115,input_queue){
+var vec__13116 = p__13115;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13116,0,null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13116,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13116,2,null);
+var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13116,3,null);
 return io.pedestal.app.render.events.remove_event(event_type,dom_content);
 });
 });
@@ -41,9 +41,9 @@ return domina.destroy_BANG_(domina.by_id(id));
 {return io.pedestal.app.util.log.warn.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq(["\uFDD0:in","\uFDD0:default-exit","\uFDD0:msg",[cljs.core.str("warning! no id "),cljs.core.str(io.pedestal.app.render.push.handlers.id),cljs.core.str(" found for path "),cljs.core.str(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([path], 0)))].join('')], 0));
 }
 });
-io.pedestal.app.render.push.handlers.default_destroy = (function default_destroy(r,p__13104,_){
-var vec__13106 = p__13104;
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13106,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13106,1,null);
+io.pedestal.app.render.push.handlers.default_destroy = (function default_destroy(r,p__13117,_){
+var vec__13119 = p__13117;
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13119,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13119,1,null);
 return io.pedestal.app.render.push.handlers.destroy_BANG_(r,path);
 });

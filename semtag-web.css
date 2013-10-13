@@ -1,14 +1,11 @@
-#main {
-  margin-left: 100px;
-}
-
-#main .alert {
+#content {
   margin-top: 50px;
-}
-
-.top_box {
-  margin-top: 50px;
+  /* to prevent results from overflowing */
   display: inline-block;
+}
+
+#content .alert {
+  margin-top: 50px;
 }
 
 #search_box table {
@@ -33,6 +30,10 @@ table caption {
 #add_url_text {
   width: 280px;
   display:none;
+}
+
+td.delete a {
+  display: none;
 }
 
 .ellipsis {
