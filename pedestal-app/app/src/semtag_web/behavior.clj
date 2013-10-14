@@ -46,14 +46,8 @@
 (defn init-all [_]
   [[:node-create [:app-model :all]]])
 
-(defn search-deltas [{:keys [new-model]}]
-  ;; TODO - fix this getting called for more than just :search
-  (when (:search new-model)
-    [[:node-create [:app-model :search (route/create-screen-id :search (:search new-model))]]]))
-
 (defn page-deltas [{:keys [new-model]}]
   (when-let [route (route/dynamic-screen->route (str (get-in new-model [:page :value])))]
-    (.log js/console "PAGE" route)
     [[:node-create [:app-model route (route/create-screen-id route (get-in new-model [:page :params]))]]]))
 
 (def app
@@ -73,10 +67,9 @@
                [:set-value [:* :type-results] set-value]
 
                ;; search
-               [:map-value [:search] map-value]
                [:set-value [:* :search-title] set-value]
                [:set-value [:* :search-results] set-value]]
-   :effect #{[#{[:page] [:search] [:create-url]} publish-message]}
+   :effect #{[#{[:page] [:create-url]} publish-message]}
    :emit [{:init init-home}
 
           {:init search-form-deltas}
@@ -94,8 +87,6 @@
           [#{[:page]} page-deltas]
           [#{[:* :thing-results]} (app/default-emitter [:app-model :thing])]
           [#{[:* :type-results]} (app/default-emitter [:app-model :type])]
-
-          [#{[:search]} search-deltas]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init navbar-deltas}

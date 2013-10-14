@@ -15,16 +15,12 @@
             [goog.Uri]))
 
 (defn- put-message-on-page-load [app screen params]
-  (if (re-find #"^search" (name screen))
-    (do
-      ;; Ideally, :search-form effects could be triggered from rendering but this
-      ;; causes history caching inconsistencies.
-      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search_form})
-      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value "search" :params params}))
-    ;; consider reuse with navbar-deltas
-    (p/put-message (:input app)
-                   ;; put params in :params so no dissocing everywhere
-                   {msg/type :map-value msg/topic [:page] :value (name screen) :params params})))
+  ;; Ideally, :search-form effects could be triggered from rendering but this
+  ;; causes history caching inconsistencies.
+  (when (re-find #"^search" (name screen))
+      (p/put-message (:input app) {msg/type :map-value msg/topic [:page] :value :search_form}))
+  (p/put-message (:input app)
+                 {msg/type :map-value msg/topic [:page] :value (name screen) :params params}))
 
 (defn- update-behavior
   "Updates behavior with possible dynamic focus"
