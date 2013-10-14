@@ -43,10 +43,10 @@
     (:tags api-responses)))
 
 (defmethod send-message :search
-  [message input-queue]
-  (services/put-search-title input-queue message)
+  [{:keys [params]} input-queue]
+  (services/put-search-title input-queue params)
   (services/put-value
-    [(services/search-id message) :search-results]
+    [(services/search-id params) :search-results]
     input-queue
     (:search api-responses)))
 

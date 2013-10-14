@@ -27,7 +27,7 @@
    ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
    [:transform-enable [:app-model :search-form :search] :search [{msg/type :add-named-paths msg/topic msg/app-model (msg/param :name) {} (msg/param :paths) {}}
                                                                  {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}
-                                                                 {msg/type :map-value msg/topic [:search] (msg/param :query) {} (msg/param :search-type) {}}]]])
+                                                                 {msg/type :map-value msg/topic [:page] :value "search" (msg/param :params) {}}]]])
 
 
 (defn navbar-deltas []
@@ -53,6 +53,7 @@
 
 (defn page-deltas [{:keys [new-model]}]
   (when-let [route (route/dynamic-screen->route (str (get-in new-model [:page :value])))]
+    (.log js/console "PAGE" route)
     [[:node-create [:app-model route (route/create-screen-id route (get-in new-model [:page :params]))]]]))
 
 (def app

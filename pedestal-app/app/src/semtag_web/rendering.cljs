@@ -109,9 +109,9 @@
         search-id (route/create-screen-id :search search-map)]
     ;; needed for history navigation
     (swap! route/dynamic-screens assoc search-id search-map)
-    (msg/fill transform messages (assoc search-map
-                                        :name search-id
-                                        :paths (dynamic-paths :search search-id)))))
+    (msg/fill transform messages {:name search-id
+                                  :params search-map
+                                  :paths (dynamic-paths :search search-id)})))
 
 (defn create-url [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))

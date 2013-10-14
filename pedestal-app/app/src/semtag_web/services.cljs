@@ -68,11 +68,11 @@
   (send-message (assoc message :value :search_form) input-queue))
 
 (defmethod send-message :search
-  [message input-queue]
-  (put-search-title input-queue message)
+  [{:keys [params]} input-queue]
+  (put-search-title input-queue params)
   (GET
-    (str "/search?query=" (:query message) "&search_type=" (:search-type message))
-    (partial put-value [(search-id message) :search-results] input-queue)
+    (str "/search?query=" (:query params) "&search_type=" (:search-type params))
+    (partial put-value [(search-id params) :search-results] input-queue)
     input-queue))
 
 (defmethod send-message :thing
@@ -92,8 +92,6 @@
   ([message input-queue send-fn]
    (.log js/console (str "Effect called with: " message))
    (case (msg/topic message)
-     ;; add :value so we can dispatch to it
-     [:search] (send-fn (assoc message :value "search") input-queue)
      [:page] (if-let [route (route/dynamic-screen->route (:value message))]
                (send-fn (assoc message :value (name route)) input-queue)
                (send-fn message input-queue))
