@@ -133,7 +133,8 @@
 (deftest direct-search-url-works
   (visit "#/search?query=maxwell&search-type=tagged-with-type")
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type")
-  (is (seq (taxi/elements "#search_table tbody tr"))))
+  (is (seq (taxi/elements "#search_table tbody tr")))
+  (is (.contains (taxi/text "#content") "Tag Type Counts:")))
 
 (deftest direct-thing-page-works
   (visit "#/thing/feynman")
@@ -145,11 +146,11 @@
   (click "Tagged with feynman")
   (is (seq (taxi/elements "#search_table tbody tr"))))
 
-;; TODO - tests on stats table for type and search pages
 (deftest direct-type-page-works
   (visit "#/type/api")
   (url-ends-with "#/type/api")
-  (is (seq (taxi/elements "#type_show_table tbody tr"))))
+  (is (seq (taxi/elements "#type_show_table tbody tr")))
+  (is (.contains (taxi/text "#content") "Tag Type Counts:")))
 
 (deftest thing-link-works-on-tag-stats-table
   (visit "#/tag-stats")
