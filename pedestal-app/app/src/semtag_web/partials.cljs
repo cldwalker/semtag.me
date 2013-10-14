@@ -31,7 +31,7 @@
     [:a (merge {:href (path-to "#/thing/" unique-id)} attr) text]))
 
 (defn- link-tagged [tag]
-  [:a {:href (path-to "/?query=" tag)} (str "Tagged with " tag)])
+  [:a {:href (path-to "#/search?query=" tag)} (str "Tagged with " tag)])
 
 ;;; td formatters
 (defn- td-url [url]

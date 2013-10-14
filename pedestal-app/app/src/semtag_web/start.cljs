@@ -44,6 +44,11 @@
         app (app/build (update-behavior behavior/app dynamic-route screen))
         render-fn (push-render/renderer "content" render-config render/log-fn)
         app-model (render/consume-app-model app render-fn)]
+    ;; Ugh - this sucks
+    ;; Consider reuse with rendering/dynamic-href-set-focus
+    (when dynamic-route
+      (swap! route/dynamic-screens assoc screen params))
+
     (app/begin app)
     (put-message-on-page-load app screen params)
     {:app app :app-model app-model}))

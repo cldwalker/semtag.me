@@ -66,7 +66,7 @@
   (let [rel-uri (->> event .-currentTarget .-href (re-find #"#.*?$"))]
     (if-let [route (route/find-dynamic-route rel-uri)]
       (let [params (route/parse-params rel-uri)
-            screen (route/url->screen rel-uri)]
+            screen (route/url->screen rel-uri params)]
         (swap! route/dynamic-screens assoc screen params)
         (dynamic-focus-messages :screen screen
                                 :params params
@@ -173,16 +173,17 @@
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
-  (let [thing-id (nth path (- (count path) 2))]
+  (let [screen (nth path (- (count path) 2))
+        thing-id (->> screen (get @route/dynamic-screens) :id)]
     (dom/set-html!
       (dom/by-id "content")
       (p/generate-table "thing_show_table"
                         (conj new-value {:attribute :actions :id (:id (first new-value))})
-                        ;; TODO - fix id when it renders
                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
                         :row-partial p/thing-row
                         :fields [:attribute :value])))
-  (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue))
+  (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
+  (enable-clickable-links-on "#thing_show_table caption" input-queue))
 
 (defn render-type-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]

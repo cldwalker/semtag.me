@@ -138,7 +138,8 @@
 (deftest direct-thing-page-works
   (visit "#/thing/feynman")
   (url-ends-with "#/thing/feynman")
-  (is (seq (taxi/elements "#thing_show_table tbody tr"))))
+  (is (seq (taxi/elements "#thing_show_table tbody tr")))
+  (is (taxi/find-element {:tag :a :text "Tagged with feynman"})))
 
 ;; TODO - tests on stats table for type and search pages
 (deftest direct-type-page-works
