@@ -69,10 +69,14 @@
 
 (defmethod send-message :search
   [{:keys [params]} input-queue]
+  (p/put-message input-queue {msg/type :set-value msg/topic [:modal-spinner] :value "Please wait!"})
   (put-search-title input-queue params)
+
   (GET
     (str "/search?query=" (:query params) "&search_type=" (:search-type params))
-    (partial put-value [(search-id params) :search-results] input-queue)
+    (fn [data]
+      (put-value [(search-id params) :search-results] input-queue data)
+      (p/put-message input-queue {msg/type :set-value msg/topic [:modal-spinner] :value nil}))
     input-queue))
 
 (defmethod send-message :thing

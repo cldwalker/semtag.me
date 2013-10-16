@@ -56,6 +56,7 @@
    :transform [;; general
                [:map-value [:page] map-value]
                [:set-value [:alert-error] set-value]
+               [:set-value [:modal-spinner] set-value]
 
                ;; specific effects
                [:set-value [:create-url] set-value]
@@ -90,7 +91,7 @@
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init navbar-deltas}
-          [#{[:alert-error]} (app/default-emitter [:app-model :navbar])]
+          [#{[:alert-error] [:modal-spinner]} (app/default-emitter [:app-model :navbar])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
    :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :navbar]]
            :types [[:app-model :types] [:app-model :navbar]]

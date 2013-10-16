@@ -66,3 +66,7 @@ a.noname {
 #table_stats {
   width: 600px;
 }
+
+.modal-dialog {
+  width: 430px;
+}

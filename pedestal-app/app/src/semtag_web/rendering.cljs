@@ -1,6 +1,7 @@
 (ns semtag-web.rendering
   (:require [domina :as dom]
             [domina.css :as css]
+            [goog.ui.Dialog :as gdialog]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
             [semtag-web.history :as history]
@@ -201,6 +202,22 @@
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
+;; Consider using a working defonce - https://gist.github.com/cemerick/6331727
+(def gdialog (atom nil))
+
+;; Yes - this toggles the spinner on/off depending on the value. This
+;; seeemed saner than massaging emit deltas or coming up with
+;; separate paths just to toggle a value.
+(defn render-modal-spinner [_ [_ _ _ new-value] _]
+  (when-not @gdialog
+    (reset! gdialog (new goog.ui.Dialog)))
+  (if new-value
+    (doto @gdialog
+      (.setContent new-value)
+      (.setVisible true))
+    ;; Add a little lag so it's not just a blink
+    (js/setTimeout (fn [] (.setVisible @gdialog false)) 200)))
+
 ;; TODO - undo for all :value's that render
 (defn render-config []
   (reduce
@@ -246,6 +263,7 @@
 
     ;; navbar/shared
     [:value [:app-model :navbar :alert-error] render-alert-error]
+    [:value [:app-model :navbar :modal-spinner] render-modal-spinner]
      ]
 
      ;; navbar
