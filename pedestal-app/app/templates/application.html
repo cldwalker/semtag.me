@@ -49,43 +49,9 @@
     <!-- jquery, jquery.tablesorter, jquery.timeago, cljs/main.js semtag_web.client.main.home -->
     <script id="script-driver"></script>
 
-<div id="spin_modal_overlay" style="background-color: rgba(102, 99, 99,
-                                    0.6); width:100%; height:100%;
-                                    position:fixed; top:0px; left:0px;
-                                    z-index:2e9">
-<div id="overlay_message">Loading...</div></div>
+    <div id="spin_modal_overlay">
+      <div id="overlay_message">Loading...</div>
+    </div>
    <script src='spin.js'></script>
-   <style>
-     #overlay_message {
-       font-size: 50px;
-       position: relative;
-       z-index: 2e9;
-       left: 45%;
-       top: 30%;
-       color: black;
-     }
-   </style>
-   <script>
-     // based on http://stackoverflow.com/questions/9585752/using-simplemodal-show-loading-spinner-while-content-inside-iframe-loads/12882847#12882847
-     var target = document.querySelector("#spin_modal_overlay");
-     var modal_opts = {
-     lines: 11, // The number of lines to draw
-     length: 23, // The length of each line
-     width: 8, // The line thickness
-     radius: 40, // The radius of the inner circle
-     corners: 1, // Corner roundness (0..1)
-     rotate: 9, // The rotation offset
-     color: '#FFF', // #rgb or #rrggbb
-     speed: 1, // Rounds per second
-     trail: 50, // Afterglow percentage
-     shadow: true, // Whether to render a shadow
-     hwaccel: false, // Whether to use hardware acceleration
-     className: 'spinner', // The CSS class to assign to the spinner
-     zIndex: 2e9, // The z-index (defaults to 2000000000)
-     };
-     var spinner = new Spinner(modal_opts).spin(target);
-     spinner.el.style.top = '50%';
-     spinner.el.style.left = '50%';
-   </script>
   </body>
 </html>

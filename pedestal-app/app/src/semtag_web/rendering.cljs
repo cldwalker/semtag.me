@@ -6,9 +6,8 @@
             [semtag-web.partials :as p]
             [semtag-web.history :as history]
             [semtag-web.route :as route]
+            [semtag-web.spinner :as spinner]
             [clojure.string :as string]
-            [goog.events.KeyCodes :as key-codes]
-            [goog.ui.KeyboardShortcutHandler :as shortcut]
             [io.pedestal.app.protocols :as prot]
             [io.pedestal.app.render.events :as events]
             [io.pedestal.app.render.push :as render]
@@ -204,36 +203,11 @@
 (defn render-alert-error [_ [_ _ _ msg] _]
   (render-alert msg :error))
 
-;; Consider using a working defonce - https://gist.github.com/cemerick/6331727
-(def gdialog (atom nil))
-
 ;; Yes - this toggles the spinner on/off depending on the value. This
 ;; seeemed saner than massaging emit deltas or coming up with
 ;; separate paths just to toggle a value.
 (defn render-modal-spinner [_ [_ _ _ new-value] _]
-  (when new-value
-      (.log js/console "key binding")
-    (let [shortcut-handler (goog.ui.KeyboardShortcutHandler. js/document)
-          show-triggered (fn [event]
-                           (.log js/console (str "Received: " (.-identifier event)))
-                           (.stop js/spinner)
-                           (set! (-> "spin_modal_overlay" dom/by-id .-style .-display)
-                                 "none"))]
-      (.registerShortcut shortcut-handler "q" "q")
-      (.listen goog.events
-               shortcut-handler
-               goog.ui.KeyboardShortcutHandler.EventType.SHORTCUT_TRIGGERED
-               show-triggered)))
-  #_(when-not @gdialog
-    (reset! gdialog (new goog.ui.Dialog)))
-  #_(if new-value
-    (dom/append!
-     (dom/by-id "body"))
-    #_(doto @gdialog
-      (.setContent "<img src='/large_spinner.gif'/>")
-      (.setVisible true))
-    ;; Add a little lag so it's not just a blink
-    (js/setTimeout (fn [] #_(.setVisible @gdialog false)) 200)))
+  (spinner/render new-value))
 
 ;; TODO - undo for all :value's that render
 (defn render-config []
