@@ -78,15 +78,16 @@ a.noname {
     left: 45%;
     top: 30%;
     color: black;
+    display: none;
 }
 
 #spin_modal_overlay {
     background-color: rgba(102, 99, 99,0.6);
-    width:100%;
-    height:100%;
-    position:fixed;
-    top:0px;
-    left:0px;
-    z-index:2e9
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 2e9;
     display: none;
 }

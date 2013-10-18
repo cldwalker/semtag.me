@@ -28,7 +28,7 @@
                          (.log js/console (str "Received: " (.-identifier event)))
                          (.stop @spinner)
                          (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "none"))]
-    (.registerShortcut shortcut-handler "q" "q")
+    (.registerShortcut shortcut-handler "esc" goog.events.KeyCodes.ESC)
     (.listen goog.events
              shortcut-handler
              goog.ui.KeyboardShortcutHandler.EventType.SHORTCUT_TRIGGERED
@@ -45,10 +45,11 @@
   (.log js/console "spinner" new-value)
   (when-not @spinner
     (create-spinner)
+    ;; TODO: disable input focus for search
     (setup-keybindings))
   (if new-value
     (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "block")
     ;; Add a little lag so it's not just a blink
     (js/setTimeout
      (fn [] (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "none"))
-     2000)))
+     200)))
