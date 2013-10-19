@@ -9,9 +9,9 @@
 ;; Based on http://stackoverflow.com/questions/9585752/using-simplemodal-show-loading-spinner-while-content-inside-iframe-loads/12882847#12882847
 (def modal-opts
   {:lines 11
-   :length 23
+   :length 33
    :width 8
-   :radius 40
+   :radius 45
    :corners 1
    :rotate 9
    :color "#FFF"
