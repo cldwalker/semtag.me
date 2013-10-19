@@ -1,7 +1,6 @@
 (ns semtag-web.rendering
   (:require [domina :as dom]
             [domina.css :as css]
-            [goog.ui.Dialog :as gdialog]
             [semtag-web.rendering-util :as util]
             [semtag-web.partials :as p]
             [semtag-web.history :as history]
