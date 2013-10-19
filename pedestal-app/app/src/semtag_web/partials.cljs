@@ -59,7 +59,8 @@
      [:a {:href (path-to "#/type/" type)} type]])
 
 (defn- td-timestamp [datetime]
-  [:td.timestamp {:title (if datetime (.toISOString datetime) "")} (str (.toLocaleDateString datetime))])
+  [:td.timestamp {:title (if datetime (.toISOString datetime) "")}
+   (when datetime (str (.toLocaleDateString datetime)))])
 
 ;;; partials
 (defpartial default-row [row fields]
