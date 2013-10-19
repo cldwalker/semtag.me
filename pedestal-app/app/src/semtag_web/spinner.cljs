@@ -43,7 +43,7 @@
 
 (defn render [new-value]
   (.log js/console "spinner" new-value)
-  (when-not @spinner
+  (when (and new-value (not @spinner))
     (create-spinner)
     ;; TODO: disable input focus for search
     (setup-keybindings))
@@ -52,4 +52,4 @@
     ;; Add a little lag so it's not just a blink
     (js/setTimeout
      (fn [] (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "none"))
-     200)))
+     300)))
