@@ -20,10 +20,10 @@ return clojure.string.join.cljs$core$IFn$_invoke$arity$2(io.pedestal.app.render.
 io.pedestal.app.render.push.cljs_formatter.html_collection = (function html_collection(class$,opener,closer,coll){
 return io.pedestal.app.render.push.cljs_formatter.span([cljs.core.str("collection "),cljs.core.str(class$)].join(''),[cljs.core.str(io.pedestal.app.render.push.cljs_formatter.span("opener",opener)),cljs.core.str(io.pedestal.app.render.push.cljs_formatter.span("contents",io.pedestal.app.render.push.cljs_formatter.join(" ",coll))),cljs.core.str(io.pedestal.app.render.push.cljs_formatter.span("closer",closer))].join(''));
 });
-io.pedestal.app.render.push.cljs_formatter.html_keyval = (function html_keyval(p__13221){
-var vec__13223 = p__13221;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13223,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13223,1,null);
+io.pedestal.app.render.push.cljs_formatter.html_keyval = (function html_keyval(p__13653){
+var vec__13655 = p__13653;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13655,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13655,1,null);
 return io.pedestal.app.render.push.cljs_formatter.span("keyval",[cljs.core.str((io.pedestal.app.render.push.cljs_formatter.html.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.html.cljs$core$IFn$_invoke$arity$1(k) : io.pedestal.app.render.push.cljs_formatter.html.call(null,k))),cljs.core.str(io.pedestal.app.render.push.cljs_formatter.span("separator"," ")),cljs.core.str((io.pedestal.app.render.push.cljs_formatter.html.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.html.cljs$core$IFn$_invoke$arity$1(v) : io.pedestal.app.render.push.cljs_formatter.html.call(null,v)))].join(''));
 });
 io.pedestal.app.render.push.cljs_formatter.html_keyvals = (function html_keyvals(coll){
@@ -98,10 +98,10 @@ io.pedestal.app.render.push.cljs_formatter.initial_arrange_state = cljs.core.cyc
 io.pedestal.app.render.push.cljs_formatter.color = cljs.core.first;
 io.pedestal.app.render.push.cljs_formatter.next_state = cljs.core.rest;
 io.pedestal.app.render.push.cljs_formatter.arrange_keyval_BANG_ = (function arrange_keyval_BANG_(state,elem,container){
-var vec__13225 = domina.children(elem);
-var key = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13225,0,null);
-var separator = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13225,1,null);
-var val = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13225,2,null);
+var vec__13657 = domina.children(elem);
+var key = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13657,0,null);
+var separator = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13657,1,null);
+var val = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13657,2,null);
 (io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3(state,key,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,state,key,container));
 (io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3(state,val,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,state,val,container));
 if(cljs.core.truth_(io.pedestal.app.render.push.cljs_formatter.overflow_QMARK_(elem,container)))
@@ -116,71 +116,71 @@ io.pedestal.app.render.push.cljs_formatter.collection_styles = cljs.core.Persist
 io.pedestal.app.render.push.cljs_formatter.arrange_collection_BANG_ = (function arrange_collection_BANG_(state,elem,container){
 domina.add_class_BANG_(elem,"arranged");
 domina.set_styles_BANG_(elem,cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([io.pedestal.app.render.push.cljs_formatter.collection_styles,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:background-color",(io.pedestal.app.render.push.cljs_formatter.color.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.color.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.color.call(null,state))], true)], 0)));
-var vec__13231 = domina.children(elem);
-var opener = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13231,0,null);
-var contents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13231,1,null);
-var closer = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13231,2,null);
+var vec__13663 = domina.children(elem);
+var opener = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13663,0,null);
+var contents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13663,1,null);
+var closer = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13663,2,null);
 domina.set_styles_BANG_(opener,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","inline","\uFDD0:vertical-align","top"], true));
 domina.set_styles_BANG_(closer,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","inline","\uFDD0:vertical-align","bottom"], true));
 domina.set_styles_BANG_(contents,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","inline-block","\uFDD0:vertical-align","top"], true));
-var seq__13232_13236 = cljs.core.seq(domina.children(contents));
-var chunk__13233_13237 = null;
-var count__13234_13238 = 0;
-var i__13235_13239 = 0;
+var seq__13664_13668 = cljs.core.seq(domina.children(contents));
+var chunk__13665_13669 = null;
+var count__13666_13670 = 0;
+var i__13667_13671 = 0;
 while(true){
-if((i__13235_13239 < count__13234_13238))
-{var child_13240 = chunk__13233_13237.cljs$core$IIndexed$_nth$arity$2(chunk__13233_13237,i__13235_13239);
-if(cljs.core.truth_(domina.has_class_QMARK_(child_13240,"separator")))
-{domina.set_styles_BANG_(child_13240,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","none"], true));
+if((i__13667_13671 < count__13666_13670))
+{var child_13672 = chunk__13665_13669.cljs$core$IIndexed$_nth$arity$2(chunk__13665_13669,i__13667_13671);
+if(cljs.core.truth_(domina.has_class_QMARK_(child_13672,"separator")))
+{domina.set_styles_BANG_(child_13672,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","none"], true));
 } else
-{(io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3((io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13240,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,(io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13240,container));
-domina.set_styles_BANG_(child_13240,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","block"], true));
+{(io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3((io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13672,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,(io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13672,container));
+domina.set_styles_BANG_(child_13672,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","block"], true));
 }
 {
-var G__13241 = seq__13232_13236;
-var G__13242 = chunk__13233_13237;
-var G__13243 = count__13234_13238;
-var G__13244 = (i__13235_13239 + 1);
-seq__13232_13236 = G__13241;
-chunk__13233_13237 = G__13242;
-count__13234_13238 = G__13243;
-i__13235_13239 = G__13244;
+var G__13673 = seq__13664_13668;
+var G__13674 = chunk__13665_13669;
+var G__13675 = count__13666_13670;
+var G__13676 = (i__13667_13671 + 1);
+seq__13664_13668 = G__13673;
+chunk__13665_13669 = G__13674;
+count__13666_13670 = G__13675;
+i__13667_13671 = G__13676;
 continue;
 }
 } else
-{var temp__4092__auto___13245 = cljs.core.seq(seq__13232_13236);
-if(temp__4092__auto___13245)
-{var seq__13232_13246__$1 = temp__4092__auto___13245;
-if(cljs.core.chunked_seq_QMARK_(seq__13232_13246__$1))
-{var c__9646__auto___13247 = cljs.core.chunk_first(seq__13232_13246__$1);
+{var temp__4092__auto___13677 = cljs.core.seq(seq__13664_13668);
+if(temp__4092__auto___13677)
+{var seq__13664_13678__$1 = temp__4092__auto___13677;
+if(cljs.core.chunked_seq_QMARK_(seq__13664_13678__$1))
+{var c__9646__auto___13679 = cljs.core.chunk_first(seq__13664_13678__$1);
 {
-var G__13248 = cljs.core.chunk_rest(seq__13232_13246__$1);
-var G__13249 = c__9646__auto___13247;
-var G__13250 = cljs.core.count(c__9646__auto___13247);
-var G__13251 = 0;
-seq__13232_13236 = G__13248;
-chunk__13233_13237 = G__13249;
-count__13234_13238 = G__13250;
-i__13235_13239 = G__13251;
+var G__13680 = cljs.core.chunk_rest(seq__13664_13678__$1);
+var G__13681 = c__9646__auto___13679;
+var G__13682 = cljs.core.count(c__9646__auto___13679);
+var G__13683 = 0;
+seq__13664_13668 = G__13680;
+chunk__13665_13669 = G__13681;
+count__13666_13670 = G__13682;
+i__13667_13671 = G__13683;
 continue;
 }
 } else
-{var child_13252 = cljs.core.first(seq__13232_13246__$1);
-if(cljs.core.truth_(domina.has_class_QMARK_(child_13252,"separator")))
-{domina.set_styles_BANG_(child_13252,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","none"], true));
+{var child_13684 = cljs.core.first(seq__13664_13678__$1);
+if(cljs.core.truth_(domina.has_class_QMARK_(child_13684,"separator")))
+{domina.set_styles_BANG_(child_13684,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","none"], true));
 } else
-{(io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3((io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13252,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,(io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13252,container));
-domina.set_styles_BANG_(child_13252,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","block"], true));
+{(io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3 ? io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.cljs$core$IFn$_invoke$arity$3((io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13684,container) : io.pedestal.app.render.push.cljs_formatter.arrange_element_BANG_.call(null,(io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1 ? io.pedestal.app.render.push.cljs_formatter.next_state.cljs$core$IFn$_invoke$arity$1(state) : io.pedestal.app.render.push.cljs_formatter.next_state.call(null,state)),child_13684,container));
+domina.set_styles_BANG_(child_13684,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:display","block"], true));
 }
 {
-var G__13253 = cljs.core.next(seq__13232_13246__$1);
-var G__13254 = null;
-var G__13255 = 0;
-var G__13256 = 0;
-seq__13232_13236 = G__13253;
-chunk__13233_13237 = G__13254;
-count__13234_13238 = G__13255;
-i__13235_13239 = G__13256;
+var G__13685 = cljs.core.next(seq__13664_13678__$1);
+var G__13686 = null;
+var G__13687 = 0;
+var G__13688 = 0;
+seq__13664_13668 = G__13685;
+chunk__13665_13669 = G__13686;
+count__13666_13670 = G__13687;
+i__13667_13671 = G__13688;
 continue;
 }
 }
@@ -194,54 +194,54 @@ return domina.set_styles_BANG_(elem,cljs.core.PersistentArrayMap.fromArray(["\uF
 io.pedestal.app.render.push.cljs_formatter.remove_all_styles_BANG_ = (function remove_all_styles_BANG_(elem){
 domina.set_attr_BANG_.cljs$core$IFn$_invoke$arity$variadic(elem,"\uFDD0:style",cljs.core.array_seq([""], 0));
 domina.remove_class_BANG_(elem,"arranged");
-var seq__13261 = cljs.core.seq(domina.children(elem));
-var chunk__13262 = null;
-var count__13263 = 0;
-var i__13264 = 0;
+var seq__13693 = cljs.core.seq(domina.children(elem));
+var chunk__13694 = null;
+var count__13695 = 0;
+var i__13696 = 0;
 while(true){
-if((i__13264 < count__13263))
-{var child = chunk__13262.cljs$core$IIndexed$_nth$arity$2(chunk__13262,i__13264);
+if((i__13696 < count__13695))
+{var child = chunk__13694.cljs$core$IIndexed$_nth$arity$2(chunk__13694,i__13696);
 remove_all_styles_BANG_(child);
 {
-var G__13265 = seq__13261;
-var G__13266 = chunk__13262;
-var G__13267 = count__13263;
-var G__13268 = (i__13264 + 1);
-seq__13261 = G__13265;
-chunk__13262 = G__13266;
-count__13263 = G__13267;
-i__13264 = G__13268;
+var G__13697 = seq__13693;
+var G__13698 = chunk__13694;
+var G__13699 = count__13695;
+var G__13700 = (i__13696 + 1);
+seq__13693 = G__13697;
+chunk__13694 = G__13698;
+count__13695 = G__13699;
+i__13696 = G__13700;
 continue;
 }
 } else
-{var temp__4092__auto__ = cljs.core.seq(seq__13261);
+{var temp__4092__auto__ = cljs.core.seq(seq__13693);
 if(temp__4092__auto__)
-{var seq__13261__$1 = temp__4092__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__13261__$1))
-{var c__9646__auto__ = cljs.core.chunk_first(seq__13261__$1);
+{var seq__13693__$1 = temp__4092__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__13693__$1))
+{var c__9646__auto__ = cljs.core.chunk_first(seq__13693__$1);
 {
-var G__13269 = cljs.core.chunk_rest(seq__13261__$1);
-var G__13270 = c__9646__auto__;
-var G__13271 = cljs.core.count(c__9646__auto__);
-var G__13272 = 0;
-seq__13261 = G__13269;
-chunk__13262 = G__13270;
-count__13263 = G__13271;
-i__13264 = G__13272;
+var G__13701 = cljs.core.chunk_rest(seq__13693__$1);
+var G__13702 = c__9646__auto__;
+var G__13703 = cljs.core.count(c__9646__auto__);
+var G__13704 = 0;
+seq__13693 = G__13701;
+chunk__13694 = G__13702;
+count__13695 = G__13703;
+i__13696 = G__13704;
 continue;
 }
 } else
-{var child = cljs.core.first(seq__13261__$1);
+{var child = cljs.core.first(seq__13693__$1);
 remove_all_styles_BANG_(child);
 {
-var G__13273 = cljs.core.next(seq__13261__$1);
-var G__13274 = null;
-var G__13275 = 0;
-var G__13276 = 0;
-seq__13261 = G__13273;
-chunk__13262 = G__13274;
-count__13263 = G__13275;
-i__13264 = G__13276;
+var G__13705 = cljs.core.next(seq__13693__$1);
+var G__13706 = null;
+var G__13707 = 0;
+var G__13708 = 0;
+seq__13693 = G__13705;
+chunk__13694 = G__13706;
+count__13695 = G__13707;
+i__13696 = G__13708;
 continue;
 }
 }
@@ -253,10 +253,10 @@ break;
 }
 });
 io.pedestal.app.render.push.cljs_formatter.condense_collection_BANG_ = (function condense_collection_BANG_(elem,container){
-var vec__13278 = domina.children(elem);
-var opener = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13278,0,null);
-var contents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13278,1,null);
-var closer = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13278,2,null);
+var vec__13710 = domina.children(elem);
+var opener = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13710,0,null);
+var contents = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13710,1,null);
+var closer = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13710,2,null);
 var w = (io.pedestal.app.render.push.cljs_formatter.max_inline_width(elem,container) - (2 * (io.pedestal.app.render.push.cljs_formatter.width(opener) + io.pedestal.app.render.push.cljs_formatter.width(closer))));
 domina.set_styles_BANG_(opener,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:font-weight","bold"], true));
 domina.set_styles_BANG_(closer,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:font-weight","bold"], true));
@@ -307,10 +307,10 @@ if(cljs.core.truth_(and__3941__auto____$1))
 } else
 {if("\uFDD0:else")
 {{
-var G__13279 = elem.parentNode;
-var G__13280 = container;
-elem = G__13279;
-container = G__13280;
+var G__13711 = elem.parentNode;
+var G__13712 = container;
+elem = G__13711;
+container = G__13712;
 continue;
 }
 } else
@@ -356,8 +356,8 @@ event.preventDefault();
 return io.pedestal.app.render.push.cljs_formatter.toggle_BANG_(t,elem,container);
 } else
 {{
-var G__13281 = t.parentNode;
-t = G__13281;
+var G__13713 = t.parentNode;
+t = G__13713;
 continue;
 }
 }
