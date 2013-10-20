@@ -2,8 +2,8 @@
 // http://dev.clojure.org/jira/browse/CLJS-581
 function Console() {};
 Console.prototype.groupCollapsed = function(var_args) {};
+
 function Spinner(a) {};
-var spinner = {};
-spinner.spin = function(t) {};
-Spinner.stop = function() {};
+Spinner.prototype.spin = function(target) {};
+Spinner.prototype.stop = function() {};
 Spinner.el.style = {};
