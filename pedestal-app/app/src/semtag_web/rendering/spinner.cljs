@@ -1,4 +1,4 @@
-(ns semtag-web.spinner
+(ns semtag-web.rendering.spinner
   (:require [domina :as dom]
             [goog.events.KeyCodes :as key-codes]
             [goog.ui.KeyboardShortcutHandler :as shortcut]))

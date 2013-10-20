@@ -1,4 +1,4 @@
-(ns semtag-web.partials
+(ns semtag-web.rendering.partials
   (:require [crate.core :as crate]
             [clojure.string :as string])
   (:use-macros [crate.def-macros :only [defpartial]]))

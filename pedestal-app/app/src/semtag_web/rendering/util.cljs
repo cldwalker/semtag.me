@@ -1,4 +1,4 @@
-(ns semtag-web.rendering-util
+(ns semtag-web.rendering.util
   (:require [io.pedestal.app.render.events :as events]
             [io.pedestal.app.render.push.handlers :as h]))
 
