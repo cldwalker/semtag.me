@@ -71,16 +71,6 @@ a.noname {
   width: 430px;
 }
 
-#overlay_message {
-    font-size: 50px;
-    position: relative;
-    z-index: 2e9;
-    left: 45%;
-    top: 30%;
-    color: black;
-    display: none;
-}
-
 #spin_modal_overlay {
     background-color: rgba(102, 99, 99,0.6);
     width: 100%;
