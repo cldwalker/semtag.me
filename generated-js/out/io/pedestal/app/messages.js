@@ -91,11 +91,11 @@ return cljs.core.not(io.pedestal.app.messages.param_keyword_present_QMARK_(key))
 * Replace parameter key-value pairs in a message with the appropriate values from param-map.
 */
 io.pedestal.app.messages.fill_params_msg = (function fill_params_msg(param_map,msg){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__154055){
-var vec__154056 = p__154055;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154056,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154056,1,null);
-var original_pair = vec__154056;
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__15031){
+var vec__15032 = p__15031;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15032,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15032,1,null);
+var original_pair = vec__15032;
 var temp__4090__auto__ = (k.cljs$core$IFn$_invoke$arity$1 ? k.cljs$core$IFn$_invoke$arity$1(param_map) : k.call(null,param_map));
 if(cljs.core.truth_(temp__4090__auto__))
 {var param_val = temp__4090__auto__;
@@ -127,42 +127,42 @@ return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2(cljs.core.partial.cljs$core$
 * ; -> ((msg/param :name) (msg/param :age))
 */
 io.pedestal.app.messages.message_params = (function message_params(msgs){
-return cljs.core.distinct((function (){var iter__9895__auto__ = (function iter__154063(s__154064){
+return cljs.core.distinct((function (){var iter__9895__auto__ = (function iter__15039(s__15040){
 return (new cljs.core.LazySeq(null,false,(function (){
-var s__154064__$1 = s__154064;
+var s__15040__$1 = s__15040;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__154064__$1);
+var temp__4092__auto__ = cljs.core.seq(s__15040__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
 var msg = cljs.core.first(xs__4579__auto__);
-var iterys__9891__auto__ = ((function (s__154064__$1,msg,xs__4579__auto__,temp__4092__auto__){
-return (function iter__154065(s__154066){
-return (new cljs.core.LazySeq(null,false,((function (s__154064__$1,msg,xs__4579__auto__,temp__4092__auto__){
+var iterys__9891__auto__ = ((function (s__15040__$1,msg,xs__4579__auto__,temp__4092__auto__){
+return (function iter__15041(s__15042){
+return (new cljs.core.LazySeq(null,false,((function (s__15040__$1,msg,xs__4579__auto__,temp__4092__auto__){
 return (function (){
-var s__154066__$1 = s__154066;
+var s__15042__$1 = s__15042;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__154066__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__15042__$1);
 if(temp__4092__auto____$1)
-{var s__154066__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__154066__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__154066__$2);
+{var s__15042__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__15042__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__15042__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__154068 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__154067 = 0;
+var b__15044 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__15043 = 0;
 while(true){
-if((i__154067 < size__9894__auto__))
-{var key = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__154067);
+if((i__15043 < size__9894__auto__))
+{var key = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__15043);
 if(cljs.core.truth_(io.pedestal.app.messages.param_keyword_present_QMARK_(key)))
-{cljs.core.chunk_append(b__154068,key);
+{cljs.core.chunk_append(b__15044,key);
 {
-var G__154069 = (i__154067 + 1);
-i__154067 = G__154069;
+var G__15045 = (i__15043 + 1);
+i__15043 = G__15045;
 continue;
 }
 } else
 {{
-var G__154070 = (i__154067 + 1);
-i__154067 = G__154070;
+var G__15046 = (i__15043 + 1);
+i__15043 = G__15046;
 continue;
 }
 }
@@ -172,18 +172,18 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__154068),iter__154065(cljs.core.chunk_rest(s__154066__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__15044),iter__15041(cljs.core.chunk_rest(s__15042__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__154068),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__15044),null);
 }
 } else
-{var key = cljs.core.first(s__154066__$2);
+{var key = cljs.core.first(s__15042__$2);
 if(cljs.core.truth_(io.pedestal.app.messages.param_keyword_present_QMARK_(key)))
-{return cljs.core.cons(key,iter__154065(cljs.core.rest(s__154066__$2)));
+{return cljs.core.cons(key,iter__15041(cljs.core.rest(s__15042__$2)));
 } else
 {{
-var G__154071 = cljs.core.rest(s__154066__$2);
-s__154066__$1 = G__154071;
+var G__15047 = cljs.core.rest(s__15042__$2);
+s__15042__$1 = G__15047;
 continue;
 }
 }
@@ -193,17 +193,17 @@ continue;
 }
 break;
 }
-});})(s__154064__$1,msg,xs__4579__auto__,temp__4092__auto__))
+});})(s__15040__$1,msg,xs__4579__auto__,temp__4092__auto__))
 ,null));
-});})(s__154064__$1,msg,xs__4579__auto__,temp__4092__auto__))
+});})(s__15040__$1,msg,xs__4579__auto__,temp__4092__auto__))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(cljs.core.keys(msg)));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__154063(cljs.core.rest(s__154064__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__15039(cljs.core.rest(s__15040__$1)));
 } else
 {{
-var G__154072 = cljs.core.rest(s__154064__$1);
-s__154064__$1 = G__154072;
+var G__15048 = cljs.core.rest(s__15040__$1);
+s__15040__$1 = G__15048;
 continue;
 }
 }
@@ -225,10 +225,10 @@ return iter__9895__auto__(msgs);
 * ; -> {(msg/param :age) 42, (msg/param :name) "John")
 */
 io.pedestal.app.messages.keys_to_param_keys = (function keys_to_param_keys(mp){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__154075){
-var vec__154076 = p__154075;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154076,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154076,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__15051){
+var vec__15052 = p__15051;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15052,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15052,1,null);
 return cljs.core.PersistentVector.fromArray([io.pedestal.app.messages.param(k),v], true);
 }),mp));
 });

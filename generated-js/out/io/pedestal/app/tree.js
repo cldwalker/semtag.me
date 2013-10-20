@@ -13,51 +13,51 @@ return (new cljs.core.MultiFn("inverse",(function (delta){
 return cljs.core.first(delta);
 }),"\uFDD0:default",hierarchy__9987__auto__,method_table__9983__auto__,prefer_table__9984__auto__,method_cache__9985__auto__,cached_hierarchy__9986__auto__));
 })();
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:node-create",(function (p__154187){
-var vec__154188 = p__154187;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154188,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154188,1,null);
-var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154188,2,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:node-create",(function (p__15163){
+var vec__15164 = p__15163;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15164,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15164,1,null);
+var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15164,2,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:node-destroy",path,type], true);
 }));
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:node-destroy",(function (p__154189){
-var vec__154190 = p__154189;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154190,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154190,1,null);
-var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154190,2,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:node-destroy",(function (p__15165){
+var vec__15166 = p__15165;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15166,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15166,1,null);
+var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15166,2,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:node-create",path,type], true);
 }));
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:value",(function (p__154191){
-var vec__154192 = p__154191;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154192,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154192,1,null);
-var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154192,2,null);
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154192,3,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:value",(function (p__15167){
+var vec__15168 = p__15167;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15168,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15168,1,null);
+var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15168,2,null);
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15168,3,null);
 return cljs.core.PersistentVector.fromArray([op,path,n,o], true);
 }));
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:attr",(function (p__154193){
-var vec__154194 = p__154193;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154194,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154194,1,null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154194,2,null);
-var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154194,3,null);
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154194,4,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:attr",(function (p__15169){
+var vec__15170 = p__15169;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15170,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15170,1,null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15170,2,null);
+var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15170,3,null);
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15170,4,null);
 return cljs.core.PersistentVector.fromArray([op,path,k,n,o], true);
 }));
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:transform-enable",(function (p__154195){
-var vec__154196 = p__154195;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154196,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154196,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154196,2,null);
-var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154196,3,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:transform-enable",(function (p__15171){
+var vec__15172 = p__15171;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15172,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15172,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15172,2,null);
+var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15172,3,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:transform-disable",path,transform_name,msgs], true);
 }));
-io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:transform-disable",(function (p__154197){
-var vec__154198 = p__154197;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154198,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154198,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154198,2,null);
-var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154198,3,null);
+io.pedestal.app.tree.inverse.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.inverse,"\uFDD0:transform-disable",(function (p__15173){
+var vec__15174 = p__15173;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15174,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15174,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15174,2,null);
+var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15174,3,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:transform-enable",path,transform_name,msgs], true);
 }));
 io.pedestal.app.tree.invert = (function invert(deltas){
@@ -145,10 +145,10 @@ if(cljs.core.truth_(io.pedestal.app.tree.node_exists_QMARK_(tree,path)))
 }
 });
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:node-create",(function (tree,delta){
-var vec__154199 = delta;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154199,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154199,1,null);
-var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154199,2,null);
+var vec__15175 = delta;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15175,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15175,1,null);
+var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15175,2,null);
 if(cljs.core.map_QMARK_(type))
 {return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.tree.apply_to_tree,tree,(io.pedestal.app.tree.map__GT_deltas.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.tree.map__GT_deltas.cljs$core$IFn$_invoke$arity$2(type,path) : io.pedestal.app.tree.map__GT_deltas.call(null,type,path)));
 } else
@@ -161,15 +161,15 @@ if(cljs.core.truth_(or__3943__auto__))
 })();
 var delta__$1 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(delta),2))?cljs.core.PersistentVector.fromArray(["\uFDD0:node-create",path,type__$1], true):delta);
 var r_path = io.pedestal.app.tree.real_path(path);
-var children = (function (){var pred__154200 = cljs.core._EQ_;
-var expr__154201 = type__$1;
-if((pred__154200.cljs$core$IFn$_invoke$arity$2 ? pred__154200.cljs$core$IFn$_invoke$arity$2("\uFDD0:vector",expr__154201) : pred__154200.call(null,"\uFDD0:vector",expr__154201)))
+var children = (function (){var pred__15176 = cljs.core._EQ_;
+var expr__15177 = type__$1;
+if((pred__15176.cljs$core$IFn$_invoke$arity$2 ? pred__15176.cljs$core$IFn$_invoke$arity$2("\uFDD0:vector",expr__15177) : pred__15176.call(null,"\uFDD0:vector",expr__15177)))
 {return cljs.core.PersistentVector.EMPTY;
 } else
-{if((pred__154200.cljs$core$IFn$_invoke$arity$2 ? pred__154200.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",expr__154201) : pred__154200.call(null,"\uFDD0:map",expr__154201)))
+{if((pred__15176.cljs$core$IFn$_invoke$arity$2 ? pred__15176.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",expr__15177) : pred__15176.call(null,"\uFDD0:map",expr__15177)))
 {return cljs.core.PersistentArrayMap.EMPTY;
 } else
-{throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(expr__154201)].join('')));
+{throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(expr__15177)].join('')));
 }
 }
 })();
@@ -186,24 +186,24 @@ if(cljs.core.truth_(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree__$1,r_pa
 }
 }));
 io.pedestal.app.tree.remove_index_from_vector = (function remove_index_from_vector(vector,index){
-var vec__154204 = cljs.core.split_at(index,vector);
-var begin = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154204,0,null);
-var end = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154204,1,null);
+var vec__15180 = cljs.core.split_at(index,vector);
+var begin = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15180,0,null);
+var end = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15180,1,null);
 return cljs.core.into(cljs.core.vec(begin),cljs.core.rest(end));
 });
 io.pedestal.app.tree.child_keys = (function child_keys(children){
-var pred__154208 = cljs.core._EQ_;
-var expr__154209 = io.pedestal.app.tree.node_type(children);
-if((pred__154208.cljs$core$IFn$_invoke$arity$2 ? pred__154208.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",expr__154209) : pred__154208.call(null,"\uFDD0:map",expr__154209)))
+var pred__15184 = cljs.core._EQ_;
+var expr__15185 = io.pedestal.app.tree.node_type(children);
+if((pred__15184.cljs$core$IFn$_invoke$arity$2 ? pred__15184.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",expr__15185) : pred__15184.call(null,"\uFDD0:map",expr__15185)))
 {return cljs.core.keys(children);
 } else
-{if((pred__154208.cljs$core$IFn$_invoke$arity$2 ? pred__154208.cljs$core$IFn$_invoke$arity$2("\uFDD0:vector",expr__154209) : pred__154208.call(null,"\uFDD0:vector",expr__154209)))
+{if((pred__15184.cljs$core$IFn$_invoke$arity$2 ? pred__15184.cljs$core$IFn$_invoke$arity$2("\uFDD0:vector",expr__15185) : pred__15184.call(null,"\uFDD0:vector",expr__15185)))
 {return cljs.core.reverse(cljs.core.range.cljs$core$IFn$_invoke$arity$1(cljs.core.count(children)));
 } else
-{if((pred__154208.cljs$core$IFn$_invoke$arity$2 ? pred__154208.cljs$core$IFn$_invoke$arity$2("\uFDD0:else",expr__154209) : pred__154208.call(null,"\uFDD0:else",expr__154209)))
+{if((pred__15184.cljs$core$IFn$_invoke$arity$2 ? pred__15184.cljs$core$IFn$_invoke$arity$2("\uFDD0:else",expr__15185) : pred__15184.call(null,"\uFDD0:else",expr__15185)))
 {return cljs.core.PersistentVector.EMPTY;
 } else
-{throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(expr__154209)].join('')));
+{throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(expr__15185)].join('')));
 }
 }
 }
@@ -214,10 +214,10 @@ return cljs.core.PersistentVector.fromArray(["\uFDD0:node-destroy",cljs.core.con
 }),io.pedestal.app.tree.child_keys(children)));
 });
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:node-destroy",(function (tree,delta){
-var vec__154211 = delta;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154211,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154211,1,null);
-var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154211,2,null);
+var vec__15187 = delta;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15187,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15187,1,null);
+var type = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15187,2,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var containing_path = cljs.core.butlast(r_path);
 var node_to_remove = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,r_path);
@@ -243,10 +243,10 @@ var tree__$3 = (function (){var temp__4090__auto__ = (new cljs.core.Keyword("\uF
 if(cljs.core.truth_(temp__4090__auto__))
 {var ks = temp__4090__auto__;
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.tree.apply_to_tree,tree__$2,cljs.core.map.cljs$core$IFn$_invoke$arity$2(((function (ks,temp__4090__auto__,tree__$1,tree__$2){
-return (function (p__154212){
-var vec__154213 = p__154212;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154213,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154213,1,null);
+return (function (p__15188){
+var vec__15189 = p__15188;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15189,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15189,1,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:transform-disable",path,k], true);
 });})(ks,temp__4090__auto__,tree__$1,tree__$2))
 ,ks));
@@ -258,10 +258,10 @@ var tree__$4 = (function (){var temp__4090__auto__ = (new cljs.core.Keyword("\uF
 if(cljs.core.truth_(temp__4090__auto__))
 {var ks = temp__4090__auto__;
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.tree.apply_to_tree,tree__$3,cljs.core.map.cljs$core$IFn$_invoke$arity$2(((function (ks,temp__4090__auto__,tree__$1,tree__$2,tree__$3){
-return (function (p__154214){
-var vec__154215 = p__154214;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154215,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154215,1,null);
+return (function (p__15190){
+var vec__15191 = p__15190;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15191,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15191,1,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:attr",path,k,v,null], true);
 });})(ks,temp__4090__auto__,tree__$1,tree__$2,tree__$3))
 ,ks));
@@ -281,9 +281,9 @@ return cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(new_tree,cljs.core.Pers
 }
 }));
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:children-exit",(function (tree,delta){
-var vec__154216 = delta;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154216,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154216,1,null);
+var vec__15192 = delta;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15192,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15192,1,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var c_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(r_path,"\uFDD0:children");
 var children = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,c_path);
@@ -304,17 +304,17 @@ if((v == null))
 }
 });
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:value",(function (tree,delta){
-var vec__154217 = delta;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154217,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154217,1,null);
-var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154217,2,null);
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154217,3,null);
+var vec__15193 = delta;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15193,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15193,1,null);
+var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15193,2,null);
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15193,3,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var v_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(r_path,"\uFDD0:value");
 var old_value = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,v_path);
-var vec__154218 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(delta),4))?cljs.core.PersistentVector.fromArray([o,n], true):cljs.core.PersistentVector.fromArray([old_value,o], true));
-var o__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154218,0,null);
-var n__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154218,1,null);
+var vec__15194 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(delta),4))?cljs.core.PersistentVector.fromArray([o,n], true):cljs.core.PersistentVector.fromArray([old_value,o], true));
+var o__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15194,0,null);
+var n__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15194,1,null);
 var tree__$1 = io.pedestal.app.tree.ensure_node_exists(tree,path);
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(o__$1,old_value))
 {} else
@@ -334,18 +334,18 @@ if(cljs.core.seq(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,path)))
 }
 });
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:attr",(function (tree,delta){
-var vec__154219 = delta;
-var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154219,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154219,1,null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154219,2,null);
-var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154219,3,null);
-var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154219,4,null);
+var vec__15195 = delta;
+var op = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15195,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15195,1,null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15195,2,null);
+var o = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15195,3,null);
+var n = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15195,4,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var a_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(r_path,"\uFDD0:attrs",cljs.core.array_seq([k], 0));
 var old_value = cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,a_path);
-var vec__154220 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(delta),5))?cljs.core.PersistentVector.fromArray([o,n], true):cljs.core.PersistentVector.fromArray([old_value,o], true));
-var o__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154220,0,null);
-var n__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154220,1,null);
+var vec__15196 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.count(delta),5))?cljs.core.PersistentVector.fromArray([o,n], true):cljs.core.PersistentVector.fromArray([old_value,o], true));
+var o__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15196,0,null);
+var n__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15196,1,null);
 var tree__$1 = io.pedestal.app.tree.ensure_node_exists(tree,path);
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(o__$1,old_value))
 {} else
@@ -361,11 +361,11 @@ io.pedestal.app.tree.same_transform_QMARK_ = (function same_transform_QMARK_(tre
 return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,path),msgs);
 });
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:transform-enable",(function (tree,delta){
-var vec__154221 = delta;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154221,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154221,1,null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154221,2,null);
-var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154221,3,null);
+var vec__15197 = delta;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15197,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15197,1,null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15197,2,null);
+var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15197,3,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var e_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(r_path,"\uFDD0:transforms",cljs.core.array_seq([k], 0));
 var tree__$1 = io.pedestal.app.tree.ensure_node_exists(tree,path);
@@ -386,10 +386,10 @@ if(cljs.core.truth_(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree__$1,e_pa
 }
 }));
 io.pedestal.app.tree.apply_to_tree.cljs$core$IMultiFn$_add_method$arity$3(io.pedestal.app.tree.apply_to_tree,"\uFDD0:transform-disable",(function (tree,delta){
-var vec__154222 = delta;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154222,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154222,1,null);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154222,2,null);
+var vec__15198 = delta;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15198,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15198,1,null);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15198,2,null);
 var r_path = io.pedestal.app.tree.real_path(path);
 var transforms_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(r_path,"\uFDD0:transforms");
 var e_path = cljs.core.conj.cljs$core$IFn$_invoke$arity$2(transforms_path,k);
@@ -399,21 +399,21 @@ if(cljs.core.truth_(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,e_path))
 {return tree;
 }
 }));
-io.pedestal.app.tree.node_deltas = (function node_deltas(p__154223,path){
-var map__154229 = p__154223;
-var map__154229__$1 = ((cljs.core.seq_QMARK_(map__154229))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154229):map__154229);
-var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154229__$1,"\uFDD0:attrs");
-var transforms = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154229__$1,"\uFDD0:transforms");
-var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154229__$1,"\uFDD0:value");
-return cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic(cljs.core.PersistentVector.EMPTY,(cljs.core.truth_(value)?cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray(["\uFDD0:value",path,value], true)], true):null),cljs.core.array_seq([(cljs.core.truth_(attrs)?cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__154230){
-var vec__154231 = p__154230;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154231,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154231,1,null);
+io.pedestal.app.tree.node_deltas = (function node_deltas(p__15199,path){
+var map__15205 = p__15199;
+var map__15205__$1 = ((cljs.core.seq_QMARK_(map__15205))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15205):map__15205);
+var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15205__$1,"\uFDD0:attrs");
+var transforms = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15205__$1,"\uFDD0:transforms");
+var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15205__$1,"\uFDD0:value");
+return cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic(cljs.core.PersistentVector.EMPTY,(cljs.core.truth_(value)?cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray(["\uFDD0:value",path,value], true)], true):null),cljs.core.array_seq([(cljs.core.truth_(attrs)?cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__15206){
+var vec__15207 = p__15206;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15207,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15207,1,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:attr",path,k,v], true);
-}),attrs)):null),(cljs.core.truth_(transforms)?cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__154232){
-var vec__154233 = p__154232;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154233,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154233,1,null);
+}),attrs)):null),(cljs.core.truth_(transforms)?cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__15208){
+var vec__15209 = p__15208;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15209,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15209,1,null);
 return cljs.core.PersistentVector.fromArray(["\uFDD0:transform-enable",path,k,v], true);
 }),transforms)):null)], 0));
 });
@@ -472,10 +472,10 @@ return cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq(
 }),msgs));
 });
 io.pedestal.app.tree.transforms__GT_entities = (function transforms__GT_entities(transforms,node_id){
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,p__154236){
-var vec__154237 = p__154236;
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154237,0,null);
-var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154237,1,null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,p__15212){
+var vec__15213 = p__15212;
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15213,0,null);
+var msgs = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15213,1,null);
 return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(acc,io.pedestal.app.tree.transform__GT_entities(transform_name,msgs,node_id));
 }),cljs.core.PersistentVector.EMPTY,transforms);
 });
@@ -487,11 +487,11 @@ if(!(cljs.core.empty_QMARK_(attrs)))
 }
 });
 io.pedestal.app.tree.node__GT_entities = (function node__GT_entities(node,path,parent_id,node_id){
-var map__154239 = node;
-var map__154239__$1 = ((cljs.core.seq_QMARK_(map__154239))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154239):map__154239);
-var transforms = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154239__$1,"\uFDD0:transforms");
-var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154239__$1,"\uFDD0:attrs");
-var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154239__$1,"\uFDD0:value");
+var map__15215 = node;
+var map__15215__$1 = ((cljs.core.seq_QMARK_(map__15215))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15215):map__15215);
+var transforms = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15215__$1,"\uFDD0:transforms");
+var attrs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15215__$1,"\uFDD0:attrs");
+var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15215__$1,"\uFDD0:value");
 var node_e = cljs.core.PersistentArrayMap.fromArray(["\uFDD0:t/id",node_id,"\uFDD0:t/path",path,"\uFDD0:t/type","\uFDD0:t/node","\uFDD0:t/segment",cljs.core.last(path)], true);
 var node_e__$1 = (cljs.core.truth_(parent_id)?cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(node_e,"\uFDD0:t/parent",parent_id):node_e);
 var node_e__$2 = (cljs.core.truth_(value)?cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(node_e__$1,"\uFDD0:t/value",value):node_e__$1);
@@ -500,9 +500,9 @@ var transform_es = io.pedestal.app.tree.transforms__GT_entities(transforms,node_
 return cljs.core.concat.cljs$core$IFn$_invoke$arity$variadic(cljs.core.PersistentVector.fromArray([node_e__$2], true),attrs_es,cljs.core.array_seq([transform_es], 0));
 });
 io.pedestal.app.tree.tree__GT_entities = (function tree__GT_entities(tree,path,parent_id){
-var map__154241 = tree;
-var map__154241__$1 = ((cljs.core.seq_QMARK_(map__154241))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154241):map__154241);
-var children = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154241__$1,"\uFDD0:children");
+var map__15217 = tree;
+var map__15217__$1 = ((cljs.core.seq_QMARK_(map__15217))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15217):map__15217);
+var children = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15217__$1,"\uFDD0:children");
 var ks = io.pedestal.app.tree.child_keys(children);
 var node_id = io.pedestal.app.tree.next_eid();
 var node_tuples = io.pedestal.app.tree.node__GT_entities(tree,path,parent_id,node_id);
@@ -512,10 +512,10 @@ return tree__GT_entities(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(tree,clj
 });
 io.pedestal.app.tree.entity__GT_tuples = (function entity__GT_tuples(e){
 var id = (new cljs.core.Keyword("\uFDD0:t/id")).call(null,e);
-return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__154244){
-var vec__154245 = p__154244;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154245,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154245,1,null);
+return cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__15220){
+var vec__15221 = p__15220;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15221,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15221,1,null);
 return cljs.core.PersistentVector.fromArray([id,k,v], true);
 }),cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(e,"\uFDD0:t/id"));
 });
@@ -566,19 +566,19 @@ io.pedestal.app.tree.Tree.prototype.cljs$core$ILookup$_lookup$arity$2 = (functio
 var self__ = this;
 return this__9754__auto__.cljs$core$ILookup$_lookup$arity$3(this__9754__auto__,k__9755__auto__,null);
 });
-io.pedestal.app.tree.Tree.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k154247,else__9757__auto__){
+io.pedestal.app.tree.Tree.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k15223,else__9757__auto__){
 var self__ = this;
 if("\uFDD0:else")
-{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k154247,else__9757__auto__);
+{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k15223,else__9757__auto__);
 } else
 {return null;
 }
 });
-io.pedestal.app.tree.Tree.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__154246){
+io.pedestal.app.tree.Tree.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__15222){
 var self__ = this;
-var pred__154249 = cljs.core.identical_QMARK_;
-var expr__154250 = k__9762__auto__;
-return (new io.pedestal.app.tree.Tree(self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__154246),null));
+var pred__15225 = cljs.core.identical_QMARK_;
+var expr__15226 = k__9762__auto__;
+return (new io.pedestal.app.tree.Tree(self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__15222),null));
 });
 io.pedestal.app.tree.Tree.prototype.cljs$core$IPrintWithWriter$_pr_writer$arity$3 = (function (this__9768__auto__,writer__9769__auto__,opts__9770__auto__){
 var self__ = this;
@@ -622,9 +622,9 @@ if(and__3941__auto____$1)
 {return false;
 }
 });
-io.pedestal.app.tree.Tree.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__154246){
+io.pedestal.app.tree.Tree.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__15222){
 var self__ = this;
-return (new io.pedestal.app.tree.Tree(G__154246,self__.__extmap,self__.__hash));
+return (new io.pedestal.app.tree.Tree(G__15222,self__.__extmap,self__.__hash));
 });
 io.pedestal.app.tree.Tree.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__9752__auto__){
 var self__ = this;
@@ -653,8 +653,8 @@ return cljs.core._write(writer__9789__auto__,"io.pedestal.app.tree/Tree");
 io.pedestal.app.tree.__GT_Tree = (function __GT_Tree(){
 return (new io.pedestal.app.tree.Tree());
 });
-io.pedestal.app.tree.map__GT_Tree = (function map__GT_Tree(G__154248){
-return (new io.pedestal.app.tree.Tree(null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$1(G__154248)));
+io.pedestal.app.tree.map__GT_Tree = (function map__GT_Tree(G__15224){
+return (new io.pedestal.app.tree.Tree(null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$1(G__15224)));
 });
 io.pedestal.app.tree.delete_deltas = (function delete_deltas(t,deltas){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (d,k){
@@ -688,19 +688,19 @@ return state;
 * a commit at a specific point.
 */
 io.pedestal.app.tree.apply_deltas = (function apply_deltas(old,deltas){
-var map__154254 = old;
-var map__154254__$1 = ((cljs.core.seq_QMARK_(map__154254))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154254):map__154254);
-var t = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154254__$1,"\uFDD0:t");
-var seq = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154254__$1,"\uFDD0:seq");
+var map__15230 = old;
+var map__15230__$1 = ((cljs.core.seq_QMARK_(map__15230))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15230):map__15230);
+var t = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15230__$1,"\uFDD0:t");
+var seq = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15230__$1,"\uFDD0:seq");
 var deltas__$1 = io.pedestal.app.tree.expand_maps(deltas);
-var map__154255 = io.pedestal.app.tree.update_tree(old,deltas__$1);
-var map__154255__$1 = ((cljs.core.seq_QMARK_(map__154255))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154255):map__154255);
-var this_tx = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154255__$1,"\uFDD0:this-tx");
-var tree = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154255__$1,"\uFDD0:tree");
-var deltas__$2 = cljs.core.map.cljs$core$IFn$_invoke$arity$3(((function (map__154254,map__154254__$1,t,seq,deltas__$1,map__154255,map__154255__$1,this_tx,tree){
+var map__15231 = io.pedestal.app.tree.update_tree(old,deltas__$1);
+var map__15231__$1 = ((cljs.core.seq_QMARK_(map__15231))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15231):map__15231);
+var this_tx = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15231__$1,"\uFDD0:this-tx");
+var tree = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15231__$1,"\uFDD0:tree");
+var deltas__$2 = cljs.core.map.cljs$core$IFn$_invoke$arity$3(((function (map__15230,map__15230__$1,t,seq,deltas__$1,map__15231,map__15231__$1,this_tx,tree){
 return (function (d,s){
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:delta",d,"\uFDD0:t",t,"\uFDD0:seq",s], true);
-});})(map__154254,map__154254__$1,t,seq,deltas__$1,map__154255,map__154255__$1,this_tx,tree))
+});})(map__15230,map__15230__$1,t,seq,deltas__$1,map__15231,map__15231__$1,this_tx,tree))
 ,this_tx,cljs.core.iterate(cljs.core.inc,seq));
 return cljs.core.update_in.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc_in(cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(cljs.core.assoc_in(cljs.core.assoc_in(old,cljs.core.PersistentVector.fromArray(["\uFDD0:deltas",t], true),deltas__$2),cljs.core.PersistentVector.fromArray(["\uFDD0:this-tx"], true),cljs.core.PersistentVector.EMPTY),cljs.core.PersistentVector.fromArray(["\uFDD0:seq"], true),cljs.core._PLUS_,cljs.core.count(deltas__$2)),cljs.core.PersistentVector.fromArray(["\uFDD0:tree"], true),tree),cljs.core.PersistentVector.fromArray(["\uFDD0:t"], true),cljs.core.inc);
 });
@@ -720,7 +720,7 @@ return (new cljs.core.Keyword("\uFDD0:t")).call(null,tree);
 */
 io.pedestal.app.tree.since_t = (function since_t(tree,t){
 var ts = cljs.core.range.cljs$core$IFn$_invoke$arity$2(t,(new cljs.core.Keyword("\uFDD0:t")).call(null,tree));
-return cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2("\uFDD0:delta",cljs.core.mapcat.cljs$core$IFn$_invoke$arity$2((function (p1__154256_SHARP_){
-return cljs.core.get.cljs$core$IFn$_invoke$arity$2((new cljs.core.Keyword("\uFDD0:deltas")).call(null,tree),p1__154256_SHARP_);
+return cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2("\uFDD0:delta",cljs.core.mapcat.cljs$core$IFn$_invoke$arity$2((function (p1__15232_SHARP_){
+return cljs.core.get.cljs$core$IFn$_invoke$arity$2((new cljs.core.Keyword("\uFDD0:deltas")).call(null,tree),p1__15232_SHARP_);
 }),ts)));
 });

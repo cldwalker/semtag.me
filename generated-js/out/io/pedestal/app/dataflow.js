@@ -35,9 +35,9 @@ return io.pedestal.app.dataflow.matching_path_element_QMARK_(a,b);
 * Return true if one path could be the parent of the other.
 */
 io.pedestal.app.dataflow.descendent_QMARK_ = (function descendent_QMARK_(path_a,path_b){
-var vec__153812 = (((cljs.core.count(path_a) < cljs.core.count(path_b)))?cljs.core.PersistentVector.fromArray([path_a,path_b], true):cljs.core.PersistentVector.fromArray([path_b,path_a], true));
-var small = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153812,0,null);
-var large = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153812,1,null);
+var vec__14788 = (((cljs.core.count(path_a) < cljs.core.count(path_b)))?cljs.core.PersistentVector.fromArray([path_a,path_b], true):cljs.core.PersistentVector.fromArray([path_b,path_a], true));
+var small = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14788,0,null);
+var large = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14788,1,null);
 return io.pedestal.app.dataflow.matching_path_QMARK_(small,cljs.core.take(cljs.core.count(small),large));
 });
 /**
@@ -48,10 +48,10 @@ var get_path = null;
 var get_path__2 = (function (data,path){
 return get_path.cljs$core$IFn$_invoke$arity$3(data,cljs.core.PersistentVector.EMPTY,path);
 });
-var get_path__3 = (function (data,context,p__153814){
-var vec__153816 = p__153814;
-var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153816,0,null);
-var xs = cljs.core.nthnext(vec__153816,1);
+var get_path__3 = (function (data,context,p__14790){
+var vec__14792 = p__14790;
+var x = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14792,0,null);
+var xs = cljs.core.nthnext(vec__14792,1);
 if(cljs.core.truth_((function (){var and__3941__auto__ = x;
 if(cljs.core.truth_(and__3941__auto__))
 {return cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(data,"\uFDD0:io.pedestal.app.dataflow/nokey");
@@ -60,8 +60,8 @@ if(cljs.core.truth_(and__3941__auto__))
 }
 })()))
 {if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(x,"\uFDD0:*"))
-{return cljs.core.mapcat.cljs$core$IFn$_invoke$arity$2((function (p1__153813_SHARP_){
-return get_path.cljs$core$IFn$_invoke$arity$3(cljs.core.get.cljs$core$IFn$_invoke$arity$2(data,p1__153813_SHARP_),cljs.core.conj.cljs$core$IFn$_invoke$arity$2(context,p1__153813_SHARP_),xs);
+{return cljs.core.mapcat.cljs$core$IFn$_invoke$arity$2((function (p1__14789_SHARP_){
+return get_path.cljs$core$IFn$_invoke$arity$3(cljs.core.get.cljs$core$IFn$_invoke$arity$2(data,p1__14789_SHARP_),cljs.core.conj.cljs$core$IFn$_invoke$arity$2(context,p1__14789_SHARP_),xs);
 }),cljs.core.keys(data));
 } else
 {return get_path.cljs$core$IFn$_invoke$arity$3(cljs.core.get.cljs$core$IFn$_invoke$arity$3(data,x,"\uFDD0:io.pedestal.app.dataflow/nokey"),cljs.core.conj.cljs$core$IFn$_invoke$arity$2(context,x),xs);
@@ -70,12 +70,12 @@ return get_path.cljs$core$IFn$_invoke$arity$3(cljs.core.get.cljs$core$IFn$_invok
 {return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray([context,data], true)], true);
 }
 });
-get_path = function(data,context,p__153814){
+get_path = function(data,context,p__14790){
 switch(arguments.length){
 case 2:
 return get_path__2.call(this,data,context);
 case 3:
-return get_path__3.call(this,data,context,p__153814);
+return get_path__3.call(this,data,context,p__14790);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
@@ -98,10 +98,10 @@ if(cljs.core.keyword_QMARK_(new_key))
 });
 var value_types = (function value_types(arg_names){
 if(cljs.core.truth_(arg_names))
-{return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__153819){
-var vec__153820 = p__153819;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153820,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153820,1,null);
+{return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__14795){
+var vec__14796 = p__14795;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14796,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14796,1,null);
 if(cljs.core.contains_QMARK_(cljs.core.set(k),"\uFDD0:*"))
 {return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,v,"\uFDD0:seq");
 } else
@@ -129,59 +129,59 @@ var input_map = null;
 var input_map__1 = (function (inputs){
 return input_map.cljs$core$IFn$_invoke$arity$2(inputs,null);
 });
-var input_map__2 = (function (p__153821,arg_names){
-var map__153839 = p__153821;
-var map__153839__$1 = ((cljs.core.seq_QMARK_(map__153839))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153839):map__153839);
-var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153839__$1,"\uFDD0:input-paths");
-var new_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153839__$1,"\uFDD0:new-model");
+var input_map__2 = (function (p__14797,arg_names){
+var map__14815 = p__14797;
+var map__14815__$1 = ((cljs.core.seq_QMARK_(map__14815))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14815):map__14815);
+var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14815__$1,"\uFDD0:input-paths");
+var new_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14815__$1,"\uFDD0:new-model");
 var v_type = (value_types.cljs$core$IFn$_invoke$arity$1 ? value_types.cljs$core$IFn$_invoke$arity$1(arg_names) : value_types.call(null,arg_names));
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__153840){
-var vec__153841 = p__153840;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153841,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153841,1,null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__14816){
+var vec__14817 = p__14816;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14817,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14817,1,null);
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2((v_type.cljs$core$IFn$_invoke$arity$1 ? v_type.cljs$core$IFn$_invoke$arity$1(k) : v_type.call(null,k)),"\uFDD0:seq"))
 {return cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(a,cljs.core.PersistentVector.fromArray([k], true),cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.conj,cljs.core.PersistentVector.EMPTY),v);
 } else
 {return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,k,v);
 }
-}),cljs.core.PersistentArrayMap.EMPTY,(function (){var iter__9895__auto__ = (function iter__153842(s__153843){
+}),cljs.core.PersistentArrayMap.EMPTY,(function (){var iter__9895__auto__ = (function iter__14818(s__14819){
 return (new cljs.core.LazySeq(null,false,(function (){
-var s__153843__$1 = s__153843;
+var s__14819__$1 = s__14819;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__153843__$1);
+var temp__4092__auto__ = cljs.core.seq(s__14819__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
 var path = cljs.core.first(xs__4579__auto__);
-var iterys__9891__auto__ = ((function (s__153843__$1,path,xs__4579__auto__,temp__4092__auto__){
-return (function iter__153844(s__153845){
-return (new cljs.core.LazySeq(null,false,((function (s__153843__$1,path,xs__4579__auto__,temp__4092__auto__){
+var iterys__9891__auto__ = ((function (s__14819__$1,path,xs__4579__auto__,temp__4092__auto__){
+return (function iter__14820(s__14821){
+return (new cljs.core.LazySeq(null,false,((function (s__14819__$1,path,xs__4579__auto__,temp__4092__auto__){
 return (function (){
-var s__153845__$1 = s__153845;
+var s__14821__$1 = s__14821;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__153845__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__14821__$1);
 if(temp__4092__auto____$1)
-{var s__153845__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__153845__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__153845__$2);
+{var s__14821__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__14821__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__14821__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__153847 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__153846 = 0;
+var b__14823 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__14822 = 0;
 while(true){
-if((i__153846 < size__9894__auto__))
-{var vec__153854 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__153846);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153854,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153854,1,null);
+if((i__14822 < size__9894__auto__))
+{var vec__14830 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__14822);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14830,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14830,1,null);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(v,"\uFDD0:io.pedestal.app.dataflow/nokey"))
-{cljs.core.chunk_append(b__153847,cljs.core.PersistentVector.fromArray([(rekey.cljs$core$IFn$_invoke$arity$3 ? rekey.cljs$core$IFn$_invoke$arity$3(k,path,arg_names) : rekey.call(null,k,path,arg_names)),v], true));
+{cljs.core.chunk_append(b__14823,cljs.core.PersistentVector.fromArray([(rekey.cljs$core$IFn$_invoke$arity$3 ? rekey.cljs$core$IFn$_invoke$arity$3(k,path,arg_names) : rekey.call(null,k,path,arg_names)),v], true));
 {
-var G__153856 = (i__153846 + 1);
-i__153846 = G__153856;
+var G__14832 = (i__14822 + 1);
+i__14822 = G__14832;
 continue;
 }
 } else
 {{
-var G__153857 = (i__153846 + 1);
-i__153846 = G__153857;
+var G__14833 = (i__14822 + 1);
+i__14822 = G__14833;
 continue;
 }
 }
@@ -191,20 +191,20 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153847),iter__153844(cljs.core.chunk_rest(s__153845__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14823),iter__14820(cljs.core.chunk_rest(s__14821__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153847),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14823),null);
 }
 } else
-{var vec__153855 = cljs.core.first(s__153845__$2);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153855,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153855,1,null);
+{var vec__14831 = cljs.core.first(s__14821__$2);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14831,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14831,1,null);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(v,"\uFDD0:io.pedestal.app.dataflow/nokey"))
-{return cljs.core.cons(cljs.core.PersistentVector.fromArray([(rekey.cljs$core$IFn$_invoke$arity$3 ? rekey.cljs$core$IFn$_invoke$arity$3(k,path,arg_names) : rekey.call(null,k,path,arg_names)),v], true),iter__153844(cljs.core.rest(s__153845__$2)));
+{return cljs.core.cons(cljs.core.PersistentVector.fromArray([(rekey.cljs$core$IFn$_invoke$arity$3 ? rekey.cljs$core$IFn$_invoke$arity$3(k,path,arg_names) : rekey.call(null,k,path,arg_names)),v], true),iter__14820(cljs.core.rest(s__14821__$2)));
 } else
 {{
-var G__153858 = cljs.core.rest(s__153845__$2);
-s__153845__$1 = G__153858;
+var G__14834 = cljs.core.rest(s__14821__$2);
+s__14821__$1 = G__14834;
 continue;
 }
 }
@@ -214,17 +214,17 @@ continue;
 }
 break;
 }
-});})(s__153843__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14819__$1,path,xs__4579__auto__,temp__4092__auto__))
 ,null));
-});})(s__153843__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14819__$1,path,xs__4579__auto__,temp__4092__auto__))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(io.pedestal.app.dataflow.get_path.cljs$core$IFn$_invoke$arity$2(new_model,path)));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__153842(cljs.core.rest(s__153843__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__14818(cljs.core.rest(s__14819__$1)));
 } else
 {{
-var G__153859 = cljs.core.rest(s__153843__$1);
-s__153843__$1 = G__153859;
+var G__14835 = cljs.core.rest(s__14819__$1);
+s__14819__$1 = G__14835;
 continue;
 }
 }
@@ -238,12 +238,12 @@ break;
 return iter__9895__auto__(input_paths);
 })());
 });
-input_map = function(p__153821,arg_names){
+input_map = function(p__14797,arg_names){
 switch(arguments.length){
 case 1:
-return input_map__1.call(this,p__153821);
+return input_map__1.call(this,p__14797);
 case 2:
-return input_map__2.call(this,p__153821,arg_names);
+return input_map__2.call(this,p__14797,arg_names);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
@@ -264,47 +264,47 @@ if((1 >= cljs.core.count(m)))
 return cljs.core.first(cljs.core.vals(m));
 });
 io.pedestal.app.dataflow.change_map = (function change_map(inputs,model_key,change_key){
-var vec__153875 = cljs.core.juxt.cljs$core$IFn$_invoke$arity$2(model_key,change_key).call(null,inputs);
-var model = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153875,0,null);
-var change_paths = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153875,1,null);
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,(function (){var iter__9895__auto__ = (function iter__153876(s__153877){
+var vec__14851 = cljs.core.juxt.cljs$core$IFn$_invoke$arity$2(model_key,change_key).call(null,inputs);
+var model = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14851,0,null);
+var change_paths = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14851,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,(function (){var iter__9895__auto__ = (function iter__14852(s__14853){
 return (new cljs.core.LazySeq(null,false,(function (){
-var s__153877__$1 = s__153877;
+var s__14853__$1 = s__14853;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__153877__$1);
+var temp__4092__auto__ = cljs.core.seq(s__14853__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
 var path = cljs.core.first(xs__4579__auto__);
-var iterys__9891__auto__ = ((function (s__153877__$1,path,xs__4579__auto__,temp__4092__auto__){
-return (function iter__153878(s__153879){
-return (new cljs.core.LazySeq(null,false,((function (s__153877__$1,path,xs__4579__auto__,temp__4092__auto__){
+var iterys__9891__auto__ = ((function (s__14853__$1,path,xs__4579__auto__,temp__4092__auto__){
+return (function iter__14854(s__14855){
+return (new cljs.core.LazySeq(null,false,((function (s__14853__$1,path,xs__4579__auto__,temp__4092__auto__){
 return (function (){
-var s__153879__$1 = s__153879;
+var s__14855__$1 = s__14855;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__153879__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__14855__$1);
 if(temp__4092__auto____$1)
-{var s__153879__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__153879__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__153879__$2);
+{var s__14855__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__14855__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__14855__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__153881 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__153880 = 0;
+var b__14857 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__14856 = 0;
 while(true){
-if((i__153880 < size__9894__auto__))
-{var vec__153888 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__153880);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153888,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153888,1,null);
+if((i__14856 < size__9894__auto__))
+{var vec__14864 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__14856);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14864,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14864,1,null);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(v,"\uFDD0:io.pedestal.app.dataflow/nokey"))
-{cljs.core.chunk_append(b__153881,cljs.core.PersistentVector.fromArray([k,v], true));
+{cljs.core.chunk_append(b__14857,cljs.core.PersistentVector.fromArray([k,v], true));
 {
-var G__153890 = (i__153880 + 1);
-i__153880 = G__153890;
+var G__14866 = (i__14856 + 1);
+i__14856 = G__14866;
 continue;
 }
 } else
 {{
-var G__153891 = (i__153880 + 1);
-i__153880 = G__153891;
+var G__14867 = (i__14856 + 1);
+i__14856 = G__14867;
 continue;
 }
 }
@@ -314,20 +314,20 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153881),iter__153878(cljs.core.chunk_rest(s__153879__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14857),iter__14854(cljs.core.chunk_rest(s__14855__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153881),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14857),null);
 }
 } else
-{var vec__153889 = cljs.core.first(s__153879__$2);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153889,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153889,1,null);
+{var vec__14865 = cljs.core.first(s__14855__$2);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14865,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14865,1,null);
 if(cljs.core.not_EQ_.cljs$core$IFn$_invoke$arity$2(v,"\uFDD0:io.pedestal.app.dataflow/nokey"))
-{return cljs.core.cons(cljs.core.PersistentVector.fromArray([k,v], true),iter__153878(cljs.core.rest(s__153879__$2)));
+{return cljs.core.cons(cljs.core.PersistentVector.fromArray([k,v], true),iter__14854(cljs.core.rest(s__14855__$2)));
 } else
 {{
-var G__153892 = cljs.core.rest(s__153879__$2);
-s__153879__$1 = G__153892;
+var G__14868 = cljs.core.rest(s__14855__$2);
+s__14855__$1 = G__14868;
 continue;
 }
 }
@@ -337,17 +337,17 @@ continue;
 }
 break;
 }
-});})(s__153877__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14853__$1,path,xs__4579__auto__,temp__4092__auto__))
 ,null));
-});})(s__153877__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14853__$1,path,xs__4579__auto__,temp__4092__auto__))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(io.pedestal.app.dataflow.get_path.cljs$core$IFn$_invoke$arity$2(model,path)));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__153876(cljs.core.rest(s__153877__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__14852(cljs.core.rest(s__14853__$1)));
 } else
 {{
-var G__153893 = cljs.core.rest(s__153877__$1);
-s__153877__$1 = G__153893;
+var G__14869 = cljs.core.rest(s__14853__$1);
+s__14853__$1 = G__14869;
 continue;
 }
 }
@@ -373,12 +373,12 @@ return io.pedestal.app.dataflow.change_map(inputs,"\uFDD0:old-model","\uFDD0:rem
 io.pedestal.app.dataflow.changed_inputs = (function changed_inputs(inputs,f){
 var input_m = io.pedestal.app.dataflow.input_map.cljs$core$IFn$_invoke$arity$1(inputs);
 var changed = cljs.core.keys((f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(inputs) : f.call(null,inputs)));
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__153897){
-var vec__153898 = p__153897;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153898,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153898,1,null);
-if(cljs.core.truth_(cljs.core.some((function (p1__153894_SHARP_){
-return io.pedestal.app.dataflow.descendent_QMARK_(k,p1__153894_SHARP_);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__14873){
+var vec__14874 = p__14873;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14874,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14874,1,null);
+if(cljs.core.truth_(cljs.core.some((function (p1__14870_SHARP_){
+return io.pedestal.app.dataflow.descendent_QMARK_(k,p1__14870_SHARP_);
 }),changed)))
 {return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,k,v);
 } else
@@ -395,42 +395,42 @@ return io.pedestal.app.dataflow.changed_inputs(inputs,io.pedestal.app.dataflow.u
 io.pedestal.app.dataflow.old_and_new = (function old_and_new(inputs,path){
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:old",cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(inputs,cljs.core.into(cljs.core.PersistentVector.fromArray(["\uFDD0:old-model"], true),path)),"\uFDD0:new",cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(inputs,cljs.core.into(cljs.core.PersistentVector.fromArray(["\uFDD0:new-model"], true),path))], true);
 });
-var actual_input_paths = (function actual_input_paths(p__153900){
-var map__153916 = p__153900;
-var map__153916__$1 = ((cljs.core.seq_QMARK_(map__153916))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153916):map__153916);
-var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153916__$1,"\uFDD0:input-paths");
-var old_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153916__$1,"\uFDD0:old-model");
-var iter__9895__auto__ = (function iter__153917(s__153918){
+var actual_input_paths = (function actual_input_paths(p__14876){
+var map__14892 = p__14876;
+var map__14892__$1 = ((cljs.core.seq_QMARK_(map__14892))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14892):map__14892);
+var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14892__$1,"\uFDD0:input-paths");
+var old_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14892__$1,"\uFDD0:old-model");
+var iter__9895__auto__ = (function iter__14893(s__14894){
 return (new cljs.core.LazySeq(null,false,(function (){
-var s__153918__$1 = s__153918;
+var s__14894__$1 = s__14894;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__153918__$1);
+var temp__4092__auto__ = cljs.core.seq(s__14894__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
 var path = cljs.core.first(xs__4579__auto__);
-var iterys__9891__auto__ = ((function (s__153918__$1,path,xs__4579__auto__,temp__4092__auto__){
-return (function iter__153919(s__153920){
-return (new cljs.core.LazySeq(null,false,((function (s__153918__$1,path,xs__4579__auto__,temp__4092__auto__){
+var iterys__9891__auto__ = ((function (s__14894__$1,path,xs__4579__auto__,temp__4092__auto__){
+return (function iter__14895(s__14896){
+return (new cljs.core.LazySeq(null,false,((function (s__14894__$1,path,xs__4579__auto__,temp__4092__auto__){
 return (function (){
-var s__153920__$1 = s__153920;
+var s__14896__$1 = s__14896;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__153920__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__14896__$1);
 if(temp__4092__auto____$1)
-{var s__153920__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__153920__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__153920__$2);
+{var s__14896__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__14896__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__14896__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__153922 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__153921 = 0;
+var b__14898 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__14897 = 0;
 while(true){
-if((i__153921 < size__9894__auto__))
-{var vec__153929 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__153921);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153929,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153929,1,null);
-cljs.core.chunk_append(b__153922,k);
+if((i__14897 < size__9894__auto__))
+{var vec__14905 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__14897);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14905,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14905,1,null);
+cljs.core.chunk_append(b__14898,k);
 {
-var G__153931 = (i__153921 + 1);
-i__153921 = G__153931;
+var G__14907 = (i__14897 + 1);
+i__14897 = G__14907;
 continue;
 }
 } else
@@ -439,32 +439,32 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153922),iter__153919(cljs.core.chunk_rest(s__153920__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14898),iter__14895(cljs.core.chunk_rest(s__14896__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153922),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14898),null);
 }
 } else
-{var vec__153930 = cljs.core.first(s__153920__$2);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153930,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153930,1,null);
-return cljs.core.cons(k,iter__153919(cljs.core.rest(s__153920__$2)));
+{var vec__14906 = cljs.core.first(s__14896__$2);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14906,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14906,1,null);
+return cljs.core.cons(k,iter__14895(cljs.core.rest(s__14896__$2)));
 }
 } else
 {return null;
 }
 break;
 }
-});})(s__153918__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14894__$1,path,xs__4579__auto__,temp__4092__auto__))
 ,null));
-});})(s__153918__$1,path,xs__4579__auto__,temp__4092__auto__))
+});})(s__14894__$1,path,xs__4579__auto__,temp__4092__auto__))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(io.pedestal.app.dataflow.get_path.cljs$core$IFn$_invoke$arity$2(old_model,path)));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__153917(cljs.core.rest(s__153918__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__14893(cljs.core.rest(s__14894__$1)));
 } else
 {{
-var G__153932 = cljs.core.rest(s__153918__$1);
-s__153918__$1 = G__153932;
+var G__14908 = cljs.core.rest(s__14894__$1);
+s__14894__$1 = G__14908;
 continue;
 }
 }
@@ -481,8 +481,8 @@ var removed = (function removed(input_paths,changed_paths,f){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (acc,path){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,cp){
 return (f.cljs$core$IFn$_invoke$arity$3 ? f.cljs$core$IFn$_invoke$arity$3(a,path,cp) : f.call(null,a,path,cp));
-}),acc,cljs.core.filter((function (p1__153899_SHARP_){
-return io.pedestal.app.dataflow.descendent_QMARK_(path,p1__153899_SHARP_);
+}),acc,cljs.core.filter((function (p1__14875_SHARP_){
+return io.pedestal.app.dataflow.descendent_QMARK_(path,p1__14875_SHARP_);
 }),changed_paths));
 }),cljs.core.PersistentArrayMap.EMPTY,input_paths);
 });
@@ -547,8 +547,8 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(graph__$2,"\uFDD0:io.pedest
 * Return a sorted sequence of derive function configurations.
 */
 io.pedestal.app.dataflow.sort_derive_fns = (function sort_derive_fns(derive_fns){
-var derive_fns__$1 = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__153933_SHARP_){
-return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__153933_SHARP_,"\uFDD0:id",cljs.core.gensym.cljs$core$IFn$_invoke$arity$0());
+var derive_fns__$1 = cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__14909_SHARP_){
+return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__14909_SHARP_,"\uFDD0:id",cljs.core.gensym.cljs$core$IFn$_invoke$arity$0());
 }),derive_fns);
 var index = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(((function (derive_fns__$1){
 return (function (a,x){
@@ -556,40 +556,40 @@ return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,(new cljs.core.Keyword("\
 });})(derive_fns__$1))
 ,cljs.core.PersistentArrayMap.EMPTY,derive_fns__$1);
 var deps = (function (){var iter__9895__auto__ = ((function (derive_fns__$1,index){
-return (function iter__153946(s__153947){
+return (function iter__14922(s__14923){
 return (new cljs.core.LazySeq(null,false,((function (derive_fns__$1,index){
 return (function (){
-var s__153947__$1 = s__153947;
+var s__14923__$1 = s__14923;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__153947__$1);
+var temp__4092__auto__ = cljs.core.seq(s__14923__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
-var map__153953 = cljs.core.first(xs__4579__auto__);
-var map__153953__$1 = ((cljs.core.seq_QMARK_(map__153953))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153953):map__153953);
-var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153953__$1,"\uFDD0:id");
-var out = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153953__$1,"\uFDD0:out");
-var in$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153953__$1,"\uFDD0:in");
-var iterys__9891__auto__ = ((function (s__153947__$1,map__153953,map__153953__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index){
-return (function iter__153948(s__153949){
-return (new cljs.core.LazySeq(null,false,((function (s__153947__$1,map__153953,map__153953__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index){
+var map__14929 = cljs.core.first(xs__4579__auto__);
+var map__14929__$1 = ((cljs.core.seq_QMARK_(map__14929))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14929):map__14929);
+var id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14929__$1,"\uFDD0:id");
+var out = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14929__$1,"\uFDD0:out");
+var in$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14929__$1,"\uFDD0:in");
+var iterys__9891__auto__ = ((function (s__14923__$1,map__14929,map__14929__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index){
+return (function iter__14924(s__14925){
+return (new cljs.core.LazySeq(null,false,((function (s__14923__$1,map__14929,map__14929__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index){
 return (function (){
-var s__153949__$1 = s__153949;
+var s__14925__$1 = s__14925;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__153949__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__14925__$1);
 if(temp__4092__auto____$1)
-{var s__153949__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__153949__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__153949__$2);
+{var s__14925__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__14925__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__14925__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__153951 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__153950 = 0;
+var b__14927 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__14926 = 0;
 while(true){
-if((i__153950 < size__9894__auto__))
-{var i = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__153950);
-cljs.core.chunk_append(b__153951,cljs.core.PersistentVector.fromArray([id,i,out], true));
+if((i__14926 < size__9894__auto__))
+{var i = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__14926);
+cljs.core.chunk_append(b__14927,cljs.core.PersistentVector.fromArray([id,i,out], true));
 {
-var G__153958 = (i__153950 + 1);
-i__153950 = G__153958;
+var G__14934 = (i__14926 + 1);
+i__14926 = G__14934;
 continue;
 }
 } else
@@ -598,30 +598,30 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153951),iter__153948(cljs.core.chunk_rest(s__153949__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14927),iter__14924(cljs.core.chunk_rest(s__14925__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__153951),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__14927),null);
 }
 } else
-{var i = cljs.core.first(s__153949__$2);
-return cljs.core.cons(cljs.core.PersistentVector.fromArray([id,i,out], true),iter__153948(cljs.core.rest(s__153949__$2)));
+{var i = cljs.core.first(s__14925__$2);
+return cljs.core.cons(cljs.core.PersistentVector.fromArray([id,i,out], true),iter__14924(cljs.core.rest(s__14925__$2)));
 }
 } else
 {return null;
 }
 break;
 }
-});})(s__153947__$1,map__153953,map__153953__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index))
+});})(s__14923__$1,map__14929,map__14929__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index))
 ,null));
-});})(s__153947__$1,map__153953,map__153953__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index))
+});})(s__14923__$1,map__14929,map__14929__$1,id,out,in$,xs__4579__auto__,temp__4092__auto__,derive_fns__$1,index))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(in$));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__153946(cljs.core.rest(s__153947__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__14922(cljs.core.rest(s__14923__$1)));
 } else
 {{
-var G__153959 = cljs.core.rest(s__153947__$1);
-s__153947__$1 = G__153959;
+var G__14935 = cljs.core.rest(s__14923__$1);
+s__14923__$1 = G__14935;
 continue;
 }
 }
@@ -637,18 +637,18 @@ break;
 return iter__9895__auto__(derive_fns__$1);
 })();
 var graph = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(((function (derive_fns__$1,index,deps){
-return (function (a,p__153954){
-var vec__153955 = p__153954;
-var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153955,0,null);
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153955,1,null);
-var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153955,2,null);
-return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,f,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:deps",cljs.core.set(cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.first,cljs.core.filter(((function (vec__153955,f,_,out,derive_fns__$1,index,deps){
-return (function (p__153956){
-var vec__153957 = p__153956;
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153957,0,null);
-var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153957,1,null);
+return (function (a,p__14930){
+var vec__14931 = p__14930;
+var f = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14931,0,null);
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14931,1,null);
+var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14931,2,null);
+return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,f,cljs.core.PersistentArrayMap.fromArray(["\uFDD0:deps",cljs.core.set(cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.first,cljs.core.filter(((function (vec__14931,f,_,out,derive_fns__$1,index,deps){
+return (function (p__14932){
+var vec__14933 = p__14932;
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14933,0,null);
+var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14933,1,null);
 return io.pedestal.app.dataflow.descendent_QMARK_(in$,out);
-});})(vec__153955,f,_,out,derive_fns__$1,index,deps))
+});})(vec__14931,f,_,out,derive_fns__$1,index,deps))
 ,deps)))], true));
 });})(derive_fns__$1,index,deps))
 ,cljs.core.PersistentArrayMap.EMPTY,deps);
@@ -661,16 +661,16 @@ return cljs.core.conj.cljs$core$IFn$_invoke$arity$2(a,cljs.core.dissoc.cljs$core
 * function which matches the given message.
 */
 io.pedestal.app.dataflow.find_message_transformer = (function find_message_transformer(transforms,out_path,key){
-return (new cljs.core.Keyword("\uFDD0:fn")).call(null,cljs.core.first(cljs.core.filter((function (p__153963){
-var map__153964 = p__153963;
-var map__153964__$1 = ((cljs.core.seq_QMARK_(map__153964))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153964):map__153964);
-var op = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153964__$1,"\uFDD0:key");
-var path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153964__$1,"\uFDD0:out");
-var vec__153965 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.last(path),"\uFDD0:**"))?(function (){var c = cljs.core.count(path);
+return (new cljs.core.Keyword("\uFDD0:fn")).call(null,cljs.core.first(cljs.core.filter((function (p__14939){
+var map__14940 = p__14939;
+var map__14940__$1 = ((cljs.core.seq_QMARK_(map__14940))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14940):map__14940);
+var op = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14940__$1,"\uFDD0:key");
+var path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14940__$1,"\uFDD0:out");
+var vec__14941 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(cljs.core.last(path),"\uFDD0:**"))?(function (){var c = cljs.core.count(path);
 return cljs.core.PersistentVector.fromArray([cljs.core.conj.cljs$core$IFn$_invoke$arity$2(cljs.core.vec(cljs.core.take((c - 1),path)),"\uFDD0:*"),cljs.core.vec(cljs.core.take(c,out_path))], true);
 })():cljs.core.PersistentVector.fromArray([path,out_path], true));
-var path__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153965,0,null);
-var out_path__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153965,1,null);
+var path__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14941,0,null);
+var out_path__$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14941,1,null);
 var and__3941__auto__ = io.pedestal.app.dataflow.matching_path_element_QMARK_(op,key);
 if(cljs.core.truth_(and__3941__auto__))
 {return io.pedestal.app.dataflow.matching_path_QMARK_(path__$1,out_path__$1);
@@ -700,13 +700,13 @@ if (arguments.length > 3) {
 return track_update_in__delegate.call(this, data_model, out_path, f, args);
 };
 track_update_in.cljs$lang$maxFixedArity = 3;
-track_update_in.cljs$lang$applyTo = (function (arglist__153966){
-var data_model = cljs.core.first(arglist__153966);
-arglist__153966 = cljs.core.next(arglist__153966);
-var out_path = cljs.core.first(arglist__153966);
-arglist__153966 = cljs.core.next(arglist__153966);
-var f = cljs.core.first(arglist__153966);
-var args = cljs.core.rest(arglist__153966);
+track_update_in.cljs$lang$applyTo = (function (arglist__14942){
+var data_model = cljs.core.first(arglist__14942);
+arglist__14942 = cljs.core.next(arglist__14942);
+var out_path = cljs.core.first(arglist__14942);
+arglist__14942 = cljs.core.next(arglist__14942);
+var f = cljs.core.first(arglist__14942);
+var args = cljs.core.rest(arglist__14942);
 return track_update_in__delegate(data_model, out_path, f, args);
 });
 track_update_in.cljs$core$IFn$_invoke$arity$variadic = track_update_in__delegate;
@@ -730,13 +730,13 @@ if (arguments.length > 3) {
 return apply_in__delegate.call(this, state, out_path, f, args);
 };
 apply_in.cljs$lang$maxFixedArity = 3;
-apply_in.cljs$lang$applyTo = (function (arglist__153967){
-var state = cljs.core.first(arglist__153967);
-arglist__153967 = cljs.core.next(arglist__153967);
-var out_path = cljs.core.first(arglist__153967);
-arglist__153967 = cljs.core.next(arglist__153967);
-var f = cljs.core.first(arglist__153967);
-var args = cljs.core.rest(arglist__153967);
+apply_in.cljs$lang$applyTo = (function (arglist__14943){
+var state = cljs.core.first(arglist__14943);
+arglist__14943 = cljs.core.next(arglist__14943);
+var out_path = cljs.core.first(arglist__14943);
+arglist__14943 = cljs.core.next(arglist__14943);
+var f = cljs.core.first(arglist__14943);
+var args = cljs.core.rest(arglist__14943);
 return apply_in__delegate(state, out_path, f, args);
 });
 apply_in.cljs$core$IFn$_invoke$arity$variadic = apply_in__delegate;
@@ -747,17 +747,17 @@ return apply_in;
 * Find the first transform function that matches the message and
 * execute it, returning the updated flow state.
 */
-io.pedestal.app.dataflow.transform_phase = (function transform_phase(p__153968){
-var map__153971 = p__153968;
-var map__153971__$1 = ((cljs.core.seq_QMARK_(map__153971))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153971):map__153971);
-var state = map__153971__$1;
-var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153971__$1,"\uFDD0:context");
-var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153971__$1,"\uFDD0:dataflow");
-var new$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153971__$1,"\uFDD0:new");
-var map__153972 = (new cljs.core.Keyword("\uFDD0:input-adapter")).call(null,dataflow).call(null,(new cljs.core.Keyword("\uFDD0:message")).call(null,context));
-var map__153972__$1 = ((cljs.core.seq_QMARK_(map__153972))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153972):map__153972);
-var out_path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153972__$1,"\uFDD0:out");
-var key = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153972__$1,"\uFDD0:key");
+io.pedestal.app.dataflow.transform_phase = (function transform_phase(p__14944){
+var map__14947 = p__14944;
+var map__14947__$1 = ((cljs.core.seq_QMARK_(map__14947))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14947):map__14947);
+var state = map__14947__$1;
+var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14947__$1,"\uFDD0:context");
+var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14947__$1,"\uFDD0:dataflow");
+var new$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14947__$1,"\uFDD0:new");
+var map__14948 = (new cljs.core.Keyword("\uFDD0:input-adapter")).call(null,dataflow).call(null,(new cljs.core.Keyword("\uFDD0:message")).call(null,context));
+var map__14948__$1 = ((cljs.core.seq_QMARK_(map__14948))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14948):map__14948);
+var out_path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14948__$1,"\uFDD0:out");
+var key = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14948__$1,"\uFDD0:key");
 var transform_fn = io.pedestal.app.dataflow.find_message_transformer((new cljs.core.Keyword("\uFDD0:transform")).call(null,dataflow),out_path,key);
 if(cljs.core.truth_(transform_fn))
 {return io.pedestal.app.dataflow.apply_in.cljs$core$IFn$_invoke$arity$variadic(state,out_path,transform_fn,cljs.core.array_seq([(new cljs.core.Keyword("\uFDD0:message")).call(null,context)], 0));
@@ -779,11 +779,11 @@ return cljs.core.some(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(io.pedesta
 * Custom propagator predicates can be provided by attaching
 * :propagator metadata to any input path.
 */
-io.pedestal.app.dataflow.propagate_QMARK_ = (function propagate_QMARK_(p__153973,input_paths){
-var map__153975 = p__153973;
-var map__153975__$1 = ((cljs.core.seq_QMARK_(map__153975))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153975):map__153975);
-var state = map__153975__$1;
-var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153975__$1,"\uFDD0:change");
+io.pedestal.app.dataflow.propagate_QMARK_ = (function propagate_QMARK_(p__14949,input_paths){
+var map__14951 = p__14949;
+var map__14951__$1 = ((cljs.core.seq_QMARK_(map__14951))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14951):map__14951);
+var state = map__14951__$1;
+var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14951__$1,"\uFDD0:change");
 var changed_inputs = ((cljs.core.seq(change))?cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core.into,cljs.core.vals(change)):cljs.core.PersistentVector.EMPTY);
 return cljs.core.some((function (input_path){
 var propagator_pred = (new cljs.core.Keyword("\uFDD0:propagator")).call(null,cljs.core.meta(input_path));
@@ -806,20 +806,20 @@ io.pedestal.app.dataflow.flow_input = (function flow_input(context,state,input_p
 return io.pedestal.app.dataflow.update_input_sets(cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(context,"\uFDD0:new-model",cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(state,cljs.core.PersistentVector.fromArray(["\uFDD0:new","\uFDD0:data-model"], true))),"\uFDD0:old-model",cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(state,cljs.core.PersistentVector.fromArray(["\uFDD0:old","\uFDD0:data-model"], true))),"\uFDD0:input-paths",input_paths),cljs.core.select_keys(change,cljs.core.PersistentVector.fromArray(["\uFDD0:added","\uFDD0:updated","\uFDD0:removed"], true))], 0)),cljs.core.PersistentVector.fromArray(["\uFDD0:added","\uFDD0:updated","\uFDD0:removed"], true),cljs.core.filter,input_paths);
 });
 io.pedestal.app.dataflow.dataflow_fn_args = (function dataflow_fn_args(inputs,args_key,arg_names){
-var G__153977 = args_key;
-if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:default",G__153977))
+var G__14953 = args_key;
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:default",G__14953))
 {return cljs.core.PersistentVector.fromArray([inputs], true);
 } else
-{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:single-val",G__153977))
+{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:single-val",G__14953))
 {return cljs.core.PersistentVector.fromArray([io.pedestal.app.dataflow.single_val(inputs)], true);
 } else
-{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:map-seq",G__153977))
+{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:map-seq",G__14953))
 {return cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.concat,cljs.core.seq(io.pedestal.app.dataflow.input_map.cljs$core$IFn$_invoke$arity$2(inputs,arg_names)));
 } else
-{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",G__153977))
+{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:map",G__14953))
 {return cljs.core.PersistentVector.fromArray([io.pedestal.app.dataflow.input_map.cljs$core$IFn$_invoke$arity$2(inputs,arg_names)], true);
 } else
-{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:vals",G__153977))
+{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:vals",G__14953))
 {return cljs.core.PersistentVector.fromArray([io.pedestal.app.dataflow.input_vals(inputs)], true);
 } else
 {if("\uFDD0:else")
@@ -837,25 +837,25 @@ if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("\uFDD0:default",G__153977))
 * Execute each derive function in dependency order only if some input to the
 * function has changed. Return an updated flow state.
 */
-io.pedestal.app.dataflow.derive_phase = (function derive_phase(p__153978){
-var map__153984 = p__153978;
-var map__153984__$1 = ((cljs.core.seq_QMARK_(map__153984))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153984):map__153984);
-var state = map__153984__$1;
-var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153984__$1,"\uFDD0:context");
-var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153984__$1,"\uFDD0:dataflow");
+io.pedestal.app.dataflow.derive_phase = (function derive_phase(p__14954){
+var map__14960 = p__14954;
+var map__14960__$1 = ((cljs.core.seq_QMARK_(map__14960))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14960):map__14960);
+var state = map__14960__$1;
+var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14960__$1,"\uFDD0:context");
+var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14960__$1,"\uFDD0:dataflow");
 var derives = (new cljs.core.Keyword("\uFDD0:derive")).call(null,dataflow);
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__153985,p__153986){
-var map__153987 = p__153985;
-var map__153987__$1 = ((cljs.core.seq_QMARK_(map__153987))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153987):map__153987);
-var acc = map__153987__$1;
-var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153987__$1,"\uFDD0:change");
-var map__153988 = p__153986;
-var map__153988__$1 = ((cljs.core.seq_QMARK_(map__153988))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153988):map__153988);
-var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153988__$1,"\uFDD0:in");
-var derive_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153988__$1,"\uFDD0:fn");
-var out_path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153988__$1,"\uFDD0:out");
-var args = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153988__$1,"\uFDD0:args");
-var arg_names = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153988__$1,"\uFDD0:arg-names");
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__14961,p__14962){
+var map__14963 = p__14961;
+var map__14963__$1 = ((cljs.core.seq_QMARK_(map__14963))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14963):map__14963);
+var acc = map__14963__$1;
+var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14963__$1,"\uFDD0:change");
+var map__14964 = p__14962;
+var map__14964__$1 = ((cljs.core.seq_QMARK_(map__14964))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14964):map__14964);
+var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14964__$1,"\uFDD0:in");
+var derive_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14964__$1,"\uFDD0:fn");
+var out_path = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14964__$1,"\uFDD0:out");
+var args = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14964__$1,"\uFDD0:args");
+var arg_names = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14964__$1,"\uFDD0:arg-names");
 if(cljs.core.truth_(io.pedestal.app.dataflow.propagate_QMARK_(acc,input_paths)))
 {return cljs.core.apply.cljs$core$IFn$_invoke$arity$5(io.pedestal.app.dataflow.apply_in,acc,out_path,derive_fn,io.pedestal.app.dataflow.dataflow_fn_args(io.pedestal.app.dataflow.flow_input(context,acc,input_paths,change),args,arg_names));
 } else
@@ -866,24 +866,24 @@ if(cljs.core.truth_(io.pedestal.app.dataflow.propagate_QMARK_(acc,input_paths)))
 /**
 * Execute each function. Return an updated flow state.
 */
-io.pedestal.app.dataflow.output_phase = (function output_phase(p__153989,k){
-var map__153995 = p__153989;
-var map__153995__$1 = ((cljs.core.seq_QMARK_(map__153995))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153995):map__153995);
-var state = map__153995__$1;
-var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153995__$1,"\uFDD0:context");
-var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153995__$1,"\uFDD0:dataflow");
+io.pedestal.app.dataflow.output_phase = (function output_phase(p__14965,k){
+var map__14971 = p__14965;
+var map__14971__$1 = ((cljs.core.seq_QMARK_(map__14971))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14971):map__14971);
+var state = map__14971__$1;
+var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14971__$1,"\uFDD0:context");
+var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14971__$1,"\uFDD0:dataflow");
 var fns = (k.cljs$core$IFn$_invoke$arity$1 ? k.cljs$core$IFn$_invoke$arity$1(dataflow) : k.call(null,dataflow));
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__153996,p__153997){
-var map__153998 = p__153996;
-var map__153998__$1 = ((cljs.core.seq_QMARK_(map__153998))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153998):map__153998);
-var acc = map__153998__$1;
-var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153998__$1,"\uFDD0:change");
-var map__153999 = p__153997;
-var map__153999__$1 = ((cljs.core.seq_QMARK_(map__153999))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153999):map__153999);
-var f = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153999__$1,"\uFDD0:fn");
-var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153999__$1,"\uFDD0:in");
-var args = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153999__$1,"\uFDD0:args");
-var arg_names = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153999__$1,"\uFDD0:arg-names");
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__14972,p__14973){
+var map__14974 = p__14972;
+var map__14974__$1 = ((cljs.core.seq_QMARK_(map__14974))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14974):map__14974);
+var acc = map__14974__$1;
+var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14974__$1,"\uFDD0:change");
+var map__14975 = p__14973;
+var map__14975__$1 = ((cljs.core.seq_QMARK_(map__14975))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14975):map__14975);
+var f = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14975__$1,"\uFDD0:fn");
+var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14975__$1,"\uFDD0:in");
+var args = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14975__$1,"\uFDD0:args");
+var arg_names = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14975__$1,"\uFDD0:arg-names");
 if(cljs.core.truth_(io.pedestal.app.dataflow.propagate_QMARK_(acc,input_paths)))
 {return cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(acc,cljs.core.PersistentVector.fromArray(["\uFDD0:new",k], true),cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.into,cljs.core.PersistentVector.EMPTY),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(f,io.pedestal.app.dataflow.dataflow_fn_args(io.pedestal.app.dataflow.flow_input(context,acc,input_paths,change),args,arg_names)));
 } else
@@ -904,8 +904,8 @@ io.pedestal.app.dataflow.effect_phase = (function effect_phase(state){
 return io.pedestal.app.dataflow.output_phase(state,"\uFDD0:effect");
 });
 var remover = (function remover(change_set,input_paths){
-return cljs.core.set(cljs.core.remove((function (p1__154000_SHARP_){
-return cljs.core.some(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(io.pedestal.app.dataflow.matching_path_QMARK_,p1__154000_SHARP_),input_paths);
+return cljs.core.set(cljs.core.remove((function (p1__14976_SHARP_){
+return cljs.core.some(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(io.pedestal.app.dataflow.matching_path_QMARK_,p1__14976_SHARP_),input_paths);
 }),change_set));
 });
 io.pedestal.app.dataflow.remove_matching_changes = (function remove_matching_changes(change,input_paths){
@@ -913,26 +913,26 @@ return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,k){
 return cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(a,cljs.core.PersistentVector.fromArray([k], true),remover,input_paths);
 }),change,cljs.core.PersistentVector.fromArray(["\uFDD0:inspect","\uFDD0:added","\uFDD0:updated","\uFDD0:removed"], true));
 });
-io.pedestal.app.dataflow.emit_phase = (function emit_phase(p__154001){
-var map__154007 = p__154001;
-var map__154007__$1 = ((cljs.core.seq_QMARK_(map__154007))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154007):map__154007);
-var state = map__154007__$1;
-var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154007__$1,"\uFDD0:change");
-var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154007__$1,"\uFDD0:context");
-var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154007__$1,"\uFDD0:dataflow");
+io.pedestal.app.dataflow.emit_phase = (function emit_phase(p__14977){
+var map__14983 = p__14977;
+var map__14983__$1 = ((cljs.core.seq_QMARK_(map__14983))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14983):map__14983);
+var state = map__14983__$1;
+var change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14983__$1,"\uFDD0:change");
+var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14983__$1,"\uFDD0:context");
+var dataflow = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14983__$1,"\uFDD0:dataflow");
 var emits = (new cljs.core.Keyword("\uFDD0:emit")).call(null,dataflow);
-return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__154008,p__154009){
-var map__154010 = p__154008;
-var map__154010__$1 = ((cljs.core.seq_QMARK_(map__154010))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154010):map__154010);
-var acc = map__154010__$1;
-var processed_inputs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154010__$1,"\uFDD0:processed-inputs");
-var remaining_change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154010__$1,"\uFDD0:remaining-change");
-var change__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154010__$1,"\uFDD0:change");
-var map__154011 = p__154009;
-var map__154011__$1 = ((cljs.core.seq_QMARK_(map__154011))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154011):map__154011);
-var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154011__$1,"\uFDD0:in");
-var emit_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154011__$1,"\uFDD0:fn");
-var mode = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154011__$1,"\uFDD0:mode");
+return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (p__14984,p__14985){
+var map__14986 = p__14984;
+var map__14986__$1 = ((cljs.core.seq_QMARK_(map__14986))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14986):map__14986);
+var acc = map__14986__$1;
+var processed_inputs = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14986__$1,"\uFDD0:processed-inputs");
+var remaining_change = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14986__$1,"\uFDD0:remaining-change");
+var change__$1 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14986__$1,"\uFDD0:change");
+var map__14987 = p__14985;
+var map__14987__$1 = ((cljs.core.seq_QMARK_(map__14987))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14987):map__14987);
+var input_paths = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14987__$1,"\uFDD0:in");
+var emit_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14987__$1,"\uFDD0:fn");
+var mode = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14987__$1,"\uFDD0:mode");
 var report_change = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(mode,"\uFDD0:always"))?change__$1:remaining_change);
 if(cljs.core.truth_(io.pedestal.app.dataflow.propagate_QMARK_(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(acc,"\uFDD0:change",report_change),input_paths)))
 {return cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(acc,cljs.core.PersistentVector.fromArray(["\uFDD0:remaining-change"], true),io.pedestal.app.dataflow.remove_matching_changes,input_paths),cljs.core.PersistentVector.fromArray(["\uFDD0:processed-inputs"], true),cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.into,cljs.core.PersistentVector.EMPTY),input_paths),cljs.core.PersistentVector.fromArray(["\uFDD0:new","\uFDD0:emit"], true),cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.into,cljs.core.PersistentVector.EMPTY),(emit_fn.cljs$core$IFn$_invoke$arity$1 ? emit_fn.cljs$core$IFn$_invoke$arity$1(cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(io.pedestal.app.dataflow.flow_input(context,acc,input_paths,report_change),"\uFDD0:mode",mode,cljs.core.array_seq(["\uFDD0:processed-inputs",processed_inputs], 0))) : emit_fn.call(null,cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(io.pedestal.app.dataflow.flow_input(context,acc,input_paths,report_change),"\uFDD0:mode",mode,cljs.core.array_seq(["\uFDD0:processed-inputs",processed_inputs], 0)))));
@@ -951,26 +951,26 @@ var state__$1 = cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(state,cljs.cor
 return io.pedestal.app.dataflow.continue_phase(io.pedestal.app.dataflow.derive_phase(io.pedestal.app.dataflow.transform_phase(cljs.core.assoc_in(state__$1,cljs.core.PersistentVector.fromArray(["\uFDD0:context","\uFDD0:message"], true),message))));
 });
 io.pedestal.app.dataflow.run_flow_phases = (function run_flow_phases(state,dataflow,message){
-var map__154016 = io.pedestal.app.dataflow.flow_phases_step(state,dataflow,message);
-var map__154016__$1 = ((cljs.core.seq_QMARK_(map__154016))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154016):map__154016);
-var result = map__154016__$1;
-var map__154017 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154016__$1,"\uFDD0:new");
-var map__154017__$1 = ((cljs.core.seq_QMARK_(map__154017))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154017):map__154017);
-var continue$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154017__$1,"\uFDD0:continue");
-var input = cljs.core.filter(((function (map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$){
-return (function (p1__154012_SHARP_){
-return (new cljs.core.Keyword("\uFDD0:input")).call(null,cljs.core.meta(p1__154012_SHARP_));
-});})(map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$))
+var map__14992 = io.pedestal.app.dataflow.flow_phases_step(state,dataflow,message);
+var map__14992__$1 = ((cljs.core.seq_QMARK_(map__14992))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14992):map__14992);
+var result = map__14992__$1;
+var map__14993 = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14992__$1,"\uFDD0:new");
+var map__14993__$1 = ((cljs.core.seq_QMARK_(map__14993))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14993):map__14993);
+var continue$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14993__$1,"\uFDD0:continue");
+var input = cljs.core.filter(((function (map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$){
+return (function (p1__14988_SHARP_){
+return (new cljs.core.Keyword("\uFDD0:input")).call(null,cljs.core.meta(p1__14988_SHARP_));
+});})(map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$))
 ,continue$);
-var continue$__$1 = cljs.core.remove(((function (map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$,input){
-return (function (p1__154013_SHARP_){
-return (new cljs.core.Keyword("\uFDD0:input")).call(null,cljs.core.meta(p1__154013_SHARP_));
-});})(map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$,input))
+var continue$__$1 = cljs.core.remove(((function (map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$,input){
+return (function (p1__14989_SHARP_){
+return (new cljs.core.Keyword("\uFDD0:input")).call(null,cljs.core.meta(p1__14989_SHARP_));
+});})(map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$,input))
 ,continue$);
-var new_state = ((cljs.core.empty_QMARK_(continue$__$1))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(result,cljs.core.PersistentVector.fromArray(["\uFDD0:new"], true),cljs.core.dissoc,"\uFDD0:continue"):cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(((function (map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$,input,continue$__$1){
+var new_state = ((cljs.core.empty_QMARK_(continue$__$1))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(result,cljs.core.PersistentVector.fromArray(["\uFDD0:new"], true),cljs.core.dissoc,"\uFDD0:continue"):cljs.core.reduce.cljs$core$IFn$_invoke$arity$3(((function (map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$,input,continue$__$1){
 return (function (a,c_message){
 return run_flow_phases(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,"\uFDD0:old",(new cljs.core.Keyword("\uFDD0:new")).call(null,a)),dataflow,c_message);
-});})(map__154016,map__154016__$1,result,map__154017,map__154017__$1,continue$,input,continue$__$1))
+});})(map__14992,map__14992__$1,result,map__14993,map__14993__$1,continue$,input,continue$__$1))
 ,result,continue$__$1));
 if(cljs.core.empty_QMARK_(input))
 {return new_state;
@@ -1029,21 +1029,21 @@ return with_propagator;
 io.pedestal.app.dataflow.transform_maps = (function transform_maps(transforms){
 return cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (x){
 if(cljs.core.vector_QMARK_(x))
-{var vec__154019 = x;
-var key = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154019,0,null);
-var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154019,1,null);
-var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154019,2,null);
+{var vec__14995 = x;
+var key = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14995,0,null);
+var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14995,1,null);
+var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__14995,2,null);
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:key",key,"\uFDD0:out",out,"\uFDD0:fn",fn], true);
 } else
 {return x;
 }
 }),transforms);
 });
-io.pedestal.app.dataflow.add_arg_names = (function add_arg_names(p__154020){
-var map__154022 = p__154020;
-var map__154022__$1 = ((cljs.core.seq_QMARK_(map__154022))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154022):map__154022);
-var m = map__154022__$1;
-var in$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154022__$1,"\uFDD0:in");
+io.pedestal.app.dataflow.add_arg_names = (function add_arg_names(p__14996){
+var map__14998 = p__14996;
+var map__14998__$1 = ((cljs.core.seq_QMARK_(map__14998))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__14998):map__14998);
+var m = map__14998__$1;
+var in$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__14998__$1,"\uFDD0:in");
 var arg_names = ((cljs.core.map_QMARK_(in$))?in$:null);
 var in$__$1 = ((cljs.core.map_QMARK_(in$))?cljs.core.set(cljs.core.keys(in$)):in$);
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$variadic(m,"\uFDD0:in",in$__$1,cljs.core.array_seq(["\uFDD0:arg-names",arg_names], 0));
@@ -1054,21 +1054,21 @@ return cljs.core.update_in.cljs$core$IFn$_invoke$arity$3(io.pedestal.app.dataflo
 }),coll);
 });
 io.pedestal.app.dataflow.derive_maps = (function derive_maps(derives){
-return io.pedestal.app.dataflow.dataflow_maps(derives,(function (p__154025){
-var vec__154026 = p__154025;
-var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154026,0,null);
-var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154026,1,null);
-var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154026,2,null);
-var args = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154026,3,null);
+return io.pedestal.app.dataflow.dataflow_maps(derives,(function (p__15001){
+var vec__15002 = p__15001;
+var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15002,0,null);
+var out = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15002,1,null);
+var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15002,2,null);
+var args = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15002,3,null);
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:in",in$,"\uFDD0:out",out,"\uFDD0:fn",fn,"\uFDD0:args",args], true);
 }));
 });
 io.pedestal.app.dataflow.output_maps = (function output_maps(outputs){
-return io.pedestal.app.dataflow.dataflow_maps(outputs,(function (p__154029){
-var vec__154030 = p__154029;
-var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154030,0,null);
-var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154030,1,null);
-var args = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154030,2,null);
+return io.pedestal.app.dataflow.dataflow_maps(outputs,(function (p__15005){
+var vec__15006 = p__15005;
+var in$ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15006,0,null);
+var fn = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15006,1,null);
+var args = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__15006,2,null);
 return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:in",in$,"\uFDD0:fn",fn,"\uFDD0:args",args], true);
 }));
 });

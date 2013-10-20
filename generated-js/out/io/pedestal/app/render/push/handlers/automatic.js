@@ -10,8 +10,8 @@ goog.require('io.pedestal.app.render.push');
 goog.require('io.pedestal.app.util.log');
 goog.require('cljs.reader');
 io.pedestal.app.render.push.handlers.automatic.prompt_values = (function prompt_values(syms){
-return cljs.core.zipmap(syms,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__157227_SHARP_){
-return prompt([cljs.core.str("Enter value for: "),cljs.core.str(cljs.core.name(p1__157227_SHARP_))].join(''));
+return cljs.core.zipmap(syms,cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__18192_SHARP_){
+return prompt([cljs.core.str("Enter value for: "),cljs.core.str(cljs.core.name(p1__18192_SHARP_))].join(''));
 }),syms));
 });
 io.pedestal.app.render.push.handlers.automatic.get_missing_input = (function get_missing_input(messages){
@@ -79,13 +79,13 @@ if(or__3943__auto__)
 }),"\uFDD0:inline-help","","\uFDD0:inline-help-error",[cljs.core.str(field_name),cljs.core.str(" is required")].join('')], true);
 }));
 io.pedestal.app.render.push.handlers.automatic.modal_input_field = (function modal_input_field(id,transform_name,sym){
-var map__157229 = (io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2(transform_name,cljs.core.name(sym)) : io.pedestal.app.render.push.handlers.automatic.modal_field.call(null,transform_name,cljs.core.name(sym)));
-var map__157229__$1 = ((cljs.core.seq_QMARK_(map__157229))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__157229):map__157229);
-var inline_help = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157229__$1,"\uFDD0:inline-help");
-var default$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157229__$1,"\uFDD0:default");
-var input_class = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157229__$1,"\uFDD0:input-class");
-var placeholder = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157229__$1,"\uFDD0:placeholder");
-var field_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157229__$1,"\uFDD0:field-name");
+var map__18194 = (io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2(transform_name,cljs.core.name(sym)) : io.pedestal.app.render.push.handlers.automatic.modal_field.call(null,transform_name,cljs.core.name(sym)));
+var map__18194__$1 = ((cljs.core.seq_QMARK_(map__18194))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__18194):map__18194);
+var inline_help = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18194__$1,"\uFDD0:inline-help");
+var default$ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18194__$1,"\uFDD0:default");
+var input_class = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18194__$1,"\uFDD0:input-class");
+var placeholder = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18194__$1,"\uFDD0:placeholder");
+var field_name = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18194__$1,"\uFDD0:field-name");
 var field_id = io.pedestal.app.render.push.handlers.automatic.modal_field_id(id,transform_name,sym);
 return [cljs.core.str("<label class='control-label' for='"),cljs.core.str(field_id),cljs.core.str("'>"),cljs.core.str(field_name),cljs.core.str("</label>"),cljs.core.str("<div class='controls'>"),cljs.core.str("<input id='"),cljs.core.str(field_id),cljs.core.str("' "),cljs.core.str("       class='"),cljs.core.str(input_class),cljs.core.str("' type='text' placeholder='"),cljs.core.str(placeholder),cljs.core.str("'"),cljs.core.str((cljs.core.truth_(default$)?[cljs.core.str(" value='"),cljs.core.str(default$),cljs.core.str("'")].join(''):null)),cljs.core.str(">"),cljs.core.str("<span class='help-inline' id='"),cljs.core.str(field_id),cljs.core.str("-help-inline'>"),cljs.core.str(inline_help),cljs.core.str("</span>"),cljs.core.str("</div>")].join('');
 });
@@ -102,10 +102,10 @@ return [cljs.core.str("<div class='modal hide fade' id='"),cljs.core.str(modal_i
 io.pedestal.app.render.push.handlers.automatic.get_modal_value = (function get_modal_value(id,transform_name,sym){
 var field_id = io.pedestal.app.render.push.handlers.automatic.modal_field_id(id,transform_name,sym);
 var value = domina.by_id(field_id).value;
-var map__157231 = (io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2(transform_name,cljs.core.name(sym)) : io.pedestal.app.render.push.handlers.automatic.modal_field.call(null,transform_name,cljs.core.name(sym)));
-var map__157231__$1 = ((cljs.core.seq_QMARK_(map__157231))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__157231):map__157231);
-var inline_help_error = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157231__$1,"\uFDD0:inline-help-error");
-var validation_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157231__$1,"\uFDD0:validation-fn");
+var map__18196 = (io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2 ? io.pedestal.app.render.push.handlers.automatic.modal_field.cljs$core$IFn$_invoke$arity$2(transform_name,cljs.core.name(sym)) : io.pedestal.app.render.push.handlers.automatic.modal_field.call(null,transform_name,cljs.core.name(sym)));
+var map__18196__$1 = ((cljs.core.seq_QMARK_(map__18196))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__18196):map__18196);
+var inline_help_error = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18196__$1,"\uFDD0:inline-help-error");
+var validation_fn = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18196__$1,"\uFDD0:validation-fn");
 if(cljs.core.truth_((validation_fn.cljs$core$IFn$_invoke$arity$1 ? validation_fn.cljs$core$IFn$_invoke$arity$1(value) : validation_fn.call(null,value))))
 {return cljs.core.PersistentArrayMap.fromArray(["\uFDD0:value",value], true);
 } else
@@ -127,62 +127,62 @@ hideModal(io.pedestal.app.render.push.handlers.automatic.modal_id(id,transform_n
 return messages;
 });
 io.pedestal.app.render.push.handlers.automatic.highlight_errors = (function highlight_errors(errors){
-var seq__157238 = cljs.core.seq(cljs.core.vals(errors));
-var chunk__157239 = null;
-var count__157240 = 0;
-var i__157241 = 0;
+var seq__18203 = cljs.core.seq(cljs.core.vals(errors));
+var chunk__18204 = null;
+var count__18205 = 0;
+var i__18206 = 0;
 while(true){
-if((i__157241 < count__157240))
-{var map__157242 = chunk__157239.cljs$core$IIndexed$_nth$arity$2(chunk__157239,i__157241);
-var map__157242__$1 = ((cljs.core.seq_QMARK_(map__157242))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__157242):map__157242);
-var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157242__$1,"\uFDD0:message");
-var field_id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157242__$1,"\uFDD0:field-id");
+if((i__18206 < count__18205))
+{var map__18207 = chunk__18204.cljs$core$IIndexed$_nth$arity$2(chunk__18204,i__18206);
+var map__18207__$1 = ((cljs.core.seq_QMARK_(map__18207))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__18207):map__18207);
+var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18207__$1,"\uFDD0:message");
+var field_id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18207__$1,"\uFDD0:field-id");
 domina.add_class_BANG_(domina.by_id("modal-control-group"),"error");
 domina.set_text_BANG_(domina.by_id([cljs.core.str(field_id),cljs.core.str("-help-inline")].join('')),message);
 {
-var G__157244 = seq__157238;
-var G__157245 = chunk__157239;
-var G__157246 = count__157240;
-var G__157247 = (i__157241 + 1);
-seq__157238 = G__157244;
-chunk__157239 = G__157245;
-count__157240 = G__157246;
-i__157241 = G__157247;
+var G__18209 = seq__18203;
+var G__18210 = chunk__18204;
+var G__18211 = count__18205;
+var G__18212 = (i__18206 + 1);
+seq__18203 = G__18209;
+chunk__18204 = G__18210;
+count__18205 = G__18211;
+i__18206 = G__18212;
 continue;
 }
 } else
-{var temp__4092__auto__ = cljs.core.seq(seq__157238);
+{var temp__4092__auto__ = cljs.core.seq(seq__18203);
 if(temp__4092__auto__)
-{var seq__157238__$1 = temp__4092__auto__;
-if(cljs.core.chunked_seq_QMARK_(seq__157238__$1))
-{var c__9926__auto__ = cljs.core.chunk_first(seq__157238__$1);
+{var seq__18203__$1 = temp__4092__auto__;
+if(cljs.core.chunked_seq_QMARK_(seq__18203__$1))
+{var c__9926__auto__ = cljs.core.chunk_first(seq__18203__$1);
 {
-var G__157248 = cljs.core.chunk_rest(seq__157238__$1);
-var G__157249 = c__9926__auto__;
-var G__157250 = cljs.core.count(c__9926__auto__);
-var G__157251 = 0;
-seq__157238 = G__157248;
-chunk__157239 = G__157249;
-count__157240 = G__157250;
-i__157241 = G__157251;
+var G__18213 = cljs.core.chunk_rest(seq__18203__$1);
+var G__18214 = c__9926__auto__;
+var G__18215 = cljs.core.count(c__9926__auto__);
+var G__18216 = 0;
+seq__18203 = G__18213;
+chunk__18204 = G__18214;
+count__18205 = G__18215;
+i__18206 = G__18216;
 continue;
 }
 } else
-{var map__157243 = cljs.core.first(seq__157238__$1);
-var map__157243__$1 = ((cljs.core.seq_QMARK_(map__157243))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__157243):map__157243);
-var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157243__$1,"\uFDD0:message");
-var field_id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157243__$1,"\uFDD0:field-id");
+{var map__18208 = cljs.core.first(seq__18203__$1);
+var map__18208__$1 = ((cljs.core.seq_QMARK_(map__18208))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__18208):map__18208);
+var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18208__$1,"\uFDD0:message");
+var field_id = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18208__$1,"\uFDD0:field-id");
 domina.add_class_BANG_(domina.by_id("modal-control-group"),"error");
 domina.set_text_BANG_(domina.by_id([cljs.core.str(field_id),cljs.core.str("-help-inline")].join('')),message);
 {
-var G__157252 = cljs.core.next(seq__157238__$1);
-var G__157253 = null;
-var G__157254 = 0;
-var G__157255 = 0;
-seq__157238 = G__157252;
-chunk__157239 = G__157253;
-count__157240 = G__157254;
-i__157241 = G__157255;
+var G__18217 = cljs.core.next(seq__18203__$1);
+var G__18218 = null;
+var G__18219 = 0;
+var G__18220 = 0;
+seq__18203 = G__18217;
+chunk__18204 = G__18218;
+count__18205 = G__18219;
+i__18206 = G__18220;
 continue;
 }
 }
@@ -196,38 +196,38 @@ break;
 io.pedestal.app.render.push.handlers.automatic.submit_dialog_fn = (function submit_dialog_fn(id,transform_name,messages){
 var syms = io.pedestal.app.messages.message_params(messages);
 var messages_hash = cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,(function (){var iter__9895__auto__ = ((function (syms){
-return (function iter__157273(s__157274){
+return (function iter__18238(s__18239){
 return (new cljs.core.LazySeq(null,false,((function (syms){
 return (function (){
-var s__157274__$1 = s__157274;
+var s__18239__$1 = s__18239;
 while(true){
-var temp__4092__auto__ = cljs.core.seq(s__157274__$1);
+var temp__4092__auto__ = cljs.core.seq(s__18239__$1);
 if(temp__4092__auto__)
 {var xs__4579__auto__ = temp__4092__auto__;
 var m = cljs.core.first(xs__4579__auto__);
-var iterys__9891__auto__ = ((function (s__157274__$1,m,xs__4579__auto__,temp__4092__auto__,syms){
-return (function iter__157275(s__157276){
-return (new cljs.core.LazySeq(null,false,((function (s__157274__$1,m,xs__4579__auto__,temp__4092__auto__,syms){
+var iterys__9891__auto__ = ((function (s__18239__$1,m,xs__4579__auto__,temp__4092__auto__,syms){
+return (function iter__18240(s__18241){
+return (new cljs.core.LazySeq(null,false,((function (s__18239__$1,m,xs__4579__auto__,temp__4092__auto__,syms){
 return (function (){
-var s__157276__$1 = s__157276;
+var s__18241__$1 = s__18241;
 while(true){
-var temp__4092__auto____$1 = cljs.core.seq(s__157276__$1);
+var temp__4092__auto____$1 = cljs.core.seq(s__18241__$1);
 if(temp__4092__auto____$1)
-{var s__157276__$2 = temp__4092__auto____$1;
-if(cljs.core.chunked_seq_QMARK_(s__157276__$2))
-{var c__9893__auto__ = cljs.core.chunk_first(s__157276__$2);
+{var s__18241__$2 = temp__4092__auto____$1;
+if(cljs.core.chunked_seq_QMARK_(s__18241__$2))
+{var c__9893__auto__ = cljs.core.chunk_first(s__18241__$2);
 var size__9894__auto__ = cljs.core.count(c__9893__auto__);
-var b__157278 = cljs.core.chunk_buffer(size__9894__auto__);
-if((function (){var i__157277 = 0;
+var b__18243 = cljs.core.chunk_buffer(size__9894__auto__);
+if((function (){var i__18242 = 0;
 while(true){
-if((i__157277 < size__9894__auto__))
-{var vec__157285 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__157277);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157285,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157285,1,null);
-cljs.core.chunk_append(b__157278,cljs.core.PersistentVector.fromArray([k,v], true));
+if((i__18242 < size__9894__auto__))
+{var vec__18250 = cljs.core._nth.cljs$core$IFn$_invoke$arity$2(c__9893__auto__,i__18242);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18250,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18250,1,null);
+cljs.core.chunk_append(b__18243,cljs.core.PersistentVector.fromArray([k,v], true));
 {
-var G__157290 = (i__157277 + 1);
-i__157277 = G__157290;
+var G__18255 = (i__18242 + 1);
+i__18242 = G__18255;
 continue;
 }
 } else
@@ -236,32 +236,32 @@ continue;
 break;
 }
 })())
-{return cljs.core.chunk_cons(cljs.core.chunk(b__157278),iter__157275(cljs.core.chunk_rest(s__157276__$2)));
+{return cljs.core.chunk_cons(cljs.core.chunk(b__18243),iter__18240(cljs.core.chunk_rest(s__18241__$2)));
 } else
-{return cljs.core.chunk_cons(cljs.core.chunk(b__157278),null);
+{return cljs.core.chunk_cons(cljs.core.chunk(b__18243),null);
 }
 } else
-{var vec__157286 = cljs.core.first(s__157276__$2);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157286,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157286,1,null);
-return cljs.core.cons(cljs.core.PersistentVector.fromArray([k,v], true),iter__157275(cljs.core.rest(s__157276__$2)));
+{var vec__18251 = cljs.core.first(s__18241__$2);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18251,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18251,1,null);
+return cljs.core.cons(cljs.core.PersistentVector.fromArray([k,v], true),iter__18240(cljs.core.rest(s__18241__$2)));
 }
 } else
 {return null;
 }
 break;
 }
-});})(s__157274__$1,m,xs__4579__auto__,temp__4092__auto__,syms))
+});})(s__18239__$1,m,xs__4579__auto__,temp__4092__auto__,syms))
 ,null));
-});})(s__157274__$1,m,xs__4579__auto__,temp__4092__auto__,syms))
+});})(s__18239__$1,m,xs__4579__auto__,temp__4092__auto__,syms))
 ;
 var fs__9892__auto__ = cljs.core.seq(iterys__9891__auto__(m));
 if(fs__9892__auto__)
-{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__157273(cljs.core.rest(s__157274__$1)));
+{return cljs.core.concat.cljs$core$IFn$_invoke$arity$2(fs__9892__auto__,iter__18238(cljs.core.rest(s__18239__$1)));
 } else
 {{
-var G__157291 = cljs.core.rest(s__157274__$1);
-s__157274__$1 = G__157291;
+var G__18256 = cljs.core.rest(s__18239__$1);
+s__18239__$1 = G__18256;
 continue;
 }
 }
@@ -278,9 +278,9 @@ return iter__9895__auto__(messages);
 })());
 var read_value = ((function (syms,messages_hash){
 return (function (k,v){
-var map__157287 = (k.cljs$core$IFn$_invoke$arity$1 ? k.cljs$core$IFn$_invoke$arity$1(messages_hash) : k.call(null,messages_hash));
-var map__157287__$1 = ((cljs.core.seq_QMARK_(map__157287))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__157287):map__157287);
-var read_as = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__157287__$1,"\uFDD0:read-as");
+var map__18252 = (k.cljs$core$IFn$_invoke$arity$1 ? k.cljs$core$IFn$_invoke$arity$1(messages_hash) : k.call(null,messages_hash));
+var map__18252__$1 = ((cljs.core.seq_QMARK_(map__18252))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__18252):map__18252);
+var read_as = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__18252__$1,"\uFDD0:read-as");
 if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(read_as,"\uFDD0:data"))
 {return cljs.reader.read_string(v);
 } else
@@ -295,10 +295,10 @@ if(cljs.core.truth_((new cljs.core.Keyword("\uFDD0:errors")).call(null,values)))
 {io.pedestal.app.render.push.handlers.automatic.highlight_errors((new cljs.core.Keyword("\uFDD0:errors")).call(null,values));
 return cljs.core.PersistentVector.EMPTY;
 } else
-{return io.pedestal.app.render.push.handlers.automatic.hide_and_return_messages(id,transform_name,io.pedestal.app.messages.fill_params(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__157288){
-var vec__157289 = p__157288;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157289,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157289,1,null);
+{return io.pedestal.app.render.push.handlers.automatic.hide_and_return_messages(id,transform_name,io.pedestal.app.messages.fill_params(cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__18253){
+var vec__18254 = p__18253;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18254,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18254,1,null);
 return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(a,k,read_value(k,(new cljs.core.Keyword("\uFDD0:value")).call(null,v)));
 }),cljs.core.PersistentArrayMap.EMPTY,(new cljs.core.Keyword("\uFDD0:env")).call(null,values)),messages));
 }
@@ -319,12 +319,12 @@ var parent_id = io.pedestal.app.render.push.get_parent_id(r,path__$1);
 var id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,path__$1);
 return io.pedestal.app.render.push.handlers.automatic.generic_modal_collect_input(parent_id,id,input_queue,transform_name,messages);
 });
-io.pedestal.app.render.push.handlers.automatic.render_event_enter = (function render_event_enter(r,p__157293,input_queue){
-var vec__157295 = p__157293;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157295,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157295,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157295,2,null);
-var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157295,3,null);
+io.pedestal.app.render.push.handlers.automatic.render_event_enter = (function render_event_enter(r,p__18258,input_queue){
+var vec__18260 = p__18258;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18260,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18260,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18260,2,null);
+var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18260,3,null);
 var control_id = io.pedestal.app.render.push.get_id(r,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(path,"control"));
 var button_id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(path,"control",cljs.core.array_seq([transform_name], 0)));
 var messages__$1 = cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.partial.cljs$core$IFn$_invoke$arity$2(io.pedestal.app.messages.add_message_type,transform_name),messages);
@@ -340,18 +340,18 @@ domina.events.prevent_default(e);
 return io.pedestal.app.render.push.handlers.automatic.modal_collect_input(r,input_queue,path,transform_name,messages__$1);
 }));
 } else
-{io.pedestal.app.render.events.send_on_click.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([domina.by_id(button_id),input_queue,io.pedestal.app.render.push.handlers.automatic.get_missing_input(cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__157292_SHARP_){
-return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__157292_SHARP_,"\uFDD0:from","\uFDD0:ui");
+{io.pedestal.app.render.events.send_on_click.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([domina.by_id(button_id),input_queue,io.pedestal.app.render.push.handlers.automatic.get_missing_input(cljs.core.mapv.cljs$core$IFn$_invoke$arity$2((function (p1__18257_SHARP_){
+return cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(p1__18257_SHARP_,"\uFDD0:from","\uFDD0:ui");
 }),messages__$1))], 0));
 }
 return io.pedestal.app.render.push.on_destroy_BANG_(r,path,(function (){
 return domina.events.unlisten_BANG_.cljs$core$IFn$_invoke$arity$2(domina.by_id(button_id),"\uFDD0:click");
 }));
 });
-io.pedestal.app.render.push.handlers.automatic.render_node_enter = (function render_node_enter(r,p__157296,input_queue){
-var vec__157298 = p__157296;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157298,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157298,1,null);
+io.pedestal.app.render.push.handlers.automatic.render_node_enter = (function render_node_enter(r,p__18261,input_queue){
+var vec__18263 = p__18261;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18263,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18263,1,null);
 var parent = io.pedestal.app.render.push.get_parent_id(r,path);
 var id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,path);
 var data_id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(path,"data"));
@@ -359,12 +359,12 @@ var control_id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$
 var path_length = cljs.core.count(path);
 return domina.append_BANG_(domina.by_id(parent),[cljs.core.str("<div id='"),cljs.core.str(id),cljs.core.str("' class='"),cljs.core.str((((path_length <= 1))?"root-node-section":"node-section")),cljs.core.str("'>"),cljs.core.str("  <div class='row-fluid'>"),cljs.core.str("    <div class='span3' style='text-align:right' id='"),cljs.core.str(control_id),cljs.core.str("'></div>"),cljs.core.str("    <div class='span9'>"),cljs.core.str("      <h4 class='muted'>"),cljs.core.str(cljs.core.last(path)),cljs.core.str("</h4>"),cljs.core.str("      <div id='"),cljs.core.str(data_id),cljs.core.str("'></div>"),cljs.core.str("    </div>"),cljs.core.str("  </div>"),cljs.core.str("</div>")].join(''));
 });
-io.pedestal.app.render.push.handlers.automatic.render_value_update = (function render_value_update(r,p__157299,d){
-var vec__157301 = p__157299;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157301,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157301,1,null);
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157301,2,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157301,3,null);
+io.pedestal.app.render.push.handlers.automatic.render_value_update = (function render_value_update(r,p__18264,d){
+var vec__18266 = p__18264;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18266,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18266,1,null);
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18266,2,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18266,3,null);
 var data_id = io.pedestal.app.render.push.get_id(r,cljs.core.conj.cljs$core$IFn$_invoke$arity$2(path,"data"));
 var container = domina.single_node(domina.by_id(data_id));
 domina.destroy_children_BANG_(container);
@@ -377,41 +377,41 @@ return io.pedestal.app.render.push.cljs_formatter.arrange_BANG_(expression,conta
 }
 });
 io.pedestal.app.render.push.handlers.automatic.div_with_id = (function div_with_id(id){
-return (function (r,p__157304,d){
-var vec__157305 = p__157304;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157305,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157305,1,null);
+return (function (r,p__18269,d){
+var vec__18270 = p__18269;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18270,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18270,1,null);
 var parent = io.pedestal.app.render.push.get_parent_id(r,path);
 var id__$1 = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$3(r,path,id);
 return domina.append_BANG_(domina.by_id(parent),[cljs.core.str("<div id='"),cljs.core.str(id__$1),cljs.core.str("'></div>")].join(''));
 });
 });
 io.pedestal.app.render.push.handlers.automatic.append_to_parent = (function append_to_parent(f){
-return (function (r,p__157308,d){
-var vec__157309 = p__157308;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157309,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157309,1,null);
+return (function (r,p__18273,d){
+var vec__18274 = p__18273;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18274,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18274,1,null);
 var parent = io.pedestal.app.render.push.get_parent_id(r,path);
 var id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,path);
 return domina.append_BANG_(domina.by_id(parent),(f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(id) : f.call(null,id)));
 });
 });
 io.pedestal.app.render.push.handlers.automatic.prepend_to_parent = (function prepend_to_parent(f){
-return (function (r,p__157312,d){
-var vec__157313 = p__157312;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157313,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157313,1,null);
+return (function (r,p__18277,d){
+var vec__18278 = p__18277;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18278,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18278,1,null);
 var parent = io.pedestal.app.render.push.get_parent_id(r,path);
 var id = io.pedestal.app.render.push.new_id_BANG_.cljs$core$IFn$_invoke$arity$2(r,path);
 return domina.prepend_BANG_(domina.by_id(parent),(f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(id) : f.call(null,id)));
 });
 });
 io.pedestal.app.render.push.handlers.automatic.append_value = (function append_value(f){
-return (function (r,p__157316,d){
-var vec__157317 = p__157316;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157317,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157317,1,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157317,2,null);
+return (function (r,p__18281,d){
+var vec__18282 = p__18281;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18282,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18282,1,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18282,2,null);
 var id = io.pedestal.app.render.push.get_id(r,path);
 return domina.append_BANG_(domina.by_id(id),(f.cljs$core$IFn$_invoke$arity$1 ? f.cljs$core$IFn$_invoke$arity$1(v) : f.call(null,v)));
 });
@@ -426,12 +426,12 @@ var event_enter__0 = (function (){
 return event_enter.cljs$core$IFn$_invoke$arity$1(null);
 });
 var event_enter__1 = (function (modal_path){
-return (function (r,p__157320,input_queue){
-var vec__157321 = p__157320;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157321,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157321,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157321,2,null);
-var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157321,3,null);
+return (function (r,p__18285,input_queue){
+var vec__18286 = p__18285;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18286,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18286,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18286,2,null);
+var messages = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18286,3,null);
 var modal_path__$1 = (function (){var or__3943__auto__ = modal_path;
 if(cljs.core.truth_(or__3943__auto__))
 {return or__3943__auto__;
@@ -466,11 +466,11 @@ event_enter.cljs$core$IFn$_invoke$arity$1 = event_enter__1;
 return event_enter;
 })()
 ;
-io.pedestal.app.render.push.handlers.automatic.event_exit = (function event_exit(r,p__157322,_){
-var vec__157324 = p__157322;
-var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157324,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157324,1,null);
-var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157324,2,null);
+io.pedestal.app.render.push.handlers.automatic.event_exit = (function event_exit(r,p__18287,_){
+var vec__18289 = p__18287;
+var ___$1 = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18289,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18289,1,null);
+var transform_name = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18289,2,null);
 var node_id = io.pedestal.app.render.push.get_id(r,path);
 var default_button_id = io.pedestal.app.render.push.get_id(r,cljs.core.conj.cljs$core$IFn$_invoke$arity$variadic(path,"control",cljs.core.array_seq([transform_name], 0)));
 var id = (function (){var or__3943__auto__ = default_button_id;
@@ -500,10 +500,10 @@ return domina.destroy_BANG_(domina.by_id(id));
 {return io.pedestal.app.util.log.warn.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq(["\uFDD0:in","\uFDD0:default-exit","\uFDD0:msg",[cljs.core.str("warning! no id "),cljs.core.str(io.pedestal.app.render.push.handlers.automatic.id),cljs.core.str(" found for path "),cljs.core.str(cljs.core.pr_str.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([path], 0)))].join('')], 0));
 }
 });
-io.pedestal.app.render.push.handlers.automatic.default_exit = (function default_exit(r,p__157325,d){
-var vec__157327 = p__157325;
-var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157327,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157327,1,null);
+io.pedestal.app.render.push.handlers.automatic.default_exit = (function default_exit(r,p__18290,d){
+var vec__18292 = p__18290;
+var _ = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18292,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__18292,1,null);
 return io.pedestal.app.render.push.handlers.automatic.destroy_BANG_(r,path);
 });
 io.pedestal.app.render.push.handlers.automatic.sync_class_BANG_ = (function sync_class_BANG_(pred,id,class_name){

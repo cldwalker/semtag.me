@@ -23,8 +23,8 @@ if (arguments.length > 0) {
 return html__delegate.call(this, tags);
 };
 html.cljs$lang$maxFixedArity = 0;
-html.cljs$lang$applyTo = (function (arglist__156324){
-var tags = cljs.core.seq(arglist__156324);
+html.cljs$lang$applyTo = (function (arglist__17907){
+var tags = cljs.core.seq(arglist__17907);
 return html__delegate(tags);
 });
 html.cljs$core$IFn$_invoke$arity$variadic = html__delegate;

@@ -6,8 +6,8 @@ goog.require('io.pedestal.app.protocols');
 io.pedestal.app.queue.pop_message_internal = (function pop_message_internal(queue_state){
 var queues = (new cljs.core.Keyword("\uFDD0:queues")).call(null,queue_state);
 var priority = ((cljs.core.seq((new cljs.core.Keyword("\uFDD0:high")).call(null,queues)))?"\uFDD0:high":"\uFDD0:low");
-return cljs.core.update_in.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(queue_state,"\uFDD0:item",cljs.core.first((priority.cljs$core$IFn$_invoke$arity$1 ? priority.cljs$core$IFn$_invoke$arity$1(queues) : priority.call(null,queues)))),cljs.core.PersistentVector.fromArray(["\uFDD0:queues",priority], true),(function (p1__154104_SHARP_){
-return cljs.core.vec(cljs.core.rest(p1__154104_SHARP_));
+return cljs.core.update_in.cljs$core$IFn$_invoke$arity$3(cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(queue_state,"\uFDD0:item",cljs.core.first((priority.cljs$core$IFn$_invoke$arity$1 ? priority.cljs$core$IFn$_invoke$arity$1(queues) : priority.call(null,queues)))),cljs.core.PersistentVector.fromArray(["\uFDD0:queues",priority], true),(function (p1__15080_SHARP_){
+return cljs.core.vec(cljs.core.rest(p1__15080_SHARP_));
 }));
 });
 io.pedestal.app.queue.not_empty_QMARK_ = (function not_empty_QMARK_(queue){
@@ -84,26 +84,26 @@ io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$ILookup$_lookup$arity$
 var self__ = this;
 return this__9754__auto__.cljs$core$ILookup$_lookup$arity$3(this__9754__auto__,k__9755__auto__,null);
 });
-io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k154106,else__9757__auto__){
+io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k15082,else__9757__auto__){
 var self__ = this;
-if((k154106 === "\uFDD0:state"))
+if((k15082 === "\uFDD0:state"))
 {return self__.state;
 } else
 {if("\uFDD0:else")
-{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k154106,else__9757__auto__);
+{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k15082,else__9757__auto__);
 } else
 {return null;
 }
 }
 });
-io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__154105){
+io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__15081){
 var self__ = this;
-var pred__154108 = cljs.core.identical_QMARK_;
-var expr__154109 = k__9762__auto__;
-if((pred__154108.cljs$core$IFn$_invoke$arity$2 ? pred__154108.cljs$core$IFn$_invoke$arity$2("\uFDD0:state",expr__154109) : pred__154108.call(null,"\uFDD0:state",expr__154109)))
-{return (new io.pedestal.app.queue.AppMessageQueue(G__154105,self__.__meta,self__.__extmap,null));
+var pred__15084 = cljs.core.identical_QMARK_;
+var expr__15085 = k__9762__auto__;
+if((pred__15084.cljs$core$IFn$_invoke$arity$2 ? pred__15084.cljs$core$IFn$_invoke$arity$2("\uFDD0:state",expr__15085) : pred__15084.call(null,"\uFDD0:state",expr__15085)))
+{return (new io.pedestal.app.queue.AppMessageQueue(G__15081,self__.__meta,self__.__extmap,null));
 } else
-{return (new io.pedestal.app.queue.AppMessageQueue(self__.state,self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__154105),null));
+{return (new io.pedestal.app.queue.AppMessageQueue(self__.state,self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__15081),null));
 }
 });
 io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IPrintWithWriter$_pr_writer$arity$3 = (function (this__9768__auto__,writer__9769__auto__,opts__9770__auto__){
@@ -155,9 +155,9 @@ if(and__3941__auto____$1)
 {return false;
 }
 });
-io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__154105){
+io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__15081){
 var self__ = this;
-return (new io.pedestal.app.queue.AppMessageQueue(self__.state,G__154105,self__.__extmap,self__.__hash));
+return (new io.pedestal.app.queue.AppMessageQueue(self__.state,G__15081,self__.__extmap,self__.__hash));
 });
 io.pedestal.app.queue.AppMessageQueue.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__9752__auto__){
 var self__ = this;
@@ -181,8 +181,8 @@ return cljs.core._write(writer__9789__auto__,"io.pedestal.app.queue/AppMessageQu
 io.pedestal.app.queue.__GT_AppMessageQueue = (function __GT_AppMessageQueue(state){
 return (new io.pedestal.app.queue.AppMessageQueue(state));
 });
-io.pedestal.app.queue.map__GT_AppMessageQueue = (function map__GT_AppMessageQueue(G__154107){
-return (new io.pedestal.app.queue.AppMessageQueue((new cljs.core.Keyword("\uFDD0:state")).call(null,G__154107),null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(G__154107,"\uFDD0:state")));
+io.pedestal.app.queue.map__GT_AppMessageQueue = (function map__GT_AppMessageQueue(G__15083){
+return (new io.pedestal.app.queue.AppMessageQueue((new cljs.core.Keyword("\uFDD0:state")).call(null,G__15083),null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2(G__15083,"\uFDD0:state")));
 });
 io.pedestal.app.queue.queue_length = (function queue_length(app_message_queue){
 var queues = (new cljs.core.Keyword("\uFDD0:queues")).call(null,cljs.core.deref((new cljs.core.Keyword("\uFDD0:state")).call(null,app_message_queue)));

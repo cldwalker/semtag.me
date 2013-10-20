@@ -101,19 +101,19 @@ io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$I
 var self__ = this;
 return this__9754__auto__.cljs$core$ILookup$_lookup$arity$3(this__9754__auto__,k__9755__auto__,null);
 });
-io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k157610,else__9757__auto__){
+io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$ILookup$_lookup$arity$3 = (function (this__9756__auto__,k18575,else__9757__auto__){
 var self__ = this;
 if("\uFDD0:else")
-{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k157610,else__9757__auto__);
+{return cljs.core.get.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k18575,else__9757__auto__);
 } else
 {return null;
 }
 });
-io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__157609){
+io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IAssociative$_assoc$arity$3 = (function (this__9761__auto__,k__9762__auto__,G__18574){
 var self__ = this;
-var pred__157612 = cljs.core.identical_QMARK_;
-var expr__157613 = k__9762__auto__;
-return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__157609),null));
+var pred__18577 = cljs.core.identical_QMARK_;
+var expr__18578 = k__9762__auto__;
+return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(self__.__meta,cljs.core.assoc.cljs$core$IFn$_invoke$arity$3(self__.__extmap,k__9762__auto__,G__18574),null));
 });
 io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IPrintWithWriter$_pr_writer$arity$3 = (function (this__9768__auto__,writer__9769__auto__,opts__9770__auto__){
 var self__ = this;
@@ -162,9 +162,9 @@ if(and__3941__auto____$1)
 {return false;
 }
 });
-io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__157609){
+io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (this__9753__auto__,G__18574){
 var self__ = this;
-return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(G__157609,self__.__extmap,self__.__hash));
+return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(G__18574,self__.__extmap,self__.__hash));
 });
 io.pedestal.app_tools.rendering_view.client.SinkInputQueue.prototype.cljs$core$IMeta$_meta$arity$1 = (function (this__9752__auto__){
 var self__ = this;
@@ -188,8 +188,8 @@ return cljs.core._write(writer__9789__auto__,"io.pedestal.app-tools.rendering-vi
 io.pedestal.app_tools.rendering_view.client.__GT_SinkInputQueue = (function __GT_SinkInputQueue(){
 return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue());
 });
-io.pedestal.app_tools.rendering_view.client.map__GT_SinkInputQueue = (function map__GT_SinkInputQueue(G__157611){
-return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$1(G__157611)));
+io.pedestal.app_tools.rendering_view.client.map__GT_SinkInputQueue = (function map__GT_SinkInputQueue(G__18576){
+return (new io.pedestal.app_tools.rendering_view.client.SinkInputQueue(null,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$1(G__18576)));
 });
 io.pedestal.app_tools.rendering_view.client.on_error = (function on_error(response){
 return io.pedestal.app.util.log.error.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq(["\uFDD0:error",response], 0));
@@ -218,20 +218,20 @@ return cljs.core.vec(cljs.core.map.cljs$core$IFn$_invoke$arity$2(cljs.core.vecto
 * where each block will be run on each step.
 */
 io.pedestal.app_tools.rendering_view.client.step_by_breakpoint = (function step_by_breakpoint(recording){
-return cljs.core.vec(cljs.core.keep((function (p1__157615_SHARP_){
-if(cljs.core.keyword_QMARK_(cljs.core.first(p1__157615_SHARP_)))
+return cljs.core.vec(cljs.core.keep((function (p1__18580_SHARP_){
+if(cljs.core.keyword_QMARK_(cljs.core.first(p1__18580_SHARP_)))
 {return null;
 } else
-{return cljs.core.vec(p1__157615_SHARP_);
+{return cljs.core.vec(p1__18580_SHARP_);
 }
 }),cljs.core.partition_by(cljs.core.keyword_QMARK_,recording)));
 });
 io.pedestal.app_tools.rendering_view.client.run_recording_STAR_ = (function run_recording_STAR_(recording,mode){
-var G__157617 = mode;
-if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("step",G__157617))
+var G__18582 = mode;
+if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("step",G__18582))
 {return io.pedestal.app_tools.rendering_view.client.step(io.pedestal.app_tools.rendering_view.client.step_each_delta(recording));
 } else
-{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("break",G__157617))
+{if(cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2("break",G__18582))
 {return io.pedestal.app_tools.rendering_view.client.step(io.pedestal.app_tools.rendering_view.client.step_by_breakpoint(recording));
 } else
 {if("\uFDD0:else")

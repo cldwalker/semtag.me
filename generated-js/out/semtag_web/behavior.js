@@ -9,10 +9,10 @@ return (new cljs.core.Keyword("\uFDD0:value")).call(null,message);
 semtag_web.behavior.map_value = (function map_value(_,message){
 return cljs.core.dissoc.cljs$core$IFn$_invoke$arity$variadic(message,io.pedestal.app.messages.topic,cljs.core.array_seq([io.pedestal.app.messages.type], 0));
 });
-semtag_web.behavior.publish_message = (function publish_message(p__154539){
-var map__154541 = p__154539;
-var map__154541__$1 = ((cljs.core.seq_QMARK_(map__154541))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154541):map__154541);
-var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154541__$1,"\uFDD0:message");
+semtag_web.behavior.publish_message = (function publish_message(p__15515){
+var map__15517 = p__15515;
+var map__15517__$1 = ((cljs.core.seq_QMARK_(map__15517))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15517):map__15517);
+var message = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15517__$1,"\uFDD0:message");
 return cljs.core.PersistentVector.fromArray([message], true);
 });
 semtag_web.behavior.search_form_deltas = (function search_form_deltas(){
@@ -33,10 +33,10 @@ return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArra
 semtag_web.behavior.init_all = (function init_all(_){
 return cljs.core.PersistentVector.fromArray([cljs.core.PersistentVector.fromArray(["\uFDD0:node-create",cljs.core.PersistentVector.fromArray(["\uFDD0:app-model","\uFDD0:all"], true)], true)], true);
 });
-semtag_web.behavior.page_deltas = (function page_deltas(p__154542){
-var map__154544 = p__154542;
-var map__154544__$1 = ((cljs.core.seq_QMARK_(map__154544))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__154544):map__154544);
-var new_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__154544__$1,"\uFDD0:new-model");
+semtag_web.behavior.page_deltas = (function page_deltas(p__15518){
+var map__15520 = p__15518;
+var map__15520__$1 = ((cljs.core.seq_QMARK_(map__15520))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__15520):map__15520);
+var new_model = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__15520__$1,"\uFDD0:new-model");
 var temp__4092__auto__ = (semtag_web.route.dynamic_screen__GT_route.cljs$core$IFn$_invoke$arity$1 ? semtag_web.route.dynamic_screen__GT_route.cljs$core$IFn$_invoke$arity$1([cljs.core.str(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(new_model,cljs.core.PersistentVector.fromArray(["\uFDD0:page","\uFDD0:value"], true)))].join('')) : semtag_web.route.dynamic_screen__GT_route.call(null,[cljs.core.str(cljs.core.get_in.cljs$core$IFn$_invoke$arity$2(new_model,cljs.core.PersistentVector.fromArray(["\uFDD0:page","\uFDD0:value"], true)))].join('')));
 if(cljs.core.truth_(temp__4092__auto__))
 {var route = temp__4092__auto__;

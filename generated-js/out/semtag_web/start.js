@@ -23,10 +23,10 @@ return io.pedestal.app.protocols.put_message((new cljs.core.Keyword("\uFDD0:inpu
 * Updates behavior with possible dynamic focus
 */
 semtag_web.start.update_behavior = (function update_behavior(behavior,route,screen){
-var G__155328 = behavior;
-var G__155328__$1 = ((true)?cljs.core.assoc_in(G__155328,cljs.core.PersistentVector.fromArray(["\uFDD0:focus","\uFDD0:default"], true),screen):G__155328);
-var G__155328__$2 = (cljs.core.truth_(route)?cljs.core.assoc_in(G__155328__$1,cljs.core.PersistentVector.fromArray(["\uFDD0:focus",screen], true),semtag_web.rendering.dynamic_paths(route,screen)):G__155328__$1);
-return G__155328__$2;
+var G__16293 = behavior;
+var G__16293__$1 = ((true)?cljs.core.assoc_in(G__16293,cljs.core.PersistentVector.fromArray(["\uFDD0:focus","\uFDD0:default"], true),screen):G__16293);
+var G__16293__$2 = (cljs.core.truth_(route)?cljs.core.assoc_in(G__16293__$1,cljs.core.PersistentVector.fromArray(["\uFDD0:focus",screen], true),semtag_web.rendering.dynamic_paths(route,screen)):G__16293__$1);
+return G__16293__$2;
 });
 semtag_web.start.create_app = (function create_app(render_config){
 var params = semtag_web.route.parse_params(window.location.hash);
@@ -57,8 +57,8 @@ var uri = (new goog.Uri(document.location.toString()));
 return uri.getParameterValue(name);
 });
 semtag_web.start.main = (function main(){
-var G__155330 = semtag_web.start.create_app(semtag_web.rendering.render_config());
-semtag_web.start.setup_effects(G__155330,semtag_web.services.services_fn);
-return G__155330;
+var G__16295 = semtag_web.start.create_app(semtag_web.rendering.render_config());
+semtag_web.start.setup_effects(G__16295,semtag_web.services.services_fn);
+return G__16295;
 });
 goog.exportSymbol('semtag_web.start.main', semtag_web.start.main);

@@ -61,34 +61,34 @@ var self__ = this;
 return cljs.core._contains_key_QMARK_(self__.map,k);
 });
 io.pedestal.app.data.tracking_map.TrackingMap.prototype.call = (function() {
-var G__156221 = null;
-var G__156221__2 = (function (self__,k){
+var G__17186 = null;
+var G__17186__2 = (function (self__,k){
 var self__ = this;
 var self____$1 = this;
 var _ = self____$1;
 return cljs.core._lookup.cljs$core$IFn$_invoke$arity$2(self__.map,k);
 });
-var G__156221__3 = (function (self__,k,not_found){
+var G__17186__3 = (function (self__,k,not_found){
 var self__ = this;
 var self____$1 = this;
 var _ = self____$1;
 return cljs.core._lookup.cljs$core$IFn$_invoke$arity$3(self__.map,k,not_found);
 });
-G__156221 = function(self__,k,not_found){
+G__17186 = function(self__,k,not_found){
 switch(arguments.length){
 case 2:
-return G__156221__2.call(this,self__,k);
+return G__17186__2.call(this,self__,k);
 case 3:
-return G__156221__3.call(this,self__,k,not_found);
+return G__17186__3.call(this,self__,k,not_found);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
-return G__156221;
+return G__17186;
 })()
 ;
-io.pedestal.app.data.tracking_map.TrackingMap.prototype.apply = (function (self__,args156220){
+io.pedestal.app.data.tracking_map.TrackingMap.prototype.apply = (function (self__,args17185){
 var self__ = this;
-return self__.call.apply(self__,[self__].concat(args156220.slice()));
+return self__.call.apply(self__,[self__].concat(args17185.slice()));
 });
 io.pedestal.app.data.tracking_map.TrackingMap.prototype.cljs$core$IDeref$_deref$arity$1 = (function (o){
 var self__ = this;
@@ -153,11 +153,11 @@ io.pedestal.app.data.tracking_map.merge_when_tracking_map = (function merge_when
 return cljs.core.merge_with.cljs$core$IFn$_invoke$arity$variadic(cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.set,cljs.core.concat),cljs.core.array_seq([change_map,cljs.core.dissoc.cljs$core$IFn$_invoke$arity$2((((tracking_map instanceof io.pedestal.app.data.tracking_map.TrackingMap))?tracking_map.change_map:null),"\uFDD0:context")], 0));
 });
 io.pedestal.app.data.tracking_map.record_change = (function record_change(action,map,key,val,change_map){
-var map__156223 = change_map;
-var map__156223__$1 = ((cljs.core.seq_QMARK_(map__156223))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__156223):map__156223);
-var cs = map__156223__$1;
-var updated = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__156223__$1,"\uFDD0:updated");
-var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__156223__$1,"\uFDD0:context");
+var map__17188 = change_map;
+var map__17188__$1 = ((cljs.core.seq_QMARK_(map__17188))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__17188):map__17188);
+var cs = map__17188__$1;
+var updated = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17188__$1,"\uFDD0:updated");
+var context = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__17188__$1,"\uFDD0:context");
 var change = ((cljs.core.seq(context))?cljs.core.conj.cljs$core$IFn$_invoke$arity$2(context,key):cljs.core.PersistentVector.fromArray([key], true));
 var cs__$1 = ((cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(action,"\uFDD0:dissoc"))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(cs,cljs.core.PersistentVector.fromArray(["\uFDD0:removed"], true),cljs.core.fnil.cljs$core$IFn$_invoke$arity$2(cljs.core.conj,cljs.core.PersistentHashSet.EMPTY),change):(cljs.core.truth_((function (){var and__3941__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map,key);
 if(cljs.core.truth_(and__3941__auto__))
