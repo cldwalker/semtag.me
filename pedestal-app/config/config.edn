@@ -111,5 +111,6 @@
                          :name "Production"
                          :optimizations :advanced
                          :out-file "semtag-web.js"
+                         :compiler-options {:externs ["config/spin-externs.js"]}
                          :main semtag_web.start
                          :order 5}}}}
