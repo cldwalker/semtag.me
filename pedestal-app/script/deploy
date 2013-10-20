@@ -5,6 +5,7 @@ lein build-app production
 cd ..
 git checkout gh-pages
 cp -Rfv pedestal-app/out/public/* .
+rm -rf generated-js/out/
 mv semtag-web.html index.html
 git add generated-js *.css *.js index.html
 git commit -m "Assets rebuilt"
