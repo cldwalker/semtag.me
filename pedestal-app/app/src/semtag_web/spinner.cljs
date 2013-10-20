@@ -38,14 +38,14 @@
   []
   (reset! spinner (new js/Spinner (clj->js modal-opts)))
   (.spin @spinner (dom/by-id "spin_modal_overlay"))
+  ;; use % so spinner renders fine regardless of resizing
   (set! (-> @spinner .-el .-style .-top) "50%")
   (set! (-> @spinner .-el .-style .-left) "50%"))
 
 (defn render [new-value]
-  (.log js/console "spinner" new-value)
   (when (and new-value (not @spinner))
     (create-spinner)
-    ;; TODO: disable input focus for search
+    ;; would be nice to disable input focus for search screen
     (setup-keybindings))
   (if new-value
     (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "block")
