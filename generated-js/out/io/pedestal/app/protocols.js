@@ -11,8 +11,8 @@ if(and__3941__auto__)
 })())
 {return this$.io$pedestal$app$protocols$Activity$start$arity$1(this$);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.start[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.start[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else
@@ -36,8 +36,8 @@ if(and__3941__auto__)
 })())
 {return this$.io$pedestal$app$protocols$Activity$stop$arity$1(this$);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.stop[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.stop[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else
@@ -62,8 +62,8 @@ if(and__3941__auto__)
 })())
 {return this$.io$pedestal$app$protocols$PutMessage$put_message$arity$2(this$,message);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.put_message[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.put_message[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else
@@ -88,8 +88,8 @@ if(and__3941__auto__)
 })())
 {return this$.io$pedestal$app$protocols$TakeMessage$pop_message$arity$1(this$);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.pop_message[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.pop_message[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else
@@ -113,8 +113,8 @@ if(and__3941__auto__)
 })())
 {return this$.io$pedestal$app$protocols$TakeMessage$take_message$arity$2(this$,f);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.take_message[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (io.pedestal.app.protocols.take_message[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else

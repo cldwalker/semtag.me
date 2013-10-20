@@ -57,15 +57,15 @@ io.pedestal.app.data.change.merge_changes = (function merge_changes(c1,c2){
 return cljs.core.merge_with.cljs$core$IFn$_invoke$arity$variadic(cljs.core.comp.cljs$core$IFn$_invoke$arity$2(cljs.core.set,cljs.core.concat),cljs.core.array_seq([c1,c2], 0));
 });
 io.pedestal.app.data.change.descendent_QMARK_ = (function descendent_QMARK_(path_a,path_b){
-var vec__10037 = (((cljs.core.count(path_a) < cljs.core.count(path_b)))?cljs.core.PersistentVector.fromArray([path_a,path_b], true):cljs.core.PersistentVector.fromArray([path_b,path_a], true));
-var small = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10037,0,null);
-var large = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10037,1,null);
+var vec__153771 = (((cljs.core.count(path_a) < cljs.core.count(path_b)))?cljs.core.PersistentVector.fromArray([path_a,path_b], true):cljs.core.PersistentVector.fromArray([path_b,path_a], true));
+var small = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153771,0,null);
+var large = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153771,1,null);
 return cljs.core._EQ_.cljs$core$IFn$_invoke$arity$2(small,cljs.core.take(cljs.core.count(small),large));
 });
 io.pedestal.app.data.change.remove_redundent_updates = (function remove_redundent_updates(updates){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,update){
-if(cljs.core.truth_(cljs.core.some((function (p1__10038_SHARP_){
-return io.pedestal.app.data.change.descendent_QMARK_(p1__10038_SHARP_,update);
+if(cljs.core.truth_(cljs.core.some((function (p1__153772_SHARP_){
+return io.pedestal.app.data.change.descendent_QMARK_(p1__153772_SHARP_,update);
 }),a)))
 {return a;
 } else
@@ -75,8 +75,8 @@ return io.pedestal.app.data.change.descendent_QMARK_(p1__10038_SHARP_,update);
 });
 io.pedestal.app.data.change.remove_redundent_adds = (function remove_redundent_adds(adds){
 return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,add){
-if(cljs.core.truth_(cljs.core.some((function (p1__10039_SHARP_){
-return io.pedestal.app.data.change.descendent_QMARK_(p1__10039_SHARP_,add);
+if(cljs.core.truth_(cljs.core.some((function (p1__153773_SHARP_){
+return io.pedestal.app.data.change.descendent_QMARK_(p1__153773_SHARP_,add);
 }),a)))
 {return a;
 } else
@@ -98,14 +98,14 @@ return io.pedestal.app.data.change.descendent_QMARK_(r,u);
 }),removes);
 }),updates));
 });
-io.pedestal.app.data.change.compact = (function compact(old_m,new_m,p__10040){
-var map__10044 = p__10040;
-var map__10044__$1 = ((cljs.core.seq_QMARK_(map__10044))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__10044):map__10044);
-var change = map__10044__$1;
-var inspect = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__10044__$1,"\uFDD0:inspect");
-var removed = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__10044__$1,"\uFDD0:removed");
-var updated = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__10044__$1,"\uFDD0:updated");
-var added = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__10044__$1,"\uFDD0:added");
+io.pedestal.app.data.change.compact = (function compact(old_m,new_m,p__153774){
+var map__153778 = p__153774;
+var map__153778__$1 = ((cljs.core.seq_QMARK_(map__153778))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__153778):map__153778);
+var change = map__153778__$1;
+var inspect = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153778__$1,"\uFDD0:inspect");
+var removed = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153778__$1,"\uFDD0:removed");
+var updated = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153778__$1,"\uFDD0:updated");
+var added = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__153778__$1,"\uFDD0:added");
 var change__$1 = cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,change_path){
 return io.pedestal.app.data.change.find_changes(a,old_m,new_m,change_path);
 }),change,inspect);
@@ -113,10 +113,10 @@ var change__$2 = (cljs.core.truth_((new cljs.core.Keyword("\uFDD0:updated")).cal
 var change__$3 = (cljs.core.truth_((new cljs.core.Keyword("\uFDD0:added")).call(null,change__$2))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$3(change__$2,cljs.core.PersistentVector.fromArray(["\uFDD0:added"], true),io.pedestal.app.data.change.remove_redundent_adds):change__$2);
 var change__$4 = (cljs.core.truth_((new cljs.core.Keyword("\uFDD0:updated")).call(null,change__$3))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(change__$3,cljs.core.PersistentVector.fromArray(["\uFDD0:updated"], true),io.pedestal.app.data.change.remove_updates_covered_by_adds,(new cljs.core.Keyword("\uFDD0:added")).call(null,change__$3)):change__$3);
 var change__$5 = (cljs.core.truth_((new cljs.core.Keyword("\uFDD0:updated")).call(null,change__$4))?cljs.core.update_in.cljs$core$IFn$_invoke$arity$4(change__$4,cljs.core.PersistentVector.fromArray(["\uFDD0:updated"], true),io.pedestal.app.data.change.remove_updates_covered_by_removes,(new cljs.core.Keyword("\uFDD0:removed")).call(null,change__$4)):change__$4);
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__10045){
-var vec__10046 = p__10045;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10046,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10046,1,null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (a,p__153779){
+var vec__153780 = p__153779;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153780,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__153780,1,null);
 if(cljs.core.empty_QMARK_(v))
 {return a;
 } else

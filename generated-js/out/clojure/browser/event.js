@@ -14,8 +14,8 @@ if(and__3941__auto__)
 })())
 {return this$.clojure$browser$event$EventType$event_types$arity$1(this$);
 } else
-{var x__9515__auto__ = (((this$ == null))?null:this$);
-return (function (){var or__3943__auto__ = (clojure.browser.event.event_types[goog.typeOf(x__9515__auto__)]);
+{var x__9795__auto__ = (((this$ == null))?null:this$);
+return (function (){var or__3943__auto__ = (clojure.browser.event.event_types[goog.typeOf(x__9795__auto__)]);
 if(or__3943__auto__)
 {return or__3943__auto__;
 } else
@@ -31,19 +31,19 @@ if(or__3943__auto____$1)
 });
 Element.prototype.clojure$browser$event$EventType$ = true;
 Element.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13968){
-var vec__13969 = p__13968;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13969,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13969,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__157643){
+var vec__157644 = p__157643;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157644,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157644,1,null);
 return cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(k.toLowerCase()),v], true);
 }),cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(goog.events.EventType)], 0))));
 });
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$ = true;
 goog.events.EventTarget.prototype.clojure$browser$event$EventType$event_types$arity$1 = (function (this$){
-return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__13970){
-var vec__13971 = p__13970;
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13971,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__13971,1,null);
+return cljs.core.into(cljs.core.PersistentArrayMap.EMPTY,cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p__157645){
+var vec__157646 = p__157645;
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157646,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__157646,1,null);
 return cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(k.toLowerCase()),v], true);
 }),cljs.core.merge.cljs$core$IFn$_invoke$arity$variadic(cljs.core.array_seq([cljs.core.js__GT_clj.cljs$core$IFn$_invoke$arity$1(goog.events.EventType)], 0))));
 });

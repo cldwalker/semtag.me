@@ -38,8 +38,8 @@ if(cljs.core.truth_(cljs.core.re_find(/:/,path)))
 return cljs.core.get.cljs$core$IFn$_invoke$arity$2(params,cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(cljs.core.subs.cljs$core$IFn$_invoke$arity$2(x,1)));
 }));
 } else
-{return [cljs.core.str(path),cljs.core.str("?"),cljs.core.str(clojure.string.join.cljs$core$IFn$_invoke$arity$2("&",cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__10811_SHARP_){
-return [cljs.core.str(cljs.core.name(cljs.core.key(p1__10811_SHARP_))),cljs.core.str("="),cljs.core.str(cljs.core.val(p1__10811_SHARP_))].join('');
+{return [cljs.core.str(path),cljs.core.str("?"),cljs.core.str(clojure.string.join.cljs$core$IFn$_invoke$arity$2("&",cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__154545_SHARP_){
+return [cljs.core.str(cljs.core.name(cljs.core.key(p1__154545_SHARP_))),cljs.core.str("="),cljs.core.str(cljs.core.val(p1__154545_SHARP_))].join('');
 }),params)))].join('');
 }
 } else
@@ -47,15 +47,15 @@ return [cljs.core.str(cljs.core.name(cljs.core.key(p1__10811_SHARP_))),cljs.core
 }
 });
 semtag_web.route.create_screen_id = (function create_screen_id(seed,params){
-return cljs.core.keyword.cljs$core$IFn$_invoke$arity$1([cljs.core.str(cljs.core.name(seed)),cljs.core.str("-"),cljs.core.str(clojure.string.join.cljs$core$IFn$_invoke$arity$2("_",cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__10812_SHARP_){
-return [cljs.core.str(cljs.core.name(cljs.core.key(p1__10812_SHARP_))),cljs.core.str("_"),cljs.core.str(cljs.core.val(p1__10812_SHARP_))].join('');
+return cljs.core.keyword.cljs$core$IFn$_invoke$arity$1([cljs.core.str(cljs.core.name(seed)),cljs.core.str("-"),cljs.core.str(clojure.string.join.cljs$core$IFn$_invoke$arity$2("_",cljs.core.map.cljs$core$IFn$_invoke$arity$2((function (p1__154546_SHARP_){
+return [cljs.core.str(cljs.core.name(cljs.core.key(p1__154546_SHARP_))),cljs.core.str("_"),cljs.core.str(cljs.core.val(p1__154546_SHARP_))].join('');
 }),cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.sorted_map,cljs.core.reduce.cljs$core$IFn$_invoke$arity$2(cljs.core.into,params)))))].join(''));
 });
 semtag_web.route.params_from_url = (function params_from_url(dynamic_screen,url){
-return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (accum,p__10815){
-var vec__10816 = p__10815;
-var route_piece = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10816,0,null);
-var url_piece = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10816,1,null);
+return cljs.core.reduce.cljs$core$IFn$_invoke$arity$3((function (accum,p__154549){
+var vec__154550 = p__154549;
+var route_piece = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154550,0,null);
+var url_piece = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154550,1,null);
 var temp__4090__auto__ = cljs.core.second(cljs.core.re_find(/:(.*)/,route_piece));
 if(cljs.core.truth_(temp__4090__auto__))
 {var keyword_piece = temp__4090__auto__;
@@ -71,10 +71,10 @@ if(cljs.core.truth_(temp__4092__auto__))
 {var params_string = temp__4092__auto__;
 var vals = (function (){var pairs = clojure.string.split.cljs$core$IFn$_invoke$arity$2(params_string,/\&/);
 var pairs__$1 = cljs.core.map.cljs$core$IFn$_invoke$arity$2(((function (pairs){
-return (function (p1__10817_SHARP_){
-var vec__10819 = clojure.string.split.cljs$core$IFn$_invoke$arity$2(p1__10817_SHARP_,/=/);
-var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10819,0,null);
-var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10819,1,null);
+return (function (p1__154551_SHARP_){
+var vec__154553 = clojure.string.split.cljs$core$IFn$_invoke$arity$2(p1__154551_SHARP_,/=/);
+var k = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154553,0,null);
+var v = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154553,1,null);
 return cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(k),v], true);
 });})(pairs))
 ,pairs);
@@ -90,14 +90,14 @@ return vals__$1;
 * Finds a dynamic route e.g. :thing for a given url
 */
 semtag_web.route.find_dynamic_route = (function find_dynamic_route(url){
-return cljs.core.some((function (p__10823){
-var vec__10824 = p__10823;
-var route = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10824,0,null);
-var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__10824,1,null);
-if(cljs.core.truth_((function (){var G__10825 = cljs.core.re_find(/[^:]+/,path);
-var G__10825__$1 = (((G__10825 == null))?null:cljs.core.re_pattern(G__10825));
-var G__10825__$2 = (((G__10825__$1 == null))?null:cljs.core.re_find(G__10825__$1,url));
-return G__10825__$2;
+return cljs.core.some((function (p__154557){
+var vec__154558 = p__154557;
+var route = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154558,0,null);
+var path = cljs.core.nth.cljs$core$IFn$_invoke$arity$3(vec__154558,1,null);
+if(cljs.core.truth_((function (){var G__154559 = cljs.core.re_find(/[^:]+/,path);
+var G__154559__$1 = (((G__154559 == null))?null:cljs.core.re_pattern(G__154559));
+var G__154559__$2 = (((G__154559__$1 == null))?null:cljs.core.re_find(G__154559__$1,url));
+return G__154559__$2;
 })()))
 {return route;
 } else

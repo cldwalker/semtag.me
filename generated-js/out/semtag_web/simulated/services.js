@@ -5,28 +5,28 @@ semtag_web.simulated.services.api_responses = cljs.core.PersistentArrayMap.fromA
 /**
 * Given a message, simulate an effect
 */
-semtag_web.simulated.services.send_message = (function (){var method_table__9703__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
-var prefer_table__9704__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
-var method_cache__9705__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
-var cached_hierarchy__9706__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
-var hierarchy__9707__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentArrayMap.EMPTY,"\uFDD0:hierarchy",cljs.core.get_global_hierarchy());
+semtag_web.simulated.services.send_message = (function (){var method_table__9983__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
+var prefer_table__9984__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
+var method_cache__9985__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
+var cached_hierarchy__9986__auto__ = cljs.core.atom.cljs$core$IFn$_invoke$arity$1(cljs.core.PersistentArrayMap.EMPTY);
+var hierarchy__9987__auto__ = cljs.core.get.cljs$core$IFn$_invoke$arity$3(cljs.core.PersistentArrayMap.EMPTY,"\uFDD0:hierarchy",cljs.core.get_global_hierarchy());
 return (new cljs.core.MultiFn("send-message",(function (message,input_queue){
 return cljs.core.keyword.cljs$core$IFn$_invoke$arity$1((new cljs.core.Keyword("\uFDD0:value")).call(null,message));
-}),"\uFDD0:default",hierarchy__9707__auto__,method_table__9703__auto__,prefer_table__9704__auto__,method_cache__9705__auto__,cached_hierarchy__9706__auto__));
+}),"\uFDD0:default",hierarchy__9987__auto__,method_table__9983__auto__,prefer_table__9984__auto__,method_cache__9985__auto__,cached_hierarchy__9986__auto__));
 })();
-semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:default",(function (p__11605,input_queue){
-var map__11606 = p__11605;
-var map__11606__$1 = ((cljs.core.seq_QMARK_(map__11606))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__11606):map__11606);
-var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__11606__$1,"\uFDD0:value");
+semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:default",(function (p__155280,input_queue){
+var map__155281 = p__155280;
+var map__155281__$1 = ((cljs.core.seq_QMARK_(map__155281))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__155281):map__155281);
+var value = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__155281__$1,"\uFDD0:value");
 return semtag_web.services.put_value(cljs.core.PersistentVector.fromArray([cljs.core.keyword.cljs$core$IFn$_invoke$arity$1([cljs.core.str(value),cljs.core.str("-results")].join(''))], true),input_queue,cljs.core.keyword.cljs$core$IFn$_invoke$arity$1(value).call(null,semtag_web.simulated.services.api_responses));
 }));
 semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:home",(function (message,input_queue){
 return semtag_web.services.put_value(cljs.core.PersistentVector.fromArray(["\uFDD0:tags-results"], true),input_queue,(new cljs.core.Keyword("\uFDD0:tags")).call(null,semtag_web.simulated.services.api_responses));
 }));
-semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:search",(function (p__11607,input_queue){
-var map__11608 = p__11607;
-var map__11608__$1 = ((cljs.core.seq_QMARK_(map__11608))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__11608):map__11608);
-var params = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__11608__$1,"\uFDD0:params");
+semtag_web.simulated.services.send_message.cljs$core$IMultiFn$_add_method$arity$3(semtag_web.simulated.services.send_message,"\uFDD0:search",(function (p__155282,input_queue){
+var map__155283 = p__155282;
+var map__155283__$1 = ((cljs.core.seq_QMARK_(map__155283))?cljs.core.apply.cljs$core$IFn$_invoke$arity$2(cljs.core.hash_map,map__155283):map__155283);
+var params = cljs.core.get.cljs$core$IFn$_invoke$arity$2(map__155283__$1,"\uFDD0:params");
 semtag_web.services.put_search_title(input_queue,params);
 return semtag_web.services.put_value(cljs.core.PersistentVector.fromArray([semtag_web.services.search_id(params),"\uFDD0:search-results"], true),input_queue,(new cljs.core.Keyword("\uFDD0:search")).call(null,semtag_web.simulated.services.api_responses));
 }));
