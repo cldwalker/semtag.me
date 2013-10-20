@@ -74,6 +74,6 @@ a.noname {
     position: fixed;
     top: 0px;
     left: 0px;
-    z-index: 2e9;
+    z-index: 2000000000;
     display: none;
 }
