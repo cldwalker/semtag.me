@@ -32,6 +32,10 @@
 (defn spinner-off [input-queue]
   (p/put-message input-queue {msg/type :set-value msg/topic [:modal-spinner] :value nil}))
 
+(defn put-value-and-spinner-off [path input-queue value]
+  (put-value path input-queue value)
+  (spinner-off input-queue))
+
 (def base-uri "http://localhost:3000/api")
 
 (defn GET [rel-uri success-fn input-queue]
@@ -61,8 +65,7 @@
   [{:keys [value]} input-queue]
   (spinner-on input-queue)
   (GET (str "/" value)
-       (partial put-value [(keyword (str value "-results"))] input-queue)
-       (spinner-off input-queue)
+       (partial put-value-and-spinner-off [(keyword (str value "-results"))] input-queue)
        input-queue))
 
 ;; search_form must be underscored since '-' is reserved for delimiting route names in screens
@@ -83,25 +86,21 @@
 
   (GET
     (str "/search?query=" (:query params) "&search_type=" (:search-type params))
-    (fn [data]
-      (put-value [(search-id params) :search-results] input-queue data)
-      (spinner-off input-queue))
+    (partial put-value-and-spinner-off [(search-id params) :search-results] input-queue)
     input-queue))
 
 (defmethod send-message :thing
   [message input-queue]
   (spinner-on input-queue)
   (GET (str "/thing?id=" (get-in message [:params :id]))
-       (partial put-value [(thing-id message) :thing-results] input-queue)
-       (spinner-off input-queue)
+       (partial put-value-and-spinner-off [(thing-id message) :thing-results] input-queue)
        input-queue))
 
 (defmethod send-message :type
   [message input-queue]
   (spinner-on input-queue)
   (GET (str "/type?name=" (get-in message [:params :name]))
-       (partial put-value [(type-id message) :type-results] input-queue)
-       (spinner-off input-queue)
+       (partial put-value-and-spinner-off [(type-id message) :type-results] input-queue)
        input-queue))
 
 (defn services-fn

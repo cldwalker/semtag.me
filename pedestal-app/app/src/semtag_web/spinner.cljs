@@ -23,6 +23,7 @@
    :zIndex 2e9})
 
 (defn- setup-keybindings []
+  ;; Consider localizing keypress. event.target doesn't help as it's always body
   (let [shortcut-handler (goog.ui.KeyboardShortcutHandler. js/document)
         show-triggered (fn [event]
                          (.log js/console (str "Received: " (.-identifier event)))
