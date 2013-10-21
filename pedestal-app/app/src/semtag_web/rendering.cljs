@@ -200,7 +200,12 @@
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
-  (render-alert msg :error))
+  (render-alert msg :error)
+  ;; Not interested in massaging messages for this
+  (doto (.querySelector js/document "button.close")
+    (.addEventListener "click"
+                       (fn [e]
+                         (-> e .-target .-parentNode .-style .-display (set! "none"))))))
 
 ;; Yes - this toggles the spinner on/off depending on the value. This
 ;; seeemed saner than massaging emit deltas or coming up with

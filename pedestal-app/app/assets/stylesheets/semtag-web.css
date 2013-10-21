@@ -63,6 +63,7 @@ a.noname {
   display: block;
 }
 
+/* prevent overflowing e.g. query=clj */
 #table_stats {
   width: 600px;
 }
