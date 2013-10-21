@@ -31,17 +31,25 @@
       (as-> new-body
         (spit file new-body))))
 
+(defn- modify-config [config aspect]
+  (if-not (System/getenv "TEST")
+    config
+    (assoc-in config [:aspects aspect :main] 'semtag_web.simulated.start)))
+
 (defn build-app
   "Builds an aspect, :test if no argument is given. It also prepares it to be standalone html,
-  adds debugging for the test aspect and updates services/base-uri if $API_URI is set."
+  adds debugging for the test aspect and updates services/base-uri if $API_URI is set.
+  If $TEST is set, the current aspect prepares a builds as if it were a test aspect and forces
+  using simulated services."
   [& args]
   (let [aspect (keyword (or (first args) "test"))
         {html-file :uri js-file :out-file} (-> dev/config vals first :aspects aspect)
-        transform-js-fn (if (= aspect :test) (comp ensure-relative-paths add-log-capturing) ensure-relative-paths)]
+        transform-js-fn (if (or (System/getenv "TEST") (= aspect :test))
+                          (comp ensure-relative-paths add-log-capturing) ensure-relative-paths)]
     (when-not html-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
 
     (println (format "Building %s app..." aspect))
-    (time (build/build! (-> dev/config vals first) aspect))
+    (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))
 
     (println "Writing" (str "out/public" html-file))
     (modify-file (str "out/public" html-file) transform-js-fn)
