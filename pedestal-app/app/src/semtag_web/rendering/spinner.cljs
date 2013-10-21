@@ -28,7 +28,7 @@
         show-triggered (fn [event]
                          (.log js/console (str "Received: " (.-identifier event)))
                          (.stop @spinner)
-                         (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "none"))]
+                         (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "none")))]
     (.registerShortcut shortcut-handler "esc" goog.events.KeyCodes.ESC)
     (.listen goog.events
              shortcut-handler
@@ -40,8 +40,8 @@
   (reset! spinner (new js/Spinner (clj->js modal-opts)))
   (.spin @spinner (dom/by-id "spin_modal_overlay"))
   ;; use % so spinner renders fine regardless of resizing
-  (set! (-> @spinner .-el .-style .-top) "50%")
-  (set! (-> @spinner .-el .-style .-left) "50%"))
+  (-> @spinner .-el .-style .-top (set! "50%"))
+  (-> @spinner .-el .-style .-left (set! "50%")))
 
 (defn render [new-value]
   (when (and new-value (not @spinner))
@@ -49,8 +49,8 @@
     ;; would be nice to disable input focus for search screen
     (setup-keybindings))
   (if new-value
-    (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "block")
+    (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "block"))
     ;; Add a little lag so it's not just a blink
     (js/setTimeout
-     (fn [] (set! (-> "spin_modal_overlay" dom/by-id .-style .-display) "none"))
+     (fn [] (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "none")))
      300)))
