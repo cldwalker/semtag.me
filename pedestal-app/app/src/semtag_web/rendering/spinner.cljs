@@ -37,20 +37,28 @@
 
 (defn- create-spinner
   []
-  (reset! spinner (new js/Spinner (clj->js modal-opts)))
+  (reset! spinner (new js/Spinner (clj->js modal-opts))))
+
+(defn start-spin
+  []
   (.spin @spinner (dom/by-id "spin_modal_overlay"))
   ;; use % so spinner renders fine regardless of resizing
   (-> @spinner .-el .-style .-top (set! "50%"))
   (-> @spinner .-el .-style .-left (set! "50%")))
 
 (defn render [new-value]
-  (when (and new-value (not @spinner))
+  (when-not @spinner
     (create-spinner)
     ;; would be nice to disable input focus for search screen
     (setup-keybindings))
+
   (if new-value
-    (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "block"))
+    (do
+      (start-spin)
+      (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "block")))
     ;; Add a little lag so it's not just a blink
     (js/setTimeout
-     (fn [] (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "none")))
+     (fn []
+       (.stop @spinner)
+       (-> "spin_modal_overlay" dom/by-id .-style .-display (set! "none")))
      300)))
