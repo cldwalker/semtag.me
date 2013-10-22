@@ -82,7 +82,7 @@
   (click "Type Stats")
   (url-ends-with "#/types")
 
-  (click "All The Things")
+  (click "Latest Things")
   (url-ends-with "#/all")
 
   (click "Home")
