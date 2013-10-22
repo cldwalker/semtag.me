@@ -56,9 +56,9 @@
 
 (defn dynamic-paths [route screen]
   (case route
-    :thing [[:app-model :thing screen] [:app-model :navbar]]
-    :search [[:app-model :search screen] [:app-model :search-form] [:app-model :navbar]]
-    :type [[:app-model :type screen] [:app-model :navbar]]
+    :thing [[:app-model :thing screen] [:app-model :shared]]
+    :search [[:app-model :search screen] [:app-model :search-form] [:app-model :shared]]
+    :type [[:app-model :type screen] [:app-model :shared]]
     []))
 
 (defn dynamic-href-sets-focus
@@ -256,13 +256,13 @@
      [:node-destroy [:app-model :type :*] (clear-id "content")]
      [:value [:app-model :type :* :type-results] render-type-results]
 
-    ;; navbar/shared
-    [:value [:app-model :navbar :alert-error] render-alert-error]
-    [:value [:app-model :navbar :modal-spinner] render-modal-spinner]
+    ;; shared
+    [:value [:app-model :shared :alert-error] render-alert-error]
+    [:value [:app-model :shared :modal-spinner] render-modal-spinner]
      ]
 
-     ;; navbar
-     (util/click [:app-model :navbar :links] (css/sel ".navbar a") :fn href-sets-focus)
+     ;; shared
+     (util/click [:app-model :shared :links] (css/sel ".navbar a") :fn href-sets-focus)
 
      ;; search-form
      (util/click [:app-model :search-form :search] "url_search_button" :fn url-search)

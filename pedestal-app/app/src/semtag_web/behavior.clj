@@ -30,8 +30,8 @@
                                                                  {msg/type :map-value msg/topic [:page] :value "search" (msg/param :params) {}}]]])
 
 
-(defn navbar-deltas []
-  [[:transform-enable [:app-model :navbar :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
+(defn shared-deltas []
+  [[:transform-enable [:app-model :shared :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
                                                           {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 
 (defn init-home [_]
@@ -90,14 +90,14 @@
           [#{[:* :type-results]} (app/default-emitter [:app-model :type])]
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
-          {:init navbar-deltas}
-          [#{[:alert-error] [:modal-spinner]} (app/default-emitter [:app-model :navbar])]
+          {:init shared-deltas}
+          [#{[:alert-error] [:modal-spinner]} (app/default-emitter [:app-model :shared])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
-   :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :navbar]]
-           :types [[:app-model :types] [:app-model :navbar]]
-           :tag-stats [[:app-model :tag-stats] [:app-model :navbar]]
-           :all [[:app-model :all] [:app-model :navbar]]
+   :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :shared]]
+           :types [[:app-model :types] [:app-model :shared]]
+           :tag-stats [[:app-model :tag-stats] [:app-model :shared]]
+           :all [[:app-model :all] [:app-model :shared]]
            ;; dynamic focii we define with :search transform
-           ;:search-* [[:app-model :search-*] [:app-model :search-form] [:app-model :navbar]]
+           ;:search-* [[:app-model :search-*] [:app-model :search-form] [:app-model :shared]]
            :default :home}})
 
