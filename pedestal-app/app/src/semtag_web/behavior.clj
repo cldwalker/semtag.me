@@ -46,9 +46,14 @@
 (defn init-all [_]
   [[:node-create [:app-model :all]]])
 
+;; TODO - set title should be unique for search screens and dynamic
+;; screens titles should not have underscores
 (defn page-deltas [{:keys [new-model]}]
-  (when-let [route (route/dynamic-screen->route (str (get-in new-model [:page :value])))]
-    [[:node-create [:app-model route (route/create-screen-id route (get-in new-model [:page :params]))]]]))
+  (let [page (str (get-in new-model [:page :value]))
+        route (route/dynamic-screen->route page)]
+    (cond-> []
+            true (conj [:value [:app-model :shared :title] page])
+            route (conj [:node-create [:app-model route (route/create-screen-id route (get-in new-model [:page :params]))]]))))
 
 (def app
   {:version 2

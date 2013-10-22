@@ -213,6 +213,9 @@
 (defn render-modal-spinner [_ [_ _ _ new-value] _]
   (spinner/render new-value))
 
+(defn render-title [_ [_ _ _ new-value] _]
+  (-> (.querySelector js/document "title") .-innerHTML (set! (str "Semtag - " new-value))))
+
 ;; TODO - undo for all :value's that render
 (defn render-config []
   (reduce
@@ -259,6 +262,7 @@
     ;; shared
     [:value [:app-model :shared :alert-error] render-alert-error]
     [:value [:app-model :shared :modal-spinner] render-modal-spinner]
+    [:value [:app-model :shared :title] render-title]
      ]
 
      ;; shared
