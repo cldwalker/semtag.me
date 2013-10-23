@@ -63,6 +63,7 @@ a.noname {
   display: block;
 }
 
+/* prevent overflowing e.g. query=clj */
 #table_stats {
   width: 600px;
 }
@@ -76,4 +77,12 @@ a.noname {
     left: 0px;
     z-index: 2000000000;
     display: none;
+}
+
+#content h2, h3 {
+    text-align: center;
+}
+
+h2#search_title {
+    text-align: left;
 }
