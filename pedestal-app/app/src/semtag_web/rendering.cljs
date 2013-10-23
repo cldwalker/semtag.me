@@ -33,6 +33,16 @@
   (dom/prepend! (dom/by-id "content")
                 (p/alert msg (str "alert-" (name alert-type)))))
 
+(defn- html
+  "Like str but for concating strings and dom nodes"
+  [& args]
+  (apply str (map #(if (string? %) % (.-outerHTML %)) args)))
+
+(defn path->params
+  "Assumes 2nd to last element in path is a dynamic screen e.g. :thing-id_ID"
+  [path]
+  (->> (nth path (- (count path) 2)) (get @route/dynamic-screens)))
+
 ;; Rendering fns e.g. (fn [_ _ _])
 ;;
 (defn clear-id [id]
@@ -146,63 +156,64 @@
 (defn render-types-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
    (dom/by-id "content")
-   (str "<h2>Type Statistics</h2>"
-        "<h3>Lists all thing types with statistics for each type</h3>"
-        (.-outerHTML (p/generate-table "type_stats_table" (:results new-value)
-                                       :caption (format "%s things, %s tags"
-                                                        (get-in new-value [:counts :thing])
-                                                        (get-in new-value [:counts :tags]))
-                                       :row-partial p/type-stats-row
-                                       :fields [:name :count :name-percent :url-percent]))))
+   (html "<h2>Type Statistics</h2>"
+         "<h3>Lists all thing types with statistics for each type</h3>"
+         (p/generate-table "type_stats_table" (:results new-value)
+                           :caption (format "%s things, %s tags"
+                                            (get-in new-value [:counts :thing])
+                                            (get-in new-value [:counts :tags]))
+                           :row-partial p/type-stats-row
+                           :fields [:name :count :name-percent :url-percent])))
 
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
    (dom/by-id "content")
-   (str "<h2>Tag Statistics</h2>"
-        "<h3>Lists all tags with statistics for each tag</h3>"
-        (.-outerHTML (p/generate-table "tag_stats_table" new-value
-                                       :row-partial p/tag-stats-row
-                                       :caption (str "Total: " (count new-value))
-                                       :fields [:tag :count :desc]))))
+   (html "<h2>Tag Statistics</h2>"
+         "<h3>Lists all tags with statistics for each tag</h3>"
+         (p/generate-table "tag_stats_table" new-value
+                           :row-partial p/tag-stats-row
+                           :caption (str "Total: " (count new-value))
+                           :fields [:tag :count :desc])))
 
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 
 (defn render-all-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
-    (dom/by-id "content")
-    (str "<h2>Latest Things</h2>"
-         (.-outerHTML (p/generate-table "all_table" new-value
-                                    :row-partial p/all-row
-                                    :caption (str "Total: " (count new-value))
-                                    :fields [:type :name :url :tags :created-at]))))
+   (dom/by-id "content")
+   (html "<h2>Latest Things</h2>"
+         (p/generate-table "all_table" new-value
+                           :row-partial p/all-row
+                           :caption (str "Total: " (count new-value))
+                           :fields [:type :name :url :tags :created-at])))
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
-  (let [screen (nth path (- (count path) 2))
-        thing-id (->> screen (get @route/dynamic-screens) :id)]
+  (let [thing-id (-> path path->params :id)]
     (dom/set-html!
       (dom/by-id "content")
-      (p/generate-table "thing_show_table"
-                        (conj new-value {:attribute :actions :id (:id (first new-value))})
-                        :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
-                        :row-partial p/thing-row
-                        :fields [:attribute :value])))
+      (html "<h2>" thing-id "</h2>"
+            (p/generate-table "thing_show_table"
+                         (conj new-value {:attribute :actions :id (:id (first new-value))})
+                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
+                         :row-partial p/thing-row
+                         :fields [:attribute :value]))))
   (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
   (enable-clickable-links-on "#thing_show_table caption" input-queue))
 
-(defn render-type-results [_ [_ _ _ new-value] input-queue]
-  (let [{:keys [things tags]} new-value]
+(defn render-type-results [_ [_ path _ new-value] input-queue]
+  (let [{:keys [things tags]} new-value
+        type (-> path path->params :name)]
     (dom/set-html!
-      (dom/by-id "content")
-      (p/generate-table "type_show_table" things
-                        :row-partial p/type-row
-                        :caption (str "Total: " (count things))
-                        :fields [:name :url :desc :tags :created-at]))
-    (dom/insert-before! (dom/by-id "type_show_table")
-                        (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                                       (frequency-stat "Tag Counts" (flatten (map :tags things))))))
+     (dom/by-id "content")
+     (html "<h2>Type " type "</h2>"
+           (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                          (frequency-stat "Tag Counts" (flatten (map :tags things))))
+           (p/generate-table "type_show_table" things
+                             :row-partial p/type-row
+                             :caption (str "Total: " (count things))
+                             :fields [:name :url :desc :tags :created-at]))))
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
