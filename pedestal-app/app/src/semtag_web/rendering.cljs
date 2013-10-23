@@ -145,32 +145,38 @@
 ;;;
 (defn render-types-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
-    (dom/by-id "content")
-    (p/generate-table "type_stats_table" (:results new-value)
-                      :caption (format "%s things, %s tags"
-                                       (get-in new-value [:counts :thing])
-                                       (get-in new-value [:counts :tags]))
-                      :row-partial p/type-stats-row
-                      :fields [:name :count :name-percent :url-percent]))
+   (dom/by-id "content")
+   (str "<h2>Type Statistics</h2>"
+        "<h3>Lists all thing types with statistics for each type</h3>"
+        (.-outerHTML (p/generate-table "type_stats_table" (:results new-value)
+                                       :caption (format "%s things, %s tags"
+                                                        (get-in new-value [:counts :thing])
+                                                        (get-in new-value [:counts :tags]))
+                                       :row-partial p/type-stats-row
+                                       :fields [:name :count :name-percent :url-percent]))))
+
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
-    (dom/by-id "content")
-    (p/generate-table "tag_stats_table" new-value
-                      :row-partial p/tag-stats-row
-                      :caption (str "Total: " (count new-value))
-                      :fields [:tag :count :desc]))
+   (dom/by-id "content")
+   (str "<h2>Tag Statistics</h2>"
+        "<h3>Lists all tags with statistics for each tag</h3>"
+        (.-outerHTML (p/generate-table "tag_stats_table" new-value
+                                       :row-partial p/tag-stats-row
+                                       :caption (str "Total: " (count new-value))
+                                       :fields [:tag :count :desc]))))
 
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 
 (defn render-all-results [_ [_ _ _ new-value] input-queue]
   (dom/set-html!
     (dom/by-id "content")
-    (p/generate-table "all_table" new-value
-                      :row-partial p/all-row
-                      :caption (str "Total: " (count new-value))
-                      :fields [:type :name :url :tags :created-at]))
+    (str "<h2>Latest Things</h2>"
+         (.-outerHTML (p/generate-table "all_table" new-value
+                                    :row-partial p/all-row
+                                    :caption (str "Total: " (count new-value))
+                                    :fields [:type :name :url :tags :created-at]))))
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]

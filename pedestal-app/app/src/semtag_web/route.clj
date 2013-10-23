@@ -28,6 +28,7 @@
     (when (get dynamic-routes route)
       route)))
 
+;; TODO - url-encode: see src/crate/util.cljs
 (defn url-for [screen]
   (if-let [params (get @dynamic-screens screen)]
     (let [path (get dynamic-routes (screen->route screen))]

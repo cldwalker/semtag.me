@@ -78,3 +78,11 @@ a.noname {
     z-index: 2000000000;
     display: none;
 }
+
+#content h2, h3 {
+    text-align: center;
+}
+
+h2#search_title {
+    text-align: left;
+}
