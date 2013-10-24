@@ -1,3 +1,8 @@
+## Demo
+
+See [semtag.me](http://semtag.me/). Note that the backend server is on
+heroku so the first request may take up to 15s to spin up.
+
 ## Usage
 
 Start the pedestal-app on localhost:3000: `lein run`
