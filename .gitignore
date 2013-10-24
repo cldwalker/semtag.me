@@ -3,7 +3,7 @@ pom.xml
 /lib/
 /classes/
 .lein-deps-sum
-resources/public/cljs/
+pedestal-service/resources/public/cljs/
 logs
 target
 .lein-repl-history
