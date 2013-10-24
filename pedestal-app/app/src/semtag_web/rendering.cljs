@@ -163,7 +163,11 @@
                                             (get-in new-value [:counts :thing])
                                             (get-in new-value [:counts :tags]))
                            :row-partial p/type-stats-row
-                           :fields [:name :count :name-percent :url-percent])))
+                           :fields [:name :count :name-percent :url-percent]
+                           :header-attributes [{}
+                                               {:title "Number of things for a type"}
+                                               {:title "Percent of things for a type that have a name"}
+                                               {:title "Percent of things for a type that have a url"}])))
 
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
@@ -175,7 +179,10 @@
          (p/generate-table "tag_stats_table" new-value
                            :row-partial p/tag-stats-row
                            :caption (str "Total: " (count new-value))
-                           :fields [:tag :count :desc])))
+                           :fields [:tag :count :desc]
+                           :header-attributes [{}
+                                               {:title "Number of things with a tag"}
+                                               {:title "List of tag counts by type for a tag"}])))
 
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 

@@ -77,12 +77,15 @@
 (defpartial generate-table [table-id data & {:keys [fields] :as options}]
   (let [headers (or
                   (:headers options)
-                  (map field-to-header fields))]
+                  (map field-to-header fields))
+        header-attributes (or (:header-attributes options) (repeat (count headers) {}))]
   [:table{:id table-id :class "table table-bordered table-striped"}
     [:caption (:caption options)]
     [:thead
      [:tr
-      (map #(vec [:th %]) headers)
+      (map #(vector :th %1 %2)
+           header-attributes
+           headers)
       ]]
    (generate-rows data options)]))
 
