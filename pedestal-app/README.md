@@ -5,7 +5,7 @@ Start the pedestal-app on localhost:3000: `lein run`
 Checkout the [test aspect](http://localhost:3001/semtag-web-test.html) or ui aspect.
 Trying out dev/prod aspects will not work since they require a backend service.
 
-To run tests: `lein run -m semtag-web.tasks/build-test-app && lein test`
+To run tests: `lein build-app && lein test`
 
 ## Notes
 
