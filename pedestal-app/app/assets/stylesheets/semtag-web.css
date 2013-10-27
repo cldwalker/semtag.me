@@ -1,15 +1,13 @@
-#content {
-  margin-top: 50px;
-  /* to prevent results from overflowing */
-  display: inline-block;
+/* To place content below navbar */
+body {
+  padding-top: 60px;
 }
 
-#content .alert {
-  margin-top: 50px;
-}
-
-#search_box table {
-  background-color: white;
+#search_box {
+   background-color: #edf3fc;
+   border-radius: 6px;
+   font-weight: 200;
+   padding: 30px;
 }
 
 table caption {
@@ -28,7 +26,6 @@ table caption {
 }
 
 #add_url_text {
-  width: 280px;
   display:none;
 }
 
@@ -57,15 +54,6 @@ td.delete a {
 
 a.noname {
   color: grey;
-}
-
-#search_box label.radio {
-  display: block;
-}
-
-/* prevent overflowing e.g. query=clj */
-#table_stats {
-  width: 600px;
 }
 
 #spin_modal_overlay {

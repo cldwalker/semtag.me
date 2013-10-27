@@ -2,9 +2,13 @@
 
   <div id="content">
 
-    <div template="home" id="main">
-      <div class="top_box jumbotron hero-unit" id="search_box">
-        <form class="form-search" onsubmit="return false;">
+    <div template="home" id="main" class="row">
+      <div id="search_box" class="col-lg-12">
+      <div id="greeting">
+        <p>Welcome to semtag!</p>
+      </div>
+      <div id="search_form">
+        <form onsubmit="return false;">
           <label class="radio">
             <input checked name="search_type" type="radio" value="tagged">Tagged with</input>
           </label>
@@ -15,10 +19,13 @@
               <input name="search_type" type="radio" value="regex">Containing regex</input>
             </label>
             <input autocomplete="on" autofocus="autofocus" class="search-query" id="url_search_text" list="tags" type="text">
-            <button class="btn-primary" id="url_search_button">Search</button>
+            <button class="btn btn-primary" id="url_search_button">Search</button>
           </form>
-          <button class="btn-large btn-success" id="add_url_button">Add Url</button>
+          <button class="btn btn-large btn-success" id="add_url_button">Add Url</button>
           <textarea id="add_url_text"></textarea>
+          </div>
+      </div>
+      <div class="col-log-12">
           <h2 id="search_title"></h2>
           <div id="table_stats"></div>
           <div id="search_table"></div>

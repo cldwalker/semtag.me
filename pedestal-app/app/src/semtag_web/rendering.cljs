@@ -224,7 +224,7 @@
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
-  (render-alert msg :error)
+  (render-alert msg :danger)
   ;; Not interested in massaging messages for this
   (doto (.querySelector js/document "button.close")
     (.addEventListener "click"
