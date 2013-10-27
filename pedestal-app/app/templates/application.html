@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semtag</title>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
@@ -12,7 +13,8 @@
 
     <!-- Le styles -->
     <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="bootstrap.css" rel="stylesheet">
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!-- Necessary for switching between aspects -->
     <link href="pedestal.css" rel="stylesheet">
     <link href="semtag-web.css" rel="stylesheet">
 
@@ -26,33 +28,34 @@
   <body>
     <div id="wrap">
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="brand" href="#/">Home</a>
-          <div class="nav-collapse">
-            <ul class="nav">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#/">Home</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
               <li><a href="#/types">Type Stats</a></li>
               <li><a href="#/tag-stats">Tag Stats</a></li>
               <li><a href="#/all">Latest Things</a></li>
-            </ul></div></div></div></div>
+            </ul>
+      </div></div></div>
 
-    <div class="container">
+      <div class="container">
+        <div id="content"></div>
 
-      <div id="content"></div>
+        <div id="options"></div>
 
-      <div id="options"></div>
-
-    </div> <!-- /container -->
-    <div id="push"></div>
+      </div> <!-- /container -->
+      <div id="push"></div>
     </div>
 
     <div id="footer">
       <div class="container">
         <p class="muted about">
-         Copyright © 2013 Gabriel Horner
-         | <a href="http://github.com/cldwalker/semtag-web">Source Code</a>
-         | <a href="http://github.com/cldwalker/semtag-web#description" target="_blank">About</a>
+          Copyright © 2013 Gabriel Horner
+          | <a href="http://github.com/cldwalker/semtag-web">Source Code</a>
+          | <a href="http://github.com/cldwalker/semtag-web#description" target="_blank">About</a>
         </p>
       </div>
     </div>
