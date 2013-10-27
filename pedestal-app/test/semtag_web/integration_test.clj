@@ -3,6 +3,7 @@
             [clj-webdriver.driver :refer [init-driver]]
             [clj-webdriver.core :as core]
             [clj-webdriver.taxi :as taxi]
+            [clj-webdriver.window :as window]
             [semtag-web.route :as route]
             [clojure.string :as string]
             [io.pedestal.app-tools.dev :as dev])
@@ -45,7 +46,9 @@
 
 (use-fixtures :each
               (fn [f]
-                (taxi/set-driver! (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))}))
+                (-> (init-driver {:webdriver (PhantomJSDriver. (DesiredCapabilities. ))})
+                    (window/resize {:width 1024 :height 768})
+                    (taxi/set-driver!))
                 (binding [ctest/report report] (f))
                 (taxi/quit)))
 
