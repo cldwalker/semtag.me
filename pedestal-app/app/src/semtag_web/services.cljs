@@ -3,6 +3,7 @@
             [io.pedestal.app.net.xhr :as xhr]
             [io.pedestal.app.messages :as msg]
             [semtag-web.route :as route]
+            [semtag-web.util :refer [format]]
             [cljs.reader :refer [read-string]]))
 
 ;; Helper fns

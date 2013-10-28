@@ -4,6 +4,7 @@
             [semtag-web.history :as history]
             [semtag-web.route :as route]
             [semtag-web.rendering.util :as util]
+            [semtag-web.util :refer [format]]
             [semtag-web.rendering.partials :as p]
             [semtag-web.rendering.spinner :as spinner]
             [clojure.string :as string]
