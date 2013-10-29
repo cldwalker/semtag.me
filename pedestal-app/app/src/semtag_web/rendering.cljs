@@ -44,6 +44,9 @@
   [path]
   (->> (nth path (- (count path) 2)) (get @route/dynamic-screens)))
 
+(defn set-page-header [text]
+  (dom/set-html! (dom/by-id "search_title") text))
+
 ;; Rendering fns e.g. (fn [_ _ _])
 ;;
 (defn clear-id [id]
@@ -103,6 +106,10 @@
 
 (def templates (html-templates/semtag-web-templates))
 
+(defn render-home-page [_ _ input-queue]
+    (set-page-header "Welcome to semtag!")
+    (history/navigated input-queue :home))
+
 ;;; Search-form
 ;;;
 (defn render-search-form [renderer [_ path] input-queue]
@@ -130,7 +137,7 @@
 
 ;; Search page
 (defn set-search-title [renderer [_ path _ new-value] _]
-  (dom/set-html! (dom/by-id "search_title") new-value))
+  (set-page-header new-value))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
@@ -155,68 +162,66 @@
 ;;; Other pages
 ;;;
 (defn render-types-results [_ [_ _ _ new-value] input-queue]
+  (set-page-header "<h1>Type Statistics <small>Lists all thing types with statistics for each type</small></h1>")
   (dom/set-html!
    (dom/by-id "content")
-   (html "<h2>Type Statistics</h2>"
-         "<h3>Lists all thing types with statistics for each type</h3>"
-         (p/generate-table "type_stats_table" (:results new-value)
-                           :caption (format "%s things, %s tags"
-                                            (get-in new-value [:counts :thing])
-                                            (get-in new-value [:counts :tags]))
-                           :row-partial p/type-stats-row
-                           :fields [:name :count :name-percent :url-percent]
-                           :header-attributes [{}
-                                               {:title "Number of things for a type"}
-                                               {:title "Percent of things for a type that have a name"}
-                                               {:title "Percent of things for a type that have a url"}])))
+   (p/generate-table "type_stats_table" (:results new-value)
+                     :caption (format "%s things, %s tags"
+                                      (get-in new-value [:counts :thing])
+                                      (get-in new-value [:counts :tags]))
+                     :row-partial p/type-stats-row
+                     :fields [:name :count :name-percent :url-percent]
+                     :header-attributes [{}
+                                         {:title "Number of things for a type"}
+                                         {:title "Percent of things for a type that have a name"}
+                                         {:title "Percent of things for a type that have a url"}]))
 
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
+  (set-page-header "<h1>Tag Statistics <small>Lists all tags with statistics for each tag</small></h1>")
   (dom/set-html!
    (dom/by-id "content")
-   (html "<h2>Tag Statistics</h2>"
-         "<h3>Lists all tags with statistics for each tag</h3>"
-         (p/generate-table "tag_stats_table" new-value
-                           :row-partial p/tag-stats-row
-                           :caption (str "Total: " (count new-value))
-                           :fields [:tag :count :desc]
-                           :header-attributes [{}
-                                               {:title "Number of things with a tag"}
-                                               {:title "List of tag counts by type for a tag"}])))
+   (p/generate-table "tag_stats_table" new-value
+                     :row-partial p/tag-stats-row
+                     :caption (str "Total: " (count new-value))
+                     :fields [:tag :count :desc]
+                     :header-attributes [{}
+                                         {:title "Number of things with a tag"}
+                                         {:title "List of tag counts by type for a tag"}]))
 
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 
 (defn render-all-results [_ [_ _ _ new-value] input-queue]
+  (set-page-header "<h1>Latest Things</h1>")
   (dom/set-html!
    (dom/by-id "content")
-   (html "<h2>Latest Things</h2>"
-         (p/generate-table "all_table" new-value
-                           :row-partial p/all-row
-                           :caption (str "Total: " (count new-value))
-                           :fields [:type :name :url :tags :created-at])))
+   (p/generate-table "all_table" new-value
+                     :row-partial p/all-row
+                     :caption (str "Total: " (count new-value))
+                     :fields [:type :name :url :tags :created-at]))
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
   (let [thing-id (-> path path->params :id)]
+    (set-page-header (str "<h1>" thing-id "</h1>"))
     (dom/set-html!
       (dom/by-id "content")
-      (html "<h2>" thing-id "</h2>"
-            (p/generate-table "thing_show_table"
-                         (conj new-value {:attribute :actions :id (:id (first new-value))})
-                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
-                         :row-partial p/thing-row
-                         :fields [:attribute :value]))))
+      (p/generate-table "thing_show_table"
+                        (conj new-value {:attribute :actions :id (:id (first new-value))})
+                        :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
+                        :row-partial p/thing-row
+                        :fields [:attribute :value])))
   (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
   (enable-clickable-links-on "#thing_show_table caption" input-queue))
 
 (defn render-type-results [_ [_ path _ new-value] input-queue]
   (let [{:keys [things tags]} new-value
         type (-> path path->params :name)]
+    (set-page-header  (str "<h1>Type " type "</h1>"))
     (dom/set-html!
      (dom/by-id "content")
-     (html "<h2>Type " type "</h2>"
-           (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+     (html (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
                           (frequency-stat "Tag Counts" (flatten (map :tags things))))
            (p/generate-table "type_show_table" things
                              :row-partial p/type-row
@@ -245,7 +250,7 @@
 (defn render-config []
   (reduce
     into
-    [[[:node-create [:app-model :home] (navigate-fn :home)]
+    [[[:node-create [:app-model :home] render-home-page]
       ;; nothing to destroy yet
 
       ;; search-form section

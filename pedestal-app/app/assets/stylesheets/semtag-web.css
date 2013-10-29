@@ -15,10 +15,6 @@ body {
     display: none;
 }
 
-#content h2, h3 {
-    text-align: center;
-}
-
 .container .about {
   margin: 20px 0;
 }
@@ -77,10 +73,6 @@ a.noname {
 
 #add_url_text {
   display:none;
-}
-
-h2#search_title {
-    text-align: left;
 }
 
 #greeting p {
