@@ -63,7 +63,7 @@ a.noname {
    background-color: #edf3fc;
    border-radius: 6px;
    font-weight: 200;
-   padding: 30px;
+   padding: 15px;
 }
 
 #url_search_button {
@@ -81,6 +81,10 @@ a.noname {
 
 h2#search_title {
     text-align: left;
+}
+
+#greeting p {
+    font-size: 150%;
 }
 
 /* Sticky footer styles
