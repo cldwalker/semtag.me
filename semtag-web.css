@@ -15,10 +15,6 @@ body {
     display: none;
 }
 
-#content h2, h3 {
-    text-align: center;
-}
-
 .container .about {
   margin: 20px 0;
 }
@@ -63,7 +59,7 @@ a.noname {
    background-color: #edf3fc;
    border-radius: 6px;
    font-weight: 200;
-   padding: 30px;
+   padding: 15px;
 }
 
 #url_search_button {
@@ -79,8 +75,8 @@ a.noname {
   display:none;
 }
 
-h2#search_title {
-    text-align: left;
+#greeting p {
+    font-size: 150%;
 }
 
 /* Sticky footer styles
