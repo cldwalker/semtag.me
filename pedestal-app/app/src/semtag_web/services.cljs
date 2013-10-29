@@ -17,6 +17,7 @@
 (defn type-id [message]
   (route/create-screen-id :type (:params message)))
 
+;; TODO: consistently do this for all pages or just inline this one as well
 (defn put-search-title [input-queue {:keys [query] :as message}]
   (p/put-message input-queue {msg/type :set-value
                               msg/topic [(search-id message) :search-title]

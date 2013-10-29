@@ -44,8 +44,8 @@
   [path]
   (->> (nth path (- (count path) 2)) (get @route/dynamic-screens)))
 
-(defn set-page-header [text]
-  (dom/set-html! (dom/by-id "search_title") text))
+(defn set-page-title [text]
+  (dom/set-html! (dom/by-id "page_title") text))
 
 ;; Rendering fns e.g. (fn [_ _ _])
 ;;
@@ -107,7 +107,7 @@
 (def templates (html-templates/semtag-web-templates))
 
 (defn render-home-page [_ _ input-queue]
-    (set-page-header "Welcome to semtag!")
+    (set-page-title "Welcome to semtag!")
     (history/navigated input-queue :home))
 
 ;;; Search-form
@@ -137,7 +137,7 @@
 
 ;; Search page
 (defn set-search-title [renderer [_ path _ new-value] _]
-  (set-page-header new-value))
+  (set-page-title new-value))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
@@ -162,7 +162,7 @@
 ;;; Other pages
 ;;;
 (defn render-types-results [_ [_ _ _ new-value] input-queue]
-  (set-page-header "<h1>Type Statistics <small>Lists all thing types with statistics for each type</small></h1>")
+  (set-page-title "<h1>Type Statistics <small>Lists all thing types with statistics for each type</small></h1>")
   (dom/set-html!
    (dom/by-id "content")
    (p/generate-table "type_stats_table" (:results new-value)
@@ -179,7 +179,7 @@
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
-  (set-page-header "<h1>Tag Statistics <small>Lists all tags with statistics for each tag</small></h1>")
+  (set-page-title "<h1>Tag Statistics <small>Lists all tags with statistics for each tag</small></h1>")
   (dom/set-html!
    (dom/by-id "content")
    (p/generate-table "tag_stats_table" new-value
@@ -193,7 +193,7 @@
   (enable-clickable-links-on "#tag_stats_table" input-queue))
 
 (defn render-all-results [_ [_ _ _ new-value] input-queue]
-  (set-page-header "<h1>Latest Things</h1>")
+  (set-page-title "<h1>Latest Things</h1>")
   (dom/set-html!
    (dom/by-id "content")
    (p/generate-table "all_table" new-value
@@ -204,7 +204,7 @@
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
   (let [thing-id (-> path path->params :id)]
-    (set-page-header (str "<h1>" thing-id "</h1>"))
+    (set-page-title (str "<h1>" thing-id "</h1>"))
     (dom/set-html!
       (dom/by-id "content")
       (p/generate-table "thing_show_table"
@@ -218,7 +218,7 @@
 (defn render-type-results [_ [_ path _ new-value] input-queue]
   (let [{:keys [things tags]} new-value
         type (-> path path->params :name)]
-    (set-page-header  (str "<h1>Type " type "</h1>"))
+    (set-page-title  (str "<h1>Type " type "</h1>"))
     (dom/set-html!
      (dom/by-id "content")
      (html (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
@@ -292,6 +292,7 @@
     ;; shared
     [:value [:app-model :shared :alert-error] render-alert-error]
     [:value [:app-model :shared :modal-spinner] render-modal-spinner]
+    ;; TODO: have title change with history navigation
     [:value [:app-model :shared :title] render-title]
      ]
 

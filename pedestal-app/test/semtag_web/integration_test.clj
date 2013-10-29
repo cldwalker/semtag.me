@@ -99,7 +99,7 @@
   (Thread/sleep 1000)
 
   (url-ends-with "#/search?query=feynman&search-type=tagged")
-  (is (= "Search results for 'feynman'" (taxi/text "#search_title")))
+  (is (= "Search results for 'feynman'" (taxi/text "#page_title")))
   (is (taxi/element "#table_stats"))
   (is (seq (taxi/elements "#search_table tbody tr"))))
 
