@@ -5,18 +5,33 @@
     <div template="home" id="main" class="row">
       <div id="search_box" class="col-lg-12">
         <div id="greeting">
-          <p>First time here? <a href="#">Learn more about semtag</a> or
-          <a href="#">look at search examples</a>.</p>
+          <p>First time here? <a href="#">Learn more about semtag.</a></p>
+        </div>
+        <div id="introduction">
+          <p>
+            Semtag is a site that stores bookmarks as things/entities. Bookmarks and their tags are
+            treated equally as things with a type. Each thing can have associations (tags) with
+            other things a.k.a. semantic tagging.  For example, here is my bookmark for <a
+              href="#/thing/gg">google</a> and here are <a href="#/search?query=gg">all the
+              things</a> tagged with it. If you clicked on google, you see that it's a <a
+              href="#/type/company">company type</a>. To see what other types I track, see <a
+              href="#TODO">the types page</a>.
+            </p>
         </div>
         <form onsubmit="return false;">
           <label class="radio">
-            <input checked name="search_type" type="radio" value="tagged">Tagged with</input>
+            <input checked name="search_type" type="radio" value="tagged">Tagged with a thing</input>
+            <span class="examples">(e.g. <a href="#/search?query=cljs">clojurescript</a> or
+              <a href="#/search?query=article.cljs">articles with clojurescript</a>)</span>
           </label>
           <label class="radio">
-            <input name="search_type" type="radio" value="tagged-with-type">Tagged with type</input>
+            <input name="search_type" type="radio" value="tagged-with-type">Tagged with a thing type</input>
+            <span class="examples">(e.g. <a href="#/search?query=database&search-type=tagged-with-type">database</a> or
+              <a href="#/search?query=oapp.database&search-type=tagged-with-type">open source apps with a database</a>)</span>
           </label>
           <label class="radio">
-            <input name="search_type" type="radio" value="regex">Containing regex</input>
+            <input name="search_type" type="radio" value="regex">Matches this regular expression</input>
+            <span class="examples"> - against any attribute (e.g. <a href="#/search?query=funny&search-type=regex">funny</a>)</span>
           </label>
           <input autocomplete="on" autofocus="autofocus" class="search-query" id="url_search_text" list="tags" type="text">
           <button class="btn btn-primary" id="url_search_button">Search</button>

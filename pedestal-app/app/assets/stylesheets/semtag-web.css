@@ -79,6 +79,10 @@ a.noname {
     font-size: 150%;
 }
 
+#search_box .examples {
+    font-weight: normal;
+}
+
 /* Sticky footer styles
 from http://getbootstrap.com/2.3.2/examples/sticky-footer-navbar.html
 -------------------------------------------------- */

@@ -115,7 +115,10 @@
 (defn render-search-form [renderer [_ path] input-queue]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
-    (dom/set-html! (dom/by-id "content") (html {}))))
+    (dom/set-html! (dom/by-id "content") (html {})))
+
+    (enable-clickable-links-on "#introduction" input-queue)
+    (enable-clickable-links-on ".examples" input-queue))
 
 (defn render-tags-results [_ [_ _ _ new-value] _]
   (dom/insert-after!
