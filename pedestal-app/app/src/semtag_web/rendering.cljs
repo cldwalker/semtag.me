@@ -63,10 +63,11 @@
 
 ;; Event helper fns
 
-(defn dynamic-focus-messages [& {:keys [params screen paths]}]
-  [{msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths}
-   {msg/type :set-focus msg/topic msg/app-model :name screen}
-   {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])
+(defn set-focus-messages [& {:keys [params screen paths]}]
+  (cond-> []
+    paths (conj {msg/type :add-named-paths msg/topic msg/app-model :name screen :paths paths})
+    true (into [{msg/type :set-focus msg/topic msg/app-model :name screen}
+                {msg/type :map-value msg/topic [:page] :value (name screen) :params params}])))
 
 (defn dynamic-paths [route screen]
   (case route
@@ -75,18 +76,21 @@
     :type [[:app-model :type screen] [:app-model :shared]]
     []))
 
-(defn dynamic-href-sets-focus
-  "Given an event creates messages to focus a new dynamic screen"
+(defn any-href-sets-focus
+  "Given an event creates messages to focus a new screen - dynamic or static"
   [{:keys [event]}]
   (let [rel-uri (->> event .-currentTarget .-href (re-find #"#.*?$"))]
     (if-let [route (route/find-dynamic-route rel-uri)]
       (let [params (route/parse-params rel-uri)
             screen (route/url->screen rel-uri params)]
         (swap! route/dynamic-screens assoc screen params)
-        (dynamic-focus-messages :screen screen
+        (set-focus-messages :screen screen
                                 :params params
                                 :paths (dynamic-paths route screen)))
-      (.log js/console "No screen found for element" (.-currentTarget event)))))
+      ;; just for static pages
+      (if-let [screen (route/url->screen rel-uri)]
+        (set-focus-messages :screen screen)
+        (.log js/console "No screen found for element" (.-currentTarget event))))))
 
 ;; Yes, we should be sending messages to do this separately but
 ;; that seems like overkill right now
@@ -95,7 +99,7 @@
   (events/send-on :click
                   (css/sel (str parent-selector " a"))
                   input-queue
-                  #(dynamic-href-sets-focus {:event (.-evt %)})))
+                  #(any-href-sets-focus {:event (.-evt %)})))
 
 (defn href-sets-focus [{:keys [transform messages event]}]
   (if-let [screen (route/url->screen (->> event .-currentTarget .-href (re-find #"#.*?$")))]
