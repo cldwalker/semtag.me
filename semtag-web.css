@@ -19,6 +19,10 @@ body {
   margin: 20px 0;
 }
 
+.page-header {
+  margin-top: 0px;
+}
+
 /* Table Styles */
 table caption {
   font-weight: bold;
@@ -77,6 +81,15 @@ a.noname {
 
 #greeting p {
     font-size: 150%;
+}
+
+#introduction {
+  font-size: 130%;
+  display: none;
+}
+
+#search_box .examples {
+    font-weight: normal;
 }
 
 /* Sticky footer styles
