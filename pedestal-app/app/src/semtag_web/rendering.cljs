@@ -112,13 +112,22 @@
 
 ;;; Search-form
 ;;;
+(defn- toggle-introduction [event]
+  (if (not= "block" (-> (dom/by-id "introduction") .-style .-display))
+    (-> (dom/by-id "introduction") .-style .-display (set! "block"))
+    (-> (dom/by-id "introduction") .-style .-display (set! "none"))))
+
 (defn render-search-form [renderer [_ path] input-queue]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {})))
 
-    (enable-clickable-links-on "#introduction" input-queue)
-    (enable-clickable-links-on ".examples" input-queue))
+  (enable-clickable-links-on "#introduction" input-queue)
+  (enable-clickable-links-on ".examples" input-queue)
+  (events/send-on :click
+                  (css/sel "#introduction_toggle")
+                  input-queue
+                  toggle-introduction))
 
 (defn render-tags-results [_ [_ _ _ new-value] _]
   (dom/insert-after!
