@@ -7,6 +7,7 @@
             [semtag-web.util :refer [format]]
             [semtag-web.rendering.partials :as p]
             [semtag-web.rendering.spinner :as spinner]
+            [semtag-web.rendering.bar-chart :as bar-chart]
             [clojure.string :as string]
             [io.pedestal.app.protocols :as prot]
             [io.pedestal.app.render.events :as events]
@@ -125,6 +126,7 @@
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {})))
+  (bar-chart/strokeless)
 
   (enable-clickable-links-on "#introduction" input-queue)
   (enable-clickable-links-on ".examples" input-queue)
