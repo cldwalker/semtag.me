@@ -6,14 +6,12 @@
 ; rect: data ↦ width, index ↦ y
 ; adapted from mike bostocks slide presentation
 
-(def data [63 39 31 53 25 32 175 69 51])
-
-(def m [50 40 50 40])
-(def w (- 960 (m 1) (m 3)))
-(def h (- 500  (m 0) (m 2)))
+(def m [0 0 0 0])
+(def w (- 440 (m 1) (m 3)))
+(def h (- 140  (m 0) (m 2)))
 
 ; x is a fn: data ↦ width
-(defn render []
+(defn render [data labels]
   (def x1 (-> d3 .-scale (.linear)
   (.domain (array 0 (apply max data)))
   (.range (array 0 w))))
@@ -51,4 +49,12 @@
             :dy ".35em"
             :text-anchor "end"}))
     (.style "fill" "white")
-    (.text identity)))
+    (.text identity #_(str % " " (get labels %2))))
+  (-> bar1 (.append "text")
+    (.attr (clj->js {:x 0 
+            :y  (/ (.rangeBand y1) 2)
+            :dx 2
+            :dy ".35em"
+                     }))
+    (.style "fill" "white")
+    (.text #(get labels %2))))

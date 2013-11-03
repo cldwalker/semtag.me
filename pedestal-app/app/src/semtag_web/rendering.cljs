@@ -126,7 +126,6 @@
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {})))
-  (bar-chart/render)
 
   (enable-clickable-links-on "#introduction" input-queue)
   (enable-clickable-links-on ".examples" input-queue)
@@ -164,6 +163,16 @@
       (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
                      (frequency-stat "Tag Counts" (flatten (map :tags things)))
                      (frequency-stat "Type Counts" (map :type things))))
+    (let [tag-counts (->> (flatten (map :tags things))
+                          frequencies
+                          (sort-by #(second %1) (fn [a b] (> a b))))]
+      (.log js/console (pr-str (->> tag-counts
+                                    (group-by second)
+                                    (mapv (fn [[k v]] [k (string/join ", " (map first v))])))))
+      (bar-chart/render #_[63 39 31 53 25 32 175 69 51]
+                        (distinct (mapv second tag-counts))
+                        (mapv first tag-counts)))
+
     (dom/swap-content!
       (dom/by-id "search_table")
       (p/generate-table "search_table" things
