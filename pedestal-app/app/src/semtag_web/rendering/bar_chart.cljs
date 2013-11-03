@@ -45,14 +45,14 @@
       (.on "mousemove" mousemove)
       (.on "mouseout" mouseout)))
 
-(defn render [data labels]
+(defn render [id data labels]
   (let [x (-> d3 .-scale (.linear)
               (.domain (array 0 (apply max data)))
               (.range (array 0 w)))
         y (-> d3 .-scale (.ordinal)
               (.domain (apply array (range (count data))))
               (.rangeRoundBands (array 0 h) 0.2))
-        svg (-> d3 (.select "#static") (.append "svg")
+        svg (-> d3 (.select id) (.append "svg")
                 (.attr (clj->js {:width  (+ w (m 1) (m 3))
                                  :height (+ h (m 0) (m 2))}))
                 (.append "g")

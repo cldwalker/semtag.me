@@ -156,34 +156,33 @@
 (defn set-search-title [renderer [_ path _ new-value] _]
   (set-page-title new-value))
 
-(defn add-stats-charts [things]
-  (dom/insert-after!
-    (dom/by-id "static")
-    "<div id='tooltip'></div>")
+(defn- add-stats-charts [things]
   (let [tag-counts (->> (flatten (map :tags things))
                         frequencies
                         (sort-by #(second %1) (fn [a b] (> a b)))
                         (group-by second)
-                        (mapv (fn [[k v]] [k (string/join ", " (map first v))])))]
-    (bar-chart/render #_[63 39 31 53 25 32 175 69 51]
+                        (mapv (fn [[k v]] [k (->> v
+                                                  (map first)
+                                                  sort
+                                                  (string/join ", "))])))]
+    (bar-chart/render "#tag_counts_chart"
                       (mapv first tag-counts)
                       (mapv second tag-counts))))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
-    (dom/swap-content!
-      (dom/by-id "table_stats")
-      (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                     (frequency-stat "Tag Counts" (flatten (map :tags things)))
-                     (frequency-stat "Type Counts" (map :type things))))
+    (dom/set-html!
+      (dom/by-id "search_results")
+      (html "<div id='tag_counts_chart'></div>"
+            "<div id='tooltip'></div>"
+            (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                           (frequency-stat "Tag Counts" (flatten (map :tags things)))
+                           (frequency-stat "Type Counts" (map :type things)))
+            (p/generate-table "search_table" things
+                              :fields [:type :name :url :desc :tags]
+                              :row-partial p/tag-search-row
+                              :caption (format "Total: %s" (count (map :url things))))))
     (add-stats-charts things)
-
-    (dom/swap-content!
-      (dom/by-id "search_table")
-      (p/generate-table "search_table" things
-                        :fields [:type :name :url :desc :tags]
-                        :row-partial p/tag-search-row
-                        :caption (format "Total: %s" (count (map :url things)))))
     (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
