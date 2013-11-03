@@ -86,8 +86,8 @@
             screen (route/url->screen rel-uri params)]
         (swap! route/dynamic-screens assoc screen params)
         (set-focus-messages :screen screen
-                                :params params
-                                :paths (dynamic-paths route screen)))
+                            :params params
+                            :paths (dynamic-paths route screen)))
       ;; just for static pages
       (if-let [screen (route/url->screen rel-uri)]
         (set-focus-messages :screen screen)
@@ -112,8 +112,8 @@
 (def templates (html-templates/semtag-web-templates))
 
 (defn render-home-page [_ _ input-queue]
-    (set-page-title "Welcome to semtag!")
-    (history/navigated input-queue :home))
+  (set-page-title "Welcome to semtag!")
+  (history/navigated input-queue :home))
 
 ;;; Search-form
 ;;;
@@ -156,24 +156,40 @@
 (defn set-search-title [renderer [_ path _ new-value] _]
   (set-page-title new-value))
 
-(defn- add-stats-charts [things]
-  (let [tag-counts (->> (flatten (map :tags things))
-                        frequencies
-                        (sort-by #(second %1) (fn [a b] (> a b)))
-                        (group-by second)
-                        (mapv (fn [[k v]] [k (->> v
-                                                  (map first)
-                                                  sort
-                                                  (string/join ", "))])))]
+(defn- count-and-group
+  "Given a list of words, returns a vector of sorted count and grouped word pairs."
+  [words]
+  (->> words
+       frequencies
+       (group-by second)
+       (mapv (fn [[k v]] [k (->> v
+                                 (map first)
+                                 sort
+                                 (string/join ", "))]))
+       (sort-by first)
+       reverse))
+
+(defn- add-stats-charts [tags things]
+  (let [tag-type-counts (count-and-group (map first tags))
+        tag-counts (count-and-group (flatten (map :tags things)))
+        type-counts (count-and-group (map :type things))]
+    (bar-chart/render "#type_counts_chart"
+                      (mapv first type-counts)
+                      (mapv second type-counts))
     (bar-chart/render "#tag_counts_chart"
                       (mapv first tag-counts)
-                      (mapv second tag-counts))))
+                      (mapv second tag-counts))
+    (bar-chart/render "#tag_type_counts_chart"
+                      (mapv first tag-type-counts)
+                      (mapv second tag-type-counts))))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
     (dom/set-html!
       (dom/by-id "search_results")
-      (html "<div id='tag_counts_chart'></div>"
+      (html "<div id='type_counts_chart'><h4>Type Counts</h4></div>"
+            "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
+            "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
             "<div id='tooltip'></div>"
             (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
                            (frequency-stat "Tag Counts" (flatten (map :tags things)))
@@ -182,7 +198,7 @@
                               :fields [:type :name :url :desc :tags]
                               :row-partial p/tag-search-row
                               :caption (format "Total: %s" (count (map :url things))))))
-    (add-stats-charts things)
+    (add-stats-charts tags things)
     (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
