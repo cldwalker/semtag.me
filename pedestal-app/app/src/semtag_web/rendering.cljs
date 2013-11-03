@@ -156,6 +156,19 @@
 (defn set-search-title [renderer [_ path _ new-value] _]
   (set-page-title new-value))
 
+(defn add-stats-charts [things]
+  (dom/insert-after!
+    (dom/by-id "static")
+    "<div id='tooltip'></div>")
+  (let [tag-counts (->> (flatten (map :tags things))
+                        frequencies
+                        (sort-by #(second %1) (fn [a b] (> a b)))
+                        (group-by second)
+                        (mapv (fn [[k v]] [k (string/join ", " (map first v))])))]
+    (bar-chart/render #_[63 39 31 53 25 32 175 69 51]
+                      (mapv first tag-counts)
+                      (mapv second tag-counts))))
+
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
     (dom/swap-content!
@@ -163,15 +176,7 @@
       (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
                      (frequency-stat "Tag Counts" (flatten (map :tags things)))
                      (frequency-stat "Type Counts" (map :type things))))
-    (let [tag-counts (->> (flatten (map :tags things))
-                          frequencies
-                          (sort-by #(second %1) (fn [a b] (> a b))))]
-      (.log js/console (pr-str (->> tag-counts
-                                    (group-by second)
-                                    (mapv (fn [[k v]] [k (string/join ", " (map first v))])))))
-      (bar-chart/render #_[63 39 31 53 25 32 175 69 51]
-                        (distinct (mapv second tag-counts))
-                        (mapv first tag-counts)))
+    (add-stats-charts things)
 
     (dom/swap-content!
       (dom/by-id "search_table")

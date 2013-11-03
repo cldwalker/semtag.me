@@ -92,6 +92,19 @@ a.noname {
     font-weight: normal;
 }
 
+/* partially from http://bl.ocks.org/mbostock/1087001 */
+#tooltip {
+  position: absolute;
+  z-index: 10;
+  visibility: hidden;
+  padding: 4px;
+  font: 14px sans-serif;
+  background: #e6e6e6;
+  border: solid 1px #aaa;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
 /* Sticky footer styles
 from http://getbootstrap.com/2.3.2/examples/sticky-footer-navbar.html
 -------------------------------------------------- */
