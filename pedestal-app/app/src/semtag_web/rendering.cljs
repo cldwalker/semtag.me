@@ -126,7 +126,7 @@
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
     (dom/set-html! (dom/by-id "content") (html {})))
-  (bar-chart/strokeless)
+  (bar-chart/render)
 
   (enable-clickable-links-on "#introduction" input-queue)
   (enable-clickable-links-on ".examples" input-queue)
