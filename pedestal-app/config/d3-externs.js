@@ -16,6 +16,7 @@ d3.selection.attr = function(e) {};
 d3.selection.append = function(e) {};
 d3.selection.style = function(e) {};
 d3.selection.text = function(e) {};
+d3.selection.on = function(e) {};
 
 d3.data = function(e) {};
 d3.scale = {};
