@@ -6,7 +6,6 @@
 (def d3 (this-as ct (aget ct "d3")))
 
 ; rect: data ↦ width, index ↦ y
-; adapted from mike bostocks slide presentation
 
 (def m [0 0 0 0])
 (def w (- 440 (m 1) (m 3)))
@@ -25,49 +24,43 @@
 (defn mouseout []
   (-> (dom/by-id "tooltip") .-style .-visibility (set! "hidden")))
 
-; x is a fn: data ↦ width
-(defn render [data labels]
-  (def x1 (-> d3 .-scale (.linear)
-  (.domain (array 0 (apply max data)))
-  (.range (array 0 w))))
+(defn setup-bar [bar x y]
+  ;; add rect
+  (-> bar (.append "rect")
+      (.attr (clj->js {:width   #(x %)
+                       :height  (.rangeBand y)})))
 
-; y is a fn: index ↦ y
-(def y1 (-> d3 .-scale (.ordinal)
-  (.domain (apply array (range (count data))))
-  (.rangeRoundBands (array 0 h) 0.2)))
+  ;; add text
+  (-> bar (.append "text")
+      (.attr (clj->js {:x  x
+                       :y  (/ (.rangeBand y) 2)
+                       :dx -6
+                       :dy ".35em"
+                       :text-anchor "end"}))
+      (.style "fill" "white")
+      (.text identity))
 
-(def svg1 (-> d3 (.select "#static") (.append "svg")
-    (.attr (clj->js {:width  (+ w (m 1) (m 3))
-            :height (+ h (m 0) (m 2))}))
-  (.append "g")
-    (.attr (clj->js {:transform (str "translate(" (m 3) "," (m 0) ")")}))))
-
-; Data ↦ Element
-(def bar1 (-> svg1 (.selectAll "g.bar")
-    (.data (clj->js data))
-  (.enter) (.append "g")
-    (.attr (clj->js {:class "bar"
-                     :title #(get labels %2)
-            :transform #(str "translate(0," (y1 %2) ")")}))))
-
-; Data Attributes ↦ Element Attributes
-(-> bar1 (.append "rect")
-    (.attr (clj->js {:width   #(x1 %)
-            :height  (.rangeBand y1)}))
-    (.style (clj->js {:fill   "indianred"
-             :stroke-opacity 0})))
-
-; Data Attributes ↦ Element Attributes
-(-> bar1 (.append "text")
-    (.attr (clj->js {:x  x1
-            :y  (/ (.rangeBand y1) 2)
-            :dx -6
-            :dy ".35em"
-            :text-anchor "end"}))
-    (.style "fill" "white")
-    (.text identity))
-
-  (-> bar1
+  (-> bar
       (.on "mouseover" mouseover)
       (.on "mousemove" mousemove)
       (.on "mouseout" mouseout)))
+
+(defn render [data labels]
+  (let [x (-> d3 .-scale (.linear)
+              (.domain (array 0 (apply max data)))
+              (.range (array 0 w)))
+        y (-> d3 .-scale (.ordinal)
+              (.domain (apply array (range (count data))))
+              (.rangeRoundBands (array 0 h) 0.2))
+        svg (-> d3 (.select "#static") (.append "svg")
+                (.attr (clj->js {:width  (+ w (m 1) (m 3))
+                                 :height (+ h (m 0) (m 2))}))
+                (.append "g")
+                (.attr (clj->js {:transform (str "translate(" (m 3) "," (m 0) ")")})))
+        bar (-> svg (.selectAll "g.bar")
+                (.data (clj->js data))
+                (.enter) (.append "g")
+                (.attr (clj->js {:class "bar"
+                                 :title #(get labels %2)
+                                 :transform #(str "translate(0," (y %2) ")")})))]
+    (setup-bar bar x y)))

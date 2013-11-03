@@ -92,6 +92,10 @@ a.noname {
     font-weight: normal;
 }
 
+.bar rect {
+  fill: indianred;
+  stroke-opacity: 0;
+}
 /* partially from http://bl.ocks.org/mbostock/1087001 */
 #tooltip {
   position: absolute;
