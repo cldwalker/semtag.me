@@ -45,7 +45,7 @@
       (.on "mousemove" mousemove)
       (.on "mouseout" mouseout)))
 
-(defn render [id data labels]
+(defn render* [id data labels]
   (let [x (-> d3 .-scale (.linear)
               (.domain (array 0 (apply max data)))
               (.range (array 0 w)))
@@ -64,3 +64,6 @@
                                  :title #(get labels %2)
                                  :transform #(str "translate(0," (y %2) ")")})))]
     (setup-bar bar x y)))
+
+(defn render [id data]
+  (render* id (mapv first data) (mapv second data)))

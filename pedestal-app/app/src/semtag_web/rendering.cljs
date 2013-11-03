@@ -169,19 +169,13 @@
        (sort-by first)
        reverse))
 
-(defn- add-stats-charts [tags things]
+(defn- add-search-stats [tags things]
   (let [tag-type-counts (count-and-group (map first tags))
         tag-counts (count-and-group (flatten (map :tags things)))
         type-counts (count-and-group (map :type things))]
-    (bar-chart/render "#type_counts_chart"
-                      (mapv first type-counts)
-                      (mapv second type-counts))
-    (bar-chart/render "#tag_counts_chart"
-                      (mapv first tag-counts)
-                      (mapv second tag-counts))
-    (bar-chart/render "#tag_type_counts_chart"
-                      (mapv first tag-type-counts)
-                      (mapv second tag-type-counts))))
+    (bar-chart/render "#type_counts_chart" type-counts)
+    (bar-chart/render "#tag_counts_chart" tag-counts)
+    (bar-chart/render "#tag_type_counts_chart" tag-type-counts)))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
@@ -198,7 +192,7 @@
                               :fields [:type :name :url :desc :tags]
                               :row-partial p/tag-search-row
                               :caption (format "Total: %s" (count (map :url things))))))
-    (add-stats-charts tags things)
+    (add-search-stats tags things)
     (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
@@ -262,18 +256,28 @@
   (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
   (enable-clickable-links-on "#thing_show_table caption" input-queue))
 
+(defn- add-type-stats [tags things]
+  (let [tag-type-counts (count-and-group (map first tags))
+        tag-counts (count-and-group (flatten (map :tags things)))]
+    (bar-chart/render "#tag_counts_chart" tag-counts)
+    (bar-chart/render "#tag_type_counts_chart" tag-type-counts)))
+
 (defn render-type-results [_ [_ path _ new-value] input-queue]
   (let [{:keys [things tags]} new-value
         type (-> path path->params :name)]
     (set-page-title  (str "<h1>Type " type "</h1>"))
     (dom/set-html!
      (dom/by-id "content")
-     (html (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                          (frequency-stat "Tag Counts" (flatten (map :tags things))))
-           (p/generate-table "type_show_table" things
-                             :row-partial p/type-row
-                             :caption (str "Total: " (count things))
-                             :fields [:name :url :desc :tags :created-at]))))
+      (html "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
+            "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
+            "<div id='tooltip'></div>"
+            (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                           (frequency-stat "Tag Counts" (flatten (map :tags things))))
+            (p/generate-table "type_show_table" things
+                              :row-partial p/type-row
+                              :caption (str "Total: " (count things))
+                              :fields [:name :url :desc :tags :created-at])))
+    (add-type-stats tags things))
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-error [_ [_ _ _ msg] _]
