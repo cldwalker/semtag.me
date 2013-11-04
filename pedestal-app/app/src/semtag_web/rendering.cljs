@@ -177,21 +177,26 @@
     (bar-chart/render "#tag_counts_chart" tag-counts)
     (bar-chart/render "#tag_type_counts_chart" tag-type-counts)))
 
+(defn- search-results-html [things tags]
+  (html "<div id='type_counts_chart'><h4>Type Counts</h4></div>"
+        "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
+        "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
+        "<div id='tooltip'></div>"
+        (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
+                       (frequency-stat "Tag Counts" (flatten (map :tags things)))
+                       (frequency-stat "Type Counts" (map :type things)))
+        (if (empty? things)
+          "<p>No results found.</p>"
+          (p/generate-table "search_table" things
+                            :fields [:type :name :url :desc :tags]
+                            :row-partial p/tag-search-row
+                            :caption (format "Total: %s" (count (map :url things)))))))
+
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
   (let [{:keys [things tags]} new-value]
     (dom/set-html!
       (dom/by-id "search_results")
-      (html "<div id='type_counts_chart'><h4>Type Counts</h4></div>"
-            "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
-            "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
-            "<div id='tooltip'></div>"
-            (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                           (frequency-stat "Tag Counts" (flatten (map :tags things)))
-                           (frequency-stat "Type Counts" (map :type things)))
-            (p/generate-table "search_table" things
-                              :fields [:type :name :url :desc :tags]
-                              :row-partial p/tag-search-row
-                              :caption (format "Total: %s" (count (map :url things))))))
+      (search-results-html things tags))
     (add-search-stats tags things)
     (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
 

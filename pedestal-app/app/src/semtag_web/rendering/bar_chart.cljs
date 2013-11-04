@@ -66,4 +66,6 @@
     (setup-bar bar x y)))
 
 (defn render [id data]
-  (render* id (mapv first data) (mapv second data)))
+  (if (empty? data)
+    (dom/append! (dom/by-id (subs id 1)) "<p>There are no statistics for this empty data set.</p>")
+    (render* id (mapv first data) (mapv second data))))
