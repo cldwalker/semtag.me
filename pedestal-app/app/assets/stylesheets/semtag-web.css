@@ -23,6 +23,32 @@ body {
   margin-top: 0px;
 }
 
+/* Stats */
+.bar rect {
+  fill: indianred;
+  stroke-opacity: 0;
+}
+/* partially from http://bl.ocks.org/mbostock/1087001 */
+#tooltip {
+  position: absolute;
+  z-index: 10;
+  visibility: hidden;
+  padding: 4px;
+  font: 14px sans-serif;
+  background: #e6e6e6;
+  border: solid 1px #aaa;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+#stats_box {
+  display: none;
+}
+
+#toggle_stats {
+  margin-top: 10px;
+}
+
 /* Table Styles */
 table caption {
   font-weight: bold;
@@ -90,31 +116,6 @@ a.noname {
 
 #search_box .examples {
     font-weight: normal;
-}
-
-.bar rect {
-  fill: indianred;
-  stroke-opacity: 0;
-}
-/* partially from http://bl.ocks.org/mbostock/1087001 */
-#tooltip {
-  position: absolute;
-  z-index: 10;
-  visibility: hidden;
-  padding: 4px;
-  font: 14px sans-serif;
-  background: #e6e6e6;
-  border: solid 1px #aaa;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-#stats_box {
-  display: none;
-}
-
-#toggle_stats {
-  margin-top: 10px;
 }
 
 /* Sticky footer styles
