@@ -109,6 +109,14 @@ a.noname {
   pointer-events: none;
 }
 
+#stats_box {
+  display: none;
+}
+
+#toggle_stats {
+  margin-top: 10px;
+}
+
 /* Sticky footer styles
 from http://getbootstrap.com/2.3.2/examples/sticky-footer-navbar.html
 -------------------------------------------------- */
