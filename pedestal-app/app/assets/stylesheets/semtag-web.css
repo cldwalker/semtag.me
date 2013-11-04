@@ -25,11 +25,11 @@ body {
 
 /* Stats */
 .bar rect {
-  fill: indianred;
+  fill: steelblue;
   stroke-opacity: 0;
 }
 /* partially from http://bl.ocks.org/mbostock/1087001 */
-#tooltip {
+#d3_tooltip {
   position: absolute;
   z-index: 10;
   visibility: hidden;

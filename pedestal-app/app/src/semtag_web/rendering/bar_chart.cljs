@@ -8,15 +8,15 @@
 ;; mouse* fns for tooltips - based on http://bl.ocks.org/biovisualize/1016860
 (defn mouseover [e]
   (when-let [title (-> d3.event .-target .-parentNode .-attributes (.getNamedItem "title"))]
-    (dom/set-html! (dom/by-id "tooltip") (.-value title)))
-  (-> (dom/by-id "tooltip") .-style .-visibility (set! "visible")))
+    (dom/set-html! (dom/by-id "d3_tooltip") (.-value title)))
+  (-> (dom/by-id "d3_tooltip") .-style .-visibility (set! "visible")))
 
 (defn mousemove []
-  (-> (dom/by-id "tooltip") .-style .-top (set! (str (- d3.event.pageY 10) "px")))
-  (-> (dom/by-id "tooltip") .-style .-left (set! (str (+ d3.event.pageX 10) "px"))))
+  (-> (dom/by-id "d3_tooltip") .-style .-top (set! (str (- d3.event.pageY 10) "px")))
+  (-> (dom/by-id "d3_tooltip") .-style .-left (set! (str (+ d3.event.pageX 10) "px"))))
 
 (defn mouseout []
-  (-> (dom/by-id "tooltip") .-style .-visibility (set! "hidden")))
+  (-> (dom/by-id "d3_tooltip") .-style .-visibility (set! "hidden")))
 
 (defn setup-bar [bar x y labels data]
   ;; add rect

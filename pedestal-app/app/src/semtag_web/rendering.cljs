@@ -181,7 +181,7 @@
     "<div id='type_counts_chart'><h4>Type Counts</h4></div>"
     "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
     "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
-    "<div id='tooltip'></div>"
+    "<div id='d3_tooltip'></div>"
     "</div>"
     (if (empty? things)
       "<p>No results found.</p>"
@@ -277,7 +277,7 @@
         "<div id='stats_box'>"
         "<div id='tag_counts_chart'><h4>Tag Counts</h4></div>"
         "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
-        "<div id='tooltip'></div>"
+        "<div id='d3_tooltip'></div>"
         "</div>"
         (p/generate-table "type_show_table" things
                           :row-partial p/type-row
