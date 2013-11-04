@@ -5,12 +5,6 @@
 
 (def d3 (this-as ct (aget ct "d3")))
 
-; rect: data ↦ width, index ↦ y
-
-(def m [0 0 0 0])
-(def w (- 440 (m 1) (m 3)))
-(def h (- 140  (m 0) (m 2)))
-
 ;; mouse* fns for tooltips - based on http://bl.ocks.org/biovisualize/1016860
 (defn mouseover [e]
   (when-let [title (-> d3.event .-target .-parentNode .-attributes (.getNamedItem "title"))]
@@ -27,13 +21,13 @@
 (defn setup-bar [bar x y]
   ;; add rect
   (-> bar (.append "rect")
-      (.attr (clj->js {:width   #(x %)
-                       :height  (.rangeBand y)})))
+      (.attr (clj->js {:width x
+                       :height (.rangeBand y)})))
 
   ;; add text
   (-> bar (.append "text")
-      (.attr (clj->js {:x  x
-                       :y  (/ (.rangeBand y) 2)
+      (.attr (clj->js {:x x
+                       :y (/ (.rangeBand y) 2)
                        :dx -6
                        :dy ".35em"
                        :text-anchor "end"}))
@@ -46,17 +40,17 @@
       (.on "mouseout" mouseout)))
 
 (defn render* [id data labels]
-  (let [x (-> d3 .-scale (.linear)
+  (let [height (* 20 (count data))
+        width 440
+        x (-> d3 .-scale (.linear)
               (.domain (array 0 (apply max data)))
-              (.range (array 0 w)))
+              (.range (array 0 width)))
         y (-> d3 .-scale (.ordinal)
               (.domain (apply array (range (count data))))
-              (.rangeRoundBands (array 0 h) 0.2))
+              (.rangeRoundBands (array 0 height) 0.2))
         svg (-> d3 (.select id) (.append "svg")
-                (.attr (clj->js {:width  (+ w (m 1) (m 3))
-                                 :height (+ h (m 0) (m 2))}))
-                (.append "g")
-                (.attr (clj->js {:transform (str "translate(" (m 3) "," (m 0) ")")})))
+                (.attr (clj->js {:width width :height height}))
+                (.append "g"))
         bar (-> svg (.selectAll "g.bar")
                 (.data (clj->js data))
                 (.enter) (.append "g")
