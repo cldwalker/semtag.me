@@ -18,13 +18,13 @@
 (defn mouseout []
   (-> (dom/by-id "tooltip") .-style .-visibility (set! "hidden")))
 
-(defn setup-bar [bar x y]
+(defn setup-bar [bar x y labels data]
   ;; add rect
   (-> bar (.append "rect")
       (.attr (clj->js {:width x
                        :height (.rangeBand y)})))
 
-  ;; add text
+  ;; add number at end
   (-> bar (.append "text")
       (.attr (clj->js {:x x
                        :y (/ (.rangeBand y) 2)
@@ -33,6 +33,19 @@
                        :text-anchor "end"}))
       (.style "fill" "white")
       (.text identity))
+
+  ;; add optional label at beginning
+  (let [sum (apply + data)]
+    (-> bar (.append "text")
+        (.attr (clj->js {:x 0
+                         :y  (/ (.rangeBand y) 2)
+                         :dx 2
+                         :dy ".35em"}))
+        (.style "fill" "white")
+        ;; only show text if bar is wide enough and important enough
+        ;; This doesn't work for long labels for small bars e.g. 'java' but that's ok for now
+        (.text #(when (> (/ (get data %2) sum) 0.15)
+                  (get labels %2)))))
 
   (-> bar
       (.on "mouseover" mouseover)
@@ -55,9 +68,9 @@
                 (.data (clj->js data))
                 (.enter) (.append "g")
                 (.attr (clj->js {:class "bar"
-                                 :title #(get labels %2)
+                                 :title #(str (get data %2) " for " (get labels %2))
                                  :transform #(str "translate(0," (y %2) ")")})))]
-    (setup-bar bar x y)))
+    (setup-bar bar x y labels data)))
 
 (defn render [id data]
   (if (empty? data)
