@@ -118,11 +118,11 @@
   (Thread/sleep 1000)
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type"))
 
-(def expected-tables
+(def expected-ids
   {"#/types" "#type_stats_table"
    "#/tag-stats" "#tag_stats_table"
    "#/all" "#all_table"
-   "#/" "#search_table"})
+   "#/" "#search_box"})
 
 (deftest direct-urls-work
   (doseq [rel-url (vals route/routes)]
@@ -130,7 +130,7 @@
     ;; necessary for a hash url to be recognized
     (taxi/refresh)
     (Thread/sleep 500)
-    (is (taxi/element (get expected-tables rel-url)) "renders correct table")
+    (is (taxi/element (get expected-ids rel-url)) "renders correct table")
     (url-ends-with rel-url)))
 
 (deftest direct-search-url-works
