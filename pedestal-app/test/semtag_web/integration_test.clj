@@ -66,7 +66,7 @@
   (str "out/public" (apply app-url args)))
 
 (defn click [text]
-  (core/click (taxi/find-element {:tag :a :text text}))
+  (core/click (taxi/find-element {:text text}))
   (Thread/sleep 500))
 
 (defn visit [url]
@@ -100,7 +100,6 @@
 
   (url-ends-with "#/search?query=feynman&search-type=tagged")
   (is (= "Search results for 'feynman'" (taxi/text "#page_title")))
-  (is (taxi/element "#table_stats"))
   (is (seq (taxi/elements "#search_table tbody tr"))))
 
 (deftest second-search-with-another-search-type-works
@@ -137,7 +136,8 @@
   (visit "#/search?query=maxwell&search-type=tagged-with-type")
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type")
   (is (seq (taxi/elements "#search_table tbody tr")))
-  (is (.contains (taxi/text "#content") "Tag Type Counts:")))
+  (click "Toggle Stats")
+  (is (.contains (taxi/text "#stats_box") "Tag Type Counts")))
 
 (deftest direct-thing-page-works
   (visit "#/thing/feynman")
@@ -153,7 +153,8 @@
   (visit "#/type/api")
   (url-ends-with "#/type/api")
   (is (seq (taxi/elements "#type_show_table tbody tr")))
-  (is (.contains (taxi/text "#content") "Tag Type Counts:")))
+  (click "Toggle Stats")
+  (is (.contains (taxi/text "#content") "Tag Type Counts")))
 
 (deftest thing-link-works-on-tag-stats-table
   (visit "#/tag-stats")

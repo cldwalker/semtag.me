@@ -19,13 +19,6 @@
 
 ;; Helper fns
 
-(defn- frequencies-string [items]
-  (->> items
-       frequencies
-       (sort-by #(second %1) (fn [a b] (> a b)))
-       (map #(format "%s %s" (second %1) (name (first %1))))
-       (string/join ", ")))
-
 (defn- count-and-group
   "Given a list of words, returns a vector of sorted count and grouped word pairs."
   [words]
@@ -38,9 +31,6 @@
                                  (string/join ", "))]))
        (sort-by first)
        reverse))
-
-(defn- frequency-stat [title data]
-  (format "%s: %s - %s" title (count data) (frequencies-string data)))
 
 (defn render-alert
   "Adds an alert box at the top of the page"
@@ -120,6 +110,11 @@
     (msg/fill transform messages {:value (name screen) :name screen})
     (.log js/console "No screen found for element" (.-currentTarget event))))
 
+(defn- toggle-dom-id [id event]
+  (if (not= "block" (-> (dom/by-id id) .-style .-display))
+    (-> (dom/by-id id) .-style .-display (set! "block"))
+    (-> (dom/by-id id) .-style .-display (set! "none"))))
+
 (defn- enable-toggle-stats-button [input-queue]
   (events/send-on :click
                   (dom/by-id "toggle_stats")
@@ -137,13 +132,6 @@
 ;;; Search-form
 ;;;
 
-(defn- toggle-dom-id [id event]
-  (if (not= "block" (-> (dom/by-id id) .-style .-display))
-    (-> (dom/by-id id) .-style .-display (set! "block"))
-    (-> (dom/by-id id) .-style .-display (set! "none"))))
-
-(def toggle-introduction (partial toggle-dom-id "introduction"))
-
 (defn render-search-form [renderer [_ path] input-queue]
   (let [html (templates/add-template renderer path (:semtag-web-page templates))]
     ;; didn't use get-parent-id cause it doesn't work for new multi-level paths
@@ -154,7 +142,7 @@
   (events/send-on :click
                   (css/sel "#introduction_toggle")
                   input-queue
-                  toggle-introduction))
+                  (partial toggle-dom-id "introduction")))
 
 (defn render-tags-results [_ [_ _ _ new-value] _]
   (dom/insert-after!
@@ -195,9 +183,6 @@
     "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
     "<div id='tooltip'></div>"
     "</div>"
-    (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                   (frequency-stat "Tag Counts" (flatten (map :tags things)))
-                   (frequency-stat "Type Counts" (map :type things)))
     (if (empty? things)
       "<p>No results found.</p>"
       (p/generate-table "search_table" things
@@ -294,8 +279,6 @@
         "<div id='tag_type_counts_chart'><h4>Tag Type Counts</h4></div>"
         "<div id='tooltip'></div>"
         "</div>"
-        (p/table-stats (frequency-stat "Tag Type Counts" (map first tags))
-                       (frequency-stat "Tag Counts" (flatten (map :tags things))))
         (p/generate-table "type_show_table" things
                           :row-partial p/type-row
                           :caption (str "Total: " (count things))

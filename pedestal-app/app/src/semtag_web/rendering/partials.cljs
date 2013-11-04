@@ -89,12 +89,6 @@
       ]]
    (generate-rows data options)]))
 
-(defpartial table-stats [& stats]
-  [:h4#table_stats
-   (map 
-    (fn [stat] [:div.ellipsis {:title stat} stat])
-    stats)])
-
 (defpartial tag-search-row [row & fields]
   [:tr {:data-id (:id row)}
    (td-type (:type row))
