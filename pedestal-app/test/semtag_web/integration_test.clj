@@ -91,6 +91,15 @@
   (click "Home")
   (url-ends-with "#/"))
 
+(deftest introduction-links-work
+  (visit "")
+  (click "Learn more about semtag.")
+  (is (.contains (taxi/text "#introduction") "Semtag is a site"))
+
+  ;; newly rendered static link works
+  (click "the types page")
+  (is (.contains (taxi/text "#page_title") "Type Statistics")))
+
 (deftest regular-search-works
   (visit "")
   (is (seq (taxi/elements "#tags option")) "renders a datalist to autocomplete input")
