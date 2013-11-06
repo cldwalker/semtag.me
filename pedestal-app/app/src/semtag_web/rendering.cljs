@@ -191,13 +191,15 @@
                         :caption (format "Total: %s" (count (map :url things)))))))
 
 (defn render-search-results [_ [_ _ _ new-value] input-queue]
-  (let [{:keys [things tags]} new-value]
-    (dom/set-html!
-      (dom/by-id "search_results")
-      (search-results-html things tags))
-    (add-search-stats tags things)
-    (enable-toggle-stats-button input-queue)
-    (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue)))
+  ;; when switching screens this is nil and we don't want to render
+  (when new-value
+    (let [{:keys [things tags]} new-value]
+      (dom/set-html!
+        (dom/by-id "search_results")
+        (search-results-html things tags))
+      (add-search-stats tags things)
+      (enable-toggle-stats-button input-queue)
+      (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue))))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
 (defn clear-search [_ _ _]
