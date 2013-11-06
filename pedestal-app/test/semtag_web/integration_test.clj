@@ -172,8 +172,8 @@
 
 (deftest create-thing-works
   (visit "")
-  (taxi/input-text "#add_url_text" "http://newsite.com site funny")
-  (click "Add Url")
+  (taxi/input-text "#create_thing_text" "http://newsite.com site funny")
+  (click "Create Thing")
   (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward

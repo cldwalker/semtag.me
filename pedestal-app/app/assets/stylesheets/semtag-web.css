@@ -96,14 +96,13 @@ a.noname {
   margin-left: 14px;
 }
 
-#add_url_button {
-  margin-bottom: 10px;
-  /* display: none; */
-}
-
-#add_url_text {
-  /* display:none; */
-}
+/* #create_thing_button { */
+/*   display: none; */
+/* } */
+/*  */
+/* #create_thing_text { */
+/*   display:none; */
+/* } */
 
 #greeting p {
     font-size: 150%;

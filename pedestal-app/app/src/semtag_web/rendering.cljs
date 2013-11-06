@@ -160,7 +160,7 @@
                                   :paths (dynamic-paths :search search-id)})))
 
 (defn create-thing [{:keys [transform messages]}]
-  (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
+  (msg/fill transform messages {:value (dom/value (dom/by-id "create_thing_text"))}))
 
 ;; Search page
 (defn set-search-title [renderer [_ path _ new-value] _]
@@ -366,4 +366,4 @@
 
      ;; search-form
      (util/click [:app-model :search-form :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :search-form :create-thing] "add_url_button" :fn create-thing)]))
+     (util/click [:app-model :search-form :create-thing] "create_thing_button" :fn create-thing)]))
