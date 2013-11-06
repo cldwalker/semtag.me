@@ -1,6 +1,8 @@
 (ns semtag-web.services
   (:require [io.pedestal.app.protocols :as p]
             [io.pedestal.app.net.xhr :as xhr]
+            [goog.Uri.QueryData :as query-data]
+            [goog.structs :as structs]
             [io.pedestal.app.messages :as msg]
             [semtag-web.route :as route]
             [semtag-web.util :refer [format]]
@@ -56,6 +58,36 @@
                                                 uri
                                                 (.getResponse xhr)))))))
 
+;; from https://github.com/yogthos/cljs-ajax/blob/master/src/ajax/core.cljs
+(defn- params-to-str [params]
+  (if params
+    (-> params
+        clj->js
+        structs/Map.
+        query-data/createFromMap
+        .toString)))
+
+;; For now we don't use edn when POSTing because of how goog.net.XhrManager
+;; behaves for CORS requests - it automatically converts it to an OPTIONS request.
+;; Rather than do a preflight request, we'll use one of the content-types that don't
+;; require a preflight - http://www.html5rocks.com/en/tutorials/cors/#toc-types-of-cors-requests
+(defn POST [rel-uri success-fn input-queue & {:as options}]
+  (let [uri (str base-uri rel-uri)]
+    (.log js/console (str "Calling API endpoint: " uri) (pr-str options))
+    (xhr/request (gensym)
+                 uri
+                 :request-method "POST"
+                 :body (params-to-str (:data options))
+                 :headers {"Content-Type" "application/x-www-form-urlencoded"}
+                 :on-success (fn [data]
+                               (success-fn (-> data :body read-string)))
+                 :on-error (fn [{:keys [xhr] :as msg}]
+                             (spinner-off input-queue)
+                             (put-value [:alert-error]
+                                        input-queue
+                                        (format "Request '%s' failed with: %s"
+                                                uri
+                                                (.getResponse xhr)))))))
 ;; Effect fns
 
 (defmulti send-message
@@ -105,11 +137,18 @@
        (partial put-value-and-spinner-off [(type-id message) :type-results] input-queue)
        input-queue))
 
+(defn call-create-url [message input-queue]
+  (POST "/add"
+        #(.log js/console "SUCCESS" (pr-str %))
+        input-queue
+        :data {:input (:value message)}))
+
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]
    (.log js/console (str "Effect called with: " message))
    (case (msg/topic message)
+     [:create-url] (call-create-url message input-queue)
      [:page] (if-let [route (route/dynamic-screen->route (:value message))]
                (send-fn (assoc message :value (name route)) input-queue)
                (send-fn message input-queue))
