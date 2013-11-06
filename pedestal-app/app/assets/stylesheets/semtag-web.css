@@ -98,11 +98,11 @@ a.noname {
 
 #add_url_button {
   margin-bottom: 10px;
-  display: none;
+  /* display: none; */
 }
 
 #add_url_text {
-  display:none;
+  /* display:none; */
 }
 
 #greeting p {

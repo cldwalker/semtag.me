@@ -1,5 +1,6 @@
 (ns semtag-web.simulated.services
-  (:require [semtag-web.services :as services]))
+  (:require [semtag-web.services :as services]
+            [semtag-web.util :refer [format]]))
 
 
 (def api-responses
@@ -63,6 +64,13 @@
     [(services/type-id message) :type-results]
     input-queue
     (:type api-responses)))
+
+(defmethod send-message :create-thing
+  [message input-queue]
+  (services/put-value
+    [:alert-success]
+    input-queue
+    (format "Successfully added '%s'!" (:input message))))
 
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))

@@ -159,7 +159,7 @@
                                   :params search-map
                                   :paths (dynamic-paths :search search-id)})))
 
-(defn create-url [{:keys [transform messages]}]
+(defn create-thing [{:keys [transform messages]}]
   (msg/fill transform messages {:value (dom/value (dom/by-id "add_url_text"))}))
 
 ;; Search page
@@ -287,13 +287,19 @@
   (enable-toggle-stats-button input-queue)
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
-(defn render-alert-error [_ [_ _ _ msg] _]
-  (render-alert msg :danger)
-  ;; Not interested in massaging messages for this
-  (doto (.querySelector js/document "button.close")
-    (.addEventListener "click"
-                       (fn [e]
-                         (-> e .-target .-parentNode .-style .-display (set! "none"))))))
+(defn render-alert-fn
+  [alert-type]
+  (fn [_ [_ _ _ msg] _]
+    (render-alert msg alert-type)
+    ;; Not interested in massaging messages for this
+    (.addEventListener
+      (.querySelector js/document "button.close")
+      "click"
+      (fn [e]
+        (-> e .-target .-parentNode .-style .-display (set! "none"))))))
+
+(def render-alert-error (render-alert-fn :danger))
+(def render-alert-success (render-alert-fn :success))
 
 ;; Yes - this toggles the spinner on/off depending on the value. This
 ;; seeemed saner than massaging emit deltas or coming up with
@@ -348,6 +354,7 @@
      [:value [:app-model :type :* :type-results] render-type-results]
 
     ;; shared
+    [:value [:app-model :shared :alert-success] render-alert-success]
     [:value [:app-model :shared :alert-error] render-alert-error]
     [:value [:app-model :shared :modal-spinner] render-modal-spinner]
     ;; TODO: have title change with history navigation
@@ -359,4 +366,4 @@
 
      ;; search-form
      (util/click [:app-model :search-form :search] "url_search_button" :fn url-search)
-     (util/click [:app-model :search-form :create-url] "add_url_button" :fn create-url)]))
+     (util/click [:app-model :search-form :create-thing] "add_url_button" :fn create-thing)]))

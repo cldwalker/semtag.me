@@ -21,7 +21,7 @@
 ;; Emit fns
 ;;
 (defn search-form-deltas []
-  [[:transform-enable [:app-model :search-form :create-url] :create-url [{msg/type :set-value msg/topic [:create-url] (msg/param :value) {}}]]
+  [[:transform-enable [:app-model :search-form :create-thing] :create-thing [{msg/type :set-value msg/topic [:create-thing] (msg/param :value) {}}]]
    ;; Using add-named-paths creates dynamic focii. With this approach each search result is
    ;; navigable via html5 history. Although adding a named path only needs to happen once per unique
    ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
@@ -61,10 +61,11 @@
    :transform [;; general
                [:map-value [:page] map-value]
                [:set-value [:alert-error] set-value]
+               [:set-value [:alert-success] set-value]
                [:set-value [:modal-spinner] set-value]
 
                ;; specific effects
-               [:set-value [:create-url] set-value]
+               [:set-value [:create-thing] set-value]
                [:set-value [:types-results] set-value]
                [:set-value [:tags-results] set-value]
                [:set-value [:tag-stats-results] set-value]
@@ -75,7 +76,7 @@
                ;; search
                [:set-value [:* :search-title] set-value]
                [:set-value [:* :search-results] set-value]]
-   :effect #{[#{[:page] [:create-url]} publish-message]}
+   :effect #{[#{[:page] [:create-thing]} publish-message]}
    :emit [{:init init-home}
 
           {:init search-form-deltas}
@@ -96,7 +97,7 @@
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init shared-deltas}
-          [#{[:alert-error] [:modal-spinner]} (app/default-emitter [:app-model :shared])]
+          [#{[:alert-error] [:alert-success] [:modal-spinner]} (app/default-emitter [:app-model :shared])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
    :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :shared]]
            :types [[:app-model :types] [:app-model :shared]]

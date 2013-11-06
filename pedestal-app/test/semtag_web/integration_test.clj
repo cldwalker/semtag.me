@@ -170,6 +170,12 @@
   (click "lein-newnew")
   (url-ends-with "#/thing/lein-newnew"))
 
+(deftest create-thing-works
+  (visit "")
+  (taxi/input-text "#add_url_text" "http://newsite.com site funny")
+  (click "Add Url")
+  (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
+
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
   (visit "")
