@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-lein build-app production
+READ_ONLY=1 lein build-app production
 cd ..
 git checkout gh-pages
 cp -Rfv pedestal-app/out/public/* .
