@@ -96,16 +96,8 @@ a.noname {
   margin-left: 14px;
 }
 
-/* #create_thing_button { */
-/*   display: none; */
-/* } */
-/*  */
-/* #create_thing_text { */
-/*   display:none; */
-/* } */
-
 #greeting p {
-    font-size: 150%;
+  font-size: 150%;
 }
 
 #introduction {
@@ -114,7 +106,7 @@ a.noname {
 }
 
 #search_box .examples {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 /* Sticky footer styles
