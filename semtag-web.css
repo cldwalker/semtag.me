@@ -96,17 +96,8 @@ a.noname {
   margin-left: 14px;
 }
 
-#add_url_button {
-  margin-bottom: 10px;
-  display: none;
-}
-
-#add_url_text {
-  display:none;
-}
-
 #greeting p {
-    font-size: 150%;
+  font-size: 150%;
 }
 
 #introduction {
@@ -115,7 +106,7 @@ a.noname {
 }
 
 #search_box .examples {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 /* Sticky footer styles

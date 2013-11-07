@@ -16,7 +16,11 @@
     <link rel="stylesheet" href="bootstrap.min.css" />
     <!-- Necessary for switching between aspects -->
     <link rel="stylesheet" href="pedestal.css" />
-    <link rel="stylesheet" href="semtag-web.css" />
+    <link rel="stylesheet" href="semtag-web.css" /><style>
+    #create_thing {
+      display: none;
+    }
+  </style>
 
     <!-- Add xpath support to IE. Domina needs this -->
     <!--[if IE]>
@@ -39,6 +43,12 @@
               <li><a href="#/tag-stats">Tag Stats</a></li>
               <li><a href="#/all">Latest Things</a></li>
             </ul>
+            <form class="navbar-form navbar-right" id="create_thing">
+              <div class="form-group">
+                <input placeholder="url/name type tags desc" size="40" class="form-control" type="text" id="create_thing_text" />
+              </div>
+              <button class="btn btn-primary" type="submit" id="create_thing_button">Create Thing</button>
+            </form>
       </div></div></div>
 
       <div class="container">
