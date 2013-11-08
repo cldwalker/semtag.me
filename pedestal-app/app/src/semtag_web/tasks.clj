@@ -28,7 +28,7 @@
     #create_thing {
       display: none;
     }
-    td.delete button {
+    #thing_show_table tr[data-field=actions] {
       display: none;
     }
   </style>")

@@ -129,7 +129,7 @@
 
 (defpartial thing-row [row & fields]
   (let [attr (:attribute row)]
-    [:tr {:data-id (:id row)}
+    [:tr {:data-id (:id row) :data-field (name attr)}
      [:td attr]
      (case attr
        :type (td-type (:value row))
