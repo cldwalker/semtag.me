@@ -250,18 +250,29 @@
                      :fields [:type :name :url :tags :created-at]))
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
+(defn- enable-delete-thing
+  [input-queue id]
+  (events/send-on :click
+                  (css/sel "td.delete button")
+                  input-queue
+                  (fn [event]
+                    [{msg/type :map-value msg/topic [:action] :value :delete-thing
+                      :params {:id id}}])))
+
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
-  (let [thing-id (-> path path->params :id)]
+  (let [thing-id (-> path path->params :id)
+        num-id (:id (first new-value))]
     (set-page-title (str "<h1>" thing-id "</h1>"))
     (dom/set-html!
       (dom/by-id "content")
       (p/generate-table "thing_show_table"
-                        (conj new-value {:attribute :actions :id (:id (first new-value))})
+                        (conj new-value {:attribute :actions :id num-id})
                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
                         :row-partial p/thing-row
-                        :fields [:attribute :value])))
-  (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
-  (enable-clickable-links-on "#thing_show_table caption" input-queue))
+                        :fields [:attribute :value]))
+    (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
+    (enable-clickable-links-on "#thing_show_table caption" input-queue)
+    (enable-delete-thing input-queue num-id)))
 
 (defn- add-type-stats [tags things]
   (let [tag-type-counts (count-and-group (map first tags))

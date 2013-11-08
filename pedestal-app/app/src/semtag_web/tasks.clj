@@ -28,6 +28,9 @@
     #create_thing {
       display: none;
     }
+    td.delete button {
+      display: none;
+    }
   </style>")
 
 (defn add-read-only-css [html]

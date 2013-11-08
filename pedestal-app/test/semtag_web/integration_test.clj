@@ -176,6 +176,12 @@
   (click "Create Thing")
   (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
 
+(deftest delete-thing-works
+  (visit "#/thing/17592186048349")
+  (click "Delete")
+  (is (.contains (taxi/text "#content") "Successfully deleted '17592186048349")))
+
+
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
   (visit "")

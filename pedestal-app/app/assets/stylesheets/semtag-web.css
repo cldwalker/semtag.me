@@ -56,10 +56,6 @@ table caption {
   padding: 5px;
 }
 
-td.delete a {
-  display: none;
-}
-
 .ellipsis {
   white-space: nowrap;
   overflow: hidden;

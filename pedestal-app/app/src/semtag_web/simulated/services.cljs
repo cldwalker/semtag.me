@@ -72,5 +72,12 @@
     input-queue
     (format "Successfully added '%s'!" (:input params))))
 
+(defmethod send-message :delete-thing
+  [{:keys [params]} input-queue]
+  (services/put-value
+    [:alert-success]
+    input-queue
+    (format "Successfully deleted '%s'." (:id params))))
+
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))

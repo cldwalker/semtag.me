@@ -140,7 +140,7 @@
        :desc (td-desc (:value row) 1000)
        :created-at (td-timestamp (:value row))
        :updated-at (td-timestamp (:value row))
-       :actions [:td.delete [:a {:href "#"} "Delete"]]
+       :actions [:td.delete [:button {:class "btn btn-danger btn-sm"} "Delete"]]
        [:td (str (:value row))])
      ]))
 

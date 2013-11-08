@@ -150,6 +150,18 @@
         input-queue
         :data params))
 
+(defmethod send-message :delete-thing
+  [{:keys [params]} input-queue]
+  (spinner-on input-queue)
+  (POST "/delete"
+        (fn [data]
+          (put-value-and-spinner-off
+            [:alert-success]
+            input-queue
+            (format "Successfully deleted '%s'." (:id params))))
+        input-queue
+        :data params))
+
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]
