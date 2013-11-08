@@ -139,23 +139,23 @@
        input-queue))
 
 (defmethod send-message :create-thing
-  [message input-queue]
+  [{:keys [params]} input-queue]
   (spinner-on input-queue)
   (POST "/add"
         (fn [data]
           (put-value-and-spinner-off
             [:alert-success]
             input-queue
-            (format "Successfully added '%s'!" (:input message))))
+            (format "Successfully added '%s'!" (:input params))))
         input-queue
-        :data (select-keys message [:input])))
+        :data params))
 
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]
    (.log js/console (str "Effect called with: " message))
    (case (msg/topic message)
-     [:create-thing] (send-fn {:input (:value message) :value :create-thing} input-queue)
+     [:action] (send-fn message input-queue)
      [:page] (if-let [route (route/dynamic-screen->route (:value message))]
                (send-fn (assoc message :value (name route)) input-queue)
                (send-fn message input-queue))

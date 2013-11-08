@@ -21,8 +21,7 @@
 ;; Emit fns
 ;;
 (defn search-form-deltas []
-  [[:transform-enable [:app-model :search-form :create-thing] :create-thing [{msg/type :set-value msg/topic [:create-thing] (msg/param :value) {}}]]
-   ;; Using add-named-paths creates dynamic focii. With this approach each search result is
+  [;; Using add-named-paths creates dynamic focii. With this approach each search result is
    ;; navigable via html5 history. Although adding a named path only needs to happen once per unique
    ;; search, the cost of sending an :add-named-paths message is pretty low - just an assoc.
    [:transform-enable [:app-model :search-form :search] :search [{msg/type :add-named-paths msg/topic msg/app-model (msg/param :name) {} (msg/param :paths) {}}
@@ -31,7 +30,8 @@
 
 
 (defn shared-deltas []
-  [[:transform-enable [:app-model :shared :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
+  [[:transform-enable [:app-model :shared :action] :action [{msg/type :map-value msg/topic [:action] (msg/param :value) {} (msg/param :params) {}}]]
+   [:transform-enable [:app-model :shared :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
                                                           {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 
 (defn init-home [_]
@@ -60,12 +60,12 @@
    ;; [:page] msg path used to trigger on screen load effects since :set-focus can't do it
    :transform [;; general
                [:map-value [:page] map-value]
+               [:map-value [:action] map-value]
                [:set-value [:alert-error] set-value]
                [:set-value [:alert-success] set-value]
                [:set-value [:modal-spinner] set-value]
 
                ;; specific effects
-               [:set-value [:create-thing] set-value]
                [:set-value [:types-results] set-value]
                [:set-value [:tags-results] set-value]
                [:set-value [:tag-stats-results] set-value]
@@ -76,7 +76,7 @@
                ;; search
                [:set-value [:* :search-title] set-value]
                [:set-value [:* :search-results] set-value]]
-   :effect #{[#{[:page] [:create-thing]} publish-message]}
+   :effect #{[#{[:page] [:action]} publish-message]}
    :emit [{:init init-home}
 
           {:init search-form-deltas}

@@ -66,11 +66,11 @@
     (:type api-responses)))
 
 (defmethod send-message :create-thing
-  [message input-queue]
+  [{:keys [params]} input-queue]
   (services/put-value
     [:alert-success]
     input-queue
-    (format "Successfully added '%s'!" (:input message))))
+    (format "Successfully added '%s'!" (:input params))))
 
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))
