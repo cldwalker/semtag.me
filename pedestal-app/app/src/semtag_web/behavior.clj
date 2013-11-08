@@ -30,7 +30,7 @@
 
 
 (defn shared-deltas []
-  [[:transform-enable [:app-model :shared :action] :action [{msg/type :map-value msg/topic [:action] (msg/param :value) {} (msg/param :params) {}}]]
+  [[:transform-enable [:app-model :shared :create-thing] :create-thing [{msg/type :map-value msg/topic [:action] :value :create-thing (msg/param :params) {}}]]
    [:transform-enable [:app-model :shared :links] :links [{msg/type :map-value msg/topic [:page] (msg/param :value) {}}
                                                           {msg/type :set-focus msg/topic msg/app-model (msg/param :name) {}}]]])
 

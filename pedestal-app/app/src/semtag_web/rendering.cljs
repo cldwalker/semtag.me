@@ -160,8 +160,7 @@
                                   :paths (dynamic-paths :search search-id)})))
 
 (defn create-thing [{:keys [transform messages]}]
-  (msg/fill transform messages {:value :create-thing
-                                :params {:input (dom/value (dom/by-id "create_thing_text"))}}))
+  (msg/fill transform messages {:params {:input (dom/value (dom/by-id "create_thing_text"))}}))
 
 ;; Search page
 (defn set-search-title [renderer [_ path _ new-value] _]
@@ -377,7 +376,7 @@
 
      ;; shared
      (util/click [:app-model :shared :links] (css/sel ".navbar a") :fn href-sets-focus)
-     (util/click [:app-model :shared :action] "create_thing_button" :fn create-thing)
+     (util/click [:app-model :shared :create-thing] "create_thing_button" :fn create-thing)
 
      ;; search-form
      (util/click [:app-model :search-form :search] "url_search_button" :fn url-search)]))
