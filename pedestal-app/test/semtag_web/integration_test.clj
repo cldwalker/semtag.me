@@ -181,6 +181,18 @@
   (click "Delete")
   (is (.contains (taxi/text "#content") "Successfully deleted '17592186048349")))
 
+(deftest editing-a-cell-changes-classes
+  (visit "#/search?query=feynman")
+  (let [type-td "td.editable[data-field=type]"]
+    (is (not (.contains (taxi/attribute type-td "class") "edit-")))
+    (taxi/click type-td)
+    (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))
+    (taxi/send-keys type-td "\n") ;; invoke return
+    (is (.contains (taxi/attribute type-td "class") "edit-completed"))
+
+    ;; verify re-editing changes state again
+    (taxi/click type-td)
+    (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works

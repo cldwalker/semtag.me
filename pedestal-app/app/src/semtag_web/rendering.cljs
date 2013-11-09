@@ -121,6 +121,46 @@
                   input-queue
                   (partial toggle-dom-id "stats_box")))
 
+;; Edit table cell fns
+;;
+(def enter-key 13)
+
+(defn- key-pressed
+  "If keypressed = keycode then call func"
+  [key-code func event]
+    (when (= (.-keyCode event) key-code)
+      (func event)))
+
+(defn return-key-pressed
+  "Creates a fn to be bound to a keypress event given a fn to execute"
+  [f]
+  (partial key-pressed enter-key f))
+
+(defn- set-edit-state [klass event]
+  (let [elem (.-target event)]
+    (doseq [c (->> (dom/attr elem "class") (re-seq #"\S+") (filter #(re-find #"^edit-" %)))]
+      (dom/remove-class! elem c))
+    (dom/add-class! elem klass)))
+
+(defn saves-edit [event]
+  (.log js/console "SAVED" event)
+  (.preventDefault event)
+  (let [elem (.-target event)]
+    (.blur elem))
+  (set-edit-state "edit-completed" event))
+
+(defn enable-editable-table [input-queue]
+  (dom/set-attr! (css/sel "td.editable") "contentEditable" true)
+  (dom/set-attr! (css/sel "td.editable a") "contentEditable" false)
+
+  ;; no-message
+  (doseq [elem (.querySelectorAll js/document "td.editable")]
+    (.addEventListener elem
+                       "keypress"
+                       (return-key-pressed saves-edit))
+    (.addEventListener elem
+                       "click"
+                       (partial set-edit-state "edit-in-progress"))))
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
@@ -199,6 +239,7 @@
         (search-results-html things tags))
       (add-search-stats tags things)
       (enable-toggle-stats-button input-queue)
+      (enable-editable-table input-queue)
       (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue))))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
