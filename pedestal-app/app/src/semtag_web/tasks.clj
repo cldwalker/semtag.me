@@ -2,6 +2,7 @@
   "Tasks to run from the commandline"
   (:require [io.pedestal.app-tools.build :as build]
             [clojure.string :as string]
+            [clojure.java.shell :as sh]
             [io.pedestal.app-tools.dev :as dev]))
 
 ;; Useful for debugging in ghostdriver
@@ -55,6 +56,22 @@
     (if (System/getenv "READ_ONLY")
       (comp add-read-only-css transform-js-fn) transform-js-fn)))
 
+(def disable-write-js
+  "(defn enable-editable-table [dom-id input-queue])")
+
+;; I tried different ways to modify the production js file but found none that worked:
+;; - using window.onload was too late to get recognized
+;; - redefining semtag_web.start.main to add a callback was too late for advanced compilation
+;; - removing event listeners wouldn't have worked (since they could get added in another screen)
+(defn- around-build [build-fn]
+  (when (System/getenv "READ_ONLY")
+    (-> "app/src/semtag_web/rendering.cljs" slurp (str "\n" disable-write-js)
+        (as-> new-body
+          (spit "app/src/semtag_web/rendering.cljs" new-body))))
+  (build-fn)
+  (when (System/getenv "READ_ONLY")
+    (sh/sh "git" "checkout" "app/src/semtag_web/rendering.cljs")))
+
 (defn build-app
   "Builds an aspect, :test if no argument is given. It also prepares it to be standalone html and
   adds debugging for the test aspect. Additional behavior can be toggled on with these env
@@ -62,14 +79,15 @@
 
   * $API_URI: sets a new services/base-uri.
   * $TEST: acts as if the current aspect were a test aspect by forcing simulated services.
-  * $READ_ONLY: hides any write-related UI e.g. the create_thing form."
+  * $READ_ONLY: disables any write-related UI/functionality e.g. the create_thing form."
   [& args]
   (let [aspect (keyword (or (first args) "test"))
         {html-file :uri js-file :out-file} (-> dev/config vals first :aspects aspect)]
     (when-not html-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
 
     (println (format "Building %s app..." aspect))
-    (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))
+    (around-build (fn []
+                    (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))))
 
     (println "Writing" (str "out/public" html-file))
     (modify-file (str "out/public" html-file) (build-transform-fn aspect))
