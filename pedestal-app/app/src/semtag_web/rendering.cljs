@@ -161,11 +161,11 @@
     (when (re-find #"\.\.\.$" (dom/text elem))
       (dom/set-text! elem (dom/attr elem "title")))))
 
-(defn enable-editable-table [input-queue]
-  (dom/set-attr! (css/sel "td.editable") "contentEditable" true)
-  (dom/set-attr! (css/sel "td.editable a") "contentEditable" false)
+(defn enable-editable-table [dom-id input-queue]
+  (dom/set-attr! (css/sel (str domid " td.editable ")) "contentEditable" true)
+  (dom/set-attr! (css/sel (str domid " td.editable a")) "contentEditable" false)
 
-  (doseq [elem (.querySelectorAll js/document "td.editable")]
+  (doseq [elem (.querySelectorAll js/document (str domid " td.editable"))]
     ;; didn't use events/send-on because it was overriding default keypress behavior
     (.addEventListener elem
                        "keypress"
@@ -253,7 +253,7 @@
         (search-results-html things tags))
       (add-search-stats tags things)
       (enable-toggle-stats-button input-queue)
-      (enable-editable-table input-queue)
+      (enable-editable-table "#search_table" input-queue)
       (enable-clickable-links-on "#search_table td:not([data-field=url])" input-queue))))
 
 ;; we'd like to destroy/hide these but that requires changing render-search-results
@@ -278,6 +278,7 @@
                                          {:title "Percent of things for a type that have a name"}
                                          {:title "Percent of things for a type that have a url"}]))
 
+  (enable-editable-table "#type_stats_table" input-queue)
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
@@ -302,6 +303,8 @@
                      :row-partial p/all-row
                      :caption (str "Total: " (count new-value))
                      :fields [:type :name :url :tags :created-at]))
+
+  (enable-editable-table "#all_table" input-queue)
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
 (defn- enable-delete-thing
@@ -323,6 +326,7 @@
                         :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
                         :row-partial p/thing-row
                         :fields [:attribute :value]))
+    (enable-editable-table "#thing_show_table" input-queue)
     (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
     (enable-clickable-links-on "#thing_show_table caption" input-queue)
     (enable-delete-thing input-queue num-id)))
