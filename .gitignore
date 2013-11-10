@@ -1,9 +1,4 @@
-pom.xml
-*jar
-/lib/
-/classes/
-.lein-deps-sum
-pedestal-service/resources/public/cljs/
-logs
-target
+out/
+target/
+logs/
 .lein-repl-history
