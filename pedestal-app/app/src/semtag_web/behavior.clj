@@ -64,7 +64,8 @@
                [:set-value [:alert-error] set-value]
                [:set-value [:alert-success] set-value]
                [:set-value [:modal-spinner] set-value]
-               [:set-value [:edit-state] set-value]
+               [:set-value [:edit-completed] set-value]
+               [:set-value [:edit-failed] set-value]
 
                ;; specific effects
                [:set-value [:types-results] set-value]
@@ -98,7 +99,7 @@
           [#{[:* :search-title] [:* :search-results]} (app/default-emitter [:app-model :search])]
 
           {:init shared-deltas}
-          [#{[:alert-error] [:alert-success] [:modal-spinner] [:edit-state]} (app/default-emitter [:app-model :shared])]
+          [#{[:alert-error] [:alert-success] [:modal-spinner] [:edit-completed] [:edit-failed]} (app/default-emitter [:app-model :shared])]
           #_[#{[:*]} (app/default-emitter [:app-model])]]
    :focus {:home [[:app-model :home] [:app-model :search-form] [:app-model :shared]]
            :types [[:app-model :types] [:app-model :shared]]

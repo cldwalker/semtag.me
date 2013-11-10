@@ -42,6 +42,15 @@
 
 (def base-uri "http://localhost:3000/api")
 
+(defn default-on-error [{:keys [xhr input-queue uri]}]
+  (spinner-off input-queue)
+  (.error js/console "Failed request:" xhr)
+  (put-value [:alert-error]
+             input-queue
+             (format "Request '%s' failed with: %s"
+                     uri
+                     (.getResponse xhr))))
+
 (defn GET [rel-uri success-fn input-queue]
   (let [uri (str base-uri rel-uri)]
     (.log js/console (str "Calling API endpoint: " uri))
@@ -50,13 +59,7 @@
                  :request-method "GET"
                  :on-success (fn [data]
                                (success-fn (-> data :body read-string)))
-                 :on-error (fn [{:keys [xhr] :as msg}]
-                             (spinner-off input-queue)
-                             (put-value [:alert-error]
-                                        input-queue
-                                        (format "Request '%s' failed with: %s"
-                                                uri
-                                                (.getResponse xhr)))))))
+                 :on-error #(default-on-error {:xhr (:xhr %) :input-queue input-queue :uri uri}))))
 
 ;; from https://github.com/yogthos/cljs-ajax/blob/master/src/ajax/core.cljs
 (defn- params-to-str [params]
@@ -72,7 +75,8 @@
 ;; Rather than do a preflight request, we'll use one of the content-types that don't
 ;; require a preflight - http://www.html5rocks.com/en/tutorials/cors/#toc-types-of-cors-requests
 (defn POST [rel-uri success-fn input-queue & {:as options}]
-  (let [uri (str base-uri rel-uri)]
+  (let [uri (str base-uri rel-uri)
+        on-error (or (:on-error options) default-on-error)]
     (.log js/console (str "Calling API endpoint: " uri) (pr-str options))
     (xhr/request (gensym)
                  uri
@@ -81,14 +85,7 @@
                  :headers {"Content-Type" "application/x-www-form-urlencoded"}
                  :on-success (fn [data]
                                (success-fn (-> data :body read-string)))
-                 ;; TODO: reuse if sticking with this
-                 :on-error (fn [{:keys [xhr] :as msg}]
-                             (spinner-off input-queue)
-                             (put-value [:alert-error]
-                                        input-queue
-                                        (format "Request '%s' failed with: %s"
-                                                uri
-                                                (.getResponse xhr)))))))
+                 :on-error #(on-error {:xhr (:xhr %) :input-queue input-queue :uri uri}))))
 ;; Effect fns
 
 (defmulti send-message
@@ -168,8 +165,11 @@
   (POST "/edit"
         (fn [data]
           (spinner-off input-queue)
-          (put-value [:edit-state] input-queue (:element params)))
+          (put-value [:edit-completed] input-queue (:element params)))
         input-queue
+        :on-error (fn [error]
+                    (default-on-error error)
+                    (put-value [:edit-failed] input-queue (:element params)))
         :data (dissoc params :element)))
 
 (defn services-fn

@@ -374,8 +374,11 @@
 (defn render-modal-spinner [_ [_ _ _ new-value] _]
   (spinner/render new-value))
 
-(defn render-edit-state [_ [_ _ _ new-value] _]
+(defn render-edit-completed [_ [_ _ _ new-value] _]
   (set-edit-state "edit-completed" new-value))
+
+(defn render-edit-failed [_ [_ _ _ new-value] _]
+  (set-edit-state "edit-failed" new-value))
 
 (defn render-title [_ [_ _ _ new-value] _]
   (-> (.querySelector js/document "title") .-innerHTML (set! (str "Semtag - " new-value))))
@@ -427,7 +430,8 @@
     [:value [:app-model :shared :alert-success] render-alert-success]
     [:value [:app-model :shared :alert-error] render-alert-error]
     [:value [:app-model :shared :modal-spinner] render-modal-spinner]
-    [:value [:app-model :shared :edit-state] render-edit-state]
+    [:value [:app-model :shared :edit-completed] render-edit-completed]
+    [:value [:app-model :shared :edit-failed] render-edit-failed]
     ;; TODO: have title change with history navigation
     [:value [:app-model :shared :title] render-title]
      ]
