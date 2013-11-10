@@ -81,7 +81,7 @@
 
 (defmethod send-message :update-thing
   [{:keys [params]} input-queue]
-  (services/put-value [:edit-state] input-queue (:element params)))
+  (services/put-value [:edit-completed] input-queue (:element params)))
 
 (defn services-fn [message input-queue]
   (services/services-fn message input-queue send-message))

@@ -142,7 +142,6 @@
   (dom/add-class! elem klass))
 
 (defn saves-edit [input-queue event]
-  (.log js/console "SAVED" event)
   (.preventDefault event)
   (let [elem (.-target event)
         id (-> elem .-parentNode (dom/attr "data-id"))
