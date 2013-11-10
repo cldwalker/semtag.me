@@ -162,6 +162,16 @@
         input-queue
         :data params))
 
+(defmethod send-message :update-thing
+  [{:keys [params]} input-queue]
+  (spinner-on input-queue)
+  (POST "/edit"
+        (fn [data]
+          (spinner-off input-queue)
+          (put-value [:edit-state] input-queue (:element params)))
+        input-queue
+        :data (dissoc params :element)))
+
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]

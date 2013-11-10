@@ -136,31 +136,45 @@
   [f]
   (partial key-pressed enter-key f))
 
-(defn- set-edit-state [klass event]
-  (let [elem (.-target event)]
-    (doseq [c (->> (dom/attr elem "class") (re-seq #"\S+") (filter #(re-find #"^edit-" %)))]
-      (dom/remove-class! elem c))
-    (dom/add-class! elem klass)))
+(defn- set-edit-state [klass elem]
+  (doseq [c (->> (dom/attr elem "class") (re-seq #"\S+") (filter #(re-find #"^edit-" %)))]
+    (dom/remove-class! elem c))
+  (dom/add-class! elem klass))
 
-(defn saves-edit [event]
+(defn saves-edit [input-queue event]
   (.log js/console "SAVED" event)
   (.preventDefault event)
+  (let [elem (.-target event)
+        id (-> elem .-parentNode (dom/attr "data-id"))
+        field (-> elem (dom/attr "data-field"))
+        value (dom/text elem)
+        ;; handle name default
+        value (if (= "nil" value) "" value)]
+    (.blur elem)
+    (prot/put-message input-queue {msg/type :map-value msg/topic [:action] :value :update-thing :params {:id id field value :element (.-target event)}})))
+
+(defn- expand-editable-text [event]
   (let [elem (.-target event)]
-    (.blur elem))
-  (set-edit-state "edit-completed" event))
+    (dom/remove-class! elem "ellipsis")
+    ;; quick and dirty way - cleaner way would be to track editing state
+    ;; this check ensures we don't clobber that the user has come back to finish edit
+    (when (re-find #"\.\.\.$" (dom/text elem))
+      (dom/set-text! elem (dom/attr elem "title")))))
 
 (defn enable-editable-table [input-queue]
   (dom/set-attr! (css/sel "td.editable") "contentEditable" true)
   (dom/set-attr! (css/sel "td.editable a") "contentEditable" false)
 
-  ;; no-message
   (doseq [elem (.querySelectorAll js/document "td.editable")]
+    ;; didn't use events/send-on because it was overriding default keypress behavior
     (.addEventListener elem
                        "keypress"
-                       (return-key-pressed saves-edit))
+                       (return-key-pressed (partial saves-edit input-queue)))
     (.addEventListener elem
                        "click"
-                       (partial set-edit-state "edit-in-progress"))))
+                       (fn [event]
+                         (expand-editable-text event)
+                         (set-edit-state "edit-in-progress" (.-target event))))))
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
@@ -296,8 +310,7 @@
                   (css/sel "td.delete button")
                   input-queue
                   (fn [event]
-                    [{msg/type :map-value msg/topic [:action] :value :delete-thing
-                      :params {:id id}}])))
+                    [{msg/type :map-value msg/topic [:action] :value :delete-thing :params {:id id}}])))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
   (let [thing-id (-> path path->params :id)
@@ -361,6 +374,9 @@
 (defn render-modal-spinner [_ [_ _ _ new-value] _]
   (spinner/render new-value))
 
+(defn render-edit-state [_ [_ _ _ new-value] _]
+  (set-edit-state "edit-completed" new-value))
+
 (defn render-title [_ [_ _ _ new-value] _]
   (-> (.querySelector js/document "title") .-innerHTML (set! (str "Semtag - " new-value))))
 
@@ -411,6 +427,7 @@
     [:value [:app-model :shared :alert-success] render-alert-success]
     [:value [:app-model :shared :alert-error] render-alert-error]
     [:value [:app-model :shared :modal-spinner] render-modal-spinner]
+    [:value [:app-model :shared :edit-state] render-edit-state]
     ;; TODO: have title change with history navigation
     [:value [:app-model :shared :title] render-title]
      ]
