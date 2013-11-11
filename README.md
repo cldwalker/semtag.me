@@ -14,12 +14,18 @@ a.k.a. semantic tagging, we can build a web of interconnected bookmarks.
 
 ## Demo
 
-See [semtag.me](http://semtag.me/). Note that the backend server is on
+See [semtag.me](http://semtag.me/) for a read-only version. Note that the backend server is on
 heroku so the first request may take up to 10s to spin up.
 
 ## Usage
 
-Start the pedestal-app on localhost:3000: `lein run`
+Start the app on localhost:3000 with `lein run` or from the repl:
+
+```
+$ lein repl
+user=> (start)
+:ok
+```
 
 Checkout the [test aspect](http://localhost:3000/semtag-web-test.html).
 Trying out dev or production aspects will not work since they require a backend service.
