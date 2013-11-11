@@ -277,7 +277,6 @@
                                          {:title "Percent of things for a type that have a name"}
                                          {:title "Percent of things for a type that have a url"}]))
 
-  (enable-editable-table "#type_stats_table" input-queue)
   (enable-clickable-links-on "#type_stats_table" input-queue))
 
 (defn render-tag-stats-results [_ [_ _ _ new-value] input-queue]
@@ -355,6 +354,7 @@
                           :fields [:name :url :desc :tags :created-at])))
     (add-type-stats tags things))
   (enable-toggle-stats-button input-queue)
+  (enable-editable-table "#type_show_table" input-queue)
   (enable-clickable-links-on "#type_show_table td:not([data-field=url])" input-queue))
 
 (defn render-alert-fn
