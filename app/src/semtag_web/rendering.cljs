@@ -161,8 +161,11 @@
       (dom/set-text! elem (dom/attr elem "title")))))
 
 (defn enable-editable-table [dom-id input-queue]
-  (dom/set-attr! (css/sel (str domid " td.editable ")) "contentEditable" true)
-  (dom/set-attr! (css/sel (str domid " td.editable a")) "contentEditable" false)
+  (dom/set-attr! (css/sel (str domid " td.editable")) "contentEditable" true)
+  ;; this makes links clickable without pushing the cursor out of the cell
+  ;; note - these links aren't clickable for vimium
+  (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseover" "this.contentEditable = false")
+  (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseout"  "this.contentEditable = true")
 
   (doseq [elem (.querySelectorAll js/document (str domid " td.editable"))]
     ;; didn't use events/send-on because it was overriding default keypress behavior
