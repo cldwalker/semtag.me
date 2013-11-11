@@ -65,6 +65,10 @@
     input-queue
     (:type api-responses)))
 
+(defmethod send-message :create
+  [message input-queue]
+  (send-message (assoc message :value :create-thing) input-queue))
+
 (defmethod send-message :create-thing
   [{:keys [params]} input-queue]
   (services/put-value

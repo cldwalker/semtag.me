@@ -10,7 +10,8 @@
 (def dynamic-routes "Maps routes to relative paths"
   {:search "#/search"
    :thing "#/thing/:id"
-   :type "#/type/:name"})
+   :type "#/type/:name"
+   :create "#/create"})
 
 (def dynamic-screens "Maps screen ids to their url params"
   (atom {}))

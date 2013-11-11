@@ -78,6 +78,7 @@
     :thing [[:app-model :thing screen] [:app-model :shared]]
     :search [[:app-model :search screen] [:app-model :search-form] [:app-model :shared]]
     :type [[:app-model :type screen] [:app-model :shared]]
+    :create [[:app-model :home] [:app-model :search-form] [:app-model :shared]]
     []))
 
 (defn any-href-sets-focus

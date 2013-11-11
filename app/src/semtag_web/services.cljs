@@ -135,6 +135,10 @@
        (partial put-value-and-spinner-off [(type-id message) :type-results] input-queue)
        input-queue))
 
+(defmethod send-message :create
+  [message input-queue]
+  (send-message (assoc message :value :create-thing) input-queue))
+
 (defmethod send-message :create-thing
   [{:keys [params]} input-queue]
   (spinner-on input-queue)

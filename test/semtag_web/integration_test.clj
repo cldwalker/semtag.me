@@ -194,6 +194,10 @@
     (taxi/click type-td)
     (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))))
 
+(deftest direct-create-link-works
+  (visit "#/create?input=http://newsite.com+site+funny")
+  (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
+
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
   (visit "")
