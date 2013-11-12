@@ -57,30 +57,19 @@
     (if (System/getenv "READ_ONLY")
       (comp add-read-only-css transform-js-fn) transform-js-fn)))
 
-(def disable-write-js
-  "(defn enable-editable-table [dom-id input-queue])")
-
-;; I tried different ways to modify the production js file but found none that worked:
-;; - using window.onload was too late to get recognized
-;; - redefining semtag_web.start.main to add a callback was too late for advanced compilation
-;; - removing event listeners wouldn't have worked (since they could get added in another screen)
-(defn- around-build [build-fn]
-  (when (System/getenv "READ_ONLY")
-    (-> "app/src/semtag_web/rendering.cljs" slurp (str "\n" disable-write-js)
-        (as-> new-body
-          (spit "app/src/semtag_web/rendering.cljs" new-body))))
-  (build-fn)
-  (when (System/getenv "READ_ONLY")
-    (sh/sh "git" "checkout" "app/src/semtag_web/rendering.cljs")))
-
-(defn build-config []
+(defn around-build [build-fn]
   (let [new-config (cond-> {}
-                     (System/getenv "API_URI") (assoc :api-uri (System/getenv "API_URI")))
-        original-file (slurp "app/src/semtag_web/config.clj")]
+                     (System/getenv "API_URI") (assoc :api-uri (System/getenv "API_URI"))
+                     (System/getenv "READ_ONLY") (assoc :read-only true))
+        config-file "app/src/semtag_web/config.clj"
+        original-config-body (slurp config-file)]
     (when (seq new-config)
       (println "Updating config with" new-config)
-      (spit "app/src/semtag_web/config.clj"
-            (str original-file "\n(def config " (merge config/config new-config) ")")))))
+      (spit config-file
+            (str original-config-body "\n(def config " (merge config/config new-config) ")")))
+    (build-fn)
+    (when (seq new-config)
+      (spit config-file original-config-body))))
 
 (defn build-app
   "Builds an aspect, :test if no argument is given. It also prepares it to be standalone html and
@@ -95,7 +84,6 @@
         {html-file :uri} (-> dev/config vals first :aspects aspect)]
     (when-not html-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
 
-    (build-config)
     (println (format "Building %s app..." aspect))
     (around-build (fn []
                     (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))))
@@ -103,4 +91,4 @@
     (println "Writing" (str "out/public" html-file))
     (modify-file (str "out/public" html-file) (build-transform-fn aspect))
 
-    (System/exit 0))
+    (System/exit 0)))

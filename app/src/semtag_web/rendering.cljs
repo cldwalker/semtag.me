@@ -2,6 +2,7 @@
   (:require [domina :as dom]
             [domina.css :as css]
             [semtag-web.history :as history]
+            [semtag-web.config :as config]
             [semtag-web.route :as route]
             [semtag-web.rendering.util :as util]
             [semtag-web.util :refer [format]]
@@ -161,23 +162,26 @@
     (when (re-find #"\.\.\.$" (dom/text elem))
       (dom/set-text! elem (dom/attr elem "title")))))
 
-(defn enable-editable-table [dom-id input-queue]
-  (dom/set-attr! (css/sel (str domid " td.editable")) "contentEditable" true)
-  ;; this makes links clickable without pushing the cursor out of the cell
-  ;; note - these links aren't clickable for vimium
-  (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseover" "this.contentEditable = false")
-  (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseout"  "this.contentEditable = true")
+(if (:read-only config/config)
+  (defn enable-editable-table [dom-id input-queue])
 
-  (doseq [elem (.querySelectorAll js/document (str domid " td.editable"))]
-    ;; didn't use events/send-on because it was overriding default keypress behavior
-    (.addEventListener elem
-                       "keypress"
-                       (return-key-pressed (partial saves-edit input-queue)))
-    (.addEventListener elem
-                       "click"
-                       (fn [event]
-                         (expand-editable-text event)
-                         (set-edit-state "edit-in-progress" (.-target event))))))
+  (defn enable-editable-table [dom-id input-queue]
+    (dom/set-attr! (css/sel (str domid " td.editable")) "contentEditable" true)
+    ;; this makes links clickable without pushing the cursor out of the cell
+    ;; note - these links aren't clickable for vimium
+    (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseover" "this.contentEditable = false")
+    (dom/set-attr! (css/sel (str domid " td.editable a")) "onmouseout"  "this.contentEditable = true")
+
+    (doseq [elem (.querySelectorAll js/document (str domid " td.editable"))]
+      ;; didn't use events/send-on because it was overriding default keypress behavior
+      (.addEventListener elem
+                         "keypress"
+                         (return-key-pressed (partial saves-edit input-queue)))
+      (.addEventListener elem
+                         "click"
+                         (fn [event]
+                           (expand-editable-text event)
+                           (set-edit-state "edit-in-progress" (.-target event)))))))
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
