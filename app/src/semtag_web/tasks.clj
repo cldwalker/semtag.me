@@ -3,6 +3,7 @@
   (:require [io.pedestal.app-tools.build :as build]
             [clojure.string :as string]
             [clojure.java.shell :as sh]
+            [semtag-web.config :as config]
             [io.pedestal.app-tools.dev :as dev]))
 
 ;; Useful for debugging in ghostdriver
@@ -72,6 +73,15 @@
   (when (System/getenv "READ_ONLY")
     (sh/sh "git" "checkout" "app/src/semtag_web/rendering.cljs")))
 
+(defn build-config []
+  (let [new-config (cond-> {}
+                     (System/getenv "API_URI") (assoc :api-uri (System/getenv "API_URI")))
+        original-file (slurp "app/src/semtag_web/config.clj")]
+    (when (seq new-config)
+      (println "Updating config with" new-config)
+      (spit "app/src/semtag_web/config.clj"
+            (str original-file "\n(def config " (merge config/config new-config) ")")))))
+
 (defn build-app
   "Builds an aspect, :test if no argument is given. It also prepares it to be standalone html and
   adds debugging for the test aspect. Additional behavior can be toggled on with these env
@@ -82,9 +92,10 @@
   * $READ_ONLY: disables any write-related UI/functionality e.g. the create_thing form."
   [& args]
   (let [aspect (keyword (or (first args) "test"))
-        {html-file :uri js-file :out-file} (-> dev/config vals first :aspects aspect)]
+        {html-file :uri} (-> dev/config vals first :aspects aspect)]
     (when-not html-file (throw (ex-info "This aspect does not exist!" {:aspect aspect})))
 
+    (build-config)
     (println (format "Building %s app..." aspect))
     (around-build (fn []
                     (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))))
@@ -92,7 +103,4 @@
     (println "Writing" (str "out/public" html-file))
     (modify-file (str "out/public" html-file) (build-transform-fn aspect))
 
-    (when-let [uri (System/getenv "API_URI")]
-      (println "Writing" (str "out/public/generated-js/" js-file))
-      (modify-file (str "out/public/generated-js/" js-file) #(string/replace-first % "http://localhost:3000/api" uri))))
-  (System/exit 0))
+    (System/exit 0))

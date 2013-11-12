@@ -4,6 +4,7 @@
             [goog.Uri.QueryData :as query-data]
             [goog.structs :as structs]
             [io.pedestal.app.messages :as msg]
+            [semtag-web.config :as config]
             [semtag-web.route :as route]
             [semtag-web.util :refer [format]]
             [cljs.reader :refer [read-string]]))
@@ -40,7 +41,7 @@
   (put-value path input-queue value)
   (spinner-off input-queue))
 
-(def base-uri "http://localhost:3000/api")
+(def base-uri (:api-uri config/config))
 
 (defn default-on-error [{:keys [xhr input-queue uri]}]
   (spinner-off input-queue)
