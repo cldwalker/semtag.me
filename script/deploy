@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
+rm -rf out
 READ_ONLY=1 lein build-app production
 git checkout gh-pages
 cp -Rfv out/public/* .
