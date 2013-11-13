@@ -140,6 +140,8 @@
   [message input-queue]
   (send-message (assoc message :value :create-thing) input-queue))
 
+;; actions
+
 (defmethod send-message :create-thing
   [{:keys [params]} input-queue]
   (spinner-on input-queue)
@@ -177,13 +179,19 @@
                     (put-value [:edit-failed] input-queue (:element params)))
         :data (dissoc params :element)))
 
+(defn allowed? [message]
+  (or (not (:read-only config/config))
+      (not (contains? #{:create :create-thing :update-thing :delete-thing}
+                      (keyword (:value message))))))
+
 (defn services-fn
   ([message input-queue] (services-fn message input-queue send-message))
   ([message input-queue send-fn]
    (.log js/console (str "Effect called with: " message))
-   (case (msg/topic message)
-     [:action] (send-fn message input-queue)
-     [:page] (if-let [route (route/dynamic-screen->route (:value message))]
-               (send-fn (assoc message :value (name route)) input-queue)
-               (send-fn message input-queue))
-     nil)))
+   (cond
+     (contains? #{[:page] [:action]} (msg/topic message))
+     (let [message (if-let [route (route/dynamic-screen->route (:value message))]
+                     (assoc message :value (name route))
+                     message)]
+       (when (allowed? message)
+         (send-fn message input-queue))))))

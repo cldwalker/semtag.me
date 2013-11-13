@@ -88,6 +88,8 @@
     (around-build (fn []
                     (time (build/build! (-> dev/config vals first (modify-config aspect)) aspect))))
 
+    ;; I've chosen to modify the final html file rather than add assets because
+    ;; hooking into pedestal-app's assets is an undocumented time-sink.
     (println "Writing" (str "out/public" html-file))
     (modify-file (str "out/public" html-file) (build-transform-fn aspect))
 
