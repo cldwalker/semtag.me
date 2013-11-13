@@ -18,6 +18,14 @@
     (is (= ""
            (url-for :thing-id_jekyll)))))
 
+(deftest dynamic-screen->route-tests
+  (testing "nonexistant route is nil"
+    (is (nil? (dynamic-screen->route :blarg-id_ok))))
+  (testing "route without params is nil"
+    (is (nil? (dynamic-screen->route :create-thing))))
+  (testing "route with params is recognized"
+    (is (= :create (dynamic-screen->route :create-input_example)))))
+
 (deftest find-dynamic-route-tests
   (testing "without keyword segment"
     (is (= :search (find-dynamic-route "#/search?query=funny"))))

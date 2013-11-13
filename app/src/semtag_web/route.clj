@@ -21,7 +21,10 @@
 (defn screen->route
   "Returns route name from a screen. Returns nil if invalid screen"
   [screen]
-  (keyword (re-find #"^[^-]+" (name screen))))
+  (some->> (name screen)
+          (re-find #"(^[^-]+)-.*_.*")
+          second
+          keyword))
 
 (defn dynamic-screen->route
   [screen]
