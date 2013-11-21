@@ -25,67 +25,17 @@
    :all (list {:id 17592186048331, :desc "handy, programmatic and linkable access to HTTP specs, including an emacs plugin", :type "repo", :url "https://github.com/andreineculau/know-your-http-well", :created-at #inst "2013-09-07T15:31:38.781-00:00", :tags '("emacs" "http")}
               {:id 17592186048328, :desc "nice, visual listing of designers by city and/or price range", :type "site", :url "http://sortfolio.com/", :created-at #inst "2013-09-07T15:27:45.772-00:00", :tags '("designer")})})
 
-(defmulti send-message
-  "Given a message, simulate an effect"
-  (fn [message input-queue] (keyword (:value message))))
+(defn GET [uri success-fn & args]
+  (let [screen (keyword (re-find #"[^/\?]+" uri))
+        data (get api-responses screen)]
+    (when-not data (.log js/console "No Data found for GET " uri))
+    (success-fn data)))
 
-(defmethod send-message :default
-  [{:keys [value]} input-queue]
-  (services/put-value
-    [(keyword (str value "-results"))]
-    input-queue
-    ((keyword value) api-responses)))
-
-(defmethod send-message :home
-  [message input-queue]
-  (services/put-value
-    [:tags-results]
-    input-queue
-    (:tags api-responses)))
-
-(defmethod send-message :search
-  [{:keys [params]} input-queue]
-  (services/put-search-title input-queue params)
-  (services/put-value
-    [(services/search-id params) :search-results]
-    input-queue
-    (:search api-responses)))
-
-(defmethod send-message :thing
-  [message input-queue]
-  (services/put-value
-    [(services/thing-id message) :thing-results]
-    input-queue
-    (:thing api-responses)))
-
-(defmethod send-message :type
-  [message input-queue]
-  (services/put-value
-    [(services/type-id message) :type-results]
-    input-queue
-    (:type api-responses)))
-
-(defmethod send-message :create
-  [message input-queue]
-  (send-message (assoc message :value :create-thing) input-queue))
-
-(defmethod send-message :create-thing
-  [{:keys [params]} input-queue]
-  (services/put-value
-    [:alert-success]
-    input-queue
-    (format "Successfully added '%s'!" (:input params))))
-
-(defmethod send-message :delete-thing
-  [{:keys [params]} input-queue]
-  (services/put-value
-    [:alert-success]
-    input-queue
-    (format "Successfully deleted '%s'." (:id params))))
-
-(defmethod send-message :update-thing
-  [{:keys [params]} input-queue]
-  (services/put-value [:edit-completed] input-queue (:element params)))
+(defn POST [uri success-fn & args]
+  ;; None of the posts do anything with response yet
+  (success-fn {}))
 
 (defn services-fn [message input-queue]
-  (services/services-fn message input-queue send-message))
+  (with-redefs [services/GET GET
+                services/POST POST]
+    (services/services-fn message input-queue services/send-message)))

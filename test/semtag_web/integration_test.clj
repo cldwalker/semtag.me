@@ -186,12 +186,15 @@
   (let [type-td "td.editable[data-field=type]"]
     (is (not (.contains (taxi/attribute type-td "class") "edit-")))
     (taxi/click type-td)
+    (Thread/sleep 500)
     (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))
     (taxi/send-keys type-td "\n") ;; invoke return
+    (Thread/sleep 500)
     (is (.contains (taxi/attribute type-td "class") "edit-completed"))
 
     ;; verify re-editing changes state again
     (taxi/click type-td)
+    (Thread/sleep 500)
     (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))))
 
 (deftest direct-create-link-works
