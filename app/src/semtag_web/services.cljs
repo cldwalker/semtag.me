@@ -7,6 +7,7 @@
             [semtag-web.config :as config]
             [semtag-web.route :as route]
             [semtag-web.util :refer [format]]
+            [clojure.string :as string]
             [cljs.reader :refer [read-string]]))
 
 ;; Helper fns
@@ -112,8 +113,7 @@
   [message input-queue]
   (send-message (assoc message :value :search_form) input-queue))
 
-(defmethod send-message :search
-  [{:keys [params]} input-queue]
+(defn search* [params input-queue]
   (spinner-on input-queue)
   (put-search-title input-queue params)
 
@@ -121,6 +121,14 @@
     (str "/search?query=" (:query params) "&search_type=" (:search-type params))
     (partial put-value-and-spinner-off [(search-id params) :search-results] input-queue)
     input-queue))
+
+(defmethod send-message :search
+  [{:keys [params]} input-queue]
+  (if (some-> (:query params) string/trim seq)
+    (search* params input-queue)
+    (put-value [:alert-error]
+               input-queue
+               "A search query cannot be empty. Try again.")))
 
 (defmethod send-message :thing
   [message input-queue]

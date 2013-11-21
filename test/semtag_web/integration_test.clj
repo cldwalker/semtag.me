@@ -126,6 +126,10 @@
   (Thread/sleep 1000)
   (url-ends-with "#/search?query=maxwell&search-type=tagged-with-type"))
 
+(deftest empty-search-returns-an-error
+  (visit "#/search?query=&search-type=tagged-with-type")
+  (is (.contains (taxi/text "#content") "cannot be empty")))
+
 (def expected-ids
   {"#/types" "#type_stats_table"
    "#/tag-stats" "#tag_stats_table"
