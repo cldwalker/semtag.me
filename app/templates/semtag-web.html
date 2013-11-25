@@ -9,14 +9,26 @@
         </div>
         <div id="introduction">
           <p>
-            Semtag is a site that stores bookmarks as things/entities. Bookmarks and their tags are
-            treated equally as things with a type. Each thing can have associations (tags) with
-            other things a.k.a. semantic tagging.  For example, here is my bookmark for <a
-              href="#/thing/gg">google</a> and here are <a href="#/search?query=gg">all the
-              things</a> tagged with it. If you clicked on google, you see that it's a <a
-              href="#/type/company">company type</a>. To see what other types I track, see <a
-              href="#/types">the types page</a>.
-            </p>
+          Semtag is a site that stores bookmarks as entities. Each entity must have a type, similar
+          to a category. Unlike a category, a type is meant to specifically model how we view the
+          world and answer "What is this thing? Is it an article, app, song, clip, etc. ?". For
+          example, here is my bookmark for <a href="#/thing/gg">google</a> which is a <a
+            href="#/type/company">company type</a>. The types can be any value and thus allows you
+          to model your knowledge. For example, <a href="#/types">these are my types</a>.</p>
+
+          <p>Semtag uses tagging as a means of organizing bookmarks, much like previous bookmarking sites e.g.
+          delicious.com. With these older sites, tags mainly served to create a list of things e.g. <a
+            href="#TODO">google things</a> and little importance was given to the tag itself. In semtag,
+          tags are <i>as important as the entities they are tagging; they are entities themselves</i>.
+          This means that tags are not just creating lists, they are <i>creating relationships
+            between entities</i>. For example, google is an entity that has <a href="#/search?query=gg">this
+            related (tagged) list</a> of articles, products, libraries, etc.
+          </p>
+
+          <p>
+          By treating bookmarks as entities, letting you create any types for them and freely
+          associate between them, semtag provides a powerful way to organize and grow your taxonomy.
+          </p>
         </div>
         <form>
           <label class="radio">
