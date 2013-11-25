@@ -2,3 +2,5 @@ out/
 target/
 logs/
 .lein-repl-history
+phantomjsdriver.log
+.lein-failures
