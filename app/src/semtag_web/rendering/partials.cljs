@@ -45,6 +45,10 @@
      (if (seq s) (link-thing s)
        (if id (link-thing id "nil" {:class "noname" :title "This thing has no name. Feel free to give it one."}) s))]))
 
+(defn- td-alias
+  [s]
+  [:td.editable {:data-field "alias" :title s} s])
+
 (defn- td-desc
   ([desc] (td-desc desc 70))
   ([desc max-length]
@@ -135,6 +139,7 @@
        :type (td-type (:value row))
        :url (td-url (:value row))
        :name (td-name (:value row))
+       :alias (td-alias (:value row))
        :tags (td-tags (:value row))
        :tagged [:td (link-tagged (:value row))]
        :desc (td-desc (:value row) 1000)
