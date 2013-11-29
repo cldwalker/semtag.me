@@ -98,6 +98,8 @@
                           :name "Development"
                           :out-file "semtag-web-dev.js"
                           :main semtag_web.start
+                          :optimizations :none
+                          :compiler-options {:source-map true}
                           :logging? true
                           :order 3}
             :fresh {:uri "/fresh.html"
@@ -112,6 +114,8 @@
                          :optimizations :advanced
                          :out-file "semtag-web.js"
                          :compiler-options {
+                           :source-map "out/public/generated-js/semtag-web.js.map"
+                           :source-map-path "out"
                            :externs ["config/spin-externs.js" "config/d3-externs.js"]}
                          :main semtag_web.start
                          :order 5}}}}
