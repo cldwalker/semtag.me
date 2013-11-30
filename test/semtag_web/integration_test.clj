@@ -97,7 +97,7 @@
   (is (.contains (taxi/text "#introduction") "Semtag is a site"))
 
   ;; newly rendered static link works
-  (click "the types page")
+  (click "these are my types")
   (is (.contains (taxi/text "#page_title") "Type Statistics")))
 
 (deftest regular-search-works
