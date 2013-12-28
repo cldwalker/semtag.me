@@ -344,9 +344,8 @@
     (bar-chart/render "#tag_type_counts_chart" tag-type-counts)))
 
 (defn render-type-results [_ [_ path _ new-value] input-queue]
-  (let [{:keys [things tags]} new-value
-        type (-> path path->params :name)]
-    (set-page-title  (str "<h1>Type " type "</h1>"))
+  (let [{:keys [things tags type]} new-value]
+    (set-page-title (format "<h1>Type %s <small>%s</small></h1>" (:name type) (or (:desc type) "")))
     (dom/set-html!
      (dom/by-id "content")
       (html
@@ -432,7 +431,7 @@
      [:node-destroy [:app-model :thing :*] (clear-id "content")]
      [:value [:app-model :thing :* :thing-results] render-thing-results]
 
-    ;; thing page
+    ;; type page
      [:node-create [:app-model :type :*] navigate-path]
      [:node-destroy [:app-model :type :*] (clear-id "content")]
      [:value [:app-model :type :* :type-results] render-type-results]
