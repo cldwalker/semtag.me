@@ -102,7 +102,8 @@
    (td-name (:name row) (:id row))
    (td-url (:url row))
    (td-desc (:desc row))
-   (td-tags (:tags row))])
+   (td-tags (:tags row))
+   (td-timestamp (:created-at row))])
 
 (defpartial tag-stats-row [row & fields]
   [:tr

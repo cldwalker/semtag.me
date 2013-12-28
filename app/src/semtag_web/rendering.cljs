@@ -247,7 +247,7 @@
     (if (empty? things)
       "<p>No results found.</p>"
       (p/generate-table "search_table" things
-                        :fields [:type :name :url :desc :tags]
+                        :fields [:type :name :url :desc :tags :created-at]
                         :row-partial p/tag-search-row
                         :caption (format "Total: %s" (count (map :url things)))))))
 
