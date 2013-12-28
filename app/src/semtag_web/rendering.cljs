@@ -345,7 +345,9 @@
 
 (defn render-type-results [_ [_ path _ new-value] input-queue]
   (let [{:keys [things tags type]} new-value]
-    (set-page-title (format "<h1>Type %s <small>%s</small></h1>" (:name type) (or (:desc type) "")))
+    (set-page-title (format "<h1>Type %s %s</h1>"
+                            (:name type)
+                            (if (:desc type) (str "<small>&mdash; " (:desc type) "</small>") "")))
     (dom/set-html!
      (dom/by-id "content")
       (html
