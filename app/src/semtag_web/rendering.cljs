@@ -329,7 +329,11 @@
       (dom/by-id "content")
       (p/generate-table "thing_show_table"
                         (conj new-value {:attribute :actions :id num-id})
-                        :caption (if (re-find #"\d+$" thing-id) "" (p/link-tagged thing-id))
+                        :caption (cond
+                                   (re-find #"\d+$" thing-id) ""
+                                   (some #(and (= (:attribute %) :type)
+                                               (= (:value %) "type")) new-value) (p/link-type thing-id)
+                                   :else (p/link-tagged thing-id))
                         :row-partial p/thing-row
                         :fields [:attribute :value]))
     (enable-editable-table "#thing_show_table" input-queue)

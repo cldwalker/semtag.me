@@ -33,6 +33,9 @@
 (defn- link-tagged [tag]
   [:a {:href (path-to "#/search?query=" tag)} (str "Tagged with " tag)])
 
+(defn- link-type [type]
+  [:a {:href (path-to "#/type/" type)} (str "Type " type)])
+
 ;;; td formatters
 (defn- td-url [url]
   [:td.editable {:data-field "url" :title url}
@@ -134,7 +137,7 @@
 (defpartial thing-row [row & fields]
   (let [attr (:attribute row)]
     [:tr {:data-id (:id row) :data-field (name attr)}
-     [:td attr]
+     [:td (name attr)]
      (case attr
        :type (td-type (:value row))
        :url (td-url (:value row))
