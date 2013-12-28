@@ -274,16 +274,17 @@
   (set-page-title "<h1>Type Statistics <small>Lists all thing types with statistics for each type</small></h1>")
   (dom/set-html!
    (dom/by-id "content")
-   (p/generate-table "type_stats_table" (:results new-value)
-                     :caption (format "%s things, %s tags"
-                                      (get-in new-value [:counts :thing])
-                                      (get-in new-value [:counts :tags]))
-                     :row-partial p/type-stats-row
-                     :fields [:name :count :name-percent :url-percent]
-                     :header-attributes [{}
-                                         {:title "Number of things for a type"}
-                                         {:title "Percent of things for a type that have a name"}
-                                         {:title "Percent of things for a type that have a url"}]))
+    (p/generate-table "type_stats_table" (:results new-value)
+                      :caption (string/join ", "
+                                            (map #(str (get-in new-value [:counts %]) " " (name %))
+                                                 [:types :things :tags :names :urls]))
+                      :row-partial p/type-stats-row
+                      :fields [:name :desc :count :name-percent :url-percent]
+                      :header-attributes [{}
+                                          {:title "Description"}
+                                          {:title "Number of things for a type"}
+                                          {:title "Percent of things for a type that have a name"}
+                                          {:title "Percent of things for a type that have a url"}]))
 
   (enable-clickable-links-on "#type_stats_table" input-queue))
 

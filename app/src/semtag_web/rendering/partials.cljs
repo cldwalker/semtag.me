@@ -113,10 +113,10 @@
 (defpartial type-stats-row [row & fields]
   [:tr
    (td-type (name (:name row)))
+   (td-desc (:desc row))
    [:td (:count row)]
    [:td (:name-percent row)]
-   [:td (:url-percent row)]
-   ])
+   [:td (:url-percent row)]])
 
 (defpartial type-row [row & fields]
   [:tr {:data-id (:id row)}
