@@ -1,5 +1,6 @@
 (ns semtag-web.rendering.partials
   (:require [crate.core :as crate]
+            [semtag-web.config :as config]
             [clojure.string :as string])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
@@ -68,6 +69,12 @@
 (defn- td-timestamp [datetime]
   [:td.timestamp {:title (if datetime (.toISOString datetime) "")}
    (when datetime (str (.toLocaleDateString datetime)))])
+
+(defn- td-private [value]
+  [:td.private {:data-field "private"}
+   [:select {:disabled (:read-only config/config)}
+    [:option {:value "0" :selected (not= value true)} "no"]
+    [:option {:value "1" :selected (= value true)} "yes"]]])
 
 ;;; partials
 (defpartial default-row [row fields]
@@ -149,6 +156,7 @@
        :desc (td-desc (:value row) 1000)
        :created-at (td-timestamp (:value row))
        :updated-at (td-timestamp (:value row))
+       :private (td-private (:value row))
        :actions [:td.delete [:button {:class "btn btn-danger btn-sm"} "Delete"]]
        [:td (str (:value row))])
      ]))

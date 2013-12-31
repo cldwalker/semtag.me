@@ -182,6 +182,25 @@
                          (fn [event]
                            (expand-editable-text event)
                            (set-edit-state "edit-in-progress" (.-target event)))))))
+
+(if (:read-only config/config)
+  (defn enable-select-private [dom-id input-queue])
+
+  (defn enable-select-private [dom-id input-queue]
+    (events/send-on :change
+                    (css/sel (str domid " td.private"))
+                    input-queue
+                    (fn [e]
+                      (let [event (.-evt e)
+                            elem (.-target event)
+                            td-elem (.-parentNode elem)
+                            ;; event happens on select so it takes 2 parents to get to tr
+                            id (-> td-elem .-parentNode (dom/attr "data-id"))]
+                        [{msg/type :map-value
+                          msg/topic [:action]
+                          :value :update-thing
+                          :params {:id id :private (.-value elem) :element td-elem}}])))))
+
 ;; Rendering fns
 
 (def templates (html-templates/semtag-web-templates))
@@ -338,6 +357,7 @@
                         :row-partial p/thing-row
                         :fields [:attribute :value]))
     (enable-editable-table "#thing_show_table" input-queue)
+    (enable-select-private "#thing_show_table" input-queue)
     (enable-clickable-links-on "#thing_show_table td:not([data-field=url])" input-queue)
     (enable-clickable-links-on "#thing_show_table caption" input-queue)
     (enable-delete-thing input-queue num-id)))
