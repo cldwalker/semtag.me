@@ -333,13 +333,16 @@
   (enable-editable-table "#all_table" input-queue)
   (enable-clickable-links-on "#all_table td:not([data-field=url])" input-queue))
 
-(defn- enable-delete-thing
-  [input-queue id]
-  (events/send-on :click
-                  (css/sel "td.delete button")
-                  input-queue
-                  (fn [event]
-                    [{msg/type :map-value msg/topic [:action] :value :delete-thing :params {:id id}}])))
+(if (:read-only config/config)
+  (defn- enable-delete-thing [input-queue id])
+
+  (defn- enable-delete-thing
+    [input-queue id]
+    (events/send-on :click
+                    (css/sel "td.delete button")
+                    input-queue
+                    (fn [event]
+                      [{msg/type :map-value msg/topic [:action] :value :delete-thing :params {:id id}}]))))
 
 (defn render-thing-results [_ [_ path _ new-value] input-queue]
   (let [thing-id (-> path path->params :id)
