@@ -201,6 +201,14 @@
     (Thread/sleep 500)
     (is (.contains (taxi/attribute type-td "class") "edit-in-progress"))))
 
+(deftest editing-private-changes-classes
+  (visit "#/thing/feynman")
+  (is (= "0" (taxi/value "td.private select")))
+  (is (not (.contains (taxi/attribute "td.private" "class") "edit-")))
+  (taxi/select "option[value='1']")
+  (Thread/sleep 500)
+  (is (.contains (taxi/attribute "td.private" "class") "edit-completed")))
+
 (deftest direct-create-link-works
   (visit "#/create?input=http://newsite.com+site+funny")
   (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))

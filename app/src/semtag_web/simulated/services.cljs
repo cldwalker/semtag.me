@@ -12,11 +12,15 @@
                 {:attribute :type, :id 17592186048349, :value "person"}
                 {:attribute :name, :id 17592186048349, :value "feynman"}
                 {:attribute :url, :id 17592186048349, :value nil}
-                {:attribute :tags, :id 17592186048349, :value '()})
+                {:attribute :tags, :id 17592186048349, :value '()}
+                {:attribute :created-at :id 17592186048349 :value #inst "2013-12-31"}
+                {:attribute :updated-at :id 17592186048349 :value #inst "2013-12-31"}
+                {:attribute :private :id 17592186048349 :value nil})
    :type {:things (list {:id 17592186047997, :type "api", :url "https://developers.google.com/freebase/v1/getting-started", :tags '("freebase")}
                         {:id 17592186047567, :desc "used by faviki to return dbpedia tags for given link/text", :type "api", :url "http://www.zemanta.com/api/", :tags '("faviki" "semantic_web")}
                         {:id 17592186047994, :type "api", :url "http://www.omdbapi.com/", :tags '("json" "movie")})
-          :tags '(["site" "freebase"] ["wapp" "faviki"] ["cs" "semantic_web"] ["std" "json"] ["tag" "movie"])} 
+          :tags '(["site" "freebase"] ["wapp" "faviki"] ["cs" "semantic_web"] ["std" "json"] ["tag" "movie"])
+          :type {:name "api" :desc "you know, an API!"}}
    :types {:results '({:url-percent "1.00", :name-percent "0.00", :count "3", :name "api"})
            :counts {:thing 3, :name 2, :url 2, :tags 4}}
    :tag-stats (list
