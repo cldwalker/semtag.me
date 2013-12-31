@@ -27,7 +27,10 @@
                 {:desc "1 idea, 1 cjar", :count "2", :tag "cjar=lein-newnew"}
                 {:desc "1 cjar, 1 obook, 5 plugin", :count "7", :tag "lib=jquery"})
    :all (list {:id 17592186048331, :desc "handy, programmatic and linkable access to HTTP specs, including an emacs plugin", :type "repo", :url "https://github.com/andreineculau/know-your-http-well", :created-at #inst "2013-09-07T15:31:38.781-00:00", :tags '("emacs" "http")}
-              {:id 17592186048328, :desc "nice, visual listing of designers by city and/or price range", :type "site", :url "http://sortfolio.com/", :created-at #inst "2013-09-07T15:27:45.772-00:00", :tags '("designer")})})
+              {:id 17592186048328, :desc "nice, visual listing of designers by city and/or price range", :type "site", :url "http://sortfolio.com/", :created-at #inst "2013-09-07T15:27:45.772-00:00", :tags '("designer")})
+
+   ;; POST responses
+   :add {:url "http://google.com", :created-at #inst "2013-12-31T17:20:27.663-00:00", :id 17592186045418}})
 
 (defn GET [uri success-fn & args]
   (let [screen (keyword (re-find #"[^/\?]+" uri))
@@ -36,8 +39,10 @@
     (success-fn data)))
 
 (defn POST [uri success-fn & args]
-  ;; None of the posts do anything with response yet
-  (success-fn {}))
+  (let [screen (keyword (re-find #"[^/\?]+" uri))
+        ;; Most POSTs don't return anything
+        data (get api-responses screen {})]
+    (success-fn data)))
 
 (defn services-fn [message input-queue]
   (with-redefs [services/GET GET

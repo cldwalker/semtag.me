@@ -396,8 +396,9 @@
 
 (defn render-alert-fn
   [alert-type]
-  (fn [_ [_ _ _ msg] _]
+  (fn [_ [_ _ _ msg] input-queue]
     (render-alert msg alert-type)
+    (enable-clickable-links-on ".alert" input-queue)
     ;; Not interested in massaging messages for this
     (.addEventListener
       (.querySelector js/document "button.close")

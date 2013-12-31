@@ -1,6 +1,7 @@
 (ns semtag-web.rendering.partials
   (:require [crate.core :as crate]
             [semtag-web.config :as config]
+            [goog.dom :as gdom]
             [clojure.string :as string])
   (:use-macros [crate.def-macros :only [defpartial]]))
 
@@ -164,7 +165,11 @@
 (defpartial generate-datalist [tags]
   [:datalist#tags (map #(vec [:option {:value %} ]) tags)])
 
+;; TODO: upgrade to crate 0.2.4 and delete this
+(defn raw [html-str]
+  (gdom/htmlToDocumentFragment html-str))
+
 (defpartial alert [msg alert-class]
   [:div {:class (str "alert " alert-class)}
    [:button.close {:type "button" :data-dismiss "alert"} "x"]
-   msg])
+   (raw msg)])

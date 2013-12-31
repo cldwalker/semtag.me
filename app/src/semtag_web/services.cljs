@@ -158,7 +158,7 @@
           (put-value-and-spinner-off
             [:alert-success]
             input-queue
-            (format "Successfully added '%s'!" (:input params))))
+            (format "Successfully added <a href=\"#/thing/%s\">%s</a>!" (:id data) (:input params))))
         input-queue
         :data params))
 

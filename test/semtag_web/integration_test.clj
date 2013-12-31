@@ -178,7 +178,11 @@
   (visit "")
   (taxi/input-text "#create_thing_text" "http://newsite.com site funny")
   (click "Create Thing")
-  (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
+  (is (.contains (taxi/text "#content") "Successfully added http://newsite.com"))
+
+  ;; Verify new link works
+  (click "http://newsite.com site funny")
+  (url-ends-with "#/thing/17592186045418"))
 
 (deftest delete-thing-works
   (visit "#/thing/17592186048349")
@@ -211,7 +215,7 @@
 
 (deftest direct-create-link-works
   (visit "#/create?input=http://newsite.com+site+funny")
-  (is (.contains (taxi/text "#content") "Successfully added 'http://newsite.com")))
+  (is (.contains (taxi/text "#content") "Successfully added http://newsite.com")))
 
 ;; TODO - revisit not being able to go forward - log count stays the same going forward
 #_(deftest history-works
