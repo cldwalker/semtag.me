@@ -375,7 +375,13 @@
   (let [{:keys [things tags type]} new-value]
     (set-page-title (format "<h1>Type %s %s</h1>"
                             (:name type)
-                            (if (:desc type) (str "<small>&mdash; " (:desc type) "</small>") "")))
+                            (format "<small>&mdash; %s %s</small>"
+                                    (if (:desc type) (str (:desc type) "&mdash;") "")
+                                    (format "<a href=\"#/thing/%s\">%s</a>"
+                                            (:name type)
+                                            (if (:read-only config/config) "Show type" "Edit")))))
+    (enable-clickable-links-on "#page_title" input-queue)
+
     (dom/set-html!
      (dom/by-id "content")
       (html
