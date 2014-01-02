@@ -118,7 +118,7 @@
   (put-search-title input-queue params)
 
   (GET
-    (str "/search?query=" (:query params) "&search_type=" (:search-type params))
+    (str "/search?" (params-to-str params))
     (partial put-value-and-spinner-off [(search-id params) :search-results] input-queue)
     input-queue))
 
