@@ -353,7 +353,7 @@
       (p/generate-table "thing_show_table"
                         (conj new-value {:attribute :actions :id num-id})
                         :caption (cond
-                                   (re-find #"\d+$" thing-id) ""
+                                   (re-find #"^\d+$" thing-id) ""
                                    (some #(and (= (:attribute %) :type)
                                                (= (:value %) "type")) new-value) (p/link-type thing-id)
                                    :else (p/link-tagged thing-id))
